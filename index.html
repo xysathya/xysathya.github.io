@@ -348,6 +348,52 @@ border-radius:30px;
 
 }
 
+/* MOBILE NAVBAR */
+
+@media(max-width:767px){
+
+.navbar{
+flex-wrap:nowrap;
+overflow:hidden;
+padding:18px 0;
+}
+
+.nav-links{
+display:flex;
+flex-wrap:nowrap;
+align-items:center;
+overflow-x:auto;
+overflow-y:hidden;
+white-space:nowrap;
+gap:28px;
+width:100%;
+scrollbar-width:none;
+padding-bottom:6px;
+}
+
+.nav-links::-webkit-scrollbar{
+display:none;
+}
+
+.nav-links a{
+flex-shrink:0;
+font-size:18px;
+}
+
+.search-btn{
+flex-shrink:0;
+padding:10px 24px;
+font-size:16px;
+border-radius:18px;
+margin-left:18px;
+}
+
+.logo{
+font-size:88px;
+}
+
+}
+
 .top-filter{
 margin-top:20px;
 margin-bottom:22px;
@@ -460,15 +506,6 @@ sathya.
 <option>Sanctuaries</option>
 <option>National Parks</option>
 </select>
-
-</div>
-  
-<div class="filters">
-
-<button class="filter-pill active">All</button>
-<button class="filter-pill">Ramsar</button>
-<button class="filter-pill">Sanctuaries</button>
-<button class="filter-pill">National Parks</button>
 
 </div>
 
