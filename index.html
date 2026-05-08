@@ -217,15 +217,23 @@ margin-top:10px;
 }
 
 .post-card{
-background:#12352f;
+background:rgba(38,140,120,0.42);
 border-radius:28px;
-padding:28px 30px;
+padding:28px 38px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 text-decoration:none;
 color:white;
-font-size:24px;
+font-size:20px;
+font-weight:500;
+transition:0.3s;
+min-height:120px;
+}
+
+.post-card:hover{
+transform:translateY(-3px);
+background:rgba(50,170,145,0.55);
 }
 
 @media(min-width:1024px){
@@ -299,6 +307,59 @@ display:block;
 }
 
 }
+
+/* LAPTOP */
+@media(min-width:1024px){
+
+.posts-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+}
+
+.post-card{
+min-height:110px;
+font-size:17px;
+padding:24px 26px;
+}
+
+}
+
+/* IPAD */
+@media(min-width:768px) and (max-width:1023px){
+
+.posts-grid{
+display:grid;
+grid-template-columns:1fr;
+gap:22px;
+}
+
+.post-card{
+min-height:115px;
+font-size:22px;
+padding:30px 34px;
+}
+
+}
+
+/* MOBILE */
+@media(max-width:767px){
+
+.posts-grid{
+display:grid;
+grid-template-columns:1fr;
+gap:22px;
+}
+
+.post-card{
+min-height:105px;
+font-size:19px;
+padding:26px 24px;
+border-radius:30px;
+}
+
+}
+
 </style>
 </head>
 
