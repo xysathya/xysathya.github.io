@@ -369,6 +369,78 @@ border-radius:30px;
 
 }
 
+.posts-grid{
+display:grid !important;
+gap:22px !important;
+margin-top:28px !important;
+}
+
+.post-card{
+background:rgba(38,140,120,0.42) !important;
+border-radius:28px !important;
+padding:28px 38px !important;
+display:flex !important;
+justify-content:space-between !important;
+align-items:center !important;
+text-decoration:none !important;
+color:white !important;
+font-size:20px !important;
+font-weight:500 !important;
+transition:0.3s !important;
+min-height:120px !important;
+}
+
+.post-card span:last-child{
+font-size:30px !important;
+opacity:0.9 !important;
+}
+
+/* LAPTOP */
+@media(min-width:1024px){
+
+.posts-grid{
+grid-template-columns:repeat(3,1fr) !important;
+}
+
+.post-card{
+min-height:110px !important;
+font-size:17px !important;
+padding:24px 26px !important;
+}
+
+}
+
+/* IPAD */
+@media(min-width:768px) and (max-width:1023px){
+
+.posts-grid{
+grid-template-columns:1fr !important;
+}
+
+.post-card{
+min-height:115px !important;
+font-size:22px !important;
+padding:30px 34px !important;
+}
+
+}
+
+/* MOBILE */
+@media(max-width:767px){
+
+.posts-grid{
+grid-template-columns:1fr !important;
+}
+
+.post-card{
+min-height:105px !important;
+font-size:19px !important;
+padding:26px 24px !important;
+border-radius:30px !important;
+}
+
+}
+
 </style>
 </head>
 
