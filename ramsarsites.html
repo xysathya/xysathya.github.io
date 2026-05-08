@@ -1,6 +1,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"></link>
 
 <style>
+  body{
+background:#000;
+color:#fff;
+font-family:Poppins,sans-serif;
+margin:0;
+padding:20px;
+}
+
+.table-wrap{
+overflow-x:auto;
+margin-bottom:35px;
+}
+
+table{
+border-collapse:collapse;
+min-width:1200px;
+width:100%;
+background:#000;
+}
+
+.table-wrap::-webkit-scrollbar{
+height:8px;
+}
+
+.table-wrap::-webkit-scrollbar-track{
+background:#111;
+}
+
+.table-wrap::-webkit-scrollbar-thumb{
+background:#1D5B51;
+border-radius:20px;
+}
 table th, table td{
 padding:14px 16px;
 white-space:nowrap;
@@ -36,7 +68,7 @@ z-index:2;
 }     
 </style>
   
-<div>
+<div class="table-wrap">
 <table style="border-collapse: collapse; font-family: poppins, sans-serif; width: 100%;">
 <thead>
 <tr style="font-weight: 700;">
@@ -231,7 +263,7 @@ rows.forEach(row => tbody.appendChild(row));
 Largest Ramsar Sites in India for UPSC
 </h2>
 
-<div style="overflow-x:auto;">
+<div style="table-wrap">
 
 <table border="1" style="border-collapse: collapse; font-family: poppins, sans-serif; width: 100%;">
 
