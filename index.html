@@ -441,6 +441,60 @@ border-radius:30px !important;
 
 }
 
+.top-filter{
+margin-top:20px;
+margin-bottom:22px;
+display:flex;
+justify-content:center;
+}
+
+.top-filter select{
+width:100%;
+max-width:900px;
+background:rgba(255,255,255,0.06);
+border:none;
+outline:none;
+color:white;
+padding:22px 24px;
+border-radius:22px;
+font-size:22px;
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+}
+
+/* MOBILE */
+@media(max-width:767px){
+
+.top-filter select{
+font-size:18px;
+padding:18px 20px;
+border-radius:18px;
+}
+
+}
+
+/* IPAD */
+@media(min-width:768px) and (max-width:1023px){
+
+.top-filter select{
+max-width:100%;
+}
+
+}
+
+/* LAPTOP */
+@media(min-width:1024px){
+
+.top-filter{
+justify-content:center;
+}
+
+.top-filter select{
+max-width:700px;
+}
+
+}
+
 </style>
 </head>
 
@@ -488,6 +542,17 @@ sathya.
   
 </div>
 
+<div class="top-filter">
+
+<select>
+<option>All</option>
+<option>Ramsar</option>
+<option>Sanctuaries</option>
+<option>National Parks</option>
+</select>
+
+</div>
+  
 <div class="filters">
 
 <button class="filter-pill active">All</button>
