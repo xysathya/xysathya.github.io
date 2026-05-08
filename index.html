@@ -248,6 +248,20 @@ sidebar.style.left = "0px";
 }
 
 </script>
+<script>
+document.addEventListener("click", function(e){
 
+const sidebar = document.querySelector(".sidebar");
+const menuBtn = document.querySelector(".menu-btn");
+
+if(
+!sidebar.contains(e.target) &&
+!menuBtn.contains(e.target)
+){
+sidebar.style.left = "-260px";
+}
+
+});
+</script>
 </body>
 </html>
