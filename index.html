@@ -217,25 +217,26 @@ font-size:18px;
 .logo{
 font-size:52px !important;
 line-height:1;
-word-break:break-word;
 }
 
 nav{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:16px;
-padding:0 10px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+padding:0 12px;
+text-align:center;
 }
 
 nav a{
-font-size:16px !important;
+font-size:18px !important;
+padding:8px 0;
 }
 
 .search-btn{
-margin-top:12px;
-padding:12px 28px !important;
-font-size:18px !important;
+grid-column:1 / 3;
+width:180px;
+margin:10px auto 0;
+display:block;
 }
 
 .main-btn{
