@@ -516,6 +516,7 @@ sathya.
 <div class="top-filter">
 
 <select id="categoryFilter">
+<option value="none">none</option>
 <option value="all">All</option>
 <option value="ramsar">Ramsar Sites</option>
 <option value="sanctuaries">Sanctuaries</option>
@@ -591,6 +592,16 @@ const cards = document.querySelectorAll(".post-card");
 filter.addEventListener("change", function(){
 
 const value = this.value;
+
+if(value === "none"){
+
+cards.forEach(card => {
+card.style.display = "none";
+});
+
+return;
+
+}
 
 cards.forEach(card => {
 
