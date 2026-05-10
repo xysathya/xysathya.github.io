@@ -502,15 +502,15 @@ right:8px;
 
 .tree-wrap{
 position:fixed;
-top:40px;
-left:40px;
+top:30px;
+left:20px;
 z-index:5000;
 }
 
 .tree-svg{
-width:420px;
-max-width:90vw;
-overflow:visible;
+width:min(92vw,700px);
+height:auto;
+display:block;
 }
 
 </style>
@@ -520,50 +520,46 @@ overflow:visible;
 
 <div class="tree-wrap">
 
-<svg class="tree-svg" viewBox="0 0 900 300">
+<svg class="tree-svg" viewBox="0 0 900 420">
 
-<!-- TREE TOP -->
 <path d="
-M120 120
-Q120 70 170 70
-Q220 70 220 120
-Q260 120 260 160
-Q260 210 210 210
-Q200 250 170 250
-Q140 250 130 210
-Q80 210 80 160
-Q80 120 120 120
+M145 255
+
+Q175 255 190 230
+
+Q205 205 205 165
+
+Q205 125 185 110
+
+Q150 80 115 110
+
+Q80 120 78 160
+
+Q75 205 112 218
+
+Q118 255 145 255
+
+Q165 255 175 230
+
+Q182 205 170 185
+
+Q158 210 145 255
+
+Q140 320 210 320
+
+L620 320
+
+Q760 320 760 200
+
+Q760 80 620 80
+
+L300 80
+
 "
+
 fill="none"
 stroke="white"
-stroke-width="6"
-stroke-linecap="round"
-stroke-linejoin="round"/>
-
-<!-- TREE TRUNK -->
-<path d="
-M170 250
-Q160 200 150 180
-M170 250
-Q180 200 190 180
-"
-fill="none"
-stroke="white"
-stroke-width="6"
-stroke-linecap="round"/>
-
-<!-- ROOT + PILL -->
-<path d="
-M170 250
-Q180 270 240 270
-L650 270
-Q760 270 760 180
-Q760 90 650 90
-L260 90
-"
-fill="none"
-stroke="white"
-stroke-width="6"
+stroke-width="7"
 stroke-linecap="round"
 stroke-linejoin="round"/>
 
