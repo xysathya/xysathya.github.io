@@ -693,7 +693,6 @@ if(value === "none"){
 cards.forEach(card => {
 card.style.display = "none";
 });
-
 return;
 
 }
@@ -725,6 +724,10 @@ card.style.display = "none";
 }
 
 });
+
+filter.dispatchEvent(new Event("change"));
+
+</script>
 
 <script>
 
