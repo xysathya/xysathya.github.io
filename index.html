@@ -499,11 +499,77 @@ right:8px;
 }
 
 }
-  
+
+.tree-wrap{
+position:fixed;
+top:40px;
+left:40px;
+z-index:5000;
+}
+
+.tree-svg{
+width:420px;
+max-width:90vw;
+overflow:visible;
+}
+
 </style>
 </head>
 
 <body>
+
+<div class="tree-wrap">
+
+<svg class="tree-svg" viewBox="0 0 900 300">
+
+<!-- TREE TOP -->
+<path d="
+M120 120
+Q120 70 170 70
+Q220 70 220 120
+Q260 120 260 160
+Q260 210 210 210
+Q200 250 170 250
+Q140 250 130 210
+Q80 210 80 160
+Q80 120 120 120
+"
+fill="none"
+stroke="white"
+stroke-width="6"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+
+<!-- TREE TRUNK -->
+<path d="
+M170 250
+Q160 200 150 180
+M170 250
+Q180 200 190 180
+"
+fill="none"
+stroke="white"
+stroke-width="6"
+stroke-linecap="round"/>
+
+<!-- ROOT + PILL -->
+<path d="
+M170 250
+Q180 270 240 270
+L650 270
+Q760 270 760 180
+Q760 90 650 90
+L260 90
+"
+fill="none"
+stroke="white"
+stroke-width="6"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+
+</svg>
+
+</div>
 
 <div class="sidebar" id="sidebar">
 
