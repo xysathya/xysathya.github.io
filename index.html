@@ -501,45 +501,55 @@ right:8px;
 }
 
 body{
-background:#162623;
+background:#000000;
 color:#e7e7e7;
 font-family:sans-serif;
 margin:0;
-padding:40px;
 }
 
 .nav-pill{
 
+position:fixed;
+
+top:28px;
+left:50%;
+transform:translateX(-50%);
+
 display:flex;
 align-items:center;
 
-width:140px;
+width:110px;
+height:52px;
+
 overflow:hidden;
 
-padding:14px 18px;
+padding:0 22px;
 
 border-radius:999px;
 
-background:rgba(22,38,35,0.82);
+background:rgba(22,38,35,0.55);
 
-backdrop-filter:blur(12px);
--webkit-backdrop-filter:blur(12px);
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
 
-border:1px solid rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.05);
 
 transition:all 0.45s ease;
 
-gap:26px;
+gap:22px;
 }
 
 .nav-pill.open{
-width:520px;
+width:420px;
 }
 
 .logo{
 
-font-size:20px;
-font-weight:600;
+font-size:17px;
+font-weight:500;
+
+letter-spacing:0.3px;
+
 cursor:pointer;
 
 white-space:nowrap;
