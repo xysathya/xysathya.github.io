@@ -504,7 +504,7 @@ right:8px;
 body{
 background:#000000;
 color:#e7e7e7;
-font-family:sans-serif;
+font-family:poppins;
 margin:0;
 }
 
@@ -518,60 +518,86 @@ transform:translateX(-50%);
 
 display:flex;
 align-items:center;
+justify-content:flex-start;
 
-width:110px;
-height:52px;
+width:130px;
+height:56px;
 
 overflow:hidden;
 
-padding:0 22px;
+padding:0 26px;
 
 border-radius:999px;
 
 background:#162623;
 
-backdrop-filter:blur(10px);
--webkit-backdrop-filter:blur(10px);
+backdrop-filter:blur(16px);
+-webkit-backdrop-filter:blur(16px);
 
 border:1px solid rgba(255,255,255,0.05);
 
-transition:all 0.45s ease;
+transition:
 
-gap:22px;
+width 0.45s cubic-bezier(0.4,0,0.2,1),
+
+background 0.3s ease;
+
+gap:28px;
+
+box-sizing:border-box;
 }
 
 .nav-pill.open{
-width:420px;
+width:460px;
 }
 
 .logo{
 
-font-size:17px;
-font-weight:500;
+display:flex;
+align-items:center;
+justify-content:center;
 
-letter-spacing:0.3px;
+height:100%;
+
+font-family:'Poppins',sans-serif;
+
+font-size:22px;
+font-weight:600;
+
+letter-spacing:-0.5px;
 
 cursor:pointer;
 
 white-space:nowrap;
+
+flex-shrink:0;
+
+color:#f1f1f1;
 }
 
 .nav-links{
 
 display:flex;
-gap:24px;
+align-items:center;
+  
+gap:34px;
 
 opacity:0;
-transform:translateX(20px);
+transform:translateX(18px);
 
-transition:all 0.35s ease;
+transition:
+opacity 0.28 ease,
+transform 0.38 ease;
 
 pointer-events:none;
+
+white-space:nowrap;
 }
 
 .nav-pill.open .nav-links{
 
 opacity:1;
+
 transform:translateX(0);
 
 pointer-events:auto;
@@ -579,13 +605,18 @@ pointer-events:auto;
 
 .nav-links a{
 
-color:#e7e7e7;
+font-family:'Poppins',sans-serif;
+
+color:#d8d8d8;
+
 text-decoration:none;
 
 font-size:16px;
+font-weight:400;
 
-opacity:0.9;
-transition:0.3s;
+opacity:0.88;
+
+transition:opacity 0.25s ease;
 }
 
 .nav-links a:hover{
