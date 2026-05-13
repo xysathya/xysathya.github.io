@@ -539,9 +539,11 @@ border:1px solid rgba(255,255,255,0.05);
 
 transition:
 
-width 0.45s cubic-bezier(0.4,0,0.2,1),
+max width 0.55s cubic-bezier(0.22,1,0,0.36,1),
 
 background 0.3s ease;
+
+padding 0.45s ease;
 
 gap:28px;
 
@@ -549,7 +551,7 @@ box-sizing:border-box;
 }
 
 .nav-pill.open{
-width:460px;
+max-width:460px;
 }
 
 
@@ -592,8 +594,8 @@ opacity:0;
 transform:translateX(18px);
 
 transition:
-opacity 0.28 ease,
-transform 0.38 ease;
+opacity 0.28 ease, 0.12s,
+transform 0.42s cubic-bezier(0.22,1,0.36,1);
 
 pointer-events:none;
 
