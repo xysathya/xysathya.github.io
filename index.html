@@ -50,6 +50,7 @@ text-rendering:optimizeLegibility;
 
 .wrapper{
 max-width:1200px;
+width:100%;
 margin:auto;
 }
 
@@ -256,6 +257,8 @@ transform 0.35s ease,
 opacity 0.25s ease;
 
 user-select:none;
+font-family: 'poppins',sans-serif;
+font-variant-emoji:text;
 }
 
 .menu-btn:hover{
@@ -273,33 +276,38 @@ transform:rotate(180deg);
 position:fixed;
 
 top:14px;
-right:-300px;
+right:14px;
 
 width:260px;
-height:calc(100vh - 30px);
+height:calc(100vh - 28px);
 
 background:#0f0f0f;
 
-border-left:1px solid rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.05);
 
 border-radius:26px;
+
 padding-top:110px;
+
 padding-left:34px;
 padding-right:34px;
 
-transition:left 0.42s cubic-bezier(0.22,1,0.36,1);
+transform:translateX(120%);
+
+transition:
+transform 0.45s cubic-bezier(0.22,1,0.36,1);
 
 z-index:1500;
-will-change:transform;
 
 box-shadow:
-0 0 0 1px rgba(255,255,255,0.02),
 0 20px 60px rgba(0,0,0,0.45);
-}
 
+will-change:transform;
+}
+  
 .sidebar.open{
 
-right:14px;
+transform:translateX(0);
 }
 
 .sidebar a{
@@ -327,22 +335,79 @@ color:#efefef;
 transform:translateX(4px);
 }
 
-@media(max-width:1024px){
+/* IPAD */
+
+@media(min-width:768px) and (max-width:1024px){
+
+body{
+padding:40px 28px 80px;
+}
 
 .sidebar{
 
-top:20px;
+width:250px;
 
-height:calc(100vh - 40px);
+top:18px;
 
+height:calc(100vh - 36px);
+
+border-radius:28px;
 }
 
 .sidebar.open{
-
-right:20px;
+right:18px;
 }
 
 }
+
+/* MOBILE */
+
+@media(max-width:767px){
+
+body{
+padding:28px 18px 60px;
+}
+
+.sidebar{
+
+width:220px;
+
+top:14px;
+
+height:calc(100vh - 28px);
+
+border-radius:24px;
+}
+
+.sidebar.open{
+right:14px;
+}
+
+}
+
+/* IPAD */
+
+@media(min-width:768px) and (max-width:1024px){
+
+.wrapper{
+
+max-width:92%;
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:767px){
+
+.wrapper{
+
+max-width:100%;
+}
+
+}
+
+</style>
   
 </style>
 
@@ -368,7 +433,7 @@ button.classList.toggle("active");
 <body>
 
 <div class="menu-btn" onclick="toggleSidebar()">
-↔
+⟷
 </div>
 
 <div class="sidebar" id="sidebar">
