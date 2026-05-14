@@ -242,7 +242,7 @@ font-size:18px;
 position:fixed;
 
 top:28px;
-right:28px;
+right:40px;
 
 font-size:28px;
 
@@ -404,8 +404,74 @@ max-width:100%;
 
 }
 
-</style>
-  
+/* THEME BUTTON */
+
+.theme-btn{
+
+position:fixed;
+
+top:28px;
+right:78px;
+
+width:34px;
+height:34px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:rgba(255,255,255,0.03);
+
+border:1px solid rgba(255,255,255,0.05);
+
+color:#cfcfcf;
+
+font-size:16px;
+
+cursor:pointer;
+
+z-index:2000;
+
+transition:
+background 0.45s cubic-bezier(0.22,1,0.36,1),
+color 0.45s cubic-bezier(0.22,1,0.36,1),
+transform 0.25s ease,
+border 0.45s ease;
+
+backdrop-filter:blur(10px);
+}
+
+.theme-btn:hover{
+
+transform:scale(1.06);
+
+background:rgba(255,255,255,0.05);
+}
+
+/* LIGHT MODE */
+
+body.light-mode{
+
+background:#cfcfcf;
+
+color:#111111;
+
+transition:
+background 0.5s cubic-bezier(0.22,1,0.36,1),
+color 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+
+body.light-mode .theme-btn{
+
+background:rgba(0,0,0,0.04);
+
+border:1px solid rgba(0,0,0,0.05);
+
+color:#111111;
+}
+
 </style>
 
 </head>
@@ -424,6 +490,11 @@ button.classList.toggle("active");
 
 }
 
+function toggleTheme(){
+
+document.body.classList.toggle("light-mode");
+
+}
 
 </script>
 
@@ -431,6 +502,10 @@ button.classList.toggle("active");
 
 <div class="menu-btn" onclick="toggleSidebar()">
 ⟷
+</div>
+
+<div class="theme-btn" onclick="toggleTheme()">
+◐
 </div>
 
 <div class="sidebar" id="sidebar">
