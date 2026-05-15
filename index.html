@@ -247,7 +247,7 @@ right:20px;
 width:260px;
 height:auto;
 
-background:#2f2f2f;
+background:#1f1f1f;
 
 border:1px solid rgba(255,255,255,0.05);
 
@@ -387,7 +387,40 @@ sidebar.classList.toggle("open");
 button.classList.toggle("active");
 
 }
+/* CLOSE WHEN CLICKING OUTSIDE */
 
+document.addEventListener("click", function(event){
+
+const sidebar = document.getElementById("sidebar");
+
+const button = document.querySelector(".menu-btn");
+
+const clickedInsideSidebar = sidebar.contains(event.target);
+
+const clickedMenuButton = button.contains(event.target);
+
+if(
+
+sidebar.classList.contains("open")
+
+&&
+
+!clickedInsideSidebar
+
+&&
+
+!clickedMenuButton
+
+){
+
+sidebar.classList.remove("open");
+
+button.classList.remove("active");
+
+}
+
+});
+  
 </script>
 
 <body>
