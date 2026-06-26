@@ -607,6 +607,86 @@ transform:translateX(4px);
 
 }
 
+.accordion{
+
+background:#151515;
+
+border:1px solid #2b2b2b;
+
+border-radius:18px;
+
+margin-bottom:16px;
+
+overflow:hidden;
+
+}
+
+.accordion-header{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:18px 22px;
+
+cursor:pointer;
+
+font-size:18px;
+
+font-weight:500;
+
+color:#efefef;
+
+user-select:none;
+
+}
+
+.arrow{
+
+transition:transform .35s ease;
+
+}
+
+.accordion.active .arrow{
+
+transform:rotate(0deg);
+
+}
+
+.accordion:not(.active) .arrow{
+
+transform:rotate(-90deg);
+
+}
+
+.accordion-content{
+
+max-height:1000px;
+
+overflow:hidden;
+
+transition:max-height .45s ease, padding .35s ease;
+
+padding:0 22px 20px 46px;
+
+}
+
+.accordion:not(.active) .accordion-content{
+
+max-height:0;
+
+padding:0 22px 0 46px;
+
+}
+
+.accordion-content ul{
+
+padding-left:18px;
+
+}
+
 </style>
 
 </head>
@@ -714,11 +794,17 @@ button.classList.remove("active");
 
 <h2>2. History</h2>
 
-<details class="toggle" open>
+<div class="accordion active">
 
-<summary>Indian History</summary>
+<div class="accordion-header">
 
-<div class="toggle-content">
+<span class="arrow">▾</span>
+
+<span>Indian History</span>
+
+</div>
+
+<div class="accordion-content">
 
 <ul>
 
@@ -736,7 +822,7 @@ button.classList.remove("active");
 
 </div>
 
-</details>
+</div>
 
 <details class="toggle" open>
 
@@ -767,6 +853,20 @@ button.classList.remove("active");
 </details>
 
 </div>
+
+<script>
+
+document.querySelectorAll(".accordion-header").forEach(header=>{
+
+header.addEventListener("click",()=>{
+
+header.parentElement.classList.toggle("active");
+
+});
+
+});
+
+</script>
 
 </body>
 
