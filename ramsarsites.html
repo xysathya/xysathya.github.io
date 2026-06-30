@@ -8,17 +8,52 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Modern Theme Token System */
         :root {
+            /* Smooth Premium Deceleration Curve */
+            --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+            
+            /* Default Dark Mode Tones */
             --bg-color: #0b0b0b;
-            --card-bg: #121212;
+            --text-main: #ffffff;
+            --text-muted: #555555;
+            --panel-bg: #121212;
+            --panel-border: #222222;
+            --row-divider: #1c1c1c;
+            --row-hover: rgba(255, 255, 255, 0.015);
+
+            /* Premium Matte Olive Header System (Dark Mode) */
+            --header-bg: #131815;
+            --header-border: #222c26;
+
+            /* Premium Native Table Tokens (Dark Mode) */
             --table-header: #1b4740;
             --table-header-hover: #1d5b51;
             --accent-color: #257a6c;
-            --text-main: #ffffff;
-            --text-muted: #a0aec0;
-            --border-color: #333333;
             --row-even: #111111;
             --row-odd: #000000;
+        }
+
+        /* Classy Light Mode Tones (Premium Off-White Gallery Style) */
+        body.light-mode {
+            --bg-color: #f5f5f7;
+            --text-main: #111111;
+            --text-muted: #a1a1a6;
+            --panel-bg: #ffffff;
+            --panel-border: #e2e2e7;
+            --row-divider: #f2f2f7;
+            --row-hover: rgba(0, 0, 0, 0.01);
+
+            /* Premium Matte Olive Header System (Light Mode) */
+            --header-bg: #e9ebe6;
+            --header-border: #d4d8cf;
+
+            /* Premium Native Table Tokens (Light Mode) */
+            --table-header: #215c52;
+            --table-header-hover: #2a7366;
+            --accent-color: #2d8a77;
+            --row-even: #fafafa;
+            --row-odd: #ffffff;
         }
 
         * {
@@ -31,83 +66,322 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Poppins', sans-serif;
-            padding: 24px 16px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Core Fix: Halts uneven vertical stretching */
+            padding: 60px 24px;
+            max-width: 1200px;
             margin: 0 auto;
             width: 95%;
-            max-width: 1200px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
             line-height: 1.6;
+            
+            /* Buttery Smooth Silent Theme Transition Engine */
+            transition: background-color 0.6s var(--ease-premium), color 0.6s var(--ease-premium);
         }
 
-        /* Breadcrumbs styling */
+        /* iPad & WebKit Optimization: Absolute 3D layout vectors to match Windows performance physics */
+        @keyframes masterEntrance {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 24px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        /* Staggered Load Engine */
+        header, .breadcrumbs, .card, footer {
+            opacity: 0;
+            will-change: transform, opacity;
+            animation: masterEntrance 1.2s var(--ease-premium) forwards;
+        }
+
+        header { animation-delay: 0.04s; }
+        .breadcrumbs { animation-delay: 0.10s; } 
+        
+        /* Sequential wave opening sequence for standard cards */
+        .card:nth-child(2) { animation-delay: 0.16s; }
+        .card:nth-child(3) { animation-delay: 0.22s; }
+        .card:nth-child(4) { animation-delay: 0.28s; }
+        .card:nth-child(5) { animation-delay: 0.34s; }
+        
+        footer { animation-delay: 0.44s; }
+
+        /* Top Header Navigation Shell */
+        header {
+            position: relative;
+            background-color: var(--header-bg);
+            border: 1px solid var(--header-border);
+            border-radius: 50px;
+            width: 100%; 
+            height: 72px; 
+            margin: 0 auto 20px auto; /* Locked 20px space directly above breadcrumbs */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            overflow: hidden; 
+            transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
+        }
+
+        body:not(.light-mode) header {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Twin View System Layer Configurations */
+        .header-inner-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px; 
+            will-change: opacity, transform;
+            transition: opacity 0.45s var(--ease-premium), transform 0.45s var(--ease-premium);
+        }
+
+        #headerMainView {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        header.search-active #headerMainView {
+            opacity: 0;
+            transform: translateY(-10px); 
+            pointer-events: none;
+        }
+
+        #headerSearchView {
+            opacity: 0;
+            transform: translateY(10px); 
+            pointer-events: none;
+        }
+        header.search-active #headerSearchView {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .header-right-cluster, .search-control-cluster {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0; 
+            height: 100%;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none !important;
+            transition: color 0.6s var(--ease-premium);
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
+        }
+
+        .ctrl-btn {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;  
+            height: 32px; 
+            padding: 0;
+            flex-shrink: 0;
+            transition: opacity 0.2s var(--ease-premium), color 0.6s var(--ease-premium);
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
+        }
+
+        .ctrl-btn:hover {
+            opacity: 0.6;
+        }
+
+        .ctrl-btn svg, .search-static-icon {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--text-main);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.6s var(--ease-premium);
+        }
+
+        .search-static-icon {
+            opacity: 0.4;
+            flex-shrink: 0; 
+        }
+
+        .search-core-input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            padding: 0 16px;
+            width: 100%;
+            min-width: 0; 
+            transition: color 0.6s var(--ease-premium);
+        }
+
+        .clear-text-btn svg { opacity: 0.4; }
+        .close-search-btn svg { opacity: 0.7; }
+
+        .theme-toggle {
+            width: 32px;  
+            height: 32px; 
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
+        }
+
+        .theme-toggle svg {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--text-main);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform-origin: center center;
+            will-change: transform, opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: transform 0.6s var(--ease-premium), opacity 0.6s var(--ease-premium), stroke 0.6s var(--ease-premium);
+        }
+
+        .theme-toggle .sun-icon {
+            opacity: 0;
+            transform: translate3d(0, 0, 0) rotate(-90deg) scale(0.4);
+        }
+        .theme-toggle .moon-icon {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+        }
+        body.light-mode .theme-toggle .sun-icon {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+        }
+        body.light-mode .theme-toggle .moon-icon {
+            opacity: 0;
+            transform: translate3d(0, 0, 0) rotate(90deg) scale(0.4);
+        }
+
+        /* Core Workspace Section Framework */
+        main {
+            flex-grow: 1; 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* High-End Classy Breadcrumb System */
         .breadcrumbs {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 28px;
+            gap: 12px;
+            margin-bottom: 20px; /* Locked rhythm: 20px below breadcrumbs */
+            font-size: 14.5px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            padding: 0 8px; 
         }
 
         .breadcrumbs a {
             color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s ease;
+            text-decoration: none !important;
+            transition: color 0.4s var(--ease-premium);
+            -webkit-tap-highlight-color: transparent !important;
         }
 
         .breadcrumbs a:hover {
-            color: var(--accent-color);
+            color: var(--text-main);
         }
 
         .breadcrumbs .separator {
-            color: #4a5568;
+            color: var(--panel-border);
+            font-weight: 400;
+            user-select: none;
         }
 
         .breadcrumbs .current {
             color: var(--text-main);
-            font-weight: 500;
+            opacity: 0.9;
         }
 
-        /* Heading and containers */
+        /* Heading and Premium Containers */
         h2.section-title {
-            font-family: 'Poppins', sans-serif;
-            color: #ffffff;
-            font-size: 22px;
+            color: var(--text-main);
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 18px;
+            letter-spacing: -0.3px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: color 0.6s var(--ease-premium);
         }
 
         .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 28px;
+            padding: 32px;
             margin-bottom: 35px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
+            transition: border-color 0.6s var(--ease-premium), background-color 0.6s var(--ease-premium);
+        }
+
+        body:not(.light-mode) .card {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .card:hover {
             border-color: #444444;
         }
 
-        /* Tables and wrapping styling */
+        body.light-mode .card:hover {
+            border-color: #b8b8bc;
+        }
+
+        /* Premium Adaptive Table Engine */
         .table-wrap {
             width: 100%;
             overflow-x: auto;
             overflow-y: hidden;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            border: 1px solid var(--panel-border);
             -webkit-overflow-scrolling: touch;
+            transition: border-color 0.6s var(--ease-premium);
         }
 
         table {
             border-collapse: collapse;
             width: 100%;
             min-width: max-content;
-            background: var(--bg-color);
+            background: transparent;
         }
 
         .table-wrap::-webkit-scrollbar {
@@ -115,43 +389,46 @@
         }
 
         .table-wrap::-webkit-scrollbar-track {
-            background: #111;
+            background: var(--bg-color);
+            transition: background 0.6s var(--ease-premium);
         }
 
         .table-wrap::-webkit-scrollbar-thumb {
-            background: var(--accent-color);
+            background: var(--panel-border);
             border-radius: 20px;
+            transition: background 0.6s var(--ease-premium);
         }
 
         table th, table td {
-            padding: 14px 16px;
+            padding: 14px 20px;
             white-space: nowrap;
             text-align: left;
-            border: 1px solid var(--border-color);
-            font-size: 14px;
+            border: 1px solid var(--panel-border);
+            font-size: 14.5px;
+            transition: border-color 0.6s var(--ease-premium), background-color 0.4s var(--ease-premium), color 0.6s var(--ease-premium);
         }
 
         table th {
             background: var(--table-header);
             color: #ffffff;
-            font-weight: 700;
+            font-weight: 600;
             position: sticky;
             top: 0;
             z-index: 2;
-            white-space: nowrap;
             user-select: none;
+            border: 1px solid var(--table-header);
         }
 
         table th.sortable {
             cursor: pointer;
-            transition: background 0.2s ease;
         }
 
         table th.sortable:hover {
             background: var(--table-header-hover);
+            border-color: var(--table-header-hover);
         }
 
-        /* Alternate row coloring */
+        /* Alternating striping matched with adaptive theme variables */
         table tbody tr:nth-child(even) {
             background-color: var(--row-even);
         }
@@ -160,30 +437,25 @@
             background-color: var(--row-odd);
         }
 
-        table tbody tr {
-            transition: background-color 0.2s ease;
-        }
-
         table tbody tr:hover {
-            background-color: rgba(37, 122, 108, 0.12) !important;
+            background-color: var(--row-hover) !important;
         }
 
-        /* STRICTLY PURE WHITE TEXT WITH ABSOLUTELY NO UNDERLINE UNDER ANY CIRCUMSTANCES */
+        /* Strict visual link parameters across active table entries */
         .site-name {
             cursor: pointer !important;
-            color: #ffffff !important;
+            color: var(--text-main) !important;
             text-decoration: none !important;
             border-bottom: none !important;
             font-weight: 500;
+            transition: color 0.4s var(--ease-premium);
         }
 
-        .site-name:hover, .site-name:active, .site-name:focus, tr:hover .site-name {
-            color: #ffffff !important;
-            text-decoration: none !important;
-            border-bottom: none !important;
+        .site-name:hover {
+            opacity: 0.6;
         }
 
-        /* Modal windows */
+        /* Modal window theme tokens configuration overrides */
         .modal {
             display: none;
             position: fixed;
@@ -191,27 +463,27 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, .5);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, .4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             justify-content: center;
             align-items: center;
             z-index: 9999;
             cursor: pointer;
-            /* FIXES THE MOBILE TOUCH/TAP FLASH ISSUE NATIVELY ON SAFARI/CHROME */
             -webkit-tap-highlight-color: transparent !important;
             tap-highlight-color: transparent !important;
         }
 
         .modal-card {
             width: min(600px, 90%);
-            background: #151515;
-            border: 1px solid #2d2d2d;
-            border-radius: 24px;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 28px;
             padding: 32px;
-            box-shadow: 0 25px 60px rgba(0,0,0,.45);
-            animation: popup .3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 25px 60px rgba(0,0,0,.3);
+            animation: popup .4s var(--ease-premium);
             cursor: default;
+            transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium);
             -webkit-tap-highlight-color: transparent !important;
             tap-highlight-color: transparent !important;
         }
@@ -219,417 +491,519 @@
         @keyframes popup {
             from {
                 opacity: 0;
-                transform: scale(.95);
+                transform: scale(.96) translateY(10px);
             }
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) translateY(0);
             }
         }
 
         .close-btn {
             float: right;
-            font-size: 30px;
+            font-size: 28px;
             cursor: pointer;
-            color: #9a9a9a;
+            color: var(--text-muted);
             line-height: 1;
+            transition: color 0.4s var(--ease-premium);
         }
 
         .close-btn:hover {
-            color: #ffffff;
+            color: var(--text-main);
         }
 
         .modal h2 {
             margin-bottom: 24px;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 600;
-            border-bottom: 1px solid #2d2d2d;
+            letter-spacing: -0.4px;
+            border-bottom: 1px solid var(--panel-border);
             padding-bottom: 12px;
+            transition: border-color 0.6s var(--ease-premium);
         }
 
         .modal p {
             line-height: 1.8;
-            color: #d0d0d0;
-            margin-bottom: 8px;
+            color: var(--text-main);
+            opacity: 0.8;
+            margin-bottom: 10px;
+            font-size: 15px;
         }
 
         .modal strong {
             font-weight: 600;
         }
 
-        /* Responsive Tweaks */
-        @media (max-width: 600px) {
+        /* Flat Grounded Footer Row */
+        footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            width: 100%;
+            flex-shrink: 0; 
+            margin-top: 40px;
+        }
+
+        .footer-links-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .footer-links-row a {
+            color: var(--text-muted);
+            text-decoration: none !important;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.4s var(--ease-premium);
+        }
+
+        .footer-links-row a:hover {
+            color: var(--text-main);
+        }
+
+        .copyright-tag {
+            color: var(--text-muted);
+            opacity: 0.6;
+            font-size: 12.5px;
+            letter-spacing: 0.2px;
+            transition: color 0.4s var(--ease-premium);
+        }
+
+        /* Responsive Layout Tweaks */
+        @media (max-width: 700px) {
             body {
-                width: 100%;
-                padding: 16px 8px;
+                padding: 40px 20px;
             }
             .card {
-                padding: 16px 12px;
+                padding: 24px 16px;
+                border-radius: 20px;
+            }
+            header {
+                margin-bottom: 16px; 
+                height: 64px; 
+            }
+            .header-inner-view {
+                padding: 0 20px; 
+            }
+            .logo {
+                font-size: 22px;
+            }
+            .search-core-input {
+                padding: 0 12px; 
+                font-size: 15px;
+            }
+            .header-right-cluster, .search-control-cluster {
+                gap: 16px; 
+            }
+            .breadcrumbs {
+                margin-bottom: 16px; 
+                padding: 0 4px;
             }
             table th, table td {
-                padding: 10px 12px;
-                font-size: 13px;
+                padding: 12px 14px;
+                font-size: 13.5px;
             }
             .modal-card {
                 padding: 24px;
-                border-radius: 16px;
+                border-radius: 20px;
             }
             .modal h2 {
-                font-size: 22px;
+                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Breadcrumbs Navigation -->
-    <nav class="breadcrumbs">
-        <a href="#">Home</a>
-        <span class="separator">/</span>
-        <a href="#">Notes</a>
-        <span class="separator">/</span>
-        <span class="current">Ramsar Sites</span>
-    </nav>
-
-    <!-- Main Section: All Sites Table -->
-    <div class="card">
-        <h2 class="section-title">- Ramsar sites in india 2026</h2>
-        <div class="table-wrap">
-            <table id="mainRamsarTable">
-                <thead>
-                    <tr>
-                        <th>S.No</th>
-                        <th>Ramsar Site</th>
-                        <th>State / UT</th> 
-                        <th class="sortable" onclick="sortYears()">Year &nbsp;⬍</th>
-                        <th>place</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td><span class="site-name" onclick="openSite('kolleru')">Kolleru lake</span></td><td>Andhra Pradesh</td><td>2002</td><td>Krishna–Godavari Delta</td></tr>
-<tr><td>2</td><td>Deepor Beel</td><td>Assam</td><td>2002</td><td>Near Guwahati</td></tr>
-<tr><td>3</td><td>Kabartal Wetland</td><td>Bihar</td><td>2020</td><td>Begusarai district</td></tr>
-<tr><td>4</td><td>Nagi Bird Sanctuary</td><td>Bihar</td><td>2023</td><td>Jamui district</td></tr>
-<tr><td>5</td><td>Nakti Bird Sanctuary</td><td>Bihar</td><td>2023</td><td>Jamui district</td></tr>
-<tr><td>6</td><td>Gokul Jalashay</td><td>Bihar</td><td>2025</td><td>West Champaran</td></tr>
-<tr><td>7</td><td>Udaipur Jheel</td><td>Bihar</td><td>2025</td><td>West Champaran</td></tr>
-<tr><td>8</td><td>Gogabil Lake</td><td>Bihar</td><td>2025</td><td>Katihar district</td></tr>
-<tr><td>9</td><td>Kopra Jalashay</td><td>Chhattisgarh</td><td>2025</td><td>Balodabazar district</td></tr>
-<tr><td>10</td><td>Nalsarovar Bird Sanctuary</td><td>Gujarat</td><td>2012</td><td>Ahmedabad district</td></tr>
-<tr><td>11</td><td>Wadhvana Wetland</td><td>Gujarat</td><td>2021</td><td>Vadodara district</td></tr>
-<tr><td>12</td><td>Thol Lake Wildlife Sanctuary</td><td>Gujarat</td><td>2021</td><td>Mehsana district</td></tr>
-<tr><td>13</td><td>Khijadia Wildlife Sanctuary</td><td>Gujarat</td><td>2021</td><td>Jamnagar district</td></tr>
-<tr><td>14</td><td>Chhari Dhand</td><td>Gujarat</td><td>2025</td><td>Kutch district</td></tr>
-<tr><td>15</td><td>Nanda Lake</td><td>Goa</td><td>2022</td><td>North Goa</td></tr>
-<tr><td>16</td><td>Sultanpur National Park</td><td>Haryana</td><td>2021</td><td>Gurugram district</td></tr>
-<tr><td>17</td><td>Bhindawas Wildlife Sanctuary</td><td>Haryana</td><td>2021</td><td>Jhajjar district</td></tr>
-<tr><td>18</td><td>Pong Dam Lake</td><td>Himachal Pradesh</td><td>2002</td><td>Kangra district</td></tr>
-<tr><td>19</td><td>Chandertal Wetland</td><td>Himachal Pradesh</td><td>2005</td><td>Lahaul–Spiti</td></tr>
-<tr><td>20</td><td>Renuka Wetland</td><td>Himachal Pradesh</td><td>2005</td><td>Sirmaur district</td></tr>
-<tr><td>21</td><td>Wular Lake</td><td>Jammu & Kashmir</td><td>1990</td><td>Bandipora district</td></tr>
-<tr><td>22</td><td>Surinsar–Mansar Lakes</td><td>Jammu & Kashmir</td><td>2005</td><td>Near Jammu</td></tr>
-<tr><td>23</td><td>Hokera Wetland</td><td>Jammu & Kashmir</td><td>2005</td><td>Srinagar district</td></tr>
-<tr><td>24</td><td>Hygam Wetland Conservation Reserve</td><td>Jammu & Kashmir</td><td>2022</td><td>Baramulla district</td></tr>
-<tr><td>25</td><td>Shallabugh Wetland Conservation Reserve</td><td>Jammu & Kashmir</td><td>2022</td><td>Ganderbal district</td></tr>
-<tr><td>26</td><td>Udhwa Lake Bird Sanctuary</td><td>Jharkhand</td><td>2024</td><td>Sahibganj district</td></tr>
-<tr><td>27</td><td>Ranganathittu Bird Sanctuary</td><td>Karnataka</td><td>2022</td><td>Mandya district</td></tr>
-<tr><td>28</td><td>Ankasamudra Bird Conservation Reserve</td><td>Karnataka</td><td>2023</td><td>Ballari district</td></tr>
-<tr><td>29</td><td>Aghanashini Estuary</td><td>Karnataka</td><td>2023</td><td>Uttara Kannada</td></tr>
-<tr><td>30</td><td>Magadi Kere Conservation Reserve</td><td>Karnataka</td><td>2023</td><td>Gadag district</td></tr>
-<tr><td>31</td><td>Ashtamudi Wetland</td><td>Kerala</td><td>2002</td><td>Kollam district</td></tr>
-<tr><td>32</td><td>Sasthamkotta Lake</td><td>Kerala</td><td>2002</td><td>Kollam district</td></tr>
-<tr><td>33</td><td>Vembanad-Kol Wetland</td><td>Kerala</td><td>2002</td><td>Alappuzha–Kottayam</td></tr>
-<tr><td>34</td><td>Tso Kar Wetland Complex</td><td>Ladakh</td><td>2020</td><td>Changthang region</td></tr>
-<tr><td>35</td><td>Tsomoriri Lake</td><td>Ladakh</td><td>2002</td><td>Changthang plateau</td></tr>
-<tr><td>36</td><td>Bhoj Wetlands</td><td>Madhya Pradesh</td><td>2002</td><td>Bhopal</td></tr>
-<tr><td>37</td><td>Sirpur Wetland</td><td>Madhya Pradesh</td><td>2022</td><td>Indore district</td></tr>
-<tr><td>38</td><td>Sakhya Sagar</td><td>Madhya Pradesh</td><td>2022</td><td>Shivpuri district</td></tr>
-<tr><td>39</td><td>Yashwant Sagar</td><td>Madhya Pradesh</td><td>2022</td><td>Indore district</td></tr>
-<tr><td>40</td><td>Tawa Reservoir</td><td>Madhya Pradesh</td><td>2024</td><td>Narmadapuram district</td></tr>
-<tr><td>41</td><td>Nandur Madhameshwar</td><td>Maharashtra</td><td>2019</td><td>Nashik district</td></tr>
-<tr><td>42</td><td>Lonar Lake</td><td>Maharashtra</td><td>2020</td><td>Buldhana district</td></tr>
-<tr><td>43</td><td>Thane Creek</td><td>Maharashtra</td><td>2022</td><td>Mumbai–Thane</td></tr>
-<tr><td>44</td><td>Loktak Lake</td><td>Manipur</td><td>1990</td><td>Bishnupur district</td></tr>
-<tr><td>45</td><td>Pala Wetland</td><td>Mizoram</td><td>2021</td><td>Siaha district</td></tr>
-<tr><td>46</td><td>Chilika Lake</td><td>Odisha</td><td>1981</td><td>Puri–Khordha–Ganjam</td></tr>
-<tr><td>47</td><td>Bhitarkanika Mangroves</td><td>Odisha</td><td>2002</td><td>Kendrapara district</td></tr>
-<tr><td>48</td><td>Satkosia Gorge</td><td>Odisha</td><td>2021</td><td>Angul district</td></tr>
-<tr><td>49</td><td>Tampara Lake</td><td>Odisha</td><td>2021</td><td>Ganjam district</td></tr>
-<tr><td>50</td><td>Hirakud Reservoir</td><td>Odisha</td><td>2021</td><td>Sambalpur district</td></tr>
-<tr><td>51</td><td>Ansupa Lake</td><td>Odisha</td><td>2021</td><td>Cuttack district</td></tr>
-<tr><td>52</td><td>Harike Wetland</td><td>Punjab</td><td>1990</td><td>Beas–Sutlej confluence</td></tr>
-<tr><td>53</td><td>Kanjli Lake</td><td>Punjab</td><td>2002</td><td>Kapurthala district</td></tr>
-<tr><td>54</td><td>Ropar Lake</td><td>Punjab</td><td>2002</td><td>Rupnagar district</td></tr>
-<tr><td>55</td><td>Beas Conservation Reserve</td><td>Punjab</td><td>2019</td><td>Beas river stretch</td></tr>
-<tr><td>56</td><td>Keshopur-Miani Reserve</td><td>Punjab</td><td>2019</td><td>Gurdaspur district</td></tr>
-<tr><td>57</td><td>Nangal Wildlife Sanctuary</td><td>Punjab</td><td>2019</td><td>Rupnagar district</td></tr>
-<tr><td>58</td><td>Keoladeo Ghana National Park</td><td>Rajasthan</td><td>1981</td><td>Bharatpur district</td></tr>
-<tr><td>59</td><td>Sambhar Lake</td><td>Rajasthan</td><td>1990</td><td>Jaipur–Nagaur</td></tr>
-<tr><td>60</td><td>Menar Wetland Complex</td><td>Rajasthan</td><td>2025</td><td>Udaipur district</td></tr>
-<tr><td>61</td><td>Khichan Wetland</td><td>Rajasthan</td><td>2025</td><td>Phalodi</td></tr>
-<tr><td>62</td><td>Siliserh Lake</td><td>Rajasthan</td><td>2025</td><td>Alwar district</td></tr>
-<tr><td>63</td><td>Khecheopalri Wetland</td><td>Sikkim</td><td>2024</td><td>West Sikkim</td></tr>
-<tr><td>64</td><td>Point Calimere Wildlife and bird Sanctuary</td><td>Tamil Nadu</td><td>2002</td><td>Nagapattinam district</td></tr>
-<tr><td>65</td><td>Koonthankulam Bird Sanctuary</td><td>Tamil Nadu</td><td>2021</td><td>Tirunelveli district</td></tr>
-<tr><td>66</td><td>Chitrangudi Bird Sanctuary</td><td>Tamil Nadu</td><td>2021</td><td>Ramanathapuram district</td></tr>
-<tr><td>67</td><td>Karikili Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram district</td></tr>
-<tr><td>68</td><td>Pichavaram Mangroves</td><td>Tamil Nadu</td><td>2022</td><td>Cuddalore district</td></tr>
-<tr><td>69</td><td>Pallikaranai Marsh reserve forest</td><td>Tamil Nadu</td><td>2022</td><td>Chennai</td></tr>
-<tr><td>70</td><td>Gulf of Mannar Marine Biosphere Reserve</td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram–Thoothukudi</td></tr>
-<tr><td>71</td><td>Vembannur Wetland</td><td>Tamil Nadu</td><td>2022</td><td>Kanyakumari district</td></tr>
-<tr><td>72</td><td>Vellode Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Erode district</td></tr>
-<tr><td>73</td><td>Udhayamarthandapuram Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Tiruvarur district</td></tr>
-<tr><td>74</td><td>Vedanthangal Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Chengalpattu district</td></tr>
-<tr><td>75</td><td>Suchindram–Theroor Wetland</td><td>Tamil Nadu</td><td>2022</td><td>Kanyakumari district</td></tr>
-<tr><td>76</td><td>Vaduvur Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Tiruvarur district</td></tr>
-<tr><td>77</td><td>Kanjirankulam Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram district</td></tr>
-<tr><td>78</td><td>Karaivetti Bird Sanctuary</td><td>Tamil Nadu</td><td>2023</td><td>Ariyalur district</td></tr>
-<tr><td>79</td><td>Longwood Shola reserve forest</td><td>Tamil Nadu</td><td>2023</td><td>Nilgiris district</td></tr>
-<tr><td>80</td><td>Kazhuveli Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Villupuram district</td></tr>
-<tr><td>81</td><td>Nanjarayan Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Tiruppur district</td></tr>
-<tr><td>82</td><td>Sakkarakottai Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Ramanathapuram district</td></tr>
-<tr><td>83</td><td>Therthangal Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Sivaganga district</td></tr>
-<tr><td>84</td><td>Rudrasagar Lake</td><td>Tripura</td><td>2005</td><td>West Tripura</td></tr>
-<tr><td>85</td><td>Upper Ganga River</td><td>Uttar Pradesh</td><td>2005</td><td>Brijghat–Narora</td></tr>
-<tr><td>86</td><td>Nawabganj Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Unnao district</td></tr>
-<tr><td>87</td><td>Parvati Arga Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Gonda district</td></tr>
-<tr><td>88</td><td>Saman Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Mainpuri district</td></tr>
-<tr><td>89</td><td>Samaspur Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Raebareli district</td></tr>
-<tr><td>90</td><td>Sandi Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Hardoi district</td></tr>
-<tr><td>91</td><td>Sarsai Nawar Jheel</td><td>Uttar Pradesh</td><td>2019</td><td>Etawah district</td></tr>
-<tr><td>92</td><td>Sur Sarovar (Keetham Lake)</td><td>Uttar Pradesh</td><td>2020</td><td>Agra district</td></tr>
-<tr><td>93</td><td>Haiderpur Wetland</td><td>Uttar Pradesh</td><td>2021</td><td>Bijnor district</td></tr>
-<tr><td>94</td><td>Bakhira Wildlife Sanctuary</td><td>Uttar Pradesh</td><td>2021</td><td>Sant Kabir Nagar</td></tr>
-<tr><td>95</td><td>Patna Bird Sanctuary</td><td>Uttar Pradesh</td><td>2025</td><td>Etah district</td></tr>
-<tr><td>96</td><td>Asan Conservation Reserve</td><td>Uttarakhand</td><td>2020</td><td>Dehradun district</td></tr>
-<tr><td>97</td><td>East Calcutta Wetlands</td><td>West Bengal</td><td>2002</td><td>Kolkata region</td></tr>
-<tr><td>98</td><td>Sundarban Wetland</td><td>West Bengal</td><td>2019</td><td>Ganga–Brahmaputra delta</td></tr>
-                </tbody>
-            </table>
+    <!-- Exact Header Engine Cloned from index.html -->
+    <header id="masterHeader">
+        <div class="header-inner-view" id="headerMainView">
+            <a href="index.html" class="logo">sathya.</a>
+            <div class="header-right-cluster">
+                <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </div>
+                <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
         </div>
-    </div>
 
-    <!-- Section: Largest Ramsar Sites -->
-    <div class="card">
-        <h2 class="section-title">- Largest Ramsar Sites in India for UPSC</h2>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>S.No</th>
-                        <th>Largest Ramsar Site</th>
-                        <th>State</th>
-                        <th>Year</th>
-                        <th>Area (sq km)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Sundarban Wetland</td><td>West Bengal</td><td>2019</td><td>4230</td></tr>
-                    <tr><td>2</td><td>Kazhuveli Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>1513</td></tr>
-                    <tr><td>3</td><td>Vembanad-Kol Wetland</td><td>Kerala</td><td>2002</td><td>1512</td></tr>
-                    <tr><td>4</td><td>Chilika Lake</td><td>Odisha</td><td>1981</td><td>1165</td></tr>
-                    <tr><td>5</td><td>Satkosia Gorge</td><td>Odisha</td><td>2021</td><td>981</td></tr>
-                    <tr><td>6</td><td>Kolleru Lake</td><td>Andhra Pradesh</td><td>2002</td><td>901</td></tr>
-                    <tr><td>7</td><td>Hirakud Reservoir</td><td>Odisha</td><td>2021</td><td>654</td></tr>
-                    <tr><td>8</td><td>Bhitarkanika Mangroves</td><td>Odisha</td><td>2002</td><td>650</td></tr>
-                    <tr><td>9</td><td>Gulf of Mannar Marine Biosphere Reserve</td><td>Tamil Nadu</td><td>2022</td><td>526</td></tr>
-                    <tr><td>10</td><td>Point Calimere Wildlife and Bird Sanctuary</td><td>Tamil Nadu</td><td>2002</td><td>385</td></tr>
-                </tbody>
-            </table>
+        <div class="header-inner-view" id="headerSearchView">
+            <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
+            <div class="search-control-cluster">
+                <button class="ctrl-btn clear-text-btn" id="clearSearchBtn" aria-label="Clear typed text">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <button class="ctrl-btn close-search-btn" id="closeSearchBtn" aria-label="Minimize search pill">
+                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <!-- Section: Smallest Ramsar Sites -->
-    <div class="card">
-        <h2 class="section-title">- Smallest Ramsar Sites in India for UPSC</h2>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>S.No</th>
-                        <th>Smallest Ramsar Site</th>
-                        <th>State</th>
-                        <th>year</th>
-                        <th>Area (sq km)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Renuka Lake</td><td>Himachal Pradesh</td><td>2005</td><td>0.2</td></tr>
-                    <tr><td>2</td><td>Vembannur Wetland Complex</td><td>Tamil Nadu</td><td>2022</td><td>0.19–0.2</td></tr>
-                    <tr><td>3</td><td>Vedanthangal Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>0.4</td></tr>
-                    <tr><td>4</td><td>Nanda Lake</td><td>Goa</td><td>2022</td><td>0.42</td></tr>
-                    <tr><td>5</td><td>Udhayamarthandapuram Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>0.44–0.45</td></tr>
-                    <tr><td>6</td><td>Chandra Taal</td><td>Himachal Pradesh</td><td>2005</td><td>0.49</td></tr>
-                    <tr><td>7</td><td>Vellode Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>0.77</td></tr>
-                    <tr><td>8</td><td>Koonthankulam Bird Sanctuary</td><td>Tamil Nadu</td><td>2021</td><td>0.72–0.8</td></tr>
-                    <tr><td>9</td><td>Suchindram Theroor Wetland Complex</td><td>Tamil Nadu</td><td>2022</td><td>~0.9</td></tr>
-                    <tr><td>10</td><td>Patna Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>~1.0–1.1</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <main>
+        <!-- Premium Classy Extended Breadcrumbs Tree -->
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <a href="notes.html">Notes</a>
+            <span class="separator">/</span>
+            <span class="current">Ramsar Sites</span>
+        </nav>
 
-    <!-- Section: State-wise Distribution -->
-    <div class="card">
-        <h2 class="section-title">- States with Highest number of Ramsar Sites in India (2026)</h2>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>S.No</th>
-                        <th>State</th>
-                        <th>Number of Sites</th>
-                        <th>Site Names</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Tamil Nadu</td>
-                        <td>20</td>
-                        <td>
-                            Kazhuveli Bird Sanctuary (2024)<br>
-                            Nanjarayan Bird Sanctuary (2024)<br>
-                            Karaivetti Bird Sanctuary (2024)<br>
-                            Longwood Shola Reserve Forest (2024)<br>
-                            Sakkarakottai Bird Sanctuary (2025)<br>
-                            Therthangal Bird Sanctuary (2025)<br>
-                            Chitrangudi Bird Sanctuary (2021)<br>
-                            Gulf of Mannar Marine Biosphere Reserve (2022)<br>
-                            Kanjirankulam Bird Sanctuary (2022)<br>
-                            Karikili Bird Sanctuary (2022)<br>
-                            Koonthankulam Bird Sanctuary (2021)<br>
-                            Pallikaranai Marsh Reserve Forest (2022)<br>
-                            Pichavaram Mangrove (2022)<br>
-                            Point Calimere Wildlife & Bird Sanctuary (2002)<br>
-                            Suchindram Theroor Wetland Complex (2022)<br>
-                            Udayamarthandapuram Bird Sanctuary (2022)<br>
-                            Vaduvur Bird Sanctuary (2022)<br>
-                            Vedanthangal Bird Sanctuary (2022)<br>
-                            Vellode Bird Sanctuary (2022)<br>
-                            Vembannur Wetland Complex (2022)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Uttar Pradesh</td>
-                        <td>11</td>
-                        <td>
-                            Upper Ganga River (2005)<br>
-                            Nawabganj Bird Sanctuary (2019)<br>
-                            Saman Bird Sanctuary (2019)<br>
-                            Samaspur Bird Sanctuary (2019)<br>
-                            Sandi Bird Sanctuary (2019)<br>
-                            Sarsai Nawar Jheel (2019)<br>
-                            Parvati Arga Bird Sanctuary (2019)<br>
-                            Sur Sarovar (2020)<br>
-                            Haiderpur Wetland (2021)<br>
-                            Bakhira Wildlife Sanctuary (2021)<br>
-                            Samaspur Bird Sanctuary (2019)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Bihar</td>
-                        <td>6</td>
-                        <td>
-                            Kanwar Lake / Kabar Tal (2020)<br>
-                            Nagi Bird Sanctuary (2020)<br>
-                            Nakti Bird Sanctuary (2020)<br>
-                            Gogabeel Lake (2020)<br>
-                            Udaipur Lake (2020)<br>
-                            Kabar Tal Wetland (2020)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Odisha</td>
-                        <td>6</td>
-                        <td>
-                            Chilika Lake (1981)<br>
-                            Bhitarkanika Mangroves (2002)<br>
-                            Satkosia Gorge (2021)<br>
-                            Hirakud Reservoir (2021)<br>
-                            Ansupa Lake (2021)<br>
-                            Tampara Lake (2021)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Punjab</td>
-                        <td>6</td>
-                        <td>
-                            Harike Wetland (1990)<br>
-                            Kanjli Wetland (2002)<br>
-                            Ropar Wetland (2002)<br>
-                            Beas Conservation Reserve (2019)<br>
-                            Keshopur-Miani Community Reserve (2019)<br>
-                            Nangal Wildlife Sanctuary (2022)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Gujarat</td>
-                        <td>5</td>
-                        <td>
-                            Nalsarovar Lake (2012)<br>
-                            Thol Lake Wildlife Sanctuary (2021)<br>
-                            Wadhvana Wetland (2021)<br>
-                            Khijadiya Bird Sanctuary (2022)<br>
-                            Chhari-Dhand Wetland (2021)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Rajasthan</td>
-                        <td>5</td>
-                        <td>
-                            Keoladeo National Park (1981)<br>
-                            Sambhar Lake (1990)<br>
-                            Menar Wetland Complex (2021)<br>
-                            Tal Chhapar Sanctuary (2021)<br>
-                            Naliya Grasslands (2021)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Madhya Pradesh</td>
-                        <td>5</td>
-                        <td>
-                            Bhoj Wetlands (2002)<br>
-                            Sirpur Wetland (2022)<br>
-                            Sakhya Sagar (2022)<br>
-                            Yashwant Sagar (2022)<br>
-                            Tawa Reservoir (2024)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>Jammu & Kashmir</td>
-                        <td>5</td>
-                        <td>
-                            Wular Lake (1990)<br>
-                            Hokersar Wetland (2005)<br>
-                            Surinsar–Mansar Lakes (2005)<br>
-                            Tso Moriri (2002)<br>
-                            Hygam Wetland (2022)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>Karnataka</td>
-                        <td>4</td>
-                        <td>
-                            Ranganathittu Bird Sanctuary (2022)<br>
-                            Magadi Kere Conservation Reserve (2022)<br>
-                            Aghanashini Estuary (2023)<br>
-                            Ankasamudra Bird Conservation Reserve (2023)
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Main Section: All Sites Table -->
+        <div class="card">
+            <h2 class="section-title">- Ramsar sites in india 2026</h2>
+            <div class="table-wrap">
+                <table id="mainRamsarTable">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Ramsar Site</th>
+                            <th>State / UT</th> 
+                            <th class="sortable" onclick="sortYears()">Year &nbsp;⬍</th>
+                            <th>place</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td><span class="site-name" onclick="openSite('kolleru')">Kolleru lake</span></td><td>Andhra Pradesh</td><td>2002</td><td>Krishna–Godavari Delta</td></tr>
+                        <tr><td>2</td><td>Deepor Beel</td><td>Assam</td><td>2002</td><td>Near Guwahati</td></tr>
+                        <tr><td>3</td><td>Kabartal Wetland</td><td>Bihar</td><td>2020</td><td>Begusarai district</td></tr>
+                        <tr><td>4</td><td>Nagi Bird Sanctuary</td><td>Bihar</td><td>2023</td><td>Jamui district</td></tr>
+                        <tr><td>5</td><td>Nakti Bird Sanctuary</td><td>Bihar</td><td>2023</td><td>Jamui district</td></tr>
+                        <tr><td>6</td><td>Gokul Jalashay</td><td>Bihar</td><td>2025</td><td>West Champaran</td></tr>
+                        <tr><td>7</td><td>Udaipur Jheel</td><td>Bihar</td><td>2025</td><td>West Champaran</td></tr>
+                        <tr><td>8</td><td>Gogabil Lake</td><td>Bihar</td><td>2025</td><td>Katihar district</td></tr>
+                        <tr><td>9</td><td>Kopra Jalashay</td><td>Chhattisgarh</td><td>2025</td><td>Balodabazar district</td></tr>
+                        <tr><td>10</td><td>Nalsarovar Bird Sanctuary</td><td>Gujarat</td><td>2012</td><td>Ahmedabad district</td></tr>
+                        <tr><td>11</td><td>Wadhvana Wetland</td><td>Gujarat</td><td>2021</td><td>Vadodara district</td></tr>
+                        <tr><td>12</td><td>Thol Lake Wildlife Sanctuary</td><td>Gujarat</td><td>2021</td><td>Mehsana district</td></tr>
+                        <tr><td>13</td><td>Khijadia Wildlife Sanctuary</td><td>Gujarat</td><td>2021</td><td>Jamnagar district</td></tr>
+                        <tr><td>14</td><td>Chhari Dhand</td><td>Gujarat</td><td>2025</td><td>Kutch district</td></tr>
+                        <tr><td>15</td><td>Nanda Lake</td><td>Goa</td><td>2022</td><td>North Goa</td></tr>
+                        <tr><td>16</td><td>Sultanpur National Park</td><td>Haryana</td><td>2021</td><td>Gurugram district</td></tr>
+                        <tr><td>17</td><td>Bhindawas Wildlife Sanctuary</td><td>Haryana</td><td>2021</td><td>Jhajjar district</td></tr>
+                        <tr><td>18</td><td>Pong Dam Lake</td><td>Himachal Pradesh</td><td>2002</td><td>Kangra district</td></tr>
+                        <tr><td>19</td><td>Chandertal Wetland</td><td>Himachal Pradesh</td><td>2005</td><td>Lahaul–Spiti</td></tr>
+                        <tr><td>20</td><td>Renuka Wetland</td><td>Himachal Pradesh</td><td>2005</td><td>Sirmaur district</td></tr>
+                        <tr><td>21</td><td>Wular Lake</td><td>Jammu & Kashmir</td><td>1990</td><td>Bandipora district</td></tr>
+                        <tr><td>22</td><td>Surinsar–Mansar Lakes</td><td>Jammu & Kashmir</td><td>2005</td><td>Near Jammu</td></tr>
+                        <tr><td>23</td><td>Hokera Wetland</td><td>Jammu & Kashmir</td><td>2005</td><td>Srinagar district</td></tr>
+                        <tr><td>24</td><td>Hygam Wetland Conservation Reserve</td><td>Jammu & Kashmir</td><td>2022</td><td>Baramulla district</td></tr>
+                        <tr><td>25</td><td>Shallabugh Wetland Conservation Reserve</td><td>Jammu & Kashmir</td><td>2022</td><td>Ganderbal district</td></tr>
+                        <tr><td>26</td><td>Udhwa Lake Bird Sanctuary</td><td>Jharkhand</td><td>2024</td><td>Sahibganj district</td></tr>
+                        <tr><td>27</td><td>Ranganathittu Bird Sanctuary</td><td>Karnataka</td><td>2022</td><td>Mandya district</td></tr>
+                        <tr><td>28</td><td>Ankasamudra Bird Conservation Reserve</td><td>Karnataka</td><td>2023</td><td>Ballari district</td></tr>
+                        <tr><td>29</td><td>Aghanashini Estuary</td><td>Karnataka</td><td>2023</td><td>Uttara Kannada</td></tr>
+                        <tr><td>30</td><td>Magadi Kere Conservation Reserve</td><td>Karnataka</td><td>2023</td><td>Gadag district</td></tr>
+                        <tr><td>31</td><td>Ashtamudi Wetland</td><td>Kerala</td><td>2002</td><td>Kollam district</td></tr>
+                        <tr><td>32</td><td>Sasthamkotta Lake</td><td>Kerala</td><td>2002</td><td>Kollam district</td></tr>
+                        <tr><td>33</td><td>Vembanad-Kol Wetland</td><td>Kerala</td><td>2002</td><td>Alappuzha–Kottayam</td></tr>
+                        <tr><td>34</td><td>Tso Kar Wetland Complex</td><td>Ladakh</td><td>2020</td><td>Changthang region</td></tr>
+                        <tr><td>35</td><td>Tsomoriri Lake</td><td>Ladakh</td><td>2002</td><td>Changthang plateau</td></tr>
+                        <tr><td>36</td><td>Bhoj Wetlands</td><td>Madhya Pradesh</td><td>2002</td><td>Bhopal</td></tr>
+                        <tr><td>37</td><td>Sirpur Wetland</td><td>Madhya Pradesh</td><td>2022</td><td>Indore district</td></tr>
+                        <tr><td>38</td><td>Sakhya Sagar</td><td>Madhya Pradesh</td><td>2022</td><td>Shivpuri district</td></tr>
+                        <tr><td>39</td><td>Yashwant Sagar</td><td>Madhya Pradesh</td><td>2022</td><td>Indore district</td></tr>
+                        <tr><td>40</td><td>Tawa Reservoir</td><td>Madhya Pradesh</td><td>2024</td><td>Narmadapuram district</td></tr>
+                        <tr><td>41</td><td>Nandur Madhameshwar</td><td>Maharashtra</td><td>2019</td><td>Nashik district</td></tr>
+                        <tr><td>42</td><td>Lonar Lake</td><td>Maharashtra</td><td>2020</td><td>Buldhana district</td></tr>
+                        <tr><td>43</td><td>Thane Creek</td><td>Maharashtra</td><td>2022</td><td>Mumbai–Thane</td></tr>
+                        <tr><td>44</td><td>Loktak Lake</td><td>Manipur</td><td>1990</td><td>Bishnupur district</td></tr>
+                        <tr><td>45</td><td>Pala Wetland</td><td>Mizoram</td><td>2021</td><td>Siaha district</td></tr>
+                        <tr><td>46</td><td>Chilika Lake</td><td>Odisha</td><td>1981</td><td>Puri–Khordha–Ganjam</td></tr>
+                        <tr><td>47</td><td>Bhitarkanika Mangroves</td><td>Odisha</td><td>2002</td><td>Kendrapara district</td></tr>
+                        <tr><td>48</td><td>Satkosia Gorge</td><td>Odisha</td><td>2021</td><td>Angul district</td></tr>
+                        <tr><td>49</td><td>Tampara Lake</td><td>Odisha</td><td>2021</td><td>Ganjam district</td></tr>
+                        <tr><td>50</td><td>Hirakud Reservoir</td><td>Odisha</td><td>2021</td><td>Sambalpur district</td></tr>
+                        <tr><td>51</td><td>Ansupa Lake</td><td>Odisha</td><td>2021</td><td>Cuttack district</td></tr>
+                        <tr><td>52</td><td>Harike Wetland</td><td>Punjab</td><td>1990</td><td>Beas–Sutlej confluence</td></tr>
+                        <tr><td>53</td><td>Kanjli Lake</td><td>Punjab</td><td>2002</td><td>Kapurthala district</td></tr>
+                        <tr><td>54</td><td>Ropar Lake</td><td>Punjab</td><td>2002</td><td>Rupnagar district</td></tr>
+                        <tr><td>55</td><td>Beas Conservation Reserve</td><td>Punjab</td><td>2019</td><td>Beas river stretch</td></tr>
+                        <tr><td>56</td><td>Keshopur-Miani Reserve</td><td>Punjab</td><td>2019</td><td>Gurdaspur district</td></tr>
+                        <tr><td>57</td><td>Nangal Wildlife Sanctuary</td><td>Punjab</td><td>2019</td><td>Rupnagar district</td></tr>
+                        <tr><td>58</td><td>Keoladeo Ghana National Park</td><td>Rajasthan</td><td>1981</td><td>Bharatpur district</td></tr>
+                        <tr><td>59</td><td>Sambhar Lake</td><td>Rajasthan</td><td>1990</td><td>Jaipur–Nagaur</td></tr>
+                        <tr><td>60</td><td>Menar Wetland Complex</td><td>Rajasthan</td><td>2025</td><td>Udaipur district</td></tr>
+                        <tr><td>61</td><td>Khichan Wetland</td><td>Rajasthan</td><td>2025</td><td>Phalodi</td></tr>
+                        <tr><td>62</td><td>Siliserh Lake</td><td>Rajasthan</td><td>2025</td><td>Alwar district</td></tr>
+                        <tr><td>63</td><td>Khecheopalri Wetland</td><td>Sikkim</td><td>2024</td><td>West Sikkim</td></tr>
+                        <tr><td>64</td><td>Point Calimere Wildlife and bird Sanctuary</td><td>Tamil Nadu</td><td>2002</td><td>Nagapattinam district</td></tr>
+                        <tr><td>65</td><td>Koonthankulam Bird Sanctuary</td><td>Tamil Nadu</td><td>2021</td><td>Tirunelveli district</td></tr>
+                        <tr><td>66</td><td>Chitrangudi Bird Sanctuary</td><td>Tamil Nadu</td><td>2021</td><td>Ramanathapuram district</td></tr>
+                        <tr><td>67</td><td>Karikili Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram district</td></tr>
+                        <tr><td>68</td><td>Pichavaram Mangroves</td><td>Tamil Nadu</td><td>2022</td><td>Cuddalore district</td></tr>
+                        <tr><td>69</td><td>Pallikaranai Marsh reserve forest</td><td>Tamil Nadu</td><td>2022</td><td>Chennai</td></tr>
+                        <tr><td>70</td><td>Gulf of Mannar Marine Biosphere Reserve</td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram–Thoothukudi</td></tr>
+                        <tr><td>71</td><td>Vembannur Wetland</td><td>Tamil Nadu</td><td>2022</td><td>Kanyakumari district</td></tr>
+                        <tr><td>72</td><td>Vellode Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Erode district</td></tr>
+                        <tr><td>73</td><td>Udhayamarthandapuram Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Tiruvarur district</td></tr>
+                        <tr><td>74</td><td>Vedanthangal Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Chengalpattu district</td></tr>
+                        <tr><td>75</td><td>Suchindram–Theroor Wetland</td><td>Tamil Nadu</td><td>2022</td><td>Kanyakumari district</td></tr>
+                        <tr><td>76</td><td>Vaduvur Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Tiruvarur district</td></tr>
+                        <tr><td>77</td><td>Kanjirankulam Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram district</td></tr>
+                        <tr><td>78</td><td>Karaivetti Bird Sanctuary</td><td>Tamil Nadu</td><td>2023</td><td>Ariyalur district</td></tr>
+                        <tr><td>79</td><td>Longwood Shola reserve forest</td><td>Tamil Nadu</td><td>2023</td><td>Nilgiris district</td></tr>
+                        <tr><td>80</td><td>Kazhuveli Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Villupuram district</td></tr>
+                        <tr><td>81</td><td>Nanjarayan Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Tiruppur district</td></tr>
+                        <tr><td>82</td><td>Sakkarakottai Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Ramanathapuram district</td></tr>
+                        <tr><td>83</td><td>Therthangal Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Sivaganga district</td></tr>
+                        <tr><td>84</td><td>Rudrasagar Lake</td><td>Tripura</td><td>2005</td><td>West Tripura</td></tr>
+                        <tr><td>85</td><td>Upper Ganga River</td><td>Uttar Pradesh</td><td>2005</td><td>Brijghat–Narora</td></tr>
+                        <tr><td>86</td><td>Nawabganj Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Unnao district</td></tr>
+                        <tr><td>87</td><td>Parvati Arga Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Gonda district</td></tr>
+                        <tr><td>88</td><td>Saman Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Mainpuri district</td></tr>
+                        <tr><td>89</td><td>Samaspur Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Raebareli district</td></tr>
+                        <tr><td>90</td><td>Sandi Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Hardoi district</td></tr>
+                        <tr><td>91</td><td>Sarsai Nawar Jheel</td><td>Uttar Pradesh</td><td>2019</td><td>Etawah district</td></tr>
+                        <tr><td>92</td><td>Sur Sarovar (Keetham Lake)</td><td>Uttar Pradesh</td><td>2020</td><td>Agra district</td></tr>
+                        <tr><td>93</td><td>Haiderpur Wetland</td><td>Uttar Pradesh</td><td>2021</td><td>Bijnor district</td></tr>
+                        <tr><td>94</td><td>Bakhira Wildlife Sanctuary</td><td>Uttar Pradesh</td><td>2021</td><td>Sant Kabir Nagar</td></tr>
+                        <tr><td>95</td><td>Patna Bird Sanctuary</td><td>Uttar Pradesh</td><td>2025</td><td>Etah district</td></tr>
+                        <tr><td>96</td><td>Asan Conservation Reserve</td><td>Uttarakhand</td><td>2020</td><td>Dehradun district</td></tr>
+                        <tr><td>97</td><td>East Calcutta Wetlands</td><td>West Bengal</td><td>2002</td><td>Kolkata region</td></tr>
+                        <tr><td>98</td><td>Sundarban Wetland</td><td>West Bengal</td><td>2019</td><td>Ganga–Brahmaputra delta</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+
+        <!-- Section: Largest Ramsar Sites -->
+        <div class="card">
+            <h2 class="section-title">- Largest Ramsar Sites in India for UPSC</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Largest Ramsar Site</th>
+                            <th>State</th>
+                            <th>Year</th>
+                            <th>Area (sq km)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Sundarban Wetland</td><td>West Bengal</td><td>2019</td><td>4230</td></tr>
+                        <tr><td>2</td><td>Kazhuveli Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>1513</td></tr>
+                        <tr><td>3</td><td>Vembanad-Kol Wetland</td><td>Kerala</td><td>2002</td><td>1512</td></tr>
+                        <tr><td>4</td><td>Chilika Lake</td><td>Odisha</td><td>1981</td><td>1165</td></tr>
+                        <tr><td>5</td><td>Satkosia Gorge</td><td>Odisha</td><td>2021</td><td>981</td></tr>
+                        <tr><td>6</td><td>Kolleru Lake</td><td>Andhra Pradesh</td><td>2002</td><td>901</td></tr>
+                        <tr><td>7</td><td>Hirakud Reservoir</td><td>Odisha</td><td>2021</td><td>654</td></tr>
+                        <tr><td>8</td><td>Bhitarkanika Mangroves</td><td>Odisha</td><td>2002</td><td>650</td></tr>
+                        <tr><td>9</td><td>Gulf of Mannar Marine Biosphere Reserve</td><td>Tamil Nadu</td><td>2022</td><td>526</td></tr>
+                        <tr><td>10</td><td>Point Calimere Wildlife and Bird Sanctuary</td><td>Tamil Nadu</td><td>2002</td><td>385</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section: Smallest Ramsar Sites -->
+        <div class="card">
+            <h2 class="section-title">- Smallest Ramsar Sites in India for UPSC</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Smallest Ramsar Site</th>
+                            <th>State</th>
+                            <th>year</th>
+                            <th>Area (sq km)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Renuka Lake</td><td>Himachal Pradesh</td><td>2005</td><td>0.2</td></tr>
+                        <tr><td>2</td><td>Vembannur Wetland Complex</td><td>Tamil Nadu</td><td>2022</td><td>0.19–0.2</td></tr>
+                        <tr><td>3</td><td>Vedanthangal Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>0.4</td></tr>
+                        <tr><td>4</td><td>Nanda Lake</td><td>Goa</td><td>2022</td><td>0.42</td></tr>
+                        <tr><td>5</td><td>Udhayamarthandapuram Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>0.44–0.45</td></tr>
+                        <tr><td>6</td><td>Chandra Taal</td><td>Himachal Pradesh</td><td>2005</td><td>0.49</td></tr>
+                        <tr><td>7</td><td>Vellode Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>0.77</td></tr>
+                        <tr><td>8</td><td>Koonthankulam Bird Sanctuary</td><td>Tamil Nadu</td><td>2021</td><td>0.72–0.8</td></tr>
+                        <tr><td>9</td><td>Suchindram Theroor Wetland Complex</td><td>Tamil Nadu</td><td>2022</td><td>~0.9</td></tr>
+                        <tr><td>10</td><td>Patna Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>~1.0–1.1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section: State-wise Distribution -->
+        <div class="card">
+            <h2 class="section-title">- States with Highest number of Ramsar Sites in India (2026)</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>State</th>
+                            <th>Number of Sites</th>
+                            <th>Site Names</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Tamil Nadu</td>
+                            <td>20</td>
+                            <td>
+                                Kazhuveli Bird Sanctuary (2024)<br>
+                                Nanjarayan Bird Sanctuary (2024)<br>
+                                Karaivetti Bird Sanctuary (2024)<br>
+                                Longwood Shola Reserve Forest (2024)<br>
+                                Sakkarakottai Bird Sanctuary (2024)<br>
+                                Therthangal Bird Sanctuary (2024)<br>
+                                Chitrangudi Bird Sanctuary (2021)<br>
+                                Gulf of Mannar Marine Biosphere Reserve (2022)<br>
+                                Kanjirankulam Bird Sanctuary (2022)<br>
+                                Karikili Bird Sanctuary (2022)<br>
+                                Koonthankulam Bird Sanctuary (2021)<br>
+                                Pallikaranai Marsh Reserve Forest (2022)<br>
+                                Pichavaram Mangrove (2022)<br>
+                                Point Calimere Wildlife & Bird Sanctuary (2002)<br>
+                                Suchindram Theroor Wetland Complex (2022)<br>
+                                Udayamarthandapuram Bird Sanctuary (2022)<br>
+                                Vaduvur Bird Sanctuary (2022)<br>
+                                Vedanthangal Bird Sanctuary (2022)<br>
+                                Vellode Bird Sanctuary (2022)<br>
+                                Vembannur Wetland Complex (2022)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Uttar Pradesh</td>
+                            <td>11</td>
+                            <td>
+                                Upper Ganga River (2005)<br>
+                                Nawabganj Bird Sanctuary (2019)<br>
+                                Saman Bird Sanctuary (2019)<br>
+                                Samaspur Bird Sanctuary (2019)<br>
+                                Sandi Bird Sanctuary (2019)<br>
+                                Sarsai Nawar Jheel (2019)<br>
+                                Parvati Arga Bird Sanctuary (2019)<br>
+                                Sur Sarovar (2020)<br>
+                                Haiderpur Wetland (2021)<br>
+                                Bakhira Wildlife Sanctuary (2021)<br>
+                                Samaspur Bird Sanctuary (2019)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Bihar</td>
+                            <td>6</td>
+                            <td>
+                                Kanwar Lake / Kabar Tal (2020)<br>
+                                Nagi Bird Sanctuary (2023)<br>
+                                Nakti Bird Sanctuary (2023)<br>
+                                Gogabeel Lake (2025)<br>
+                                Udaipur Lake (2025)<br>
+                                Kabar Tal Wetland (2020)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Odisha</td>
+                            <td>6</td>
+                            <td>
+                                Chilika Lake (1981)<br>
+                                Bhitarkanika Mangroves (2002)<br>
+                                Satkosia Gorge (2021)<br>
+                                Hirakud Reservoir (2021)<br>
+                                Ansupa Lake (2021)<br>
+                                Tampara Lake (2021)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Punjab</td>
+                            <td>6</td>
+                            <td>
+                                Harike Wetland (1990)<br>
+                                Kanjli Wetland (2002)<br>
+                                Ropar Wetland (2002)<br>
+                                Beas Conservation Reserve (2019)<br>
+                                Keshopur-Miani Community Reserve (2019)<br>
+                                Nangal Wildlife Sanctuary (2019)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Gujarat</td>
+                            <td>5</td>
+                            <td>
+                                Nalsarovar Lake (2012)<br>
+                                Thol Lake Wildlife Sanctuary (2021)<br>
+                                Wadhvana Wetland (2021)<br>
+                                Khijadiya Bird Sanctuary (2021)<br>
+                                Chhari-Dhand Wetland (2025)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Rajasthan</td>
+                            <td>5</td>
+                            <td>
+                                Keoladeo National Park (1981)<br>
+                                Sambhar Lake (1990)<br>
+                                Menar Wetland Complex (2025)<br>
+                                Tal Chhapar Sanctuary (2021)<br>
+                                Naliya Grasslands (2021)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Madhya Pradesh</td>
+                            <td>5</td>
+                            <td>
+                                Bhoj Wetlands (2002)<br>
+                                Sirpur Wetland (2022)<br>
+                                Sakhya Sagar (2022)<br>
+                                Yashwant Sagar (2022)<br>
+                                Tawa Reservoir (2024)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Jammu & Kashmir</td>
+                            <td>5</td>
+                            <td>
+                                Wular Lake (1990)<br>
+                                Hokersar Wetland (2005)<br>
+                                Surinsar–Mansar Lakes (2005)<br>
+                                Tso Moriri (2002)<br>
+                                Hygam Wetland (2022)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Karnataka</td>
+                            <td>4</td>
+                            <td>
+                                Ranganathittu Bird Sanctuary (2022)<br>
+                                Magadi Kere Conservation Reserve (2023)<br>
+                                Aghanashini Estuary (2023)<br>
+                                Ankasamudra Bird Conservation Reserve (2023)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 
     <!-- Dedicated Site Details Modal Overlay -->
     <div id="siteModal" class="modal">
@@ -642,7 +1016,96 @@
         </div>
     </div>
 
+    <!-- Grounded Minimal Footer Row -->
+    <footer>
+        <div class="footer-links-row">
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Disclaimer</a>
+        </div>
+        <div class="copyright-tag">
+            &copy; 2026 Sathya. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Smart Native Device Sync & Twin-View Controller Engine -->
     <script>
+        const toggleBtn = document.getElementById('themeToggleBtn');
+        const bodyElement = document.body;
+        const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
+
+        const masterHeader = document.getElementById('masterHeader');
+        const openSearchBtn = document.getElementById('openSearchBtn');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const searchCoreInput = document.getElementById('searchCoreInput');
+
+        function applyTargetPalette() {
+            const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
+            if (activeSessionOverride) {
+                if (activeSessionOverride === 'light') {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
+            } else {
+                if (systemLightQuery.matches) {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
+            }
+        }
+
+        applyTargetPalette();
+
+        systemLightQuery.addEventListener('change', (e) => {
+            sessionStorage.removeItem('dashboard-theme');
+            if (e.matches) {
+                bodyElement.classList.add('light-mode');
+            } else {
+                bodyElement.classList.remove('light-mode');
+            }
+        });
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            const isCurrentlyLight = bodyElement.classList.contains('light-mode');
+            if (isCurrentlyLight) {
+                bodyElement.classList.remove('light-mode');
+                sessionStorage.setItem('dashboard-theme', 'dark');
+            } else {
+                bodyElement.classList.add('light-mode');
+                sessionStorage.setItem('dashboard-theme', 'light');
+            }
+        });
+
+        // --- Twin-View Interface Controller System ---
+
+        openSearchBtn.addEventListener('click', () => {
+            masterHeader.classList.add('search-active');
+            setTimeout(() => { searchCoreInput.focus(); }, 50);
+        });
+
+        clearSearchBtn.addEventListener('click', () => {
+            searchCoreInput.value = "";
+            searchCoreInput.focus();
+        });
+
+        closeSearchBtn.addEventListener('click', () => {
+            masterHeader.classList.remove('search-active');
+        });
+
+        searchCoreInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && searchCoreInput.value.trim() === "") {
+                masterHeader.classList.remove('search-active');
+            }
+        });
+
+        // --- Table Sorting & Popup Mechanics ---
+
         let sortState = 0;
         let originalRows = [];
 
@@ -658,17 +1121,14 @@
             sortState = (sortState + 1) % 3;
 
             if (sortState === 1) {
-                // Descending order
                 rows.sort((a, b) => {
                     return parseInt(b.children[3].innerText) - parseInt(a.children[3].innerText);
                 });
             } else if (sortState === 2) {
-                // Ascending order
                 rows.sort((a, b) => {
                     return parseInt(a.children[3].innerText) - parseInt(b.children[3].innerText);
                 });
             } else {
-                // Reset to original
                 rows = originalRows.slice();
             }
 
@@ -688,9 +1148,9 @@
                     <p><strong style="display:inline-block;width:90px;">Year</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;2002</p>
                     <p><strong style="display:inline-block;width:90px;">Area</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;901 km²</p>
                     <p><strong style="display:inline-block;width:90px;">District</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;Krishna–Godavari Delta</p>
-                    <div style="border-top: 1px solid #2d2d2d; margin: 16px 0;"></div>
+                    <div style="border-top: 1px solid var(--panel-border); margin: 16px 0;"></div>
                     <p><strong>Importance:</strong></p>
-                    <p style="color: #bcbcbc; font-size: 14px; margin-top: 4px;">Largest freshwater lake in India and an important habitat for migratory birds.</p>
+                    <p style="opacity: 0.8; font-size: 14px; margin-top: 4px;">Largest freshwater lake in India and an important habitat for migratory birds.</p>
                 `;
             }
             modal.style.display = "flex";
@@ -703,7 +1163,6 @@
             setTimeout(() => modal.style.display = "none", 300);
         }
 
-        // Native overlay click listener using distinct event paths for laptop, phone, and iPad views
         document.getElementById("siteModal").addEventListener("click", function(event) {
             if (event.target === this) {
                 closeSite();
