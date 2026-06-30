@@ -21,7 +21,6 @@
             --panel-border: #222222;
             --row-divider: #1c1c1c;
             --row-hover: rgba(255, 255, 255, 0.015);
-            --search-icon-color: #444444;
 
             /* Premium Matte Olive Header System (Dark Mode) */
             --header-bg: #131815;
@@ -37,7 +36,6 @@
             --panel-border: #e2e2e7;
             --row-divider: #f2f2f7;
             --row-hover: rgba(0, 0, 0, 0.01);
-            --search-icon-color: #999999;
 
             /* Premium Matte Olive Header System (Light Mode) */
             --header-bg: #e9ebe6;
@@ -82,24 +80,24 @@
         }
 
         /* Staggered Load Engine */
-        header, .search-container, .capsule-panel, footer {
+        header, .matrix-canvas, footer {
             opacity: 0;
             animation: masterEntrance 1.2s var(--ease-premium) forwards;
         }
 
         header { animation-delay: 0.04s; }
-        .search-container { animation-delay: 0.12s; }
         
-        .capsule-panel:nth-child(1) { animation-delay: 0.20s; }
-        .capsule-panel:nth-child(2) { animation-delay: 0.26s; }
-        .capsule-panel:nth-child(3) { animation-delay: 0.32s; }
-        .capsule-panel:nth-child(4) { animation-delay: 0.38s; }
-        .capsule-panel:nth-child(5) { animation-delay: 0.44s; }
-        .capsule-panel:nth-child(6) { animation-delay: 0.50s; }
+        /* Direct card-by-card staggered wave opening sequence */
+        .capsule-panel:nth-child(1) { animation-delay: 0.14s; }
+        .capsule-panel:nth-child(2) { animation-delay: 0.20s; }
+        .capsule-panel:nth-child(3) { animation-delay: 0.26s; }
+        .capsule-panel:nth-child(4) { animation-delay: 0.32s; }
+        .capsule-panel:nth-child(5) { animation-delay: 0.38s; }
+        .capsule-panel:nth-child(6) { animation-delay: 0.44s; }
         
-        footer { animation-delay: 0.58s; }
+        footer { animation-delay: 0.52s; }
 
-        /* Top Header Navigation - Upgraded to Floating Capsule Pill */
+        /* Top Header Navigation - Default Compact Touch State */
         header {
             display: flex;
             justify-content: space-between;
@@ -107,10 +105,14 @@
             background-color: var(--header-bg);
             border: 1px solid var(--header-border);
             border-radius: 50px;
-            padding: 16px 32px;
-            margin-bottom: 60px;
+            padding: 0 24px;
+            margin: 0 auto 80px auto;
+            width: 270px; /* Pristine tightly enclosed baseline dimension */
+            height: 60px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-            transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
+            
+            /* High-end fluid expansion hardware tracking rules */
+            transition: width 0.5s var(--ease-premium), max-width 0.5s var(--ease-premium), background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
         }
 
         /* Dark Mode Depth Shadow Adjustment for Header */
@@ -118,15 +120,83 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
+        /* Active Expanded Morph State Rules */
+        header.expanded {
+            width: 100%;
+            max-width: 580px; /* Smooth wide runway allocation */
+        }
+
         .logo {
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 700;
             letter-spacing: -0.5px;
             color: var(--text-main);
             text-decoration: none !important;
             transition: color 0.6s var(--ease-premium);
-            -webkit-tap-highlight-color: transparent !important; /* Erases iPad/iPhone gray selection box */
-            tap-highlight-color: transparent !important;         /* Erases Android blue highlight flash */
+            -webkit-tap-highlight-color: transparent !important; /* Erases mobile gray block artifacts */
+            tap-highlight-color: transparent !important;         /* Erases Android blue flashes */
+            flex-shrink: 0;
+        }
+
+        /* On-Demand Morphing Input Zone Controller */
+        .search-morph-zone {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 32px;
+            height: 32px;
+            margin: 0 4px;
+            flex-grow: 0;
+            transition: flex-grow 0.5s var(--ease-premium), width 0.5s var(--ease-premium), margin 0.5s var(--ease-premium);
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
+        }
+
+        header.expanded .search-morph-zone {
+            flex-grow: 1;
+            width: auto;
+            margin: 0 16px;
+        }
+
+        .header-search-bar {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            font-size: 14.5px;
+            padding: 4px 8px 4px 34px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s var(--ease-premium), color 0.6s var(--ease-premium);
+        }
+
+        header.expanded .header-search-bar {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.4s var(--ease-premium) 0.1s; /* Delayed appearance for smooth layout spacing */
+        }
+
+        .search-click-icon {
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: var(--text-main);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: opacity 0.3s var(--ease-premium), stroke 0.6s var(--ease-premium);
+        }
+
+        .search-morph-zone:hover .search-click-icon, header.expanded .search-click-icon {
+            opacity: 1;
         }
 
         /* High-End Vector Morphing Switch Container */
@@ -139,14 +209,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            -webkit-tap-highlight-color: transparent !important; /* Erases mobile tap box */
-            tap-highlight-color: transparent !important;         /* Erases mobile tap box */
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
         }
 
         .theme-toggle svg {
             position: absolute;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             fill: none;
             stroke: var(--text-main);
             stroke-width: 2;
@@ -175,52 +246,6 @@
         body.light-mode .theme-toggle .moon-icon {
             opacity: 0;
             transform: rotate(90deg) scale(0.4);
-        }
-
-        /* Centered Search Input Pill */
-        .search-container {
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto 70px auto;
-            position: relative;
-        }
-
-        .search-bar {
-            width: 100%;
-            background-color: var(--panel-bg);
-            border: 1px solid var(--panel-border);
-            border-radius: 50px;
-            padding: 14px 24px 14px 52px;
-            color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.6s var(--ease-premium), background-color 0.6s var(--ease-premium), color 0.6s var(--ease-premium);
-        }
-
-        .search-bar:focus {
-            border-color: #444444;
-            background-color: rgba(125, 125, 125, 0.03);
-        }
-
-        body.light-mode .search-bar:focus {
-            border-color: #888888;
-        }
-
-        .search-bar::placeholder {
-            color: var(--search-icon-color);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 22px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 15px;
-            height: 15px;
-            color: var(--search-icon-color);
-            pointer-events: none;
-            transition: color 0.6s var(--ease-premium);
         }
 
         /* Symmetrical Direct Child Matrix Grid */
@@ -347,14 +372,14 @@
         /* Responsive Layout Grid Handling for iPad and Mobile Viewports */
         @media (max-width: 1024px) {
             .matrix-canvas {
-                grid-template-columns: repeat(2, 1fr); /* Balanced multi-column tiling for iPad */
+                grid-template-columns: repeat(2, 1fr); /* Balanced multi-column tiling for iPad orientation */
                 gap: 28px;
             }
         }
 
         @media (max-width: 700px) {
             .matrix-canvas {
-                grid-template-columns: 1fr; /* Single vertical block stream for mobile layout profiles */
+                grid-template-columns: 1fr; /* Single vertical block stream for mobile display rules */
                 gap: 24px;
             }
 
@@ -367,26 +392,28 @@
             }
             
             header {
-                margin-bottom: 40px;
-                padding: 14px 24px; /* Slightly more compact layout wrapper on micro devices */
+                margin-bottom: 50px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Block - Now a Unified Matte Olive Floating Capsule -->
-    <header>
+    <header id="masterHeader">
         <a href="#" class="logo">sathya.</a>
         
-        <!-- Premium Animated Toggle Controller Button -->
+        <div class="search-morph-zone" id="searchMorphZone">
+            <svg class="search-click-icon" viewBox="0 0 24 24">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input type="text" class="header-search-bar" id="headerSearchInput" placeholder="Search workspace...">
+        </div>
+        
         <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
-            <!-- Smooth SVG Sun Vector Element -->
             <svg class="sun-icon" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="4"></circle>
                 <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
             </svg>
-            <!-- Smooth SVG Moon Vector Element -->
             <svg class="moon-icon" viewBox="0 0 24 24">
                 <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
             </svg>
@@ -394,18 +421,8 @@
     </header>
 
     <main>
-        <!-- Search Bar -->
-        <div class="search-container">
-            <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-            <input type="text" class="search-bar" placeholder="Search...">
-        </div>
-
-        <!-- Matrix Canvas Layout Container -->
         <div class="matrix-canvas">
 
-            <!-- Card 1: UPSC -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
@@ -417,7 +434,6 @@
                 </ul>
             </div>
 
-            <!-- Card 2: PLANNING -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Planning</h2>
                 <ul class="document-list">
@@ -427,7 +443,6 @@
                 </ul>
             </div>
 
-            <!-- Card 3: GROWTH -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Growth</h2>
                 <ul class="document-list">
@@ -437,7 +452,6 @@
                 </ul>
             </div>
 
-            <!-- Card 4: STUDIES -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Studies</h2>
                 <ul class="document-list">
@@ -447,7 +461,6 @@
                 </ul>
             </div>
 
-            <!-- Card 5: LIFE -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Life</h2>
                 <ul class="document-list">
@@ -457,7 +470,6 @@
                 </ul>
             </div>
 
-            <!-- Card 6: PHOTOGRAPHY -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Photography</h2>
                 <ul class="document-list">
@@ -470,7 +482,6 @@
         </div>
     </main>
 
-    <!-- Grounded Minimal Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="#">About</a>
@@ -484,18 +495,20 @@
         </div>
     </footer>
 
-    <!-- Smart Native Device Sync Engine Script -->
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
         const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
 
-        // Clear out old local storage override rules completely to run flawlessly on system hardware hooks
+        const masterHeader = document.getElementById('masterHeader');
+        const searchMorphZone = document.getElementById('searchMorphZone');
+        const headerSearchInput = document.getElementById('headerSearchInput');
+
+        // 1. Clear out old long-term local storage variables to stay clean on system hardware hooks
         localStorage.removeItem('dashboard-theme');
 
         function applyTargetPalette() {
             const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
-            
             if (activeSessionOverride) {
                 if (activeSessionOverride === 'light') {
                     bodyElement.classList.add('light-mode');
@@ -503,7 +516,6 @@
                     bodyElement.classList.remove('light-mode');
                 }
             } else {
-                // Flawless out-of-the-box hardware layer matching
                 if (systemLightQuery.matches) {
                     bodyElement.classList.add('light-mode');
                 } else {
@@ -514,7 +526,7 @@
 
         applyTargetPalette();
 
-        // Listen for device control switches live (Sunset/Sunrise/Manual control center adjustments)
+        // Listen for device control switches live (Sunset/Sunrise/Manual hardware shifts)
         systemLightQuery.addEventListener('change', (e) => {
             sessionStorage.removeItem('dashboard-theme');
             if (e.matches) {
@@ -524,8 +536,9 @@
             }
         });
 
-        // Manual Vector Icon Click Switch Event
-        toggleBtn.addEventListener('click', () => {
+        // Manual Vector Icon Click Theme Switcher
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevents interaction conflicts with header morphing logic
             const isCurrentlyLight = bodyElement.classList.contains('light-mode');
             if (isCurrentlyLight) {
                 bodyElement.classList.remove('light-mode');
@@ -533,6 +546,29 @@
             } else {
                 bodyElement.classList.add('light-mode');
                 sessionStorage.setItem('dashboard-theme', 'light');
+            }
+        });
+
+        // 2. Buttery Smooth On-Demand Header Morphing Logic
+        searchMorphZone.addEventListener('click', (e) => {
+            e.stopPropagation();
+            masterHeader.classList.add('expanded');
+            headerSearchInput.focus();
+        });
+
+        // Click detection outside the header system to collapse gracefully
+        document.addEventListener('click', (e) => {
+            if (!masterHeader.contains(e.target)) {
+                if (headerSearchInput.value.trim() === "") {
+                    masterHeader.classList.remove('expanded');
+                }
+            }
+        });
+
+        // Handle phone keyboard "Return/Done" collapse if input is blank
+        headerSearchInput.addEventListener('blur', () => {
+            if (headerSearchInput.value.trim() === "") {
+                masterHeader.classList.remove('expanded');
             }
         });
     </script>
