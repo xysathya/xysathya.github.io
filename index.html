@@ -97,17 +97,17 @@
         
         footer { animation-delay: 0.52s; }
 
-        /* Top Header Navigation Shell - Expanded to Match Image 1 Perfectly */
+        /* Top Header Navigation Shell - Fluid & Perfectly Contained */
         header {
             position: relative;
             background-color: var(--header-bg);
             border: 1px solid var(--header-border);
             border-radius: 50px;
-            width: 100%; /* Spans full grid width just like original header */
-            height: 72px; /* Generous, premium vertical spacing */
+            width: 100%; /* Spans full grid width matching your cards */
+            height: 72px; /* Pristine global height profile */
             margin: 0 auto 80px auto;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-            overflow: hidden; /* Safely clips views inside the capsule boundaries */
+            overflow: hidden; 
             transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
         }
 
@@ -116,7 +116,7 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
-        /* Twin view system layer configurations */
+        /* Twin view system layer configurations - Hardware Accelerated Crossfade */
         .header-inner-view {
             position: absolute;
             top: 0;
@@ -126,41 +126,36 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 32px; /* Spacious internal padding matching Image 1 */
-            
-            /* Classy, soft fade-and-scale transition engine */
-            transition: opacity 0.4s var(--ease-premium), transform 0.4s var(--ease-premium), visibility 0.4s var(--ease-premium);
+            padding: 0 32px; 
+            will-change: opacity;
+            transition: opacity 0.35s var(--ease-premium);
         }
 
-        /* Default Main State Controls */
+        /* Zero-Jerk Fade Orchestration via Pointer Events */
         #headerMainView {
             opacity: 1;
-            visibility: visible;
-            transform: scale(1);
+            pointer-events: auto;
         }
         header.search-active #headerMainView {
             opacity: 0;
-            visibility: hidden;
-            transform: scale(0.95); /* Softly shrinks inward into the capsule */
+            pointer-events: none;
         }
 
-        /* Twin Search State Controls */
         #headerSearchView {
             opacity: 0;
-            visibility: hidden;
-            transform: scale(1.05); /* Rises gracefully from inside the capsule shell */
+            pointer-events: none;
         }
         header.search-active #headerSearchView {
             opacity: 1;
-            visibility: visible;
-            transform: scale(1);
+            pointer-events: auto;
         }
 
-        /* Alignment Utilities */
+        /* Layout Edge Containers with strict anti-shrink rules */
         .header-right-cluster, .search-control-cluster {
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-shrink: 0; /* Prevents icons from squishing on mobile */
         }
 
         .logo {
@@ -170,11 +165,12 @@
             color: var(--text-main);
             text-decoration: none !important;
             transition: color 0.6s var(--ease-premium);
-            -webkit-tap-highlight-color: transparent !important; /* Erases mobile selection boxes */
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent !important;
             tap-highlight-color: transparent !important;
         }
 
-        /* Cloaked Tap Interface Buttons */
+        /* Interactive Interface Buttons */
         .icon-btn, .text-btn {
             background: none;
             border: none;
@@ -188,6 +184,7 @@
             transition: opacity 0.2s var(--ease-premium), color 0.6s var(--ease-premium);
             -webkit-tap-highlight-color: transparent !important;
             tap-highlight-color: transparent !important;
+            flex-shrink: 0;
         }
 
         .icon-btn:hover, .text-btn:hover {
@@ -203,11 +200,11 @@
 
         /* Inside Search Pill Elements */
         .search-static-icon {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             stroke: var(--text-main);
             opacity: 0.4;
-            flex-shrink: 0;
+            flex-shrink: 0; /* Safeguards icon layout bounding boxes */
             transition: stroke 0.6s var(--ease-premium);
         }
 
@@ -220,6 +217,8 @@
             font-family: 'Poppins', sans-serif;
             font-size: 16px;
             padding: 0 16px;
+            width: 100%;
+            min-width: 0; /* Core Fix: Allows layout engine to scale text box without clipping icons */
             transition: color 0.6s var(--ease-premium);
         }
 
@@ -233,7 +232,7 @@
             font-size: 24px;
             font-weight: 300;
             opacity: 0.7;
-            padding-bottom: 2px; /* Precision mechanical visual axis alignment */
+            padding-bottom: 2px;
         }
 
         /* High-End Vector Morphing Theme Switch Container */
@@ -430,16 +429,24 @@
             
             header {
                 margin-bottom: 40px;
-                height: 64px; /* Slightly tighter proportional scaling on mobile screens */
-                padding: 0 20px;
+                height: 64px; /* Proportional compact sizing on phones */
             }
             
             .header-inner-view {
-                padding: 0 20px;
+                padding: 0 16px; /* Tight safe padding bounds to prevent icon overflows */
             }
             
             .logo {
                 font-size: 22px;
+            }
+
+            .search-core-input {
+                padding: 0 10px; /* Slimmer text padding inside narrow viewports */
+                font-size: 15px;
+            }
+
+            .header-right-cluster, .search-control-cluster {
+                gap: 14px; /* Slightly tighter structural gaps on small phone glass panels */
             }
         }
     </style>
@@ -468,7 +475,7 @@
 
         <div class="header-inner-view" id="headerSearchView">
             <svg class="search-static-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search workspace..." autocomplete="off">
+            <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
             <div class="search-control-cluster">
                 <button class="text-btn clear-text-btn" id="clearSearchBtn" aria-label="Clear typed text">✕</button>
                 <button class="text-btn close-search-btn" id="closeSearchBtn" aria-label="Minimize search pill">−</button>
@@ -483,11 +490,11 @@
             <div class="capsule-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
-                    <li><a href="#">Subjects</a></li>
-                    <li><a href="#">Current affairs</a></li>
-                    <li><a href="#">Ncert's</a></li>
-                    <li><a href="#">Csat</a></li>
-                    <li><a href="#">Notes</a></li>
+                    <li><a href="#">QA Analysis Logs</a></li>
+                    <li><a href="#">Current Affairs Tracker</a></li>
+                    <li><a href="#">NCERT Database</a></li>
+                    <li><a href="#">CSAT Mock Modules</a></li>
+                    <li><a href="#">Static Core Revision</a></li>
                 </ul>
             </div>
 
@@ -575,6 +582,7 @@
                     bodyElement.classList.remove('light-mode');
                 }
             } else {
+                // Flawless out-of-the-box hardware layer matching
                 if (systemLightQuery.matches) {
                     bodyElement.classList.add('light-mode');
                 } else {
@@ -613,8 +621,8 @@
         // A. Trigger Search Activation (Fades layer inward smoothly)
         openSearchBtn.addEventListener('click', () => {
             masterHeader.classList.add('search-active');
-            // Mini delay to focus perfectly once scale values sync up
-            setTimeout(() => { searchCoreInput.focus(); }, 80);
+            // Mini delay to focus perfectly once layout engine updates
+            setTimeout(() => { searchCoreInput.focus(); }, 50);
         });
 
         // B. Clear Inputs instantly via X text button click rule
