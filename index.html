@@ -15,8 +15,9 @@
             --panel-bg: #121212;
             --panel-border: #222222;
             --row-divider: #1c1c1c;
-            --row-hover: rgba(255, 255, 255, 0.02);
+            --row-hover: rgba(255, 255, 255, 0.015);
             --font-family: 'Poppins', sans-serif;
+            --ease-premium: cubic-bezier(0.16, 1, 0.3, 1); /* Ultra-classy deceleration curve */
         }
 
         * {
@@ -38,7 +39,33 @@
             margin: 0 auto;
             width: 95%;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
+
+        /* Pure Opening Animation Keyframes */
+        @keyframes masterEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Classy Staggered Load Engine */
+        header, .search-container, .left-panel, .right-panel-1, .right-panel-2, footer {
+            opacity: 0;
+            animation: masterEntrance 1.2s var(--ease-premium) forwards;
+        }
+
+        header { animation-delay: 0.05s; }
+        .search-container { animation-delay: 0.15s; }
+        .left-panel { animation-delay: 0.25s; }
+        .right-panel-1 { animation-delay: 0.35s; }
+        .right-panel-2 { animation-delay: 0.45s; }
+        footer { animation-delay: 0.55s; }
 
         /* Top Header Navigation */
         header {
@@ -61,6 +88,11 @@
             color: var(--text-main);
             cursor: pointer;
             user-select: none;
+            transition: opacity 0.3s var(--ease-premium);
+        }
+
+        .toggle-icon:hover {
+            opacity: 0.6;
         }
 
         /* Centered Search Input Pill */
@@ -81,11 +113,12 @@
             font-family: var(--font-family);
             font-size: 15px;
             outline: none;
-            transition: border-color 0.2s ease;
+            transition: border-color 0.4s var(--ease-premium), background-color 0.4s var(--ease-premium);
         }
 
         .search-bar:focus {
             border-color: #444444;
+            background-color: #151515;
         }
 
         .search-bar::placeholder {
@@ -112,13 +145,18 @@
             align-items: start;
         }
 
-        /* Large Capsule Panel */
+        /* Large Premium Capsule Panel */
         .capsule-panel {
             background-color: var(--panel-bg);
             border: 1px solid var(--panel-border);
             border-radius: 28px;
             padding: 32px 8px 16px 8px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.4s var(--ease-premium);
+        }
+
+        .capsule-panel:hover {
+            border-color: #2b2b2b;
         }
 
         /* Stack container for the right side panels */
@@ -146,6 +184,7 @@
 
         .document-list li {
             border-bottom: 1px solid var(--row-divider);
+            transition: background-color 0.4s var(--ease-premium);
         }
 
         .document-list li:last-child {
@@ -155,22 +194,22 @@
         .document-list a {
             display: block;
             padding: 14px 24px;
-            color: #dddddd;
+            color: #cccccc;
             text-decoration: none !important;
             font-size: 14.5px;
             font-weight: 400;
-            transition: all 0.15s ease;
+            transition: color 0.4s var(--ease-premium), padding-left 0.4s var(--ease-premium);
             -webkit-tap-highlight-color: transparent !important;
         }
 
-        /* Faint clean row transitions */
+        /* Buttery Smooth Silent Row Transition Engine */
         .document-list li:hover {
             background-color: var(--row-hover);
         }
 
         .document-list li:hover a {
             color: #ffffff;
-            padding-left: 30px; /* Elegant text glide transition */
+            padding-left: 32px; /* Smooth, soft textual glide offset */
         }
 
         /* Flat Grounded Footer Row */
@@ -196,7 +235,7 @@
             text-decoration: none !important;
             font-size: 14px;
             font-weight: 400;
-            transition: color 0.2s ease;
+            transition: color 0.3s var(--ease-premium);
         }
 
         .footer-links-row a:hover {
@@ -209,7 +248,7 @@
             letter-spacing: 0.2px;
         }
 
-        /* Responsive Fluid Adaptations */
+        /* Responsive Layout Handling */
         @media (max-width: 900px) {
             .workspace-layout {
                 grid-template-columns: 1fr;
@@ -228,7 +267,7 @@
 </head>
 <body>
 
-    <!-- Header Area -->
+    <!-- Header Block -->
     <header>
         <a href="#" class="logo">sathya.</a>
         <div class="toggle-icon">↔</div>
@@ -246,8 +285,8 @@
         <!-- Asymmetric Workspace Layout -->
         <div class="workspace-layout">
 
-            <!-- Primary Left Side: UPSC (Dominant panel for heavy academic directory) -->
-            <div class="capsule-panel">
+            <!-- Left Container Block: UPSC -->
+            <div class="capsule-panel left-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
                     <li><a href="#">Subjects</a></li>
@@ -258,11 +297,11 @@
                 </ul>
             </div>
 
-            <!-- Secondary Right Side Stack: Personal Management & Tracking -->
+            <!-- Right Container Stack -->
             <div class="panel-stack-side">
                 
-                <!-- Capsule Panel: PLANNING -->
-                <div class="capsule-panel">
+                <!-- Right Panel 1: PLANNING -->
+                <div class="capsule-panel right-panel-1">
                     <h2 class="panel-title">Planning</h2>
                     <ul class="document-list">
                         <li><a href="#">Travel planner</a></li>
@@ -271,8 +310,8 @@
                     </ul>
                 </div>
 
-                <!-- Capsule Panel: GROWTH -->
-                <div class="capsule-panel">
+                <!-- Right Panel 2: GROWTH -->
+                <div class="capsule-panel right-panel-2">
                     <h2 class="panel-title">Growth</h2>
                     <ul class="document-list">
                         <li><a href="#">Goals</a></li>
@@ -286,7 +325,7 @@
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- Grounded Minimal Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="#">About</a>
