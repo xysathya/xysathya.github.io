@@ -87,7 +87,7 @@
         }
 
         header { animation-delay: 0.04s; }
-        .breadcrumbs { animation-delay: 0.10s; } /* Fades in smoothly right after header */
+        .breadcrumbs { animation-delay: 0.10s; } 
         
         /* Sequential wave opening sequence for stretched panels */
         .capsule-panel:nth-child(1) { animation-delay: 0.16s; }
@@ -104,7 +104,7 @@
             border-radius: 50px;
             width: 100%; 
             height: 72px; 
-            margin: 0 auto 50px auto; /* Slightly reduced margin to accommodate breadcrumbs cleanly */
+            margin: 0 auto 40px auto; /* FIXED: Balanced margin to match breadcrumb baseline perfectly */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
             overflow: hidden; 
             transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
@@ -278,11 +278,11 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 40px; /* Locked rhythm: 40px above, 40px below */
             font-size: 14.5px;
             font-weight: 500;
             letter-spacing: 0.2px;
-            padding: 0 8px; /* Slight alignment buffer */
+            padding: 0 8px; 
         }
 
         .breadcrumbs a {
@@ -307,10 +307,7 @@
             opacity: 0.9;
         }
 
-        /* 
-           NOTES PAGE LAYOUT OVERRIDE:
-           Using flex-column so the panels stretch 100% wide across laptop and iPad 
-        */
+        /* Stretched Notes Layout Container */
         .notes-canvas {
             display: flex;
             flex-direction: column;
@@ -319,7 +316,7 @@
             width: 100%;
         }
 
-        /* Large Premium Capsule Panel Container (Same as homepage, but stretches in the flex container) */
+        /* Large Premium Capsule Panel Container */
         .capsule-panel {
             background-color: var(--panel-bg);
             border: 1px solid var(--panel-border);
@@ -440,7 +437,7 @@
             }
             
             header {
-                margin-bottom: 30px; /* Tighter margin on phones */
+                margin-bottom: 32px; /* FIXED: Harmonized mobile rhythm layout */
                 height: 64px; 
             }
             
@@ -462,7 +459,7 @@
             }
             
             .breadcrumbs {
-                margin-bottom: 32px;
+                margin-bottom: 32px; /* FIXED: Matches header spacing exactly on mobile glass */
                 padding: 0 4px;
             }
         }
@@ -473,7 +470,6 @@
     <!-- Exact Header Engine Cloned from index.html -->
     <header id="masterHeader">
         <div class="header-inner-view" id="headerMainView">
-            <!-- Ensure logo also routes back to home -->
             <a href="index.html" class="logo">sathya.</a>
             <div class="header-right-cluster">
                 <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
@@ -520,13 +516,9 @@
             <div class="capsule-panel">
                 <h2 class="panel-title">Environment</h2>
                 <ul class="document-list">
-                    <!-- Link points to the future Ramsar Sites page -->
                     <li><a href="ramsar-sites.html">Ramsar sites</a></li>
-                    <!-- You can add more Environment topics here easily -->
                 </ul>
             </div>
-
-            <!-- Future capsules (like History, Polity) can be added right below this line using the exact same structure -->
             
         </div>
     </main>
@@ -556,9 +548,6 @@
         const closeSearchBtn = document.getElementById('closeSearchBtn');
         const clearSearchBtn = document.getElementById('clearSearchBtn');
         const searchCoreInput = document.getElementById('searchCoreInput');
-
-        // Note: I removed localStorage clearing here so if you switch pages while in dark mode, it REMEMBERS it!
-        // We only clear session if the system hardware matches change.
 
         function applyTargetPalette() {
             const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
