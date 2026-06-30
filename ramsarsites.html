@@ -69,7 +69,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Core Fix: Halts uneven vertical stretching */
+            justify-content: flex-start; /* Halts uneven vertical stretching */
             padding: 60px 24px;
             max-width: 1200px;
             margin: 0 auto;
@@ -399,13 +399,18 @@
             transition: background 0.6s var(--ease-premium);
         }
 
+        /* FIXED: Added comprehensive synchronized transition timings to all layout elements */
+        table tbody tr {
+            transition: background-color 0.6s var(--ease-premium);
+        }
+
         table th, table td {
             padding: 14px 20px;
             white-space: nowrap;
             text-align: left;
             border: 1px solid var(--panel-border);
             font-size: 14.5px;
-            transition: border-color 0.6s var(--ease-premium), background-color 0.4s var(--ease-premium), color 0.6s var(--ease-premium);
+            transition: border-color 0.6s var(--ease-premium), background-color 0.6s var(--ease-premium), color 0.6s var(--ease-premium);
         }
 
         table th {
@@ -416,16 +421,17 @@
             top: 0;
             z-index: 2;
             user-select: none;
-            border: 1px solid var(--table-header);
+            border: 1px solid var(--panel-border);
+            transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), color 0.6s var(--ease-premium);
         }
 
         table th.sortable {
             cursor: pointer;
+            transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium);
         }
 
         table th.sortable:hover {
             background: var(--table-header-hover);
-            border-color: var(--table-header-hover);
         }
 
         /* Alternating striping matched with adaptive theme variables */
@@ -448,7 +454,7 @@
             text-decoration: none !important;
             border-bottom: none !important;
             font-weight: 500;
-            transition: color 0.4s var(--ease-premium);
+            transition: color 0.6s var(--ease-premium);
         }
 
         .site-name:hover {
@@ -483,7 +489,7 @@
             box-shadow: 0 25px 60px rgba(0,0,0,.3);
             animation: popup .4s var(--ease-premium);
             cursor: default;
-            transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium);
+            transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
             -webkit-tap-highlight-color: transparent !important;
             tap-highlight-color: transparent !important;
         }
