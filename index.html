@@ -245,7 +245,7 @@
             transition: stroke 0.6s var(--ease-premium);
         }
 
-        /* High-End Vector Theme Switch Container */
+        /* High-End Vector Theme Switch Container with Complete Anti-Shivering Safeguards */
         .theme-toggle {
             width: 28px;
             height: 28px;
@@ -269,29 +269,36 @@
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
+            
+            /* Anti-Shivering Layer Engine Isolation Rules */
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform-style: preserve-3d;
+            
             transition: transform 0.6s var(--ease-premium), opacity 0.6s var(--ease-premium), stroke 0.6s var(--ease-premium);
         }
 
-        /* Dark Mode Default State: Moon Visible, Sun Hidden */
+        /* Dark Mode Default State: Moon Visible (with 3D translate safety block) */
         .theme-toggle .sun-icon {
             opacity: 0;
-            transform: rotate(-90deg) scale(0.4);
+            transform: rotate(-90deg) scale(0.4) translateZ(0);
         }
 
         .theme-toggle .moon-icon {
             opacity: 1;
-            transform: rotate(0deg) scale(1);
+            transform: rotate(0deg) scale(1) translateZ(0);
         }
 
-        /* Light Mode Active State: Sun Visible, Moon Hidden */
+        /* Light Mode Active State: Sun Visible (with 3D translate safety block) */
         body.light-mode .theme-toggle .sun-icon {
             opacity: 1;
-            transform: rotate(0deg) scale(1);
+            transform: rotate(0deg) scale(1) translateZ(0);
         }
 
         body.light-mode .theme-toggle .moon-icon {
             opacity: 0;
-            transform: rotate(90deg) scale(0.4);
+            transform: rotate(90deg) scale(0.4) translateZ(0);
         }
 
         /* Symmetrical Direct Child Matrix Grid */
@@ -427,7 +434,7 @@
             .clear-text-btn svg {
                 width: 19px;
                 height: 19px;
-                stroke-width: 2.8; /* Makes the X lines naturally more defined on tablet glass panels */
+                stroke-width: 2.8; 
             }
         }
 
@@ -448,11 +455,11 @@
             
             header {
                 margin-bottom: 40px;
-                height: 64px; /* Proportional compact smartphone height sizing */
+                height: 64px; 
             }
             
             .header-inner-view {
-                padding: 0 20px; /* Safe bounds padding to lock graphics in place */
+                padding: 0 20px; 
             }
             
             .logo {
@@ -605,6 +612,7 @@
                     bodyElement.classList.remove('light-mode');
                 }
             } else {
+                // Flawless out-of-the-box hardware layer matching
                 if (systemLightQuery.matches) {
                     bodyElement.classList.add('light-mode');
                 } else {
