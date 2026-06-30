@@ -464,22 +464,23 @@
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
-
-        // Create media query handler for system hardware profile syncs
         const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
 
+        // Wipe out old long-term local storage cache blocks completely to clear previous testing data locks
+        localStorage.removeItem('dashboard-theme');
+
         function applyTargetPalette() {
-            const savedUserTheme = localStorage.getItem('dashboard-theme');
+            // Use session memory to track manual site overrides dynamically
+            const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
             
-            if (savedUserTheme) {
-                // If a manual override is active in local storage blocks, respect it absolutely
-                if (savedUserTheme === 'light') {
+            if (activeSessionOverride) {
+                if (activeSessionOverride === 'light') {
                     bodyElement.classList.add('light-mode');
                 } else {
                     bodyElement.classList.remove('light-mode');
                 }
             } else {
-                // Completely pure out-of-the-box sync tracking matching Windows, Mac, iPad, Android OS settings
+                // Flawless out-of-the-box hardware layer matching
                 if (systemLightQuery.matches) {
                     bodyElement.classList.add('light-mode');
                 } else {
@@ -488,30 +489,29 @@
             }
         }
 
-        // Execute theme application checking natively on viewport loads
+        // Run hardware calculation checking natively upon load sequences
         applyTargetPalette();
 
-        // Dynamically listen to continuous hardware setting changes (Sunset, Sunrise, Control Center toggles)
+        // Listen for active Control Center device switches live (Sunset/Sunrise/Manual hardware shifts)
         systemLightQuery.addEventListener('change', (e) => {
-            // Only force auto-palette sweeps if a user hasn't active manual storage locks assigned
-            if (!localStorage.getItem('dashboard-theme')) {
-                if (e.matches) {
-                    bodyElement.classList.add('light-mode');
-                } else {
-                    bodyElement.classList.remove('light-mode');
-                }
+            // When user edits their device control settings, wipe the session override lock instantly
+            sessionStorage.removeItem('dashboard-theme');
+            if (e.matches) {
+                bodyElement.classList.add('light-mode');
+            } else {
+                bodyElement.classList.remove('light-mode');
             }
         });
 
-        // Buttery Smooth Interactive Manual Morph Listener Click Event
+        // Manual Vector Icon Click Switch Event
         toggleBtn.addEventListener('click', () => {
             const isCurrentlyLight = bodyElement.classList.contains('light-mode');
             if (isCurrentlyLight) {
                 bodyElement.classList.remove('light-mode');
-                localStorage.setItem('dashboard-theme', 'dark');
+                sessionStorage.setItem('dashboard-theme', 'dark');
             } else {
                 bodyElement.classList.add('light-mode');
-                localStorage.setItem('dashboard-theme', 'light');
+                sessionStorage.setItem('dashboard-theme', 'light');
             }
         });
     </script>
