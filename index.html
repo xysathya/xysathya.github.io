@@ -12,11 +12,11 @@
             --bg-color: #0b0b0b;
             --text-main: #ffffff;
             --text-muted: #555555;
-            --layout-border: #1a1a1a;
-            --pill-bg: rgba(255, 255, 255, 0.03);
-            --pill-border: rgba(255, 255, 255, 0.06);
-            --pill-hover-bg: rgba(255, 255, 255, 0.06);
-            --pill-hover-border: rgba(255, 255, 255, 0.12);
+            --pill-bg: #141414;
+            --pill-border: #222222;
+            --pill-hover-bg: #1c1c1c;
+            --pill-hover-border: #333333;
+            --line-divider: #1a1a1a;
             --font-family: 'Poppins', sans-serif;
         }
 
@@ -35,13 +35,13 @@
             flex-direction: column;
             justify-content: space-between;
             padding: 60px 24px;
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             width: 95%;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Platform Top Header */
+        /* Minimal Navigation Top Bar */
         header {
             display: flex;
             justify-content: space-between;
@@ -64,10 +64,10 @@
             user-select: none;
         }
 
-        /* Minimal Centered Search Module */
+        /* Minimalist Search Module */
         .search-container {
             width: 100%;
-            max-width: 480px;
+            max-width: 450px;
             margin: 0 auto 80px auto;
             position: relative;
         }
@@ -77,10 +77,10 @@
             background-color: transparent;
             border: 1px solid var(--pill-border);
             border-radius: 50px;
-            padding: 14px 24px 14px 52px;
+            padding: 13px 24px 13px 50px;
             color: var(--text-main);
             font-family: var(--font-family);
-            font-size: 15px;
+            font-size: 14.5px;
             outline: none;
             transition: border-color 0.2s ease;
         }
@@ -95,7 +95,7 @@
 
         .search-icon {
             position: absolute;
-            left: 22px;
+            left: 20px;
             top: 50%;
             transform: translateY(-50%);
             width: 15px;
@@ -104,61 +104,56 @@
             pointer-events: none;
         }
 
-        /* Asymmetric Staggered Workspace Directory */
-        .workspace-hub {
+        /* Elegant Vertical Stream Feed Directory */
+        .stream-directory {
             display: flex;
             flex-direction: column;
+            gap: 50px;
             width: 100%;
-            margin-bottom: 80px;
+            margin-bottom: 90px;
         }
 
-        /* Primary Top Panel (Full-Width to destroy "subscription package" vibe) */
-        .primary-block {
-            width: 100%;
-            padding-bottom: 40px;
-            border-bottom: 1px solid var(--layout-border);
-        }
-
-        .section-label {
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        /* Fluid layout for the heavy academic items */
-        .fluid-pill-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        /* Secondary Split Base Panel */
-        .split-base-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            padding-top: 40px;
-        }
-
-        .column-pane {
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Vertical organically sized pill layouts */
-        .vertical-pill-stack {
+        .stream-section {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 12px;
+        }
+
+        .stream-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding-left: 2px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Clean, thin structural horizontal rules under section titles */
+        .stream-title::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--line-divider);
+            margin-left: 20px;
+        }
+
+        /* Natural, self-sizing wrapped inline pill clouds */
+        .pill-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .pill-flow li {
             list-style: none;
         }
 
-        /* Unifying Premium Pill System Styles */
-        .pill-link {
+        .pill-flow a {
             display: inline-flex;
             align-items: center;
             background-color: var(--pill-bg);
@@ -169,16 +164,19 @@
             text-decoration: none !important;
             font-size: 14.5px;
             font-weight: 400;
+            letter-spacing: -0.1px;
             transition: background-color 0.15s ease, border-color 0.15s ease;
             -webkit-tap-highlight-color: transparent !important;
         }
 
-        .pill-link:hover {
+        /* Clean micro-interaction response without color flashes or lines */
+        .pill-flow a:hover, .pill-flow a:active {
             background-color: var(--pill-hover-bg);
             border-color: var(--pill-hover-border);
+            text-decoration: none !important;
         }
 
-        /* Grounded Minimalist Base Footer */
+        /* Matte Minimal Base Footer */
         footer {
             display: flex;
             flex-direction: column;
@@ -187,16 +185,16 @@
             width: 100%;
         }
 
-        .footer-navigation-links {
+        .footer-links-row {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 28px;
+            gap: 32px;
             flex-wrap: wrap;
             width: 100%;
         }
 
-        .footer-navigation-links a {
+        .footer-links-row a {
             color: #444444;
             text-decoration: none !important;
             font-size: 14px;
@@ -204,37 +202,44 @@
             transition: color 0.2s ease;
         }
 
-        .footer-navigation-links a:hover {
+        .footer-links-row a:hover {
             color: #ffffff;
         }
 
-        .copyright-notice-tag {
-            color: #333333;
-            font-size: 12.5px;
+        .copyright-tag {
+            color: #2a2a2a;
+            font-size: 12px;
             letter-spacing: 0.2px;
         }
 
-        /* Premium Responsive Breakpoint Adaptations */
-        @media (max-width: 768px) {
-            .split-base-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                padding-top: 32px;
-            }
-
-            .primary-block {
-                padding-bottom: 32px;
-            }
-            
+        /* Seamless Mobile Adaptation */
+        @media (max-width: 600px) {
             body {
-                padding: 40px 20px;
+                padding: 40px 16px;
             }
 
             header {
                 margin-bottom: 40px;
             }
 
-            .footer-navigation-links {
+            .search-container {
+                margin-bottom: 50px;
+            }
+
+            .stream-directory {
+                gap: 40px;
+            }
+
+            .pill-flow {
+                gap: 8px;
+            }
+
+            .pill-flow a {
+                padding: 9px 18px;
+                font-size: 14px;
+            }
+
+            .footer-links-row {
                 gap: 16px 20px;
             }
         }
@@ -242,14 +247,14 @@
 </head>
 <body>
 
-    <!-- Header Block Area -->
+    <!-- Header Block Component -->
     <header>
         <a href="#" class="logo">sathya.</a>
         <div class="toggle-icon">↔</div>
     </header>
 
     <main>
-        <!-- Sleek Minimalist Search Bar Component -->
+        <!-- Centered Clean Search Module -->
         <div class="search-container">
             <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -257,59 +262,54 @@
             <input type="text" class="search-bar" placeholder="Search...">
         </div>
 
-        <!-- Asymmetric Workspace Directory Layout Base -->
-        <div class="workspace-hub">
-            
-            <!-- Full-Width Dominant Header Section: UPSC (Breaks the subscription box layout entirely) -->
-            <div class="primary-block">
-                <h2 class="section-label">Upsc</h2>
-                <div class="fluid-pill-row">
-                    <a href="#" class="pill-link">Subjects</a>
-                    <a href="#" class="pill-link">Current affairs</a>
-                    <a href="#" class="pill-link">Ncert's</a>
-                    <a href="#" class="pill-link">Csat</a>
-                    <a href="#" class="pill-link">Notes</a>
-                </div>
+        <!-- Master Stream Feed Directory Base -->
+        <div class="stream-directory">
+
+            <!-- Stream Section: UPSC -->
+            <div class="stream-section">
+                <h2 class="stream-title">Upsc</h2>
+                <ul class="pill-flow">
+                    <li><a href="#">Subjects</a></li>
+                    <li><a href="#">Current affairs</a></li>
+                    <li><a href="#">Ncert's</a></li>
+                    <li><a href="#">Csat</a></li>
+                    <li><a href="#">Notes</a></li>
+                </ul>
             </div>
 
-            <!-- Balanced Base Split Panel for Personal/Utility Tracking Lists -->
-            <div class="split-base-grid">
-                
-                <!-- Secondary Column Block: PLANNING -->
-                <div class="column-pane">
-                    <h2 class="section-label">Planning</h2>
-                    <ul class="vertical-pill-stack">
-                        <li><a href="#" class="pill-link">Travel planner</a></li>
-                        <li><a href="#" class="pill-link">Simple budget</a></li>
-                        <li><a href="#" class="pill-link">Task List</a></li>
-                    </ul>
-                </div>
+            <!-- Stream Section: PLANNING -->
+            <div class="stream-section">
+                <h2 class="stream-title">Planning</h2>
+                <ul class="pill-flow">
+                    <li><a href="#">Travel planner</a></li>
+                    <li><a href="#">Simple budget</a></li>
+                    <li><a href="#">Task List</a></li>
+                </ul>
+            </div>
 
-                <!-- Secondary Column Block: GROWTH -->
-                <div class="column-pane">
-                    <h2 class="section-label">Growth</h2>
-                    <ul class="vertical-pill-stack">
-                        <li><a href="#" class="pill-link">Goals</a></li>
-                        <li><a href="#" class="pill-link">Habit tracker</a></li>
-                        <li><a href="#" class="pill-link">Weekly plan</a></li>
-                    </ul>
-                </div>
-
+            <!-- Stream Section: GROWTH -->
+            <div class="stream-section">
+                <h2 class="stream-title">Growth</h2>
+                <ul class="pill-flow">
+                    <li><a href="#">Goals</a></li>
+                    <li><a href="#">Habit tracker</a></li>
+                    <li><a href="#">Weekly plan</a></li>
+                </ul>
             </div>
 
         </div>
     </main>
 
-    <!-- Platform Base Footer -->
+    <!-- Grounded Flat Footer Area -->
     <footer>
-        <div class="footer-navigation-links">
+        <div class="footer-links-row">
             <a href="#">About</a>
             <a href="#">Contact</a>
             <a href="#">Privacy Policy</a>
             <a href="#">Terms & Conditions</a>
             <a href="#">Disclaimer</a>
         </div>
-        <div class="copyright-notice-tag">
+        <div class="copyright-tag">
             &copy; 2026 Sathya. All rights reserved.
         </div>
     </footer>
