@@ -108,23 +108,50 @@
             transition: color 0.6s var(--ease-premium);
         }
 
-        /* Classy Micro-Interactive Switch */
-        .toggle-icon {
-            font-size: 24px;
-            color: var(--text-main);
+        /* High-End Vector Morphing Switch Container */
+        .theme-toggle {
+            width: 28px;
+            height: 28px;
+            position: relative;
             cursor: pointer;
             user-select: none;
-            display: inline-block;
-            transition: transform 0.6s var(--ease-premium), color 0.6s var(--ease-premium), opacity 0.3s var(--ease-premium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .toggle-icon:hover {
-            opacity: 0.6;
+        .theme-toggle svg {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--text-main);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.6s var(--ease-premium), opacity 0.6s var(--ease-premium), stroke 0.6s var(--ease-premium);
         }
 
-        /* Soft visual spin animation when toggled */
-        body.light-mode .toggle-icon {
-            transform: rotate(180deg);
+        /* Dark Mode Default State: Moon Visible, Sun Hidden/Spun */
+        .theme-toggle .sun-icon {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.4);
+        }
+
+        .theme-toggle .moon-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        /* Light Mode Active State: Sun Visible, Moon Hidden/Spun */
+        body.light-mode .theme-toggle .sun-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        body.light-mode .theme-toggle .moon-icon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.4);
         }
 
         /* Centered Search Input Pill */
@@ -150,7 +177,7 @@
 
         .search-bar:focus {
             border-color: #444444;
-            background-color: rgba(125,125,125,0.03);
+            background-color: rgba(125, 125, 125, 0.03);
         }
 
         body.light-mode .search-bar:focus {
@@ -179,7 +206,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 32px;
             margin-bottom: 80px;
-            align-items: stretch; /* Preserves pixel-perfect automatic height syncs */
+            align-items: stretch; /* Preserves automatic pixel-perfect height syncing */
         }
 
         /* Large Premium Capsule Panel Container */
@@ -188,7 +215,7 @@
             border: 1px solid var(--panel-border);
             border-radius: 28px;
             padding: 32px 8px 16px 8px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -253,7 +280,7 @@
 
         .document-list li:hover a {
             opacity: 1;
-            padding-left: 32px; /* Elegant textual glide adjustment */
+            padding-left: 32px; /* Smooth textual glide */
         }
 
         /* Flat Grounded Footer Row */
@@ -294,17 +321,17 @@
             transition: color 0.4s var(--ease-premium);
         }
 
-        /* Responsive Layout Matrix Handling for iPad and Mobile Viewports */
+        /* Responsive Layout Grid Handling for iPad and Mobile Viewports */
         @media (max-width: 1024px) {
             .matrix-canvas {
-                grid-template-columns: repeat(2, 1fr); /* Balanced multi-column layout for iPad orientation */
+                grid-template-columns: repeat(2, 1fr); /* Balanced multi-column tiling for iPad */
                 gap: 28px;
             }
         }
 
         @media (max-width: 700px) {
             .matrix-canvas {
-                grid-template-columns: 1fr; /* Pure single vertical grid for mobile display rules */
+                grid-template-columns: 1fr; /* Single vertical block stream for mobile layout profiles */
                 gap: 24px;
             }
 
@@ -324,12 +351,26 @@
 </head>
 <body>
 
+    <!-- Header Block -->
     <header>
         <a href="#" class="logo">sathya.</a>
-        <div class="toggle-icon" id="themeToggleBtn">↔</div>
+        
+        <!-- Premium Animated Toggle Controller Button -->
+        <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
+            <!-- Smooth SVG Sun Vector Element -->
+            <svg class="sun-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+            </svg>
+            <!-- Smooth SVG Moon Vector Element -->
+            <svg class="moon-icon" viewBox="0 0 24 24">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+        </div>
     </header>
 
     <main>
+        <!-- Search Bar -->
         <div class="search-container">
             <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -337,19 +378,22 @@
             <input type="text" class="search-bar" placeholder="Search...">
         </div>
 
+        <!-- Matrix Canvas Layout Container -->
         <div class="matrix-canvas">
 
+            <!-- Card 1: UPSC -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
-                    <li><a href="#">Subjects</a></li>
-                    <li><a href="#">Current affairs</a></li>
-                    <li><a href="#">Ncert's</a></li>
-                    <li><a href="#">Csat</a></li>
-                    <li><a href="#">Notes</a></li>
+                    <li><a href="#">QA Analysis Logs</a></li>
+                    <li><a href="#">Current Affairs Tracker</a></li>
+                    <li><a href="#">NCERT Database</a></li>
+                    <li><a href="#">CSAT Mock Modules</a></li>
+                    <li><a href="#">Static Core Revision</a></li>
                 </ul>
             </div>
 
+            <!-- Card 2: PLANNING -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Planning</h2>
                 <ul class="document-list">
@@ -359,6 +403,7 @@
                 </ul>
             </div>
 
+            <!-- Card 3: GROWTH -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Growth</h2>
                 <ul class="document-list">
@@ -368,6 +413,7 @@
                 </ul>
             </div>
 
+            <!-- Card 4: STUDIES -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Studies</h2>
                 <ul class="document-list">
@@ -377,6 +423,7 @@
                 </ul>
             </div>
 
+            <!-- Card 5: LIFE -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Life</h2>
                 <ul class="document-list">
@@ -386,6 +433,7 @@
                 </ul>
             </div>
 
+            <!-- Card 6: PHOTOGRAPHY -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Photography</h2>
                 <ul class="document-list">
@@ -398,6 +446,7 @@
         </div>
     </main>
 
+    <!-- Grounded Minimal Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="#">About</a>
@@ -411,25 +460,59 @@
         </div>
     </footer>
 
+    <!-- Smart Native Device Sync Engine Script -->
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
 
-        // 1. Check for manual user storage override, fallback to device hardware state
-        const savedUserTheme = localStorage.getItem('dashboard-theme');
-        const hardwarePrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        // Create media query handler for system hardware profile syncs
+        const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
 
-        if (savedUserTheme === 'light' || (!savedUserTheme && hardwarePrefersLight)) {
-            bodyElement.classList.add('light-mode');
+        function applyTargetPalette() {
+            const savedUserTheme = localStorage.getItem('dashboard-theme');
+            
+            if (savedUserTheme) {
+                // If a manual override is active in local storage blocks, respect it absolutely
+                if (savedUserTheme === 'light') {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
+            } else {
+                // Completely pure out-of-the-box sync tracking matching Windows, Mac, iPad, Android OS settings
+                if (systemLightQuery.matches) {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
+            }
         }
 
-        // 2. Buttery Smooth Interactive Tap Switch Listener
+        // Execute theme application checking natively on viewport loads
+        applyTargetPalette();
+
+        // Dynamically listen to continuous hardware setting changes (Sunset, Sunrise, Control Center toggles)
+        systemLightQuery.addEventListener('change', (e) => {
+            // Only force auto-palette sweeps if a user hasn't active manual storage locks assigned
+            if (!localStorage.getItem('dashboard-theme')) {
+                if (e.matches) {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
+            }
+        });
+
+        // Buttery Smooth Interactive Manual Morph Listener Click Event
         toggleBtn.addEventListener('click', () => {
-            bodyElement.classList.toggle('light-mode');
-            
-            // Persist preference to memory blocks to stay uniform across future reloads
-            const outputThemeSetting = bodyElement.classList.contains('light-mode') ? 'light' : 'dark';
-            localStorage.setItem('dashboard-theme', outputThemeSetting);
+            const isCurrentlyLight = bodyElement.classList.contains('light-mode');
+            if (isCurrentlyLight) {
+                bodyElement.classList.remove('light-mode');
+                localStorage.setItem('dashboard-theme', 'dark');
+            } else {
+                bodyElement.classList.add('light-mode');
+                localStorage.setItem('dashboard-theme', 'light');
+            }
         });
     </script>
 </body>
