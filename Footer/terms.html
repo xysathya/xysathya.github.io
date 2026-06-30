@@ -353,6 +353,17 @@
             margin-bottom: 0;
         }
 
+        /* FIXED: Added sub-heading style rules to clone main title characteristics flawlessly */
+        .prose-text h2 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.4px;
+            color: var(--text-main);
+            margin-top: 36px;
+            margin-bottom: 24px; /* Locked full-line bottom breathing gap */
+            transition: color 0.6s var(--ease-premium);
+        }
+
         /* Flat Grounded Footer Row */
         footer {
             display: flex;
@@ -433,6 +444,11 @@
                 font-size: 15px;
                 line-height: 1.7;
             }
+            .prose-text h2 {
+                font-size: 20px;
+                margin-top: 28px;
+                margin-bottom: 16px;
+            }
         }
     </style>
 </head>
@@ -482,15 +498,14 @@
         <div class="capsule-panel">
             <h1 class="panel-title">Terms & Conditions</h1>
             <div class="prose-text">
-               <p>By using this website, you agree to these Terms & Conditions.</p>
-<p>The content on this website is provided for educational and informational purposes only.</p>
-
-<!-- Extra Copyright Protection Section -->
-<h1>Intellectual Property Rights</h1>
+                <p>By using this website, you agree to these Terms & Conditions.</p>
+                <p>The content on this website is provided for educational and informational purposes only.</p>
                 
-<p>Unless otherwise stated, all material, study notes, tables, and resources published on sathya. are the intellectual property of the website owner. You may read and use the content for your personal learning. You may not copy, republish, reproduce, or distribute this content on other websites or platforms without explicit written permission.</p>
-
-<p>These Terms & Conditions may be updated at any time without prior notice.</p>
+                <!-- Matching Sub-Heading Placement -->
+                <h2>Intellectual Property Rights</h2>
+                
+                <p>Unless otherwise stated, all material, study notes, tables, and resources published on sathya. are the intellectual property of the website owner. You may read and use the content for your personal learning. You may not copy, republish, reproduce, or distribute this content on other websites or platforms without explicit written permission.</p>
+                <p>These Terms & Conditions may be updated at any time without prior notice.</p>
             </div>
         </div>
     </main>
