@@ -79,15 +79,15 @@
             }
         }
 
-        /* Staggered Load Engine */
-        header, .matrix-canvas, footer {
+        /* Staggered Load Engine - FIXED: Base properties now target individual panels properly */
+        header, .capsule-panel, footer {
             opacity: 0;
             animation: masterEntrance 1.2s var(--ease-premium) forwards;
         }
 
         header { animation-delay: 0.04s; }
         
-        /* Direct card-by-card staggered wave opening sequence */
+        /* Direct card-by-card staggered wave opening sequence restored */
         .capsule-panel:nth-child(1) { animation-delay: 0.14s; }
         .capsule-panel:nth-child(2) { animation-delay: 0.20s; }
         .capsule-panel:nth-child(3) { animation-delay: 0.26s; }
@@ -185,8 +185,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;  /* Exact layout width match */
-            height: 32px; /* Exact layout height match */
+            width: 32px;  
+            height: 32px; 
             padding: 0;
             flex-shrink: 0;
             transition: opacity 0.2s var(--ease-premium), color 0.6s var(--ease-premium);
@@ -241,7 +241,7 @@
 
         /* High-End Vector Theme Switch Container with Permanent Laptop GPU Lock */
         .theme-toggle {
-            width: 32px;  /* Fits standard grid alignment specs */
+            width: 32px;  
             height: 32px; 
             position: relative;
             cursor: pointer;
