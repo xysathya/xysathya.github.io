@@ -17,7 +17,7 @@
             --row-divider: #1c1c1c;
             --row-hover: rgba(255, 255, 255, 0.015);
             --font-family: 'Poppins', sans-serif;
-            --ease-premium: cubic-bezier(0.16, 1, 0.3, 1); /* Elite deceleration profile */
+            --ease-premium: cubic-bezier(0.16, 1, 0.3, 1); /* Ultra-classy deceleration curve */
         }
 
         * {
@@ -42,7 +42,7 @@
             overflow-x: hidden;
         }
 
-        /* Classy Entry Physics Keyframe Vector */
+        /* Pure Opening Animation Keyframes */
         @keyframes masterEntrance {
             from {
                 opacity: 0;
@@ -54,20 +54,26 @@
             }
         }
 
-        /* 100/100 Staggered Liquid Cascade Delays */
-        header, .search-container, .grid-col, footer {
+        /* Classy Staggered Load Engine targeting elements directly */
+        header, .search-container, .capsule-panel, footer {
             opacity: 0;
             animation: masterEntrance 1.2s var(--ease-premium) forwards;
         }
 
         header { animation-delay: 0.04s; }
         .search-container { animation-delay: 0.12s; }
-        .col-1 { animation-delay: 0.20s; }
-        .col-2 { animation-delay: 0.28s; }
-        .col-3 { animation-delay: 0.36s; }
-        footer { animation-delay: 0.44s; }
+        
+        /* Direct card-by-card staggered opening animation sequence */
+        .capsule-panel:nth-child(1) { animation-delay: 0.20s; }
+        .capsule-panel:nth-child(2) { animation-delay: 0.26s; }
+        .capsule-panel:nth-child(3) { animation-delay: 0.32s; }
+        .capsule-panel:nth-child(4) { animation-delay: 0.38s; }
+        .capsule-panel:nth-child(5) { animation-delay: 0.44s; }
+        .capsule-panel:nth-child(6) { animation-delay: 0.50s; }
+        
+        footer { animation-delay: 0.58s; }
 
-        /* Top Navigation Header Bar */
+        /* Top Header Navigation */
         header {
             display: flex;
             justify-content: space-between;
@@ -95,7 +101,7 @@
             opacity: 0.6;
         }
 
-        /* Centered Search Pill Component */
+        /* Centered Search Input Pill */
         .search-container {
             width: 100%;
             max-width: 480px;
@@ -136,23 +142,16 @@
             pointer-events: none;
         }
 
-        /* Premium 3-Column Workspace Matrix Grid */
+        /* Symmetrical Direct Child Matrix Canvas */
         .matrix-canvas {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 32px;
             margin-bottom: 80px;
-            align-items: start;
+            align-items: stretch; /* Forces cards in the same row to match height perfectly */
         }
 
-        /* Vertical Stack Layer inside each Column */
-        .grid-col {
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-        }
-
-        /* Large Capsule Container Panel */
+        /* Large Premium Capsule Panel */
         .capsule-panel {
             background-color: var(--panel-bg);
             border: 1px solid var(--panel-border);
@@ -160,6 +159,9 @@
             padding: 32px 8px 16px 8px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             transition: border-color 0.4s var(--ease-premium);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .capsule-panel:hover {
@@ -175,7 +177,7 @@
             padding: 0 24px;
         }
 
-        /* Flat Reference Data Rows */
+        /* Flat Structured Rows */
         .document-list {
             list-style: none;
             display: flex;
@@ -202,17 +204,17 @@
             -webkit-tap-highlight-color: transparent !important;
         }
 
-        /* Quiet Silent Row Hover Interactions */
+        /* Buttery Smooth Silent Row Transition Engine */
         .document-list li:hover {
             background-color: var(--row-hover);
         }
 
         .document-list li:hover a {
             color: #ffffff;
-            padding-left: 32px; /* Smooth, micro-glide text displacement */
+            padding-left: 32px; /* Smooth textual glide */
         }
 
-        /* Grounded Borderless Base Footer Line */
+        /* Flat Grounded Footer Row */
         footer {
             display: flex;
             flex-direction: column;
@@ -248,17 +250,17 @@
             letter-spacing: 0.2px;
         }
 
-        /* Symmetrical Fluid Media Adaptation */
-        @media (max-width: 1000px) {
+        /* Responsive Layout Grid Handling for iPad and Mobile */
+        @media (max-width: 1024px) {
             .matrix-canvas {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr); /* Clean 2-column tile layout for iPad */
                 gap: 28px;
             }
         }
 
         @media (max-width: 700px) {
             .matrix-canvas {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Clean single column stack for phone viewports */
                 gap: 24px;
             }
 
@@ -278,14 +280,14 @@
 </head>
 <body>
 
-    <!-- Platform Header Navigation Block -->
+    <!-- Header Block -->
     <header>
         <a href="#" class="logo">sathya.</a>
         <div class="toggle-icon">↔</div>
     </header>
 
     <main>
-        <!-- Clean Centered Search Input Component -->
+        <!-- Search Bar -->
         <div class="search-container">
             <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -293,84 +295,75 @@
             <input type="text" class="search-bar" placeholder="Search...">
         </div>
 
-        <!-- Master Matrix Canvas Layout -->
+        <!-- Unified Direct Matrix Canvas Layout -->
         <div class="matrix-canvas">
 
-            <!-- MATRIX COLUMN 1: Academic Focus Blocks -->
-            <div class="grid-col col-1">
-                <!-- Capsule Panel: UPSC -->
-                <div class="capsule-panel">
-                    <h2 class="panel-title">Upsc</h2>
-                    <ul class="document-list">
-                        <li><a href="#">Subjects</a></li>
-                        <li><a href="#">Current affairs</a></li>
-                        <li><a href="#">Ncert's</a></li>
-                        <li><a href="#">Csat</a></li>
-                        <li><a href="#">Notes</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Capsule Panel: STUDIES -->
-                <div class="capsule-panel">
-                    <h2 class="panel-title">Studies</h2>
-                    <ul class="document-list">
-                        <li><a href="#">Syllabus Hub</a></li>
-                        <li><a href="#">Revision Logs</a></li>
-                        <li><a href="#">Exam Tracking</a></li>
-                    </ul>
-                </div>
+            <!-- Card 1: UPSC -->
+            <div class="capsule-panel">
+                <h2 class="panel-title">Upsc</h2>
+                <ul class="document-list">
+                    <li><a href="#">Subjects</a></li>
+                    <li><a href="#">Current affairs</a></li>
+                    <li><a href="#">Ncert's</a></li>
+                    <li><a href="#">Csat</a></li>
+                    <li><a href="#">Notes</a></li>
+                </ul>
             </div>
 
-            <!-- MATRIX COLUMN 2: Operational Systems Blocks -->
-            <div class="grid-col col-2">
-                <!-- Capsule Panel: PLANNING -->
-                <div class="capsule-panel">
-                    <h2 class="panel-title">Planning</h2>
-                    <ul class="document-list">
-                        <li><a href="#">Travel planner</a></li>
-                        <li><a href="#">Simple budget</a></li>
-                        <li><a href="#">Task List</a></li>
-                    </ul>
-                </div>
-
-                <!-- Capsule Panel: LIFE -->
-                <div class="capsule-panel">
-                    <h2 class="panel-title">Life</h2>
-                    <ul class="document-list">
-                        <li><a href="#">Daily Routine</a></li>
-                        <li><a href="#">Digital Journal</a></li>
-                        <li><a href="#">Health Ledger</a></li>
-                    </ul>
-                </div>
+            <!-- Card 2: PLANNING -->
+            <div class="capsule-panel">
+                <h2 class="panel-title">Planning</h2>
+                <ul class="document-list">
+                    <li><a href="#">Travel planner</a></li>
+                    <li><a href="#">Simple budget</a></li>
+                    <li><a href="#">Task List</a></li>
+                </ul>
             </div>
 
-            <!-- MATRIX COLUMN 3: Self-Actualization & Production Blocks -->
-            <div class="grid-col col-3">
-                <!-- Capsule Panel: GROWTH -->
-                <div class="capsule-panel">
-                    <h2 class="panel-title">Growth</h2>
-                    <ul class="document-list">
-                        <li><a href="#">Goals</a></li>
-                        <li><a href="#">Habit tracker</a></li>
-                        <li><a href="#">Weekly plan</a></li>
-                    </ul>
-                </div>
+            <!-- Card 3: GROWTH -->
+            <div class="capsule-panel">
+                <h2 class="panel-title">Growth</h2>
+                <ul class="document-list">
+                    <li><a href="#">Goals</a></li>
+                    <li><a href="#">Habit tracker</a></li>
+                    <li><a href="#">Weekly plan</a></li>
+                </ul>
+            </div>
 
-                <!-- Capsule Panel: PHOTOGRAPHY -->
-                <div class="capsule-panel">
-                    <h2 class="panel-title">Photography</h2>
-                    <ul class="document-list">
-                        <li><a href="#">Visual Gallery</a></li>
-                        <li><a href="#">Gear Setup</a></li>
-                        <li><a href="#">Media Archives</a></li>
-                    </ul>
-                </div>
+            <!-- Card 4: STUDIES -->
+            <div class="capsule-panel">
+                <h2 class="panel-title">Studies</h2>
+                <ul class="document-list">
+                    <li><a href="#">Syllabus Hub</a></li>
+                    <li><a href="#">Revision Logs</a></li>
+                    <li><a href="#">Exam Tracking</a></li>
+                </ul>
+            </div>
+
+            <!-- Card 5: LIFE -->
+            <div class="capsule-panel">
+                <h2 class="panel-title">Life</h2>
+                <ul class="document-list">
+                    <li><a href="#">Daily Routine</a></li>
+                    <li><a href="#">Digital Journal</a></li>
+                    <li><a href="#">Health Ledger</a></li>
+                </ul>
+            </div>
+
+            <!-- Card 6: PHOTOGRAPHY -->
+            <div class="capsule-panel">
+                <h2 class="panel-title">Photography</h2>
+                <ul class="document-list">
+                    <li><a href="#">Visual Gallery</a></li>
+                    <li><a href="#">Gear Setup</a></li>
+                    <li><a href="#">Media Archives</a></li>
+                </ul>
             </div>
 
         </div>
     </main>
 
-    <!-- Base Flat Footer Area -->
+    <!-- Grounded Minimal Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="#">About</a>
