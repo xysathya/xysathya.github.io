@@ -10,15 +10,13 @@
     <style>
         :root {
             --bg-color: #0b0b0b;
-            --card-bg: #121212;
-            --table-header: #1b4740;
-            --table-header-hover: #1d5b51;
-            --accent-color: #257a6c;
+            --pill-bg: rgba(255, 255, 255, 0.04);
+            --pill-border: rgba(255, 255, 255, 0.07);
+            --pill-hover-bg: rgba(255, 255, 255, 0.08);
+            --pill-hover-border: rgba(255, 255, 255, 0.15);
             --text-main: #ffffff;
-            --text-muted: #a0aec0;
-            --border-color: #333333;
-            --row-even: #111111;
-            --row-odd: #000000;
+            --text-muted: #777777;
+            --font-family: 'Poppins', sans-serif;
         }
 
         * {
@@ -30,25 +28,24 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
-            padding: 40px 24px;
-            margin: 0 auto;
-            width: 95%;
-            max-width: 1200px;
-            line-height: 1.6;
+            font-family: var(--font-family);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            padding: 50px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 95%;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Top Navigation Header */
+        /* Top Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
         .logo {
@@ -68,25 +65,25 @@
         }
 
         .toggle-icon:hover {
-            opacity: 0.8;
+            opacity: 0.7;
         }
 
-        /* Centered Search Module */
+        /* Search Box Bar */
         .search-container {
             width: 100%;
-            max-width: 520px;
-            margin: 0 auto 60px auto;
+            max-width: 480px;
+            margin: 0 auto 70px auto;
             position: relative;
         }
 
         .search-bar {
             width: 100%;
-            background-color: transparent;
-            border: 1px solid var(--border-color);
+            background-color: var(--pill-bg);
+            border: 1px solid var(--pill-border);
             border-radius: 50px;
             padding: 14px 24px 14px 52px;
             color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
+            font-family: var(--font-family);
             font-size: 15px;
             outline: none;
             transition: border-color 0.2s ease, background-color 0.2s ease;
@@ -94,11 +91,11 @@
 
         .search-bar:focus {
             border-color: #555555;
-            background-color: rgba(255, 255, 255, 0.01);
+            background-color: rgba(255, 255, 255, 0.02);
         }
 
         .search-bar::placeholder {
-            color: #666666;
+            color: #555555;
         }
 
         .search-icon {
@@ -106,92 +103,66 @@
             left: 22px;
             top: 50%;
             transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-            color: #666666;
+            width: 15px;
+            height: 15px;
+            color: #555555;
             pointer-events: none;
         }
 
-        /* Master Dashboard Card - Matching ramsarsites.html */
-        .dashboard-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Grid Layout for Directory Sections */
+        /* Directories Layout Grid */
         .directory-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            align-items: start;
+            gap: 40px;
+            margin-bottom: 80px;
         }
 
-        /* Module Panels stylized exactly like the table elements */
-        .module-panel {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: var(--bg-color);
-        }
-
-        .module-header {
-            background-color: var(--table-header);
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            padding: 14px 18px;
-            border-bottom: 1px solid var(--border-color);
-            letter-spacing: -0.2px;
-        }
-
-        .module-list {
-            list-style: none;
+        .group-container {
             display: flex;
             flex-direction: column;
         }
 
-        .module-list li {
-            border-bottom: 1px solid var(--border-color);
-            transition: background-color 0.2s ease;
+        .group-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding-left: 4px;
         }
 
-        .module-list li:last-child {
-            border-bottom: none;
+        /* Elegant Pill List Layout */
+        .pills-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        /* Alternating row colors matching the table data rows */
-        .module-list li:nth-child(even) {
-            background-color: var(--row-even);
-        }
-
-        .module-list li:nth-child(odd) {
-            background-color: var(--row-odd);
-        }
-
-        /* Soft teal hover row effect from the note engine */
-        .module-list li:hover {
-            background-color: rgba(37, 122, 108, 0.12) !important;
-        }
-
-        .module-list a {
+        .pills-list a {
             display: block;
-            padding: 14px 18px;
+            background-color: var(--pill-bg);
+            border: 1px solid var(--pill-border);
+            border-radius: 30px;
+            padding: 11px 20px;
             color: var(--text-main);
             text-decoration: none !important;
             font-size: 14.5px;
             font-weight: 400;
-            transition: color 0.2s ease;
+            transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-tap-highlight-color: transparent !important;
         }
 
-        .module-list a:hover {
-            color: #ffffff;
+        /* Sleek premium hover mechanics without changing color strings or underlines */
+        .pills-list a:hover, .pills-list a:active {
+            background-color: var(--pill-hover-bg);
+            border-color: var(--pill-hover-border);
+            color: var(--text-main) !important;
+            text-decoration: none !important;
         }
 
-        /* Footer Stack & Navigation Bar matching ramsarsites.html aesthetics */
+        /* Grounded Flat Footer Layout */
         footer {
             display: flex;
             flex-direction: column;
@@ -200,84 +171,83 @@
             width: 100%;
         }
 
-        .footer-nav-bar {
-            width: 100%;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
+        .footer-pills-row {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 28px;
+            gap: 12px;
             flex-wrap: wrap;
+            width: 100%;
         }
 
-        .footer-nav-bar a {
-            color: var(--text-main);
+        .footer-pills-row a {
+            background-color: var(--pill-bg);
+            border: 1px solid var(--pill-border);
+            border-radius: 30px;
+            padding: 8px 18px;
+            color: #bbbbbb;
             text-decoration: none !important;
-            font-size: 14px;
-            font-weight: 400;
-            transition: color 0.2s ease;
+            font-size: 13.5px;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            -webkit-tap-highlight-color: transparent !important;
         }
 
-        .footer-nav-bar a:hover {
-            color: var(--text-muted);
+        .footer-pills-row a:hover {
+            background-color: var(--pill-hover-bg);
+            border-color: var(--pill-hover-border);
+            color: #ffffff;
         }
 
-        .copyright-notice {
-            color: #666666;
-            font-size: 13px;
-            font-weight: 400;
-            text-align: center;
-            letter-spacing: 0.1px;
+        .copyright {
+            color: #555555;
+            font-size: 12.5px;
+            letter-spacing: 0.3px;
         }
 
-        /* Premium Responsive Layout Adaptation */
-        @media (max-width: 950px) {
+        /* Clean Responsive Scalings */
+        @media (max-width: 850px) {
             .directory-grid {
                 grid-template-columns: 1fr;
-                gap: 28px;
+                gap: 36px;
             }
-            
-            .dashboard-card {
-                padding: 24px;
+
+            body {
+                padding: 30px 20px;
             }
 
             header {
-                margin-bottom: 35px;
+                margin-bottom: 40px;
             }
         }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 24px 16px;
-                width: 100%;
-            }
-
-            .footer-nav-bar {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-                padding: 20px 16px;
+        @media (max-width: 480px) {
+            .footer-pills-row {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
             
-            .logo {
-                font-size: 28px;
+            .footer-pills-row a {
+                text-align: center;
+                padding: 10px;
+            }
+
+            .footer-pills-row a:last-child {
+                grid-column: span 2;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Platform Header Area -->
+    <!-- Header Block -->
     <header>
         <a href="#" class="logo">sathya.</a>
         <div class="toggle-icon">↔</div>
     </header>
 
     <main>
-        <!-- Centered Platform Search Bar -->
+        <!-- Clean Pill Search -->
         <div class="search-container">
             <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -285,56 +255,54 @@
             <input type="text" class="search-bar" placeholder="Search...">
         </div>
 
-        <!-- Master Hub Directory Card (Symmetrical with note sheets) -->
-        <div class="dashboard-card">
-            <div class="directory-grid">
-                
-                <!-- Section Module: UPSC -->
-                <div class="module-panel">
-                    <div class="module-header">Upsc</div>
-                    <ul class="module-list">
-                        <li><a href="#">Subjects</a></li>
-                        <li><a href="#">Current affairs</a></li>
-                        <li><a href="#">Ncert's</a></li>
-                        <li><a href="#">Csat</a></li>
-                        <li><a href="#">Notes</a></li>
-                    </ul>
-                </div>
+        <!-- 3-Column Directory Grid -->
+        <div class="directory-grid">
 
-                <!-- Section Module: Planning -->
-                <div class="module-panel">
-                    <div class="module-header">Planning</div>
-                    <ul class="module-list">
-                        <li><a href="#">Travel planner</a></li>
-                        <li><a href="#">Simple budget</a></li>
-                        <li><a href="#">Task List</a></li>
-                    </ul>
-                </div>
-
-                <!-- Section Module: Growth -->
-                <div class="module-panel">
-                    <div class="module-header">Growth</div>
-                    <ul class="module-list">
-                        <li><a href="#">Goals</a></li>
-                        <li><a href="#">Habit tracker</a></li>
-                        <li><a href="#">Weekly plan</a></li>
-                    </ul>
-                </div>
-
+            <!-- Column Group: UPSC -->
+            <div class="group-container">
+                <h2 class="group-title">Upsc</h2>
+                <ul class="pills-list">
+                    <li><a href="#">Subjects</a></li>
+                    <li><a href="#">Current affairs</a></li>
+                    <li><a href="#">Ncert's</a></li>
+                    <li><a href="#">Csat</a></li>
+                    <li><a href="#">Notes</a></li>
+                </ul>
             </div>
+
+            <!-- Column Group: Planning -->
+            <div class="group-container">
+                <h2 class="group-title">Planning</h2>
+                <ul class="pills-list">
+                    <li><a href="#">Travel planner</a></li>
+                    <li><a href="#">Simple budget</a></li>
+                    <li><a href="#">Task List</a></li>
+                </ul>
+            </div>
+
+            <!-- Column Group: Growth -->
+            <div class="group-container">
+                <h2 class="group-title">Growth</h2>
+                <ul class="pills-list">
+                    <li><a href="#">Goals</a></li>
+                    <li><a href="#">Habit tracker</a></li>
+                    <li><a href="#">Weekly plan</a></li>
+                </ul>
+            </div>
+
         </div>
     </main>
 
-    <!-- Platform Footer Stack -->
+    <!-- Footer Block -->
     <footer>
-        <div class="footer-nav-bar">
+        <div class="footer-pills-row">
             <a href="#">About</a>
             <a href="#">Contact</a>
             <a href="#">Privacy Policy</a>
             <a href="#">Terms & Conditions</a>
             <a href="#">Disclaimer</a>
         </div>
-        <div class="copyright-notice">
+        <div class="copyright">
             &copy; 2026 Sathya. All rights reserved.
         </div>
     </footer>
