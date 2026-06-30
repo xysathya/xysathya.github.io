@@ -11,7 +11,7 @@
         :root {
             --bg-color: #0b0b0b;
             --text-main: #ffffff;
-            --text-muted: #666666;
+            --text-muted: #555555;
             --panel-bg: #121212;
             --panel-border: #222222;
             --row-divider: #1c1c1c;
@@ -63,7 +63,7 @@
             user-select: none;
         }
 
-        /* Centered Sleek Search Input */
+        /* Centered Search Input Pill */
         .search-container {
             width: 100%;
             max-width: 480px;
@@ -103,22 +103,29 @@
             pointer-events: none;
         }
 
-        /* Grand 3-Column Capsule Grid */
-        .directory-grid {
+        /* Asymmetric Layout Workspace Hub */
+        .workspace-layout {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1.2fr 1fr;
             gap: 32px;
             margin-bottom: 80px;
             align-items: start;
         }
 
-        /* Large Capsule Panel Containers (No individual word pills) */
+        /* Large Capsule Panel */
         .capsule-panel {
             background-color: var(--panel-bg);
             border: 1px solid var(--panel-border);
-            border-radius: 28px; /* Smooth elegant pill-style container corners */
-            padding: 32px 8px 16px 8px; /* Tight side margins for clean row expansions */
+            border-radius: 28px;
+            padding: 32px 8px 16px 8px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Stack container for the right side panels */
+        .panel-stack-side {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
         }
 
         .panel-title {
@@ -130,7 +137,7 @@
             padding: 0 24px;
         }
 
-        /* Flat Document List Stream */
+        /* Flat Structured Rows */
         .document-list {
             list-style: none;
             display: flex;
@@ -147,7 +154,7 @@
 
         .document-list a {
             display: block;
-            padding: 13px 24px;
+            padding: 14px 24px;
             color: #dddddd;
             text-decoration: none !important;
             font-size: 14.5px;
@@ -156,14 +163,14 @@
             -webkit-tap-highlight-color: transparent !important;
         }
 
-        /* Soft table-row highlight mimicry from your database engine */
+        /* Faint clean row transitions */
         .document-list li:hover {
             background-color: var(--row-hover);
         }
 
         .document-list li:hover a {
             color: #ffffff;
-            padding-left: 28px; /* Extremely subtle elegant glide movement */
+            padding-left: 30px; /* Elegant text glide transition */
         }
 
         /* Flat Grounded Footer Row */
@@ -202,9 +209,9 @@
             letter-spacing: 0.2px;
         }
 
-        /* Sharp Seamless Mobile Scale Overrides */
+        /* Responsive Fluid Adaptations */
         @media (max-width: 900px) {
-            .directory-grid {
+            .workspace-layout {
                 grid-template-columns: 1fr;
                 gap: 24px;
             }
@@ -228,7 +235,7 @@
     </header>
 
     <main>
-        <!-- Pill Search Bar Components -->
+        <!-- Search Bar -->
         <div class="search-container">
             <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -236,10 +243,10 @@
             <input type="text" class="search-bar" placeholder="Search...">
         </div>
 
-        <!-- Main Workspace Grid -->
-        <div class="directory-grid">
+        <!-- Asymmetric Workspace Layout -->
+        <div class="workspace-layout">
 
-            <!-- Capsule Panel: UPSC -->
+            <!-- Primary Left Side: UPSC (Dominant panel for heavy academic directory) -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
@@ -251,30 +258,35 @@
                 </ul>
             </div>
 
-            <!-- Capsule Panel: PLANNING -->
-            <div class="capsule-panel">
-                <h2 class="panel-title">Planning</h2>
-                <ul class="document-list">
-                    <li><a href="#">Travel planner</a></li>
-                    <li><a href="#">Simple budget</a></li>
-                    <li><a href="#">Task List</a></li>
-                </ul>
-            </div>
+            <!-- Secondary Right Side Stack: Personal Management & Tracking -->
+            <div class="panel-stack-side">
+                
+                <!-- Capsule Panel: PLANNING -->
+                <div class="capsule-panel">
+                    <h2 class="panel-title">Planning</h2>
+                    <ul class="document-list">
+                        <li><a href="#">Travel planner</a></li>
+                        <li><a href="#">Simple budget</a></li>
+                        <li><a href="#">Task List</a></li>
+                    </ul>
+                </div>
 
-            <!-- Capsule Panel: GROWTH -->
-            <div class="capsule-panel">
-                <h2 class="panel-title">Growth</h2>
-                <ul class="document-list">
-                    <li><a href="#">Goals</a></li>
-                    <li><a href="#">Habit tracker</a></li>
-                    <li><a href="#">Weekly plan</a></li>
-                </ul>
+                <!-- Capsule Panel: GROWTH -->
+                <div class="capsule-panel">
+                    <h2 class="panel-title">Growth</h2>
+                    <ul class="document-list">
+                        <li><a href="#">Goals</a></li>
+                        <li><a href="#">Habit tracker</a></li>
+                        <li><a href="#">Weekly plan</a></li>
+                    </ul>
+                </div>
+
             </div>
 
         </div>
     </main>
 
-    <!-- Grounded Footer Base Line -->
+    <!-- Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="#">About</a>
