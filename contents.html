@@ -4,126 +4,509 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contents - sathya.</title>
-    <!-- Link your existing global stylesheet here to keep the master look -->
-    <link rel="stylesheet" href="style.css"> 
+
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5VGX2K64Y4');
+    </script>
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* CSS to support the wide capsule, internal sub-headings, and breathing space chips */
-        .contents-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: flex;
-            column-gap: 0px;
-            flex-direction: column;
-            row-gap: 32px; /* Generous breathing space between full-width capsules */
+        /* Modern Theme Token System (Mirrored from index.html) */
+        :root {
+            --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+            
+            --bg-color: #0b0b0b;
+            --text-main: #ffffff;
+            --text-muted: #555555;
+            --panel-bg: #121212;
+            --panel-border: #222222;
+            --row-divider: #1c1c1c;
+            --row-hover: rgba(255, 255, 255, 0.015);
+
+            --header-bg: #131815;
+            --header-border: #222c26;
+            
+            /* Subject Content Layout Variables */
+            --chip-bg: #161616;
+            --chip-border: #262626;
+            --chip-hover: #1f2421;
         }
 
-        .page-header-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #ffffff;
+        body.light-mode {
+            --bg-color: #f5f5f7;
+            --text-main: #111111;
+            --text-muted: #a1a1a6;
+            --panel-bg: #ffffff;
+            --panel-border: #e2e2e7;
+            --row-divider: #f2f2f7;
+            --row-hover: rgba(0, 0, 0, 0.01);
+
+            --header-bg: #e9ebe6;
+            --header-border: #d4d8cf;
+            
+            --chip-bg: #f0f0f4;
+            --chip-border: #e2e2e7;
+            --chip-hover: #e9ebe6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 95%;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            transition: background-color 0.6s var(--ease-premium), color 0.6s var(--ease-premium);
+        }
+
+        @keyframes masterEntrance {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 24px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        /* Staggered Load Animation Configuration */
+        header, .page-main-heading, .wide-capsule, footer {
+            opacity: 1;
+            will-change: transform, opacity;
+            animation: masterEntrance 1.2s var(--ease-premium) backwards;
+        }
+
+        header { animation-delay: 0.04s; }
+        .page-main-heading { animation-delay: 0.10s; }
+        
+        /* 13-Subject Staggered Animation Cascade Matrix */
+        .wide-capsule:nth-child(1) { animation-delay: 0.14s; }
+        .wide-capsule:nth-child(2) { animation-delay: 0.18s; }
+        .wide-capsule:nth-child(3) { animation-delay: 0.22s; }
+        .wide-capsule:nth-child(4) { animation-delay: 0.26s; }
+        .wide-capsule:nth-child(5) { animation-delay: 0.30s; }
+        .wide-capsule:nth-child(6) { animation-delay: 0.34s; }
+        .wide-capsule:nth-child(7) { animation-delay: 0.38s; }
+        .wide-capsule:nth-child(8) { animation-delay: 0.42s; }
+        .wide-capsule:nth-child(9) { animation-delay: 0.46s; }
+        .wide-capsule:nth-child(10) { animation-delay: 0.50s; }
+        .wide-capsule:nth-child(11) { animation-delay: 0.54s; }
+        .wide-capsule:nth-child(12) { animation-delay: 0.58s; }
+        .wide-capsule:nth-child(13) { animation-delay: 0.62s; }
+        
+        footer { animation-delay: 0.70s; }
+
+        /* Top Header Navigation Layout Block */
+        header {
+            position: relative;
+            background-color: var(--header-bg);
+            border: 1px solid var(--header-border);
+            border-radius: 50px;
+            width: 100%; 
+            height: 72px; 
+            margin: 0 auto 60px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            overflow: hidden; 
+            transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
+        }
+
+        body:not(.light-mode) header {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-inner-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px; 
+            will-change: opacity, transform;
+            transition: opacity 0.45s var(--ease-premium), transform 0.45s var(--ease-premium);
+        }
+
+        #headerMainView {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        header.search-active #headerMainView {
+            opacity: 0;
+            transform: translateY(-10px); 
+            pointer-events: none;
+        }
+
+        #headerSearchView {
+            opacity: 0;
+            transform: translateY(10px); 
+            pointer-events: none;
+        }
+        header.search-active #headerSearchView {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .header-right-cluster, .search-control-cluster {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-shrink: 0; 
+            height: 100%;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none !important;
+            transition: color 0.6s var(--ease-premium);
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .ctrl-btn {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;  
+            height: 32px; 
+            padding: 0;
+            flex-shrink: 0;
+            transition: opacity 0.2s var(--ease-premium), color 0.6s var(--ease-premium);
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .ctrl-btn:hover { opacity: 0.6; }
+
+        .ctrl-btn svg, .search-static-icon {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--text-main);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke 0.6s var(--ease-premium);
+        }
+
+        .search-static-icon {
+            opacity: 0.4;
+            flex-shrink: 0; 
+        }
+
+        .search-core-input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            padding: 0 16px;
+            width: 100%;
+            min-width: 0; 
+            transition: color 0.6s var(--ease-premium);
+        }
+
+        .clear-text-btn svg { opacity: 0.4; }
+        .close-search-btn svg { opacity: 0.7; }
+
+        .theme-toggle {
+            width: 32px;  
+            height: 32px; 
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .theme-toggle svg {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--text-main);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform-origin: center center;
+            will-change: transform, opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: transform 0.6s var(--ease-premium), opacity 0.6s var(--ease-premium), stroke 0.6s var(--ease-premium);
+        }
+
+        .theme-toggle .sun-icon {
+            opacity: 0;
+            transform: translate3d(0, 0, 0) rotate(-90deg) scale(0.4);
+        }
+        .theme-toggle .moon-icon {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+        }
+
+        body.light-mode .theme-toggle .sun-icon {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+        }
+        body.light-mode .theme-toggle .moon-icon {
+            opacity: 0;
+            transform: translate3d(0, 0, 0) rotate(90deg) scale(0.4);
+        }
+
+        /* Wide Stack Content Architecture Engine */
+        .contents-container {
+            display: flex;
+            flex-direction: column;
+            gap: 32px; /* Generous breathing space layout */
+            margin-bottom: 80px;
+            width: 100%;
+        }
+
+        .page-main-heading {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
             margin-bottom: 8px;
-            opacity: 0.9;
+            padding-left: 8px;
+            transition: color 0.6s var(--ease-premium);
         }
 
         .wide-capsule {
-            width: 100%;
-            background-color: #111111; /* Matches your premium dark panel card color */
-            border: 1px solid #222222;
-            border-radius: 24px;
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 28px;
             padding: 32px;
-            box-sizing: border-box;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            transition: border-color 0.5s var(--ease-premium), background-color 0.5s var(--ease-premium), transform 0.5s var(--ease-premium);
         }
 
-        .wide-capsule-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #222222;
-            padding-bottom: 12px;
+        body:not(.light-mode) .wide-capsule {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        /* Sub-heading styles for History & Geography splits */
-        .capsule-sub-title {
-            font-size: 1.1rem;
+        .wide-capsule:hover {
+            border-color: #1E1E1E;
+            transform: scale(1.005);
+        }
+        body.light-mode .wide-capsule:hover {
+            border-color: #b8b8bc;
+        }
+
+        .wide-panel-title {
+            font-size: 20px;
             font-weight: 600;
-            color: #8a9a86; /* Clean, subtle accent tone */
-            margin: 20px 0 12px 0;
+            letter-spacing: -0.3px;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            transition: color 0.6s var(--ease-premium);
+        }
+
+        /* Dual Section Content Divider Rules */
+        .sub-section-title {
+            font-size: 13px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin: 16px 0 16px 4px;
+            transition: color 0.6s var(--ease-premium);
+        }
+        .wide-capsule :first-child + .sub-section-title {
+            margin-top: 0px;
         }
 
-        /* The inline side-by-side topics framework */
-        .topics-flex-grid {
+        /* Inline Horizontal Spacing Matrix */
+        .topics-flex-row {
             display: flex;
             flex-wrap: wrap;
             gap: 12px 16px; /* Generous vertical and horizontal breathing space */
-            margin-bottom: 16px;
+            margin-bottom: 8px;
+        }
+        .topics-flex-row:last-child {
+            margin-bottom: 0px;
         }
 
         .topic-chip {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #1a1a1a;
-            border: 1px solid #2a2a2a;
-            border-radius: 14px;
-            color: #cccccc;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.2s ease;
+            display: block;
+            padding: 12px 24px;
+            background-color: var(--chip-bg);
+            border: 1px solid var(--chip-border);
+            border-radius: 16px;
+            color: var(--text-main);
+            opacity: 0.85;
+            text-decoration: none !important;
+            font-size: 14.5px;
+            font-weight: 400;
+            transition: color 0.4s var(--ease-premium), background-color 0.4s var(--ease-premium), border-color 0.4s var(--ease-premium), transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
+            -webkit-tap-highlight-color: transparent !important;
         }
 
         .topic-chip:hover {
-            background-color: #222222;
-            color: #ffffff;
-            border-color: #444444;
-            transform: translateY(-1px);
+            opacity: 1;
+            background-color: var(--chip-hover);
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
         }
 
-        /* Entrance Animations mimicking homepage style */
-        .animate-fade-up {
-            animation: fadeUp 0.6s ease forwards;
-            opacity: 0;
-            transform: translateY(20px);
+        /* Footer Layout Vector Shell */
+        footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            width: 100%;
         }
 
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .footer-links-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .footer-links-row a {
+            color: var(--text-muted);
+            text-decoration: none !important;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.4s var(--ease-premium);
+        }
+
+        .footer-links-row a:hover {
+            color: var(--text-main);
+        }
+
+        .copyright-tag {
+            color: var(--text-muted);
+            opacity: 0.6;
+            font-size: 12.5px;
+            letter-spacing: 0.2px;
+            transition: color 0.4s var(--ease-premium);
+        }
+
+        /* Mobile Media Configurations */
+        @media (max-width: 700px) {
+            body { padding: 40px 20px; }
+            header { margin-bottom: 40px; height: 64px; }
+            .header-inner-view { padding: 0 20px; }
+            .logo { font-size: 22px; }
+            .search-core-input { padding: 0 12px; font-size: 15px; }
+            .header-right-cluster, .search-control-cluster { gap: 16px; }
+            
+            .wide-capsule { padding: 24px 20px; border-radius: 24px; }
+            .topic-chip { padding: 10px 18px; font-size: 13.5px; border-radius: 12px; }
+            .wide-panel-title { margin-bottom: 20px; font-size: 18px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- MASTER HEADER (Copy-pasted from your index.html homepage) -->
-    <!-- Keeps your exact 'sathya.' logo, theme toggle, and search pill intact -->
+    <!-- Header Block - Unified Twin View Wide Design Layout -->
+    <header id="masterHeader">
+        
+        <!-- View Layer A: Default Branding State -->
+        <div class="header-inner-view" id="headerMainView">
+            <a href="index.html" class="logo">sathya.</a>
+            <div class="header-right-cluster">
+                <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </div>
+                <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
+        </div>
 
-    <!-- MAIN CONTENT WORKSPACE -->
+        <!-- View Layer B: Active Search State -->
+        <div class="header-inner-view" id="headerSearchView">
+            <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
+            <div class="search-control-cluster">
+                <button class="ctrl-btn clear-text-btn" id="clearSearchBtn" aria-label="Clear typed text">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <button class="ctrl-btn close-search-btn" id="closeSearchBtn" aria-label="Minimize search pill">
+                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Content Workspace -->
     <main class="contents-container">
         
-        <h1 class="page-header-title animate-fade-up">- Contents</h1>
+        <h1 class="page-main-heading">- Contents</h1>
 
         <!-- 1. ART AND CULTURE -->
-        <section id="art-culture" class="wide-capsule animate-fade-up" style="animation-delay: 0.1s;">
-            <h2 class="wide-capsule-title">Art and culture</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="art-culture">
+            <h2 class="wide-panel-title">Art and culture</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Dances</a>
                 <a href="#" class="topic-chip">Art forms</a>
                 <a href="#" class="topic-chip">Literature</a>
                 <a href="#" class="topic-chip">Folk songs</a>
                 <a href="#" class="topic-chip">Architecture</a>
             </div>
-        </section>
+        </div>
 
         <!-- 2. HISTORY (Divided cleanly into Indian and World) -->
-        <section id="history" class="wide-capsule animate-fade-up" style="animation-delay: 0.15s;">
-            <h2 class="wide-capsule-title">History</h2>
+        <div class="wide-capsule" id="history">
+            <h2 class="wide-panel-title">History</h2>
             
-            <h3 class="capsule-sub-title">Indian History</h3>
-            <div class="topics-flex-grid">
+            <h3 class="sub-section-title">Indian History</h3>
+            <div class="topics-flex-row" style="margin-bottom: 24px;">
                 <a href="#" class="topic-chip">Ancient History</a>
                 <a href="#" class="topic-chip">Medieval History</a>
                 <a href="#" class="topic-chip">Modern History</a>
@@ -131,19 +514,19 @@
                 <a href="#" class="topic-chip">Post-Independence</a>
             </div>
 
-            <h3 class="capsule-sub-title">World History</h3>
-            <div class="topics-flex-grid">
+            <h3 class="sub-section-title">World History</h3>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Industrial Revolution</a>
                 <a href="#" class="topic-chip">World Wars</a>
                 <a href="#" class="topic-chip">Colonization & Decolonization</a>
                 <a href="#" class="topic-chip">Political Philosophies</a>
             </div>
-        </section>
+        </div>
 
         <!-- 3. INDIAN SOCIETY -->
-        <section id="indian-society" class="wide-capsule animate-fade-up" style="animation-delay: 0.2s;">
-            <h2 class="wide-capsule-title">Indian society</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="indian-society">
+            <h2 class="wide-panel-title">Indian society</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Salient Features of Indian Society</a>
                 <a href="#" class="topic-chip">Diversity of India</a>
                 <a href="#" class="topic-chip">Role of Women & Organizations</a>
@@ -152,14 +535,14 @@
                 <a href="#" class="topic-chip">Effects of Globalization</a>
                 <a href="#" class="topic-chip">Social Empowerment & Communalism</a>
             </div>
-        </section>
+        </div>
 
         <!-- 4. GEOGRAPHY (Divided cleanly into Indian and World) -->
-        <section id="geography" class="wide-capsule animate-fade-up" style="animation-delay: 0.25s;">
-            <h2 class="wide-capsule-title">Geography</h2>
+        <div class="wide-capsule" id="geography">
+            <h2 class="wide-panel-title">Geography</h2>
             
-            <h3 class="capsule-sub-title">Indian Geography</h3>
-            <div class="topics-flex-grid">
+            <h3 class="sub-section-title">Indian Geography</h3>
+            <div class="topics-flex-row" style="margin-bottom: 24px;">
                 <a href="#" class="topic-chip">Physiography & Relief</a>
                 <a href="#" class="topic-chip">River Systems & Drainage</a>
                 <a href="#" class="topic-chip">Climate & Monsoons</a>
@@ -167,20 +550,20 @@
                 <a href="#" class="topic-chip">Economic & Human Geography</a>
             </div>
 
-            <h3 class="capsule-sub-title">World Geography</h3>
-            <div class="topics-flex-grid">
+            <h3 class="sub-section-title">World Geography</h3>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Geomorphology</a>
                 <a href="#" class="topic-chip">Climatology</a>
                 <a href="#" class="topic-chip">Oceanography</a>
                 <a href="#" class="topic-chip">Major Natural Regions</a>
                 <a href="#" class="topic-chip">Distribution of Key Resources</a>
             </div>
-        </section>
+        </div>
 
         <!-- 5. POLITY -->
-        <section id="polity" class="wide-capsule animate-fade-up" style="animation-delay: 0.3s;">
-            <h2 class="wide-capsule-title">Polity</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="polity">
+            <h2 class="wide-panel-title">Polity</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Constitutional Framework</a>
                 <a href="#" class="topic-chip">System of Government</a>
                 <a href="#" class="topic-chip">Central Government</a>
@@ -189,12 +572,12 @@
                 <a href="#" class="topic-chip">Judiciary</a>
                 <a href="#" class="topic-chip">Constitutional & Non-Constitutional Bodies</a>
             </div>
-        </section>
+        </div>
 
         <!-- 6. SOCIAL JUSTICE -->
-        <section id="social-justice" class="wide-capsule animate-fade-up" style="animation-delay: 0.35s;">
-            <h2 class="wide-capsule-title">Social justice</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="social-justice">
+            <h2 class="wide-panel-title">Social justice</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Welfare Schemes for Vulnerable Sections</a>
                 <a href="#" class="topic-chip">Mechanisms, Laws & Institutions</a>
                 <a href="#" class="topic-chip">Health Sector Issues</a>
@@ -202,35 +585,35 @@
                 <a href="#" class="topic-chip">Human Resources</a>
                 <a href="#" class="topic-chip">Issues Relating to Poverty & Hunger</a>
             </div>
-        </section>
+        </div>
 
         <!-- 7. GOVERNANCE -->
-        <section id="governance" class="wide-capsule animate-fade-up" style="animation-delay: 0.4s;">
-            <h2 class="wide-capsule-title">Governance</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="governance">
+            <h2 class="wide-panel-title">Governance</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Important Aspects of Governance</a>
                 <a href="#" class="topic-chip">Transparency & Accountability</a>
                 <a href="#" class="topic-chip">E-governance Applications & Models</a>
                 <a href="#" class="topic-chip">Citizens Charters</a>
                 <a href="#" class="topic-chip">Role of Civil Services in a Democracy</a>
             </div>
-        </section>
+        </div>
 
         <!-- 8. INTERNATIONAL RELATIONS -->
-        <section id="international-relations" class="wide-capsule animate-fade-up" style="animation-delay: 0.45s;">
-            <h2 class="wide-capsule-title">International relations</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="international-relations">
+            <h2 class="wide-panel-title">International relations</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">India and its Neighborhood</a>
                 <a href="#" class="topic-chip">Bilateral, Regional & Global Groupings</a>
                 <a href="#" class="topic-chip">Effect of Policies of Developed Countries</a>
                 <a href="#" class="topic-chip">Important International Institutions</a>
             </div>
-        </section>
+        </div>
 
         <!-- 9. ECONOMY -->
-        <section id="economy" class="wide-capsule animate-fade-up" style="animation-delay: 0.5s;">
-            <h2 class="wide-capsule-title">Economy</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="economy">
+            <h2 class="wide-panel-title">Economy</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Indian Economy & Issues Relating to Planning</a>
                 <a href="#" class="topic-chip">Mobilization of Resources</a>
                 <a href="#" class="topic-chip">Growth, Development & Employment</a>
@@ -239,12 +622,12 @@
                 <a href="#" class="topic-chip">Land Reforms in India</a>
                 <a href="#" class="topic-chip">Infrastructure & Investment Models</a>
             </div>
-        </section>
+        </div>
 
         <!-- 10. SCIENCE AND TECHNOLOGY -->
-        <section id="science-technology" class="wide-capsule animate-fade-up" style="animation-delay: 0.55s;">
-            <h2 class="wide-capsule-title">Science and technology</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="science-technology">
+            <h2 class="wide-panel-title">Science and technology</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Developments & Everyday Applications</a>
                 <a href="#" class="topic-chip">Achievements of Indians in Sci-Tech</a>
                 <a href="#" class="topic-chip">Indigenization of Technology</a>
@@ -252,46 +635,132 @@
                 <a href="#" class="topic-chip">Robotics & Nanotech</a>
                 <a href="#" class="topic-chip">Biotechnology & IPR Issues</a>
             </div>
-        </section>
+        </div>
 
         <!-- 11. ENVIRONMENT -->
-        <section id="environment" class="wide-capsule animate-fade-up" style="animation-delay: 0.6s;">
-            <h2 class="wide-capsule-title">Environment</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="environment">
+            <h2 class="wide-panel-title">Environment</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Conservation & Biodiversity</a>
                 <a href="#" class="topic-chip">Environmental Pollution & Degradation</a>
                 <a href="#" class="topic-chip">Climate Change Mitigation</a>
                 <a href="#" class="topic-chip">Environmental Impact Assessment (EIA)</a>
             </div>
-        </section>
+        </div>
 
         <!-- 12. DISASTER MANAGEMENT -->
-        <section id="disaster-management" class="wide-capsule animate-fade-up" style="animation-delay: 0.65s;">
-            <h2 class="wide-capsule-title">Disaster management</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="disaster-management">
+            <h2 class="wide-panel-title">Disaster management</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Disaster Profiles of India</a>
                 <a href="#" class="topic-chip">Vulnerability & Risk Assessment</a>
                 <a href="#" class="topic-chip">Mitigation Strategies</a>
                 <a href="#" class="topic-chip">NDMA Guidelines & Frameworks</a>
             </div>
-        </section>
+        </div>
 
         <!-- 13. INTERNAL SECURITY -->
-        <section id="internal-security" class="wide-capsule animate-fade-up" style="animation-delay: 0.7s;">
-            <h2 class="wide-capsule-title">Internal security</h2>
-            <div class="topics-flex-grid">
+        <div class="wide-capsule" id="internal-security">
+            <h2 class="wide-panel-title">Internal security</h2>
+            <div class="topics-flex-row">
                 <a href="#" class="topic-chip">Linkages between Development & Extremism</a>
                 <a href="#" class="topic-chip">Role of External State & Non-state Actors</a>
                 <a href="#" class="topic-chip">Cyber Security Challenges</a>
                 <a href="#" class="topic-chip">Money Laundering & its Prevention</a>
                 <a href="#" class="topic-chip">Border Area Management & Security Forces</a>
             </div>
-        </section>
+        </div>
 
     </main>
 
-    <!-- MASTER FOOTER (Copy-pasted from your index.html homepage) -->
-    <!-- Keeps your exact standard links: About, Contact, Privacy Policy... -->
+    <!-- Grounded Minimal Footer Row -->
+    <footer>
+        <div class="footer-links-row">
+            <a href="Footer/about.html">About</a>
+            <a href="Footer/contact.html">Contact</a>
+            <a href="Footer/privacy.html">Privacy Policy</a>
+            <a href="Footer/terms.html">Terms & Conditions</a>
+            <a href="Footer/disclaimer.html">Disclaimer</a>
+        </div>
+        <div class="copyright-tag">
+            &copy; 2026 Sathya. All rights reserved.
+        </div>
+    </footer>
 
+    <!-- Smart Native Device Sync & Twin-View Controller Engine -->
+    <script>
+        const toggleBtn = document.getElementById('themeToggleBtn');
+        const bodyElement = document.body;
+        const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
+
+        const masterHeader = document.getElementById('masterHeader');
+        const openSearchBtn = document.getElementById('openSearchBtn');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const searchCoreInput = document.getElementById('searchCoreInput');
+
+        localStorage.removeItem('dashboard-theme');
+
+        function applyTargetPalette() {
+            const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
+            if (activeSessionOverride) {
+                if (activeSessionOverride === 'light') {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
+            } else {
+                if (systemLightQuery.matches) {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
+            }
+        }
+
+        applyTargetPalette();
+
+        systemLightQuery.addEventListener('change', (e) => {
+            sessionStorage.removeItem('dashboard-theme');
+            if (e.matches) {
+                bodyElement.classList.add('light-mode');
+            } else {
+                bodyElement.classList.remove('light-mode');
+            }
+        });
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            const isCurrentlyLight = bodyElement.classList.contains('light-mode');
+            if (isCurrentlyLight) {
+                bodyElement.classList.remove('light-mode');
+                sessionStorage.setItem('dashboard-theme', 'dark');
+            } else {
+                bodyElement.classList.add('light-mode');
+                sessionStorage.setItem('dashboard-theme', 'light');
+            }
+        });
+
+        // --- Twin-View Interface Controller System ---
+        openSearchBtn.addEventListener('click', () => {
+            masterHeader.classList.add('search-active');
+            setTimeout(() => { searchCoreInput.focus(); }, 50);
+        });
+
+        clearSearchBtn.addEventListener('click', () => {
+            searchCoreInput.value = "";
+            searchCoreInput.focus();
+        });
+
+        closeSearchBtn.addEventListener('click', () => {
+            masterHeader.classList.remove('search-active');
+        });
+
+        searchCoreInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && searchCoreInput.value.trim() === "") {
+                masterHeader.classList.remove('search-active');
+            }
+        });
+    </script>
 </body>
 </html>
