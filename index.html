@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sathya.</title>
 
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5VGX2K64Y4');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5VGX2K64Y4');
+    </script>
     
-<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -325,7 +324,8 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            transition: border-color 0.6s var(--ease-premium), background-color 0.6s var(--ease-premium);
+            /* FIXED LAYER ENGINE: Added transform mapping to transitions here */
+            transition: border-color 0.6s var(--ease-premium), background-color 0.6s var(--ease-premium), transform 0.4s var(--ease-premium);
         }
 
         body:not(.light-mode) .capsule-panel {
@@ -333,13 +333,12 @@
         }
 
         .capsule-panel:hover {
-    border-color: #1E1E1E;      /* This is your new dim border color */
-    transform: scale(1.02);     /* This keeps the zoom effect */
-    transition: transform 0.3s ease, border-color 0.6s var(--ease-premium); /* This makes both happen smoothly */
-}
+            border-color: #1E1E1E !important; 
+            transform: scale(1.02) !important; 
+        }
 
         body.light-mode .capsule-panel:hover {
-            border-color: #b8b8bc;
+            border-color: #b8b8bc !important;
         }
 
         .panel-title {
@@ -477,14 +476,11 @@
 </head>
 <body>
 
-    <!-- Header Block - Unified Twin View Wide Design Layout -->
     <header id="masterHeader">
         
-        <!-- View Layer A: Default Branding State -->
         <div class="header-inner-view" id="headerMainView">
             <a href="#" class="logo">sathya.</a>
             <div class="header-right-cluster">
-                <!-- Dark Mode Toggle FIRST -->
                 <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
                     <svg class="sun-icon" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="4"></circle>
@@ -494,14 +490,12 @@
                         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
-                <!-- Search Button SECOND -->
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
             </div>
         </div>
 
-        <!-- View Layer B: Active Search State -->
         <div class="header-inner-view" id="headerSearchView">
             <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
@@ -518,10 +512,8 @@
     </header>
 
     <main>
-        <!-- Matrix Canvas Layout Container -->
         <div class="matrix-canvas">
 
-            <!-- Card 1: UPSC -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
@@ -533,7 +525,6 @@
                 </ul>
             </div>
 
-            <!-- Card 2: PLANNING -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Planning</h2>
                 <ul class="document-list">
@@ -543,7 +534,6 @@
                 </ul>
             </div>
 
-            <!-- Card 3: GROWTH -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Growth</h2>
                 <ul class="document-list">
@@ -553,7 +543,6 @@
                 </ul>
             </div>
 
-            <!-- Card 4: STUDIES -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Studies</h2>
                 <ul class="document-list">
@@ -563,7 +552,6 @@
                 </ul>
             </div>
 
-            <!-- Card 5: LIFE -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Life</h2>
                 <ul class="document-list">
@@ -573,7 +561,6 @@
                 </ul>
             </div>
 
-            <!-- Card 6: PHOTOGRAPHY -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Photography</h2>
                 <ul class="document-list">
@@ -586,7 +573,6 @@
         </div>
     </main>
 
-    <!-- Grounded Minimal Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="Footer/about.html">About</a>
@@ -600,7 +586,6 @@
         </div>
     </footer>
 
-    <!-- Smart Native Device Sync & Twin-View Controller Engine -->
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
