@@ -368,6 +368,13 @@
             transition: background-color 0.4s var(--ease-premium), border-color 0.6s var(--ease-premium);
         }
 
+        /* HARD LOCKED TRANSPARENCY: Wipes out dark grey capsule tap backgrounds on all devices */
+        .document-list li:hover,
+        .document-list li:active,
+        .document-list li:focus {
+            background-color: transparent !important;
+        }
+
         .document-list li:last-child {
             border-bottom: none;
         }
@@ -380,27 +387,18 @@
             text-decoration: none !important;
             font-size: 14.5px;
             font-weight: 400;
-            transition: color 0.4s var(--ease-premium), padding-left 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
+            transition: color 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
         }
 
-        /* Quiet Silent Row Hover Transitions */
-        .document-list li:hover {
-            background-color: var(--row-hover);
-        }
-
+        /* Removed padding-left movement entirely to lock text straight on hover */
         .document-list li:hover a {
-            opacity: 1;
-            padding-left: 32px; 
+            opacity: 1 !important;
         }
 
-        /* --- THE REVERSE SHIFT SHIELD RULE ---
-           Locks the layout padding completely static when an animation runs, 
-           preventing hover state rules from shifting the text left or right.
-        */
-        .document-list li:hover a.kinetic-active,
-        .document-list li a.kinetic-active {
+        /* Ironclad Guardrail: Isolates padding styles during kinetic execution transitions */
+        .document-list li a.kinetic-active,
+        .document-list li:hover a.kinetic-active {
             padding-left: 24px !important;
-            opacity: 1 !important;
         }
 
         /* Flat Grounded Footer Row */
@@ -512,18 +510,32 @@
     text-decoration: none !important;
 }
 
-/* --- MASTER SYMMETRICAL KINETIC SPAN CORE CONFIGURATION ---
-   Forces the text bounding box to occupy an isolated inline layout container,
-   locking the transform axis perfectly symmetrical from its exact center point.
+/* --- ULTRA-PREMIUM KINETIC TEXT MESH ---
+   Wraps link nodes completely independent of container dimensions. 
+   Locks the origin point strictly center-center so text scales 100% straight 
+   outward on cursor hover and tap, on all viewports.
 */
 .kinetic-target {
     display: inline-block !important;
-    transform-origin: center center !important;
+    transform-origin: center center !important; 
     will-change: transform, opacity !important;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
+    transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
+}
+
+/* BUTTER SMOOTH HOVER SEQUENCE: Smoothly zooms text 1.06x on cursor placement with zero fade or jumps */
+.capsule-panel a:hover .kinetic-target,
+.view-more-link:hover .kinetic-target,
+.footer-links-row a:hover .kinetic-target {
+    transform: scale3d(1.06, 1.06, 1) !important;
+}
+
+/* Shuts off hover interactions during tap sequence transitions to prevent shivering */
+.kinetic-active .kinetic-target {
+    pointer-events: none !important;
 }
         
     </style>
@@ -724,26 +736,26 @@
             }
         });
 
-        // --- Master Universal Kinetic Forward Zoom Loop Engine ---
+        // --- Master Universal Kinetic Click-Zoom Loop Engine ---
         interactiveLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 const destination = this.getAttribute('href');
                 if (!destination || destination === '#') return;
                 
-                e.preventDefault(); // Hold back viewport jumping completely
+                e.preventDefault(); // Suspend viewport layout pops
                 
-                // Track standard absolute URL text inside session parameters
+                // Track standard absolute URL string parameters safely inside session limits
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
                 
                 const innerSpan = this.querySelector('.kinetic-target');
                 if (innerSpan) {
-                    this.classList.add('kinetic-active'); // Fire shift shield
+                    this.classList.add('kinetic-active'); // Fire horizontal position freeze shield
                     
                     let startScale = 1.0;
-                    let endScale = 1.6;
+                    let endScale = 1.5;
                     let startOpacity = 1;
                     let endOpacity = 0;
-                    let duration = 350; // High speed forward portal escape
+                    let duration = 350; // Ultra high-speed entrance fade
                     let startTime = null;
                     
                     function animateForward(timestamp) {
@@ -751,8 +763,7 @@
                         let elapsed = timestamp - startTime;
                         let progress = Math.min(elapsed / duration, 1);
                         
-                        // Sharp cubic forward acceleration path
-                        let ease = Math.pow(progress, 3);
+                        let ease = Math.pow(progress, 3); // High-velocity zoom acceleration curve
                         
                         let currentScale = startScale + (endScale - startScale) * ease;
                         let currentOpacity = startOpacity - (startOpacity - endOpacity) * ease;
@@ -776,97 +787,88 @@
         // --- Ironclad Page-Show Master Controller Pipeline ---
         window.addEventListener('pageshow', (event) => {
             
-            // 1. HARDWARE COMPOSITE RE-TRIGGER ENGINE (Restores layout base animations smoothly)
+            // 1. HARDWARE COMPOSITE RE-TRIGGER ENGINE (Restores perfect native load animations without shaking)
             const layoutElements = document.querySelectorAll('header, .capsule-panel, footer');
             const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
             
             if (layoutElements.length > 0) {
                 layoutElements.forEach(el => {
-                    // Safety Guardrail: If returning to a block containing an active animating footer,
-                    // momentarily skip container re-trigger so micro links can perform smoothly.
-                    if (savedTargetUrl && savedTargetUrl.includes('Footer/') && el.tagName.toLowerCase() === 'footer') {
-                        return;
-                    }
                     el.style.animation = 'none';
                     el.style.webkitAnimation = 'none';
                 });
                 
-                void document.body.offsetHeight; // Purge layout memory registers
+                void document.body.offsetHeight; // Purge hardware memory cache layers
                 
                 requestAnimationFrame(() => {
                     layoutElements.forEach(el => {
-                        if (savedTargetUrl && savedTargetUrl.includes('Footer/') && el.tagName.toLowerCase() === 'footer') {
-                            return;
-                        }
                         el.style.animation = '';
                         el.style.webkitAnimation = '';
                     });
                 });
             }
 
-            // 2. UNIVERSAL TARGETED CENTERED REVERSE GLIDE ENGINE
-            // Clean up any stray background classes across the DOM link map instantly
+            // 2. UNIVERSAL TARGETED REVERSE GLIDE RECOVERY ENGINE
+            // Instantly clear trailing parameters and clear inline style mutations on clean canvas entry
             interactiveLinks.forEach(l => {
                 l.classList.remove('kinetic-active');
                 const span = l.querySelector('.kinetic-target');
                 if (span) {
                     span.style.transform = '';
                     span.style.opacity = '';
+                    span.style.transition = '';
+                    span.style.webkitTransition = '';
                 }
             });
             
             if (savedTargetUrl) {
-                sessionStorage.removeItem('activeUniversalTargetUrl'); // Securely empty storage parameters
+                sessionStorage.removeItem('activeUniversalTargetUrl'); // Clear tracking session data
                 
                 let matchedLinkElement = null;
                 
-                // Normalizes path comparison arrays to prevent subdirectory directory mismatch failures
-                try {
-                    const savedPath = new URL(savedTargetUrl).pathname;
-                    interactiveLinks.forEach(link => {
-                        if (new URL(link.href).pathname === savedPath) {
+                // Normalize and compare absolute URL locations to map components accurately
+                interactiveLinks.forEach(link => {
+                    try {
+                        if (new URL(link.href).href === new URL(savedTargetUrl).href) {
                             matchedLinkElement = link;
                         }
-                    });
-                } catch(err) {
-                    // Fallback to direct text matcher matching rules if absolute conversion drops
-                    interactiveLinks.forEach(link => {
+                    } catch(e) {
                         if (link.href === savedTargetUrl) {
                             matchedLinkElement = link;
                         }
-                    });
-                }
+                    }
+                });
                 
                 if (matchedLinkElement) {
                     const targetSpan = matchedLinkElement.querySelector('.kinetic-target');
                     
                     if (targetSpan) {
-                        matchedLinkElement.classList.add('kinetic-active'); // Engrave transition lock flag
+                        matchedLinkElement.classList.add('kinetic-active'); // Enforce padding override shield
                         
-                        let startScale = 1.6;
+                        let startScale = 1.5;
                         let endScale = 1.0;
                         let startOpacity = 0;
-                        
-                        // Dynamically scale final tracking boundaries to fit element identities
-                        let restingOpacity = matchedLinkElement.classList.contains('view-more-link') ? 1 : 0.8;
+                        let endOpacity = matchedLinkElement.classList.contains('view-more-link') ? 1 : 0.8;
                         
                         let duration = 500; // 500ms provides a gorgeous, buttery soft deceleration glide
                         let startTime = null;
                         
+                        targetSpan.style.transition = 'none';
+                        targetSpan.style.webkitTransition = 'none';
+                        
                         targetSpan.style.transform = `scale3d(${startScale}, ${startScale}, 1)`;
                         targetSpan.style.opacity = startOpacity;
                         
-                        // Pure JS Hardware Composite Animation loop thread
+                        // Pure JS Loop: Executes flawlessly behind iOS gesture snapshots
                         function animateLinkReverse(timestamp) {
                             if (!startTime) startTime = timestamp;
                             let elapsed = timestamp - startTime;
                             let progress = Math.min(elapsed / duration, 1);
                             
-                            // High-End Premium Quintic Ease-Out Tracking Vector curve: 1 - (1 - x)^5
+                            // High-End Premium Quintic Ease-Out Tracking Curve: 1 - (1 - x)^5
                             let ease = 1 - Math.pow(1 - progress, 5);
                             
                             let currentScale = startScale - (startScale - endScale) * ease;
-                            let currentOpacity = startOpacity + (restingOpacity - startOpacity) * ease;
+                            let currentOpacity = startOpacity + (endOpacity - startOpacity) * ease;
                             
                             targetSpan.style.transform = `scale3d(${currentScale}, ${currentScale}, 1)`;
                             targetSpan.style.opacity = currentOpacity;
@@ -874,23 +876,13 @@
                             if (progress < 1) {
                                 requestAnimationFrame(animateLinkReverse);
                             } else {
-                                // Touchdown target achieved cleanly: Remove temporary inline parameters
+                                // Touchdown target reached perfectly: Flush styles away for normal mouse hover functions
                                 targetSpan.style.transform = '';
                                 targetSpan.style.opacity = '';
                                 matchedLinkElement.classList.remove('kinetic-active');
-                                
-                                // Clean up footer container rules if they were protected
-                                if (savedTargetUrl.includes('Footer/')) {
-                                    const foot = document.querySelector('footer');
-                                    if (foot) {
-                                        foot.style.animation = '';
-                                        foot.style.webkitAnimation = '';
-                                    }
-                                }
                             }
                         }
                         
-                        // Queue execution loop on device viewport paint cycle thread
                         requestAnimationFrame(animateLinkReverse);
                     }
                 }
