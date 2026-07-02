@@ -53,13 +53,10 @@
             --header-border: #d4d8cf;
         }
 
-        /* Ironclad Global Tap Reset: Wipes out blue highlights on phones and grey overlays on iPads completely */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent !important;
-            tap-highlight-color: transparent !important;
         }
 
         body {
@@ -186,6 +183,8 @@
             text-decoration: none !important;
             transition: color 0.6s var(--ease-premium);
             flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
         }
 
         /* Unified Master Structural Controller for All Interactive Action Buttons */
@@ -203,6 +202,8 @@
             padding: 0;
             flex-shrink: 0;
             transition: opacity 0.2s var(--ease-premium), color 0.6s var(--ease-premium);
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
         }
 
         .ctrl-btn:hover {
@@ -261,6 +262,8 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
         }
 
         .theme-toggle svg {
@@ -323,7 +326,7 @@
             height: 100%;
             transform: scale(1);
             
-            /* Strict Mobile Anti-Shaking Hardware Compositor Locks */
+            /* Strict Mobile Anti-Shaking Hardware Locks */
             will-change: transform, opacity;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -368,13 +371,6 @@
             transition: background-color 0.4s var(--ease-premium), border-color 0.6s var(--ease-premium);
         }
 
-        /* HARD LOCKED TRANSPARENCY: Wipes out grey capsule backgrounds on hover/tap completely */
-        .document-list li:hover,
-        .document-list li:active,
-        .document-list li:focus {
-            background-color: transparent !important;
-        }
-
         .document-list li:last-child {
             border-bottom: none;
         }
@@ -387,22 +383,18 @@
             text-decoration: none !important;
             font-size: 14.5px;
             font-weight: 400;
-            transition: color 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
+            transition: color 0.4s var(--ease-premium), padding-left 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
+            -webkit-tap-highlight-color: transparent !important;
         }
 
-        /* REMOVED PADDING SHIFT: Text stands perfectly still horizontally on cursor placement */
+        /* Quiet Silent Row Hover Transitions */
+        .document-list li:hover {
+            background-color: var(--row-hover);
+        }
+
         .document-list li:hover a {
-            opacity: 1 !important;
-        }
-
-        /* --- HARD INTERACTIVE STATE GUARD LOCKS ---
-           Completely blocks native mobile tap color conversions and grey flash layers
-        */
-        .capsule-panel a:active, .capsule-panel a:focus,
-        .view-more-link:active, .view-more-link:focus,
-        .footer-links-row a:active, .footer-links-row a:focus {
-            background-color: transparent !important;
-            background: transparent !important;
+            opacity: 1;
+            padding-left: 32px; 
         }
 
         /* Flat Grounded Footer Row */
@@ -424,16 +416,15 @@
         }
 
         .footer-links-row a {
-            color: var(--text-muted) !important;
+            color: var(--text-muted);
             text-decoration: none !important;
             font-size: 14px;
             font-weight: 400;
-            display: inline-block;
             transition: color 0.4s var(--ease-premium);
         }
 
         .footer-links-row a:hover {
-            color: var(--text-main) !important;
+            color: var(--text-main);
         }
 
         .copyright-tag {
@@ -501,11 +492,15 @@
 }
 
 .view-more-link {
-    color: #8a9a86 !important; /* Premium muted green accent tone safely isolated */
+    color: #8a9a86 !important; /* Premium muted accent tone */
     font-weight: 600;
-    text-decoration: none !important; 
+    text-decoration: none !important; /* Strict underline guard */
     font-size: 0.95rem;
     display: inline-block;
+    will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent !important; /* Kills mobile blue flash */
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -514,70 +509,22 @@
     text-decoration: none !important;
 }
 
-/* --- THE KINETIC MESH TARGET ---
-   Isolates text strings into a isolated compositor layer.
-   Drives smooth, zero-fade 1.06x expansions on cursor placement straight from center midpoint coordinates.
-*/
-.kinetic-target {
-    display: inline-block !important;
-    transform-origin: center center !important; 
-    will-change: transform, opacity !important;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
-}
-
-.capsule-panel a:hover .kinetic-target,
-.view-more-link:hover .kinetic-target {
-    transform: scale3d(1.06, 1.06, 1);
-}
-
-.footer-links-row a .kinetic-target {
-    color: var(--text-muted) !important; 
-}
-.footer-links-row a:hover .kinetic-target {
-    transform: scale3d(1.06, 1.06, 1);
-    color: var(--text-main) !important;
-}
-
-.view-more-link .kinetic-target {
-    color: #8a9a86 !important; 
-}
-
-/* --- CONTINUOUS COMPOSITOR EXUL TRANSITION RULE ---
-   Runs the medium speed (400ms) forward zoom and fade timeline directly on the device GPU thread.
-   Animation continues tracking smoothly right up until the new window document content takes focus.
-*/
-.kinetic-active-link .kinetic-target {
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s linear !important;
-    transform: scale3d(1.6, 1.6, 1) !important;
-    opacity: 0 !important;
-}
-
-/* Lockout state used while JavaScript thread animations take full control */
-.kinetic-animating {
-    pointer-events: none !important;
-}
-
-.kinetic-animating .kinetic-target {
-    transition: none !important;
-    -webkit-transition: none !important;
+/* The Synchronized Zoom & Fade Trigger State (Forward Motion) */
+.view-more-link.is-zooming {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear !important;
+    transform: scale(1.6) !important; 
+    opacity: 0 !important;          
 }
         
     </style>
 </head>
 <body>
 
-    <!-- Header Block - Unified Twin View Wide Design Layout -->
     <header id="masterHeader">
         
-        <!-- View Layer A: Default Branding State -->
         <div class="header-inner-view" id="headerMainView">
             <a href="#" class="logo">sathya.</a>
             <div class="header-right-cluster">
-                <!-- Dark Mode Toggle FIRST -->
                 <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
                     <svg class="sun-icon" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="4"></circle>
@@ -587,14 +534,12 @@
                         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
-                <!-- Search Button SECOND -->
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
             </div>
         </div>
 
-        <!-- View Layer B: Active Search State -->
         <div class="header-inner-view" id="headerSearchView">
             <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
@@ -611,10 +556,8 @@
     </header>
 
     <main>
-        <!-- Matrix Canvas Layout Container -->
         <div class="matrix-canvas">
 
-            <!-- Card 1: UPSC -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
@@ -625,7 +568,6 @@
                 </ul>
             </div>
 
-            <!-- Card 2: CURRENT AFFAIRS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Current affairs</h2>
                 <ul class="document-list">
@@ -634,20 +576,17 @@
                 </ul>
             </div>
 
-          <!-- Card 3: CONTENTS -->
-<div class="capsule-panel">
+          <div class="capsule-panel">
     <h2 class="panel-title">Contents</h2>
     <ul class="document-list">
         <li><a href="contents.html#art-culture">Art and culture</a></li>
         <li><a href="contents.html#history">History</a></li>
         <li><a href="contents.html#indian-society">Indian society</a></li>
     </ul>
-    <!-- Perfectly centered View More button at the bottom -->
     <div class="view-more-container">
         <a href="contents.html" class="view-more-link">View more</a>
     </div>
 </div>
-            <!-- Card 4: MUST READ -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Must read</h2>
                 <ul class="document-list">
@@ -656,7 +595,6 @@
                 </ul>
             </div>
 
-            <!-- Card 5: CHAPTERS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Chapters</h2>
                 <ul class="document-list">
@@ -664,7 +602,6 @@
                 </ul>
             </div>
 
-            <!-- Card 6: ESSAYS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Essays</h2>
                 <ul class="document-list">
@@ -675,7 +612,6 @@
         </div>
     </main>
 
-    <!-- Grounded Minimal Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="Footer/about.html">About</a>
@@ -689,7 +625,6 @@
         </div>
     </footer>
 
-    <!-- Smart Native Device Sync & Twin-View Controller Engine -->
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
@@ -765,52 +700,42 @@
             }
         });
 
-        // --- Hardware Kinetic Text Wrapping Injector Matrix ---
-        const interactiveLinks = document.querySelectorAll('.capsule-panel a, footer .footer-links-row a');
+        // --- Premium View More Click-Zoom Transition Engine ---
+        const viewMoreLink = document.querySelector('.view-more-link');
         
-        interactiveLinks.forEach(link => {
-            if (!link.querySelector('.kinetic-target')) {
-                const spanWrapper = document.createElement('span');
-                spanWrapper.className = 'kinetic-target';
-                while (link.firstChild) {
-                    spanWrapper.appendChild(link.firstChild);
-                }
-                link.appendChild(spanWrapper);
-            }
-        });
-
-        // --- Master Universal Kinetic Click-Zoom Engine ---
-        interactiveLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
+        if (viewMoreLink) {
+            viewMoreLink.addEventListener('click', function(e) {
+                e.preventDefault(); // Hold back abrupt browser jumping
+                
+                // Track that the click transition is strictly coming from View More
+                sessionStorage.setItem('viewMoreActiveTransition', 'true');
+                
                 const destination = this.getAttribute('href');
-                if (!destination || destination === '#') return;
-                
-                e.preventDefault(); 
-                sessionStorage.setItem('activeUniversalTargetUrl', this.href);
-                
-                // Fire continuous compositor transition engine rules natively on hardware thread context
-                this.classList.add('kinetic-active-link');
+                this.classList.add('is-zooming'); // Fire forward fade/zoom timeline
                 
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 380); // Keep timeline running uniformly up until page navigation execution
+                }, 400);
             });
-        });
+        }
 
-        // --- Ironclad Page-Show Master Controller Pipeline ---
+        // --- Ironclad Back-Button & Full Component Sync Controller ---
         window.addEventListener('pageshow', (event) => {
             
-            // 1. UNIFORM CARD RESET COMPOSITOR (Guarantees card layouts never disappear or leave holes)
+            // 1. HARDWARE COMPOSITE RE-TRIGGER ENGINE (Restores perfect native load animations without shaking)
             const layoutElements = document.querySelectorAll('header, .capsule-panel, footer');
             
             if (layoutElements.length > 0) {
                 layoutElements.forEach(el => {
+                    // Temporarily cut the CSS keyframe reference away to unbind layout locks
                     el.style.animation = 'none';
                     el.style.webkitAnimation = 'none';
                 });
                 
-                void document.body.offsetHeight; // Reset browser rendering register caches
+                // Force an immediate layout hardware reflow to clear memory state entirely
+                void document.body.offsetHeight;
                 
+                // Restore the native CSS keyframe timelines inside the device's main render queue
                 requestAnimationFrame(() => {
                     layoutElements.forEach(el => {
                         el.style.animation = '';
@@ -819,80 +744,58 @@
                 });
             }
 
-            // 2. UNIVERSAL TARGETED REVERSE GLIDE RECOVERY ENGINE
-            // Erase trailing interactive zoom values instantly to normalize the text document state
-            interactiveLinks.forEach(l => {
-                l.classList.remove('kinetic-active-link');
-                l.classList.remove('kinetic-animating');
-                const span = l.querySelector('.kinetic-target');
-                if (span) {
-                    span.style.transform = '';
-                    span.style.opacity = '';
-                }
-            });
-            
-            const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
-            if (savedTargetUrl) {
-                sessionStorage.removeItem('activeUniversalTargetUrl'); // Safely flush storage data
+            // 2. PREMIUM HIGH-FIDELITY VIEW MORE REVERSE ENGINE
+            if (viewMoreLink) {
+                // Instantly strip any leftover forward animation classes
+                viewMoreLink.classList.remove('is-zooming');
                 
-                let matchedLinkElement = null;
+                // Verify if the user left the homepage through this exact element link
+                const wasViewMoreClicked = sessionStorage.getItem('viewMoreActiveTransition') === 'true';
                 
-                // Strictly evaluate absolute text strings to locate target nodes safely across section hashes
-                interactiveLinks.forEach(link => {
-                    if (link.href === savedTargetUrl) {
-                        matchedLinkElement = link;
-                    }
-                });
-                
-                if (matchedLinkElement) {
-                    const targetSpan = matchedLinkElement.querySelector('.kinetic-target');
+                if (wasViewMoreClicked) {
+                    // Burn the tracker flag immediately so it won't fire during other component movements
+                    sessionStorage.removeItem('viewMoreActiveTransition');
                     
-                    if (targetSpan) {
-                        // High-End Optimization: 40ms layout window lets swipe engine snap parameters unbind safely
-                        setTimeout(() => {
-                            matchedLinkElement.classList.add('kinetic-animating'); 
-                            
-                            let startScale = 1.6;
-                            let endScale = 1.0;
-                            let startOpacity = 0;
-                            
-                            let endOpacity = 0.8;
-                            if (matchedLinkElement.classList.contains('view-more-link')) endOpacity = 1.0;
-                            if (matchedLinkElement.closest('footer')) endOpacity = 0.4; // Native footer muted style lock
-                            
-                            let duration = 500; // 500ms allows for an exquisite, luxurious return landing glide
-                            let startTime = null;
-                            
-                            targetSpan.style.setProperty('transform', `scale3d(${startScale}, ${startScale}, 1)`, 'important');
-                            targetSpan.style.setProperty('opacity', startOpacity, 'important');
-                            
-                            // Pure Thread Calculators bypass edge-swipe visualization locks effortlessly
-                            function animateLinkReverse(timestamp) {
-                                if (!startTime) startTime = timestamp;
-                                let elapsed = timestamp - startTime;
-                                let progress = Math.min(elapsed / duration, 1);
-                                
-                                // Premium Quintic Ease-Out Tracking Curve Physics: 1 - (1 - x)^5
-                                let ease = 1 - Math.pow(1 - progress, 5);
-                                
-                                let currentScale = startScale - (startScale - endScale) * ease;
-                                let currentOpacity = startOpacity + (endOpacity - startOpacity) * ease;
-                                
-                                targetSpan.style.setProperty('transform', `scale3d(${currentScale}, ${currentScale}, 1)`, 'important');
-                                targetSpan.style.setProperty('opacity', currentOpacity, 'important');
-                                
-                                if (progress < 1) {
-                                    requestAnimationFrame(animateLinkReverse);
-                                } else {
-                                    // Touchdown target reached softly: Wipe away animation values to reactivate hovers
-                                    targetSpan.style.transform = '';
-                                    targetSpan.style.opacity = '';
-                                    matchedLinkElement.classList.remove('kinetic-animating');
-                                }
-                            }
-                            requestAnimationFrame(animateLinkReverse);
-                        }, 40);
+                    let startScale = 1.6;
+                    let endScale = 1.0;
+                    let startOpacity = 0;
+                    let endOpacity = 1;
+                    let duration = 500; // 500ms allows for an exquisite, relaxed transition timeline
+                    let startTime = null;
+                    
+                    // Enforce precise baseline layout parameters
+                    viewMoreLink.style.transform = `scale(${startScale})`;
+                    viewMoreLink.style.opacity = startOpacity;
+                    
+                    // Pure JS Thread-Locked Loop: Bypasses iOS snapshot caching freezes effortlessly
+                    function animateReverse(timestamp) {
+                        if (!startTime) startTime = timestamp;
+                        let elapsed = timestamp - startTime;
+                        let progress = Math.min(elapsed / duration, 1);
+                        
+                        // Premium Quintic Ease-Out Curve Physics Matrix: 1 - (1 - x)^5
+                        let ease = 1 - Math.pow(1 - progress, 5);
+                        
+                        let currentScale = startScale - (startScale - endScale) * ease;
+                        let currentOpacity = startOpacity + (endOpacity - startOpacity) * ease;
+                        
+                        viewMoreLink.style.transform = `scale(${currentScale})`;
+                        viewMoreLink.style.opacity = currentOpacity;
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animateReverse);
+                        } else {
+                            // Destination reached elegantly: Clean styles up for standard pointer hovers
+                            viewMoreLink.style.transform = '';
+                            viewMoreLink.style.opacity = '';
+                        }
                     }
+                    
+                    requestAnimationFrame(animateReverse);
+                } else {
+                    // Guardrail Isolation: Arriving from somewhere else. Force standard resting styles.
+                    viewMoreLink.style.transform = '';
+                    viewMoreLink.style.opacity = '';
                 }
             }
         });
