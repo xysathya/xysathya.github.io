@@ -396,13 +396,14 @@
         }
 
         /* --- HARD INTERACTIVE STATE GUARD LOCKS ---
-           Locks elements into safe background properties to stop dark grey browser flashes on click execution
+           Forces every clickable link to inherit its correct structural color codes 
+           and block browser dark grey/black background flashes upon tap execution.
         */
-        .capsule-panel a:active, .capsule-panel a:focus,
-        .view-more-link:active, .view-more-link:focus,
-        .footer-links-row a:active, .footer-links-row a:focus {
+        .capsule-panel a:active, .capsule-panel a:focus, .capsule-panel a:visited,
+        .view-more-link:active, .view-more-link:focus, .view-more-link:visited,
+        .footer-links-row a:active, .footer-links-row a:focus, .footer-links-row a:visited {
             background-color: transparent !important;
-            background: transparent !important;
+            color: inherit !important;
         }
 
         /* Flat Grounded Footer Row */
@@ -546,27 +547,38 @@
     color: #8a9a86 !important; /* Strictly protect view more green tone */
 }
 
+/* --- CONTINUOUS COMPOSITOR EXUL TRANSITION RULE ---
+   Forces the link's inner text wrapper to smoothly fade and zoom out via the GPU layer,
+   continuing fluidly over 600ms right until the incoming document takes over.
+*/
+.kinetic-active-link .kinetic-target {
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s linear !important;
+    transform: scale3d(1.6, 1.6, 1) !important;
+    opacity: 0 !important;
+}
+
 /* Lockout state used while JavaScript thread animations take full control */
 .kinetic-animating {
     pointer-events: none !important;
-    opacity: 1 !important;
 }
 
 .kinetic-animating .kinetic-target {
-    /* Kill layout hover transitions completely so JS can render perfectly crisp frames */
     transition: none !important;
-    -webkit-transition: none !important;
+    webkit-transition: none !important;
 }
         
     </style>
 </head>
 <body>
 
+    <!-- Header Block - Unified Twin View Wide Design Layout -->
     <header id="masterHeader">
         
+        <!-- View Layer A: Default Branding State -->
         <div class="header-inner-view" id="headerMainView">
             <a href="#" class="logo">sathya.</a>
             <div class="header-right-cluster">
+                <!-- Dark Mode Toggle FIRST -->
                 <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
                     <svg class="sun-icon" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="4"></circle>
@@ -576,12 +588,14 @@
                         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
+                <!-- Search Button SECOND -->
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
             </div>
         </div>
 
+        <!-- View Layer B: Active Search State -->
         <div class="header-inner-view" id="headerSearchView">
             <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
@@ -598,8 +612,10 @@
     </header>
 
     <main>
+        <!-- Matrix Canvas Layout Container -->
         <div class="matrix-canvas">
 
+            <!-- Card 1: UPSC -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
@@ -610,6 +626,7 @@
                 </ul>
             </div>
 
+            <!-- Card 2: CURRENT AFFAIRS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Current affairs</h2>
                 <ul class="document-list">
@@ -618,17 +635,20 @@
                 </ul>
             </div>
 
-          <div class="capsule-panel">
+          <!-- Card 3: CONTENTS -->
+<div class="capsule-panel">
     <h2 class="panel-title">Contents</h2>
     <ul class="document-list">
         <li><a href="contents.html#art-culture">Art and culture</a></li>
         <li><a href="contents.html#history">History</a></li>
         <li><a href="contents.html#indian-society">Indian society</a></li>
     </ul>
+    <!-- Perfectly centered View More button at the bottom -->
     <div class="view-more-container">
         <a href="contents.html" class="view-more-link">View more</a>
     </div>
 </div>
+            <!-- Card 4: MUST READ -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Must read</h2>
                 <ul class="document-list">
@@ -637,6 +657,7 @@
                 </ul>
             </div>
 
+            <!-- Card 5: CHAPTERS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Chapters</h2>
                 <ul class="document-list">
@@ -644,6 +665,7 @@
                 </ul>
             </div>
 
+            <!-- Card 6: ESSAYS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Essays</h2>
                 <ul class="document-list">
@@ -654,6 +676,7 @@
         </div>
     </main>
 
+    <!-- Grounded Minimal Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="Footer/about.html">About</a>
@@ -667,6 +690,7 @@
         </div>
     </footer>
 
+    <!-- Smart Native Device Sync & Twin-View Controller Engine -->
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
@@ -765,41 +789,13 @@
                 e.preventDefault(); 
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
                 
-                const innerSpan = this.querySelector('.kinetic-target');
-                if (innerSpan) {
-                    this.classList.add('kinetic-animating'); 
-                    
-                    // Balanced Premium Transition Timeline: Restored to 400ms medium cinematic duration
-                    let startScale = this.matches(':hover') ? 1.06 : 1.0;
-                    let endScale = 1.6;
-                    let startOpacity = 1.0;
-                    let endOpacity = 0;
-                    let duration = 400; 
-                    let startTime = null;
-                    
-                    function animateForward(timestamp) {
-                        if (!startTime) startTime = timestamp;
-                        let elapsed = timestamp - startTime;
-                        let progress = Math.min(elapsed / duration, 1);
-                        
-                        let ease = Math.pow(progress, 2.5); // Smooth forward deceleration path
-                        
-                        let currentScale = startScale + (endScale - startScale) * ease;
-                        let currentOpacity = startOpacity - (startOpacity - endOpacity) * ease;
-                        
-                        innerSpan.style.setProperty('transform', `scale3d(${currentScale}, ${currentScale}, 1)`, 'important');
-                        innerSpan.style.setProperty('opacity', currentOpacity, 'important');
-                        
-                        if (progress < 1) {
-                            requestAnimationFrame(animateForward);
-                        } else {
-                            window.location.href = destination;
-                        }
-                    }
-                    requestAnimationFrame(animateForward);
-                } else {
+                // Fire native hardware composite transition rules instantly
+                this.classList.add('kinetic-active-link');
+                
+                // Allow the CSS transition layer to complete its path continuously until navigation cuts over
+                setTimeout(() => {
                     window.location.href = destination;
-                }
+                }, 350);
             });
         });
 
@@ -817,7 +813,7 @@
                     el.style.webkitAnimation = 'none';
                 });
                 
-                void document.body.offsetHeight; // Purge layout memory tree
+                void document.body.offsetHeight; // Flush hardware registers completely
                 
                 requestAnimationFrame(() => {
                     layoutElements.forEach(el => {
@@ -828,8 +824,9 @@
             }
 
             // 2. UNIVERSAL TARGETED REVERSE GLIDE RECOVERY ENGINE
-            // Instant cleanup of tracking states on incoming page display wake
+            // Clear all forward classes instantly upon incoming page display wake
             interactiveLinks.forEach(l => {
+                l.classList.remove('kinetic-active-link');
                 l.classList.remove('kinetic-animating');
                 const span = l.querySelector('.kinetic-target');
                 if (span) {
@@ -839,11 +836,11 @@
             });
             
             if (savedTargetUrl) {
-                sessionStorage.removeItem('activeUniversalTargetUrl'); // Release tracking registry
+                sessionStorage.removeItem('activeUniversalTargetUrl'); // Release session parameters
                 
                 let matchedLinkElement = null;
                 
-                // Pure Strict String Matching: Ensures sections like contents.html#history match cleanly by absolute route
+                // Match links explicitly using absolute text routing strings to prevent path confusion
                 interactiveLinks.forEach(link => {
                     if (link.href === savedTargetUrl) {
                         matchedLinkElement = link;
@@ -861,7 +858,10 @@
                             let startScale = 1.6;
                             let endScale = 1.0;
                             let startOpacity = 0;
-                            let endOpacity = matchedLinkElement.classList.contains('view-more-link') ? 1 : 0.8;
+                            
+                            let endOpacity = 0.8;
+                            if (matchedLinkElement.classList.contains('view-more-link')) endOpacity = 1.0;
+                            if (matchedLinkElement.closest('footer')) endOpacity = 0.5; // Maintain native footer muted rule
                             
                             let duration = 500; // 500ms allows for an exquisite, luxurious return landing glide
                             let startTime = null;
@@ -886,7 +886,7 @@
                                 
                                 if (progress < 1) {
                                     requestAnimationFrame(animateLinkReverse);
-                               } else {
+                                } else {
                                     // Touchdown target reached perfectly: Flush styles away for normal mouse hovers
                                     targetSpan.style.transform = '';
                                     targetSpan.style.opacity = '';
