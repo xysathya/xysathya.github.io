@@ -52,7 +52,6 @@
             --header-bg: #e9ebe6;
             --header-border: #d4d8cf;
         }
-        
 
         /* Ironclad Global Tap Reset: Wipes out blue highlights on phones and grey overlays on iPads completely */
         * {
@@ -394,6 +393,16 @@
             padding-left: 32px; 
         }
 
+        /* --- THE REVERSE SHIFT SHIELD RULE ---
+           Locks the layout padding completely static when an animation runs, 
+           preventing hover state rules from shifting the text left or right.
+        */
+        .document-list li:hover a.kinetic-active,
+        .document-list li a.kinetic-active {
+            padding-left: 24px !important;
+            opacity: 1 !important;
+        }
+
         /* Flat Grounded Footer Row */
         footer {
             display: flex;
@@ -503,32 +512,18 @@
     text-decoration: none !important;
 }
 
-/* Master Hardware Kinetic Text Span Rules */
+/* --- MASTER SYMMETRICAL KINETIC SPAN CORE CONFIGURATION ---
+   Forces the text bounding box to occupy an isolated inline layout container,
+   locking the transform axis perfectly symmetrical from its exact center point.
+*/
 .kinetic-target {
     display: inline-block !important;
+    transform-origin: center center !important;
     will-change: transform, opacity !important;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear;
-}
-
-/* Row text links expand straight out from their left alignment margins */
-.document-list a .kinetic-target {
-    transform-origin: left center !important;
-}
-
-/* Centered content tags expand perfectly straight out from their middle cores */
-.view-more-link .kinetic-target,
-.footer-links-row a .kinetic-target {
-    transform-origin: center center !important;
-}
-
-/* Universal Forward Zoom Class Trigger Mapping */
-.is-zooming-link .kinetic-target {
-    transform: scale3d(1.5, 1.5, 1) !important; 
-    opacity: 0 !important;          
 }
         
     </style>
@@ -715,7 +710,7 @@
             }
         });
 
-        // --- Hardware Kinetic Text Wrapping Injector ---
+        // --- Hardware Kinetic Text Wrapping Injector Matrix ---
         const interactiveLinks = document.querySelectorAll('.capsule-panel a, footer .footer-links-row a');
         
         interactiveLinks.forEach(link => {
@@ -729,94 +724,149 @@
             }
         });
 
-        // --- Master Universal Kinetic Link Engine ---
+        // --- Master Universal Kinetic Forward Zoom Loop Engine ---
         interactiveLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 const destination = this.getAttribute('href');
                 if (!destination || destination === '#') return;
                 
-                e.preventDefault(); // Suspend layout jumps
+                e.preventDefault(); // Hold back viewport jumping completely
                 
-                // Track absolute resolved URL string to make matching bulletproof across subdirectories
+                // Track standard absolute URL text inside session parameters
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
                 
-                this.classList.add('is-zooming-link'); // Run cinematic forward timeline
-                
-                setTimeout(() => {
+                const innerSpan = this.querySelector('.kinetic-target');
+                if (innerSpan) {
+                    this.classList.add('kinetic-active'); // Fire shift shield
+                    
+                    let startScale = 1.0;
+                    let endScale = 1.6;
+                    let startOpacity = 1;
+                    let endOpacity = 0;
+                    let duration = 350; // High speed forward portal escape
+                    let startTime = null;
+                    
+                    function animateForward(timestamp) {
+                        if (!startTime) startTime = timestamp;
+                        let elapsed = timestamp - startTime;
+                        let progress = Math.min(elapsed / duration, 1);
+                        
+                        // Sharp cubic forward acceleration path
+                        let ease = Math.pow(progress, 3);
+                        
+                        let currentScale = startScale + (endScale - startScale) * ease;
+                        let currentOpacity = startOpacity - (startOpacity - endOpacity) * ease;
+                        
+                        innerSpan.style.transform = `scale3d(${currentScale}, ${currentScale}, 1)`;
+                        innerSpan.style.opacity = currentOpacity;
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animateForward);
+                        } else {
+                            window.location.href = destination;
+                        }
+                    }
+                    requestAnimationFrame(animateForward);
+                } else {
                     window.location.href = destination;
-                }, 400);
+                }
             });
         });
 
         // --- Ironclad Page-Show Master Controller Pipeline ---
         window.addEventListener('pageshow', (event) => {
             
-            // 1. HARDWARE COMPOSITE RE-TRIGGER ENGINE (Restores perfect load animations without shaking)
+            // 1. HARDWARE COMPOSITE RE-TRIGGER ENGINE (Restores layout base animations smoothly)
             const layoutElements = document.querySelectorAll('header, .capsule-panel, footer');
+            const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
             
             if (layoutElements.length > 0) {
                 layoutElements.forEach(el => {
+                    // Safety Guardrail: If returning to a block containing an active animating footer,
+                    // momentarily skip container re-trigger so micro links can perform smoothly.
+                    if (savedTargetUrl && savedTargetUrl.includes('Footer/') && el.tagName.toLowerCase() === 'footer') {
+                        return;
+                    }
                     el.style.animation = 'none';
                     el.style.webkitAnimation = 'none';
                 });
                 
-                void document.body.offsetHeight; // Purge caches completely
+                void document.body.offsetHeight; // Purge layout memory registers
                 
                 requestAnimationFrame(() => {
                     layoutElements.forEach(el => {
+                        if (savedTargetUrl && savedTargetUrl.includes('Footer/') && el.tagName.toLowerCase() === 'footer') {
+                            return;
+                        }
                         el.style.animation = '';
                         el.style.webkitAnimation = '';
                     });
                 });
             }
 
-            // 2. UNIVERSAL TARGETED REVERSE GLIDE ENGINE
-            const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
-            
-            // Instantly clear any trailing forward animation tracking classes
-            interactiveLinks.forEach(l => l.classList.remove('is-zooming-link'));
+            // 2. UNIVERSAL TARGETED CENTERED REVERSE GLIDE ENGINE
+            // Clean up any stray background classes across the DOM link map instantly
+            interactiveLinks.forEach(l => {
+                l.classList.remove('kinetic-active');
+                const span = l.querySelector('.kinetic-target');
+                if (span) {
+                    span.style.transform = '';
+                    span.style.opacity = '';
+                }
+            });
             
             if (savedTargetUrl) {
-                sessionStorage.removeItem('activeUniversalTargetUrl'); // Clear memory vault
+                sessionStorage.removeItem('activeUniversalTargetUrl'); // Securely empty storage parameters
                 
-                // Match the exact link element across the DOM tree using absolute link comparison
                 let matchedLinkElement = null;
-                interactiveLinks.forEach(link => {
-                    if (link.href === savedTargetUrl) {
-                        matchedLinkElement = link;
-                    }
-                });
+                
+                // Normalizes path comparison arrays to prevent subdirectory directory mismatch failures
+                try {
+                    const savedPath = new URL(savedTargetUrl).pathname;
+                    interactiveLinks.forEach(link => {
+                        if (new URL(link.href).pathname === savedPath) {
+                            matchedLinkElement = link;
+                        }
+                    });
+                } catch(err) {
+                    // Fallback to direct text matcher matching rules if absolute conversion drops
+                    interactiveLinks.forEach(link => {
+                        if (link.href === savedTargetUrl) {
+                            matchedLinkElement = link;
+                        }
+                    });
+                }
                 
                 if (matchedLinkElement) {
                     const targetSpan = matchedLinkElement.querySelector('.kinetic-target');
                     
                     if (targetSpan) {
-                        let startScale = 1.5;
+                        matchedLinkElement.classList.add('kinetic-active'); // Engrave transition lock flag
+                        
+                        let startScale = 1.6;
                         let endScale = 1.0;
                         let startOpacity = 0;
-                        let endOpacity = 1;
-                        let duration = 500; // 500ms allows for an exquisite, relaxed cinematic landing
+                        
+                        // Dynamically scale final tracking boundaries to fit element identities
+                        let restingOpacity = matchedLinkElement.classList.contains('view-more-link') ? 1 : 0.8;
+                        
+                        let duration = 500; // 500ms provides a gorgeous, buttery soft deceleration glide
                         let startTime = null;
                         
-                        // Prevent style collisions with native CSS hover transitions during loops
-                        targetSpan.style.transition = 'none';
-                        targetSpan.style.webkitTransition = 'none';
-                        
-                        // Set starting parameters
                         targetSpan.style.transform = `scale3d(${startScale}, ${startScale}, 1)`;
                         targetSpan.style.opacity = startOpacity;
                         
-                        // Pure JS Thread Loop: Bypasses mobile swipe snapshots effortlessly
+                        // Pure JS Hardware Composite Animation loop thread
                         function animateLinkReverse(timestamp) {
                             if (!startTime) startTime = timestamp;
                             let elapsed = timestamp - startTime;
                             let progress = Math.min(elapsed / duration, 1);
                             
-                            // Premium Quintic Ease-Out Equation: 1 - (1 - x)^5
+                            // High-End Premium Quintic Ease-Out Tracking Vector curve: 1 - (1 - x)^5
                             let ease = 1 - Math.pow(1 - progress, 5);
                             
                             let currentScale = startScale - (startScale - endScale) * ease;
-                            let currentOpacity = startOpacity + (endOpacity - startOpacity) * ease;
+                            let currentOpacity = startOpacity + (restingOpacity - startOpacity) * ease;
                             
                             targetSpan.style.transform = `scale3d(${currentScale}, ${currentScale}, 1)`;
                             targetSpan.style.opacity = currentOpacity;
@@ -824,14 +874,23 @@
                             if (progress < 1) {
                                 requestAnimationFrame(animateLinkReverse);
                             } else {
-                                // Touchdown reached cleanly: Scrub styles away to unlock standard pointing hovers again
+                                // Touchdown target achieved cleanly: Remove temporary inline parameters
                                 targetSpan.style.transform = '';
                                 targetSpan.style.opacity = '';
-                                targetSpan.style.transition = '';
-                                targetSpan.style.webkitTransition = '';
+                                matchedLinkElement.classList.remove('kinetic-active');
+                                
+                                // Clean up footer container rules if they were protected
+                                if (savedTargetUrl.includes('Footer/')) {
+                                    const foot = document.querySelector('footer');
+                                    if (foot) {
+                                        foot.style.animation = '';
+                                        foot.style.webkitAnimation = '';
+                                    }
+                                }
                             }
                         }
                         
+                        // Queue execution loop on device viewport paint cycle thread
                         requestAnimationFrame(animateLinkReverse);
                     }
                 }
