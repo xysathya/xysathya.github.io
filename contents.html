@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contents - sathya.</title>
+    <!-- Link your existing global stylesheet here to keep the master look -->
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* CSS to support the wide capsule, internal sub-headings, and breathing space chips */
+        .contents-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            column-gap: 0px;
+            flex-direction: column;
+            row-gap: 32px; /* Generous breathing space between full-width capsules */
+        }
+
+        .page-header-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .wide-capsule {
+            width: 100%;
+            background-color: #111111; /* Matches your premium dark panel card color */
+            border: 1px solid #222222;
+            border-radius: 24px;
+            padding: 32px;
+            box-sizing: border-box;
+        }
+
+        .wide-capsule-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #222222;
+            padding-bottom: 12px;
+        }
+
+        /* Sub-heading styles for History & Geography splits */
+        .capsule-sub-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #8a9a86; /* Clean, subtle accent tone */
+            margin: 20px 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* The inline side-by-side topics framework */
+        .topics-flex-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 16px; /* Generous vertical and horizontal breathing space */
+            margin-bottom: 16px;
+        }
+
+        .topic-chip {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            color: #cccccc;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .topic-chip:hover {
+            background-color: #222222;
+            color: #ffffff;
+            border-color: #444444;
+            transform: translateY(-1px);
+        }
+
+        /* Entrance Animations mimicking homepage style */
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MASTER HEADER (Copy-pasted from your index.html homepage) -->
+    <!-- Keeps your exact 'sathya.' logo, theme toggle, and search pill intact -->
+
+    <!-- MAIN CONTENT WORKSPACE -->
+    <main class="contents-container">
+        
+        <h1 class="page-header-title animate-fade-up">- Contents</h1>
+
+        <!-- 1. ART AND CULTURE -->
+        <section id="art-culture" class="wide-capsule animate-fade-up" style="animation-delay: 0.1s;">
+            <h2 class="wide-capsule-title">Art and culture</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Dances</a>
+                <a href="#" class="topic-chip">Art forms</a>
+                <a href="#" class="topic-chip">Literature</a>
+                <a href="#" class="topic-chip">Folk songs</a>
+                <a href="#" class="topic-chip">Architecture</a>
+            </div>
+        </section>
+
+        <!-- 2. HISTORY (Divided cleanly into Indian and World) -->
+        <section id="history" class="wide-capsule animate-fade-up" style="animation-delay: 0.15s;">
+            <h2 class="wide-capsule-title">History</h2>
+            
+            <h3 class="capsule-sub-title">Indian History</h3>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Ancient History</a>
+                <a href="#" class="topic-chip">Medieval History</a>
+                <a href="#" class="topic-chip">Modern History</a>
+                <a href="#" class="topic-chip">Freedom Struggle</a>
+                <a href="#" class="topic-chip">Post-Independence</a>
+            </div>
+
+            <h3 class="capsule-sub-title">World History</h3>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Industrial Revolution</a>
+                <a href="#" class="topic-chip">World Wars</a>
+                <a href="#" class="topic-chip">Colonization & Decolonization</a>
+                <a href="#" class="topic-chip">Political Philosophies</a>
+            </div>
+        </section>
+
+        <!-- 3. INDIAN SOCIETY -->
+        <section id="indian-society" class="wide-capsule animate-fade-up" style="animation-delay: 0.2s;">
+            <h2 class="wide-capsule-title">Indian society</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Salient Features of Indian Society</a>
+                <a href="#" class="topic-chip">Diversity of India</a>
+                <a href="#" class="topic-chip">Role of Women & Organizations</a>
+                <a href="#" class="topic-chip">Poverty & Developmental Issues</a>
+                <a href="#" class="topic-chip">Urbanization</a>
+                <a href="#" class="topic-chip">Effects of Globalization</a>
+                <a href="#" class="topic-chip">Social Empowerment & Communalism</a>
+            </div>
+        </section>
+
+        <!-- 4. GEOGRAPHY (Divided cleanly into Indian and World) -->
+        <section id="geography" class="wide-capsule animate-fade-up" style="animation-delay: 0.25s;">
+            <h2 class="wide-capsule-title">Geography</h2>
+            
+            <h3 class="capsule-sub-title">Indian Geography</h3>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Physiography & Relief</a>
+                <a href="#" class="topic-chip">River Systems & Drainage</a>
+                <a href="#" class="topic-chip">Climate & Monsoons</a>
+                <a href="#" class="topic-chip">Soils & Vegetation</a>
+                <a href="#" class="topic-chip">Economic & Human Geography</a>
+            </div>
+
+            <h3 class="capsule-sub-title">World Geography</h3>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Geomorphology</a>
+                <a href="#" class="topic-chip">Climatology</a>
+                <a href="#" class="topic-chip">Oceanography</a>
+                <a href="#" class="topic-chip">Major Natural Regions</a>
+                <a href="#" class="topic-chip">Distribution of Key Resources</a>
+            </div>
+        </section>
+
+        <!-- 5. POLITY -->
+        <section id="polity" class="wide-capsule animate-fade-up" style="animation-delay: 0.3s;">
+            <h2 class="wide-capsule-title">Polity</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Constitutional Framework</a>
+                <a href="#" class="topic-chip">System of Government</a>
+                <a href="#" class="topic-chip">Central Government</a>
+                <a href="#" class="topic-chip">State Government</a>
+                <a href="#" class="topic-chip">Local Government</a>
+                <a href="#" class="topic-chip">Judiciary</a>
+                <a href="#" class="topic-chip">Constitutional & Non-Constitutional Bodies</a>
+            </div>
+        </section>
+
+        <!-- 6. SOCIAL JUSTICE -->
+        <section id="social-justice" class="wide-capsule animate-fade-up" style="animation-delay: 0.35s;">
+            <h2 class="wide-capsule-title">Social justice</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Welfare Schemes for Vulnerable Sections</a>
+                <a href="#" class="topic-chip">Mechanisms, Laws & Institutions</a>
+                <a href="#" class="topic-chip">Health Sector Issues</a>
+                <a href="#" class="topic-chip">Education System</a>
+                <a href="#" class="topic-chip">Human Resources</a>
+                <a href="#" class="topic-chip">Issues Relating to Poverty & Hunger</a>
+            </div>
+        </section>
+
+        <!-- 7. GOVERNANCE -->
+        <section id="governance" class="wide-capsule animate-fade-up" style="animation-delay: 0.4s;">
+            <h2 class="wide-capsule-title">Governance</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Important Aspects of Governance</a>
+                <a href="#" class="topic-chip">Transparency & Accountability</a>
+                <a href="#" class="topic-chip">E-governance Applications & Models</a>
+                <a href="#" class="topic-chip">Citizens Charters</a>
+                <a href="#" class="topic-chip">Role of Civil Services in a Democracy</a>
+            </div>
+        </section>
+
+        <!-- 8. INTERNATIONAL RELATIONS -->
+        <section id="international-relations" class="wide-capsule animate-fade-up" style="animation-delay: 0.45s;">
+            <h2 class="wide-capsule-title">International relations</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">India and its Neighborhood</a>
+                <a href="#" class="topic-chip">Bilateral, Regional & Global Groupings</a>
+                <a href="#" class="topic-chip">Effect of Policies of Developed Countries</a>
+                <a href="#" class="topic-chip">Important International Institutions</a>
+            </div>
+        </section>
+
+        <!-- 9. ECONOMY -->
+        <section id="economy" class="wide-capsule animate-fade-up" style="animation-delay: 0.5s;">
+            <h2 class="wide-capsule-title">Economy</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Indian Economy & Issues Relating to Planning</a>
+                <a href="#" class="topic-chip">Mobilization of Resources</a>
+                <a href="#" class="topic-chip">Growth, Development & Employment</a>
+                <a href="#" class="topic-chip">Inclusive Growth</a>
+                <a href="#" class="topic-chip">Government Budgeting</a>
+                <a href="#" class="topic-chip">Land Reforms in India</a>
+                <a href="#" class="topic-chip">Infrastructure & Investment Models</a>
+            </div>
+        </section>
+
+        <!-- 10. SCIENCE AND TECHNOLOGY -->
+        <section id="science-technology" class="wide-capsule animate-fade-up" style="animation-delay: 0.55s;">
+            <h2 class="wide-capsule-title">Science and technology</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Developments & Everyday Applications</a>
+                <a href="#" class="topic-chip">Achievements of Indians in Sci-Tech</a>
+                <a href="#" class="topic-chip">Indigenization of Technology</a>
+                <a href="#" class="topic-chip">IT, Space & Computers</a>
+                <a href="#" class="topic-chip">Robotics & Nanotech</a>
+                <a href="#" class="topic-chip">Biotechnology & IPR Issues</a>
+            </div>
+        </section>
+
+        <!-- 11. ENVIRONMENT -->
+        <section id="environment" class="wide-capsule animate-fade-up" style="animation-delay: 0.6s;">
+            <h2 class="wide-capsule-title">Environment</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Conservation & Biodiversity</a>
+                <a href="#" class="topic-chip">Environmental Pollution & Degradation</a>
+                <a href="#" class="topic-chip">Climate Change Mitigation</a>
+                <a href="#" class="topic-chip">Environmental Impact Assessment (EIA)</a>
+            </div>
+        </section>
+
+        <!-- 12. DISASTER MANAGEMENT -->
+        <section id="disaster-management" class="wide-capsule animate-fade-up" style="animation-delay: 0.65s;">
+            <h2 class="wide-capsule-title">Disaster management</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Disaster Profiles of India</a>
+                <a href="#" class="topic-chip">Vulnerability & Risk Assessment</a>
+                <a href="#" class="topic-chip">Mitigation Strategies</a>
+                <a href="#" class="topic-chip">NDMA Guidelines & Frameworks</a>
+            </div>
+        </section>
+
+        <!-- 13. INTERNAL SECURITY -->
+        <section id="internal-security" class="wide-capsule animate-fade-up" style="animation-delay: 0.7s;">
+            <h2 class="wide-capsule-title">Internal security</h2>
+            <div class="topics-flex-grid">
+                <a href="#" class="topic-chip">Linkages between Development & Extremism</a>
+                <a href="#" class="topic-chip">Role of External State & Non-state Actors</a>
+                <a href="#" class="topic-chip">Cyber Security Challenges</a>
+                <a href="#" class="topic-chip">Money Laundering & its Prevention</a>
+                <a href="#" class="topic-chip">Border Area Management & Security Forces</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MASTER FOOTER (Copy-pasted from your index.html homepage) -->
+    <!-- Keeps your exact standard links: About, Contact, Privacy Policy... -->
+
+</body>
+</html>
