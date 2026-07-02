@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contents - sathya.</title>
 
-    <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -36,10 +35,7 @@
             --header-bg: #131815;
             --header-border: #222c26;
             
-            /* Subject Content Layout Variables */
-            --chip-bg: #161616;
-            --chip-border: #262626;
-            --chip-hover: #1f2421;
+            --bullet-color: #444444;
         }
 
         body.light-mode {
@@ -54,9 +50,7 @@
             --header-bg: #e9ebe6;
             --header-border: #d4d8cf;
             
-            --chip-bg: #f0f0f4;
-            --chip-border: #e2e2e7;
-            --chip-hover: #e9ebe6;
+            --bullet-color: #b8b8bc;
         }
 
         * {
@@ -94,31 +88,32 @@
         }
 
         /* Staggered Load Animation Configuration */
-        header, .page-main-heading, .wide-capsule, footer {
+        header, .breadcrumb-nav, .page-main-heading, .wide-capsule, footer {
             opacity: 1;
             will-change: transform, opacity;
             animation: masterEntrance 1.2s var(--ease-premium) backwards;
         }
 
         header { animation-delay: 0.04s; }
-        .page-main-heading { animation-delay: 0.10s; }
+        .breadcrumb-nav { animation-delay: 0.08s; }
+        .page-main-heading { animation-delay: 0.12s; }
         
-        /* 13-Subject Staggered Animation Cascade Matrix */
-        .wide-capsule:nth-child(1) { animation-delay: 0.14s; }
-        .wide-capsule:nth-child(2) { animation-delay: 0.18s; }
-        .wide-capsule:nth-child(3) { animation-delay: 0.22s; }
-        .wide-capsule:nth-child(4) { animation-delay: 0.26s; }
-        .wide-capsule:nth-child(5) { animation-delay: 0.30s; }
-        .wide-capsule:nth-child(6) { animation-delay: 0.34s; }
-        .wide-capsule:nth-child(7) { animation-delay: 0.38s; }
-        .wide-capsule:nth-child(8) { animation-delay: 0.42s; }
-        .wide-capsule:nth-child(9) { animation-delay: 0.46s; }
-        .wide-capsule:nth-child(10) { animation-delay: 0.50s; }
-        .wide-capsule:nth-child(11) { animation-delay: 0.54s; }
-        .wide-capsule:nth-child(12) { animation-delay: 0.58s; }
-        .wide-capsule:nth-child(13) { animation-delay: 0.62s; }
+        /* Staggered Cascade Engine */
+        .wide-capsule:nth-child(1) { animation-delay: 0.16s; }
+        .wide-capsule:nth-child(2) { animation-delay: 0.20s; }
+        .wide-capsule:nth-child(3) { animation-delay: 0.24s; }
+        .wide-capsule:nth-child(4) { animation-delay: 0.28s; }
+        .wide-capsule:nth-child(5) { animation-delay: 0.32s; }
+        .wide-capsule:nth-child(6) { animation-delay: 0.36s; }
+        .wide-capsule:nth-child(7) { animation-delay: 0.40s; }
+        .wide-capsule:nth-child(8) { animation-delay: 0.44s; }
+        .wide-capsule:nth-child(9) { animation-delay: 0.48s; }
+        .wide-capsule:nth-child(10) { animation-delay: 0.52s; }
+        .wide-capsule:nth-child(11) { animation-delay: 0.56s; }
+        .wide-capsule:nth-child(12) { animation-delay: 0.60s; }
+        .wide-capsule:nth-child(13) { animation-delay: 0.64s; }
         
-        footer { animation-delay: 0.70s; }
+        footer { animation-delay: 0.72s; }
 
         /* Top Header Navigation Layout Block */
         header {
@@ -292,11 +287,42 @@
             transform: translate3d(0, 0, 0) rotate(90deg) scale(0.4);
         }
 
+        /* Minimal Breadcrumbs Infrastructure */
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            padding-left: 8px;
+        }
+
+        .breadcrumb-nav a {
+            color: var(--text-muted);
+            text-decoration: none !important;
+            transition: color 0.3s var(--ease-premium);
+        }
+
+        .breadcrumb-nav a:hover {
+            color: var(--text-main);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted);
+            opacity: 0.4;
+        }
+
+        .breadcrumb-current {
+            color: var(--text-main);
+            opacity: 0.8;
+        }
+
         /* Wide Stack Content Architecture Engine */
         .contents-container {
             display: flex;
             flex-direction: column;
-            gap: 32px; /* Generous breathing space layout */
+            gap: 32px; 
             margin-bottom: 80px;
             width: 100%;
         }
@@ -306,7 +332,7 @@
             font-weight: 600;
             letter-spacing: -0.5px;
             color: var(--text-main);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             padding-left: 8px;
             transition: color 0.6s var(--ease-premium);
         }
@@ -315,7 +341,7 @@
             background-color: var(--panel-bg);
             border: 1px solid var(--panel-border);
             border-radius: 28px;
-            padding: 32px;
+            padding: 40px 48px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
             display: flex;
             flex-direction: column;
@@ -340,7 +366,7 @@
             font-weight: 600;
             letter-spacing: -0.3px;
             color: var(--text-main);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             transition: color 0.6s var(--ease-premium);
         }
 
@@ -351,44 +377,57 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--text-muted);
-            margin: 16px 0 16px 4px;
+            margin: 24px 0 20px 0;
             transition: color 0.6s var(--ease-premium);
         }
         .wide-capsule :first-child + .sub-section-title {
             margin-top: 0px;
         }
 
-        /* Inline Horizontal Spacing Matrix */
-        .topics-flex-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 16px; /* Generous vertical and horizontal breathing space */
-            margin-bottom: 8px;
-        }
-        .topics-flex-row:last-child {
-            margin-bottom: 0px;
+        /* Side-By-Side Parallel Vertical Lists Grid Framework (As per drawing sketch) */
+        .topics-column-grid {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Forms 2 structured vertical column tracks side-by-side */
+            gap: 16px 64px; /* Vertical padding and wide structural horizontal breathing space */
         }
 
-        .topic-chip {
-            display: block;
-            padding: 12px 24px;
-            background-color: var(--chip-bg);
-            border: 1px solid var(--chip-border);
-            border-radius: 16px;
+        .topics-column-grid li {
+            position: relative;
+            padding-left: 20px; /* Space reserved precisely for the alignment bullet dots */
+            display: flex;
+            align-items: center;
+        }
+
+        /* Premium Custom Content Bullet Vector Engine */
+        .topics-column-grid li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--bullet-color);
+            font-size: 16px;
+            transition: color 0.4s var(--ease-premium);
+        }
+
+        .topics-column-grid li:hover::before {
             color: var(--text-main);
-            opacity: 0.85;
+        }
+
+        .topics-column-grid a {
+            display: inline-block;
+            color: var(--text-main);
+            opacity: 0.75;
             text-decoration: none !important;
             font-size: 14.5px;
             font-weight: 400;
-            transition: color 0.4s var(--ease-premium), background-color 0.4s var(--ease-premium), border-color 0.4s var(--ease-premium), transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
+            transition: color 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium), transform 0.4s var(--ease-premium);
             -webkit-tap-highlight-color: transparent !important;
         }
 
-        .topic-chip:hover {
+        .topics-column-grid li:hover a {
             opacity: 1;
-            background-color: var(--chip-hover);
-            border-color: var(--text-muted);
-            transform: translateY(-2px);
+            color: var(--text-main);
+            transform: translate3d(4px, 0, 0); /* Subtle rightwards layout slider glide animation */
         }
 
         /* Footer Layout Vector Shell */
@@ -429,7 +468,7 @@
             transition: color 0.4s var(--ease-premium);
         }
 
-        /* Mobile Media Configurations */
+        /* Mobile Responsive Window Shifts */
         @media (max-width: 700px) {
             body { padding: 40px 20px; }
             header { margin-bottom: 40px; height: 64px; }
@@ -438,18 +477,16 @@
             .search-core-input { padding: 0 12px; font-size: 15px; }
             .header-right-cluster, .search-control-cluster { gap: 16px; }
             
-            .wide-capsule { padding: 24px 20px; border-radius: 24px; }
-            .topic-chip { padding: 10px 18px; font-size: 13.5px; border-radius: 12px; }
+            .wide-capsule { padding: 32px 24px; border-radius: 24px; }
+            .topics-column-grid { grid-template-columns: 1fr; gap: 14px 0; } /* Collapses safely on phones to prevent clipping */
             .wide-panel-title { margin-bottom: 20px; font-size: 18px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Block - Unified Twin View Wide Design Layout -->
     <header id="masterHeader">
         
-        <!-- View Layer A: Default Branding State -->
         <div class="header-inner-view" id="headerMainView">
             <a href="index.html" class="logo">sathya.</a>
             <div class="header-right-cluster">
@@ -468,7 +505,6 @@
             </div>
         </div>
 
-        <!-- View Layer B: Active Search State -->
         <div class="header-inner-view" id="headerSearchView">
             <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
@@ -484,196 +520,187 @@
 
     </header>
 
-    <!-- Content Workspace -->
     <main class="contents-container">
         
-        <h1 class="page-main-heading">- Contents</h1>
-
-        <!-- 1. ART AND CULTURE -->
-        <div class="wide-capsule" id="art-culture">
-            <h2 class="wide-panel-title">Art and culture</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Dances</a>
-                <a href="#" class="topic-chip">Art forms</a>
-                <a href="#" class="topic-chip">Literature</a>
-                <a href="#" class="topic-chip">Folk songs</a>
-                <a href="#" class="topic-chip">Architecture</a>
-            </div>
+        <div class="breadcrumb-nav">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Contents</span>
         </div>
 
-        <!-- 2. HISTORY (Divided cleanly into Indian and World) -->
+        <h1 class="page-main-heading">- Contents</h1>
+
+        <div class="wide-capsule" id="art-culture">
+            <h2 class="wide-panel-title">Art and culture</h2>
+            <ul class="topics-column-grid">
+                <li><a href="#">Dances</a></li>
+                <li><a href="#">Literature</a></li>
+                <li><a href="#">Art forms</a></li>
+                <li><a href="#">Folk songs</a></li>
+                <li><a href="#">Architecture</a></li>
+            </ul>
+        </div>
+
         <div class="wide-capsule" id="history">
             <h2 class="wide-panel-title">History</h2>
             
             <h3 class="sub-section-title">Indian History</h3>
-            <div class="topics-flex-row" style="margin-bottom: 24px;">
-                <a href="#" class="topic-chip">Ancient History</a>
-                <a href="#" class="topic-chip">Medieval History</a>
-                <a href="#" class="topic-chip">Modern History</a>
-                <a href="#" class="topic-chip">Freedom Struggle</a>
-                <a href="#" class="topic-chip">Post-Independence</a>
-            </div>
+            <ul class="topics-column-grid" style="margin-bottom: 32px;">
+                <li><a href="#">Ancient History</a></li>
+                <li><a href="#">Freedom Struggle</a></li>
+                <li><a href="#">Medieval History</a></li>
+                <li><a href="#">Post-Independence</a></li>
+                <li><a href="#">Modern History</a></li>
+            </ul>
 
             <h3 class="sub-section-title">World History</h3>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Industrial Revolution</a>
-                <a href="#" class="topic-chip">World Wars</a>
-                <a href="#" class="topic-chip">Colonization & Decolonization</a>
-                <a href="#" class="topic-chip">Political Philosophies</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Industrial Revolution</a></li>
+                <li><a href="#">Colonization & Decolonization</a></li>
+                <li><a href="#">World Wars</a></li>
+                <li><a href="#">Political Philosophies</a></li>
+            </ul>
         </div>
 
-        <!-- 3. INDIAN SOCIETY -->
         <div class="wide-capsule" id="indian-society">
             <h2 class="wide-panel-title">Indian society</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Salient Features of Indian Society</a>
-                <a href="#" class="topic-chip">Diversity of India</a>
-                <a href="#" class="topic-chip">Role of Women & Organizations</a>
-                <a href="#" class="topic-chip">Poverty & Developmental Issues</a>
-                <a href="#" class="topic-chip">Urbanization</a>
-                <a href="#" class="topic-chip">Effects of Globalization</a>
-                <a href="#" class="topic-chip">Social Empowerment & Communalism</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Salient Features of Indian Society</a></li>
+                <li><a href="#">Urbanization</a></li>
+                <li><a href="#">Diversity of India</a></li>
+                <li><a href="#">Effects of Globalization</a></li>
+                <li><a href="#">Role of Women & Organizations</a></li>
+                <li><a href="#">Social Empowerment & Communalism</a></li>
+                <li><a href="#">Poverty & Developmental Issues</a></li>
+            </ul>
         </div>
 
-        <!-- 4. GEOGRAPHY (Divided cleanly into Indian and World) -->
         <div class="wide-capsule" id="geography">
             <h2 class="wide-panel-title">Geography</h2>
             
             <h3 class="sub-section-title">Indian Geography</h3>
-            <div class="topics-flex-row" style="margin-bottom: 24px;">
-                <a href="#" class="topic-chip">Physiography & Relief</a>
-                <a href="#" class="topic-chip">River Systems & Drainage</a>
-                <a href="#" class="topic-chip">Climate & Monsoons</a>
-                <a href="#" class="topic-chip">Soils & Vegetation</a>
-                <a href="#" class="topic-chip">Economic & Human Geography</a>
-            </div>
+            <ul class="topics-column-grid" style="margin-bottom: 32px;">
+                <li><a href="#">Physiography & Relief</a></li>
+                <li><a href="#">Soils & Vegetation</a></li>
+                <li><a href="#">River Systems & Drainage</a></li>
+                <li><a href="#">Economic & Human Geography</a></li>
+                <li><a href="#">Climate & Monsoons</a></li>
+            </ul>
 
             <h3 class="sub-section-title">World Geography</h3>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Geomorphology</a>
-                <a href="#" class="topic-chip">Climatology</a>
-                <a href="#" class="topic-chip">Oceanography</a>
-                <a href="#" class="topic-chip">Major Natural Regions</a>
-                <a href="#" class="topic-chip">Distribution of Key Resources</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Geomorphology</a></li>
+                <li><a href="#">Major Natural Regions</a></li>
+                <li><a href="#">Climatology</a></li>
+                <li><a href="#">Distribution of Key Resources</a></li>
+                <li><a href="#">Oceanography</a></li>
+            </ul>
         </div>
 
-        <!-- 5. POLITY -->
         <div class="wide-capsule" id="polity">
             <h2 class="wide-panel-title">Polity</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Constitutional Framework</a>
-                <a href="#" class="topic-chip">System of Government</a>
-                <a href="#" class="topic-chip">Central Government</a>
-                <a href="#" class="topic-chip">State Government</a>
-                <a href="#" class="topic-chip">Local Government</a>
-                <a href="#" class="topic-chip">Judiciary</a>
-                <a href="#" class="topic-chip">Constitutional & Non-Constitutional Bodies</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Constitutional Framework</a></li>
+                <li><a href="#">Local Government</a></li>
+                <li><a href="#">System of Government</a></li>
+                <li><a href="#">Judiciary</a></li>
+                <li><a href="#">Central Government</a></li>
+                <li><a href="#">Constitutional & Non-Constitutional Bodies</a></li>
+                <li><a href="#">State Government</a></li>
+            </ul>
         </div>
 
-        <!-- 6. SOCIAL JUSTICE -->
         <div class="wide-capsule" id="social-justice">
             <h2 class="wide-panel-title">Social justice</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Welfare Schemes for Vulnerable Sections</a>
-                <a href="#" class="topic-chip">Mechanisms, Laws & Institutions</a>
-                <a href="#" class="topic-chip">Health Sector Issues</a>
-                <a href="#" class="topic-chip">Education System</a>
-                <a href="#" class="topic-chip">Human Resources</a>
-                <a href="#" class="topic-chip">Issues Relating to Poverty & Hunger</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Welfare Schemes for Vulnerable Sections</a></li>
+                <li><a href="#">Education System</a></li>
+                <li><a href="#">Mechanisms, Laws & Institutions</a></li>
+                <li><a href="#">Human Resources</a></li>
+                <li><a href="#">Health Sector Issues</a></li>
+                <li><a href="#">Issues Relating to Poverty & Hunger</a></li>
+            </ul>
         </div>
 
-        <!-- 7. GOVERNANCE -->
         <div class="wide-capsule" id="governance">
             <h2 class="wide-panel-title">Governance</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Important Aspects of Governance</a>
-                <a href="#" class="topic-chip">Transparency & Accountability</a>
-                <a href="#" class="topic-chip">E-governance Applications & Models</a>
-                <a href="#" class="topic-chip">Citizens Charters</a>
-                <a href="#" class="topic-chip">Role of Civil Services in a Democracy</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Important Aspects of Governance</a></li>
+                <li><a href="#">Citizens Charters</a></li>
+                <li><a href="#">Transparency & Accountability</a></li>
+                <li><a href="#">Role of Civil Services in a Democracy</a></li>
+                <li><a href="#">E-governance Applications & Models</a></li>
+            </ul>
         </div>
 
-        <!-- 8. INTERNATIONAL RELATIONS -->
         <div class="wide-capsule" id="international-relations">
             <h2 class="wide-panel-title">International relations</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">India and its Neighborhood</a>
-                <a href="#" class="topic-chip">Bilateral, Regional & Global Groupings</a>
-                <a href="#" class="topic-chip">Effect of Policies of Developed Countries</a>
-                <a href="#" class="topic-chip">Important International Institutions</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">India and its Neighborhood</a></li>
+                <li><a href="#">Effect of Policies of Developed Countries</a></li>
+                <li><a href="#">Bilateral, Regional & Global Groupings</a></li>
+                <li><a href="#">Important International Institutions</a></li>
+            </ul>
         </div>
 
-        <!-- 9. ECONOMY -->
         <div class="wide-capsule" id="economy">
             <h2 class="wide-panel-title">Economy</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Indian Economy & Issues Relating to Planning</a>
-                <a href="#" class="topic-chip">Mobilization of Resources</a>
-                <a href="#" class="topic-chip">Growth, Development & Employment</a>
-                <a href="#" class="topic-chip">Inclusive Growth</a>
-                <a href="#" class="topic-chip">Government Budgeting</a>
-                <a href="#" class="topic-chip">Land Reforms in India</a>
-                <a href="#" class="topic-chip">Infrastructure & Investment Models</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Indian Economy & Issues Relating to Planning</a></li>
+                <li><a href="#">Government Budgeting</a></li>
+                <li><a href="#">Mobilization of Resources</a></li>
+                <li><a href="#">Land Reforms in India</a></li>
+                <li><a href="#">Growth, Development & Employment</a></li>
+                <li><a href="#">Infrastructure & Investment Models</a></li>
+                <li><a href="#">Inclusive Growth</a></li>
+            </ul>
         </div>
 
-        <!-- 10. SCIENCE AND TECHNOLOGY -->
         <div class="wide-capsule" id="science-technology">
             <h2 class="wide-panel-title">Science and technology</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Developments & Everyday Applications</a>
-                <a href="#" class="topic-chip">Achievements of Indians in Sci-Tech</a>
-                <a href="#" class="topic-chip">Indigenization of Technology</a>
-                <a href="#" class="topic-chip">IT, Space & Computers</a>
-                <a href="#" class="topic-chip">Robotics & Nanotech</a>
-                <a href="#" class="topic-chip">Biotechnology & IPR Issues</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Developments & Everyday Applications</a></li>
+                <li><a href="#">IT, Space & Computers</a></li>
+                <li><a href="#">Achievements of Indians in Sci-Tech</a></li>
+                <li><a href="#">Robotics & Nanotech</a></li>
+                <li><a href="#">Indigenization of Technology</a></li>
+                <li><a href="#">Biotechnology & IPR Issues</a></li>
+            </ul>
         </div>
 
-        <!-- 11. ENVIRONMENT -->
         <div class="wide-capsule" id="environment">
             <h2 class="wide-panel-title">Environment</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Conservation & Biodiversity</a>
-                <a href="#" class="topic-chip">Environmental Pollution & Degradation</a>
-                <a href="#" class="topic-chip">Climate Change Mitigation</a>
-                <a href="#" class="topic-chip">Environmental Impact Assessment (EIA)</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Conservation & Biodiversity</a></li>
+                <li><a href="#">Climate Change Mitigation</a></li>
+                <li><a href="#">Environmental Pollution & Degradation</a></li>
+                <li><a href="#">Environmental Impact Assessment (EIA)</a></li>
+            </ul>
         </div>
 
-        <!-- 12. DISASTER MANAGEMENT -->
         <div class="wide-capsule" id="disaster-management">
             <h2 class="wide-panel-title">Disaster management</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Disaster Profiles of India</a>
-                <a href="#" class="topic-chip">Vulnerability & Risk Assessment</a>
-                <a href="#" class="topic-chip">Mitigation Strategies</a>
-                <a href="#" class="topic-chip">NDMA Guidelines & Frameworks</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Disaster Profiles of India</a></li>
+                <li><a href="#">Mitigation Strategies</a></li>
+                <li><a href="#">Vulnerability & Risk Assessment</a></li>
+                <li><a href="#">NDMA Guidelines & Frameworks</a></li>
+            </ul>
         </div>
 
-        <!-- 13. INTERNAL SECURITY -->
         <div class="wide-capsule" id="internal-security">
             <h2 class="wide-panel-title">Internal security</h2>
-            <div class="topics-flex-row">
-                <a href="#" class="topic-chip">Linkages between Development & Extremism</a>
-                <a href="#" class="topic-chip">Role of External State & Non-state Actors</a>
-                <a href="#" class="topic-chip">Cyber Security Challenges</a>
-                <a href="#" class="topic-chip">Money Laundering & its Prevention</a>
-                <a href="#" class="topic-chip">Border Area Management & Security Forces</a>
-            </div>
+            <ul class="topics-column-grid">
+                <li><a href="#">Linkages between Development & Extremism</a></li>
+                <li><a href="#">Money Laundering & its Prevention</a></li>
+                <li><a href="#">Role of External State & Non-state Actors</a></li>
+                <li><a href="#">Border Area Management & Security Forces</a></li>
+                <li><a href="#">Cyber Security Challenges</a></li>
+            </ul>
         </div>
 
     </main>
 
-    <!-- Grounded Minimal Footer Row -->
     <footer>
         <div class="footer-links-row">
             <a href="Footer/about.html">About</a>
@@ -687,7 +714,6 @@
         </div>
     </footer>
 
-    <!-- Smart Native Device Sync & Twin-View Controller Engine -->
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
