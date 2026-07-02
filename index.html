@@ -755,37 +755,38 @@
         // --- Ironclad Back-Button Reverse Transition Controller ---
         window.addEventListener('pageshow', (event) => {
             if (viewMoreLink) {
-                // 1. Instantly clear out any leftover animation classes
+                // 1. Instantly clear out any old animation classes
                 viewMoreLink.classList.remove('is-zooming');
                 viewMoreLink.classList.remove('is-reversing');
                 
-                // 2. Hard-lock the link at the exact reverse starting frame to block ugly iPad layout flashes
+                // 2. Strict Style-Lock: Holds the text hidden and scaled out.
+                // This completely prevents any flashing or jumping while the iPad finishes its swipe gesture.
                 viewMoreLink.style.transition = 'none';
                 viewMoreLink.style.webkitTransition = 'none';
                 viewMoreLink.style.transform = 'scale3d(1.6, 1.6, 1)';
                 viewMoreLink.style.webkitTransform = 'scale3d(1.6, 1.6, 1)';
                 viewMoreLink.style.opacity = '0';
                 
-                // Force a hardware layout recalculation
+                // Forces layout synchronization
                 void viewMoreLink.offsetHeight;
                 
-                // 3. Give iPad Safari a clean 40ms window to completely unfreeze its viewport cache thread
+                // 3. Golden Stabilization Window: Gives Safari 100ms to completely drop its interactive gesture lock
                 setTimeout(() => {
-                    // Remove temporary style locks completely
+                    // Release the temporary inline style locks completely
                     viewMoreLink.style.transition = '';
                     viewMoreLink.style.webkitTransition = '';
                     viewMoreLink.style.transform = '';
                     viewMoreLink.style.webkitTransform = '';
                     viewMoreLink.style.opacity = '';
                     
-                    // Trigger the perfect reverse transition class smoothly
+                    // Safely trigger your perfect, hardware-accelerated 3D reverse animation class
                     viewMoreLink.classList.add('is-reversing');
-                }, 40);
+                }, 100);
                 
-                // 4. Strip the class at 440ms (40ms delay + 400ms duration) so normal hovers work perfectly again
+                // 4. Strip the class once the animation finishes (100ms delay + 400ms animation = 500ms)
                 setTimeout(() => {
                     viewMoreLink.classList.remove('is-reversing');
-                }, 440);
+                }, 500);
             }
         });
         
