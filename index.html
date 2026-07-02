@@ -502,14 +502,13 @@
 
 /* The Synchronized Zoom & Fade Trigger State (Forward Motion) */
 .view-more-link.is-zooming {
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear !important;
-    transform: scale(1.6) !important; 
-    opacity: 0 !important;          
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s linear !important;
+    transform: scale(1.5) !important; 
+    opacity: 0.3 !important; /* Dims by 70% but stays alive so it doesn't vanish early */         
 }
 
 /* The Mirrored Reverse Transition State (Backward Motion) */
 .view-more-link.is-reversing {
-    /* Uses identical timing definitions running through specialized keyframe tracks */
     animation: reverseTransform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
                reverseOpacity 0.4s linear forwards;
 }
@@ -734,9 +733,10 @@
                 const destination = this.getAttribute('href');
                 this.classList.add('is-zooming'); // Fire forward fade/zoom timeline
                 
+                // Cuts to the next page at 300ms while the text is still moving and visible
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 400);
+                }, 300);
             });
         }
 
