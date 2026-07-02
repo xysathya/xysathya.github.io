@@ -492,7 +492,10 @@
     display: inline-block;
     will-change: transform, opacity;
     -webkit-tap-highlight-color: transparent !important; /* Kills mobile blue flash */
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    
+    /* The Native Transition Engine: Pauses during swipes, plays instantly when released */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear;
+    -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear;
 }
 
 .view-more-link:hover {
@@ -500,41 +503,11 @@
     text-decoration: none !important;
 }
 
-/* The Synchronized Zoom & Fade Trigger State (Forward Motion) */
+/* The Synchronized Zoom & Fade Trigger State (Forward Motion) - UNTOUCHED */
 .view-more-link.is-zooming {
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear !important;
     transform: scale(1.6) !important; 
     opacity: 0 !important;          
-}
-
-/* The Mirrored Reverse Transition State (Backward Motion) */
-.view-more-link.is-reversing {
-    animation: ipadSafeReverse 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    -webkit-animation: ipadSafeReverse 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-/* Unified 3D Vector Track that forces iPad's hardware graphics card to cooperate */
-@keyframes ipadSafeReverse {
-    0% { 
-        transform: scale3d(1.6, 1.6, 1); 
-        opacity: 0; 
-    }
-    100% { 
-        transform: scale3d(1, 1, 1); 
-        opacity: 1; 
-    }
-}
-
-/* WebKit specific fallback mirror to guarantee older iPadOS versions pick it up */
-@-webkit-keyframes ipadSafeReverse {
-    0% { 
-        -webkit-transform: scale3d(1.6, 1.6, 1); 
-        opacity: 0; 
-    }
-    100% { 
-        -webkit-transform: scale3d(1, 1, 1); 
-        opacity: 1; 
-    }
 }
         
     </style>
@@ -755,38 +728,30 @@
         // --- Ironclad Back-Button Reverse Transition Controller ---
         window.addEventListener('pageshow', (event) => {
             if (viewMoreLink) {
-                // 1. Instantly clear out any old animation classes
-                viewMoreLink.classList.remove('is-zooming');
-                viewMoreLink.classList.remove('is-reversing');
-                
-                // 2. Strict Style-Lock: Holds the text hidden and scaled out.
-                // This completely prevents any flashing or jumping while the iPad finishes its swipe gesture.
+                // 1. Instantly freeze the text at its expanded, invisible forward state.
+                // This shields the element and prevents visual flashing during gesture slides.
                 viewMoreLink.style.transition = 'none';
                 viewMoreLink.style.webkitTransition = 'none';
                 viewMoreLink.style.transform = 'scale3d(1.6, 1.6, 1)';
                 viewMoreLink.style.webkitTransform = 'scale3d(1.6, 1.6, 1)';
                 viewMoreLink.style.opacity = '0';
                 
-                // Forces layout synchronization
+                // Force a layout recalculation to lock the frozen snapshot state
                 void viewMoreLink.offsetHeight;
                 
-                // 3. Golden Stabilization Window: Gives Safari 100ms to completely drop its interactive gesture lock
+                // 2. A crisp 50ms macro-task delay gives Safari's gesture layer 
+                // plenty of time to safely hand rendering control back to the main layout thread
                 setTimeout(() => {
-                    // Release the temporary inline style locks completely
+                    // Revert back to the base stylesheet layout rules
+                    viewMoreLink.classList.remove('is-zooming');
+                    
+                    // Release the inline style locks so the native CSS transition kicks in perfectly
                     viewMoreLink.style.transition = '';
                     viewMoreLink.style.webkitTransition = '';
                     viewMoreLink.style.transform = '';
                     viewMoreLink.style.webkitTransform = '';
                     viewMoreLink.style.opacity = '';
-                    
-                    // Safely trigger your perfect, hardware-accelerated 3D reverse animation class
-                    viewMoreLink.classList.add('is-reversing');
-                }, 100);
-                
-                // 4. Strip the class once the animation finishes (100ms delay + 400ms animation = 500ms)
-                setTimeout(() => {
-                    viewMoreLink.classList.remove('is-reversing');
-                }, 500);
+                }, 50);
             }
         });
         
