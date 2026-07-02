@@ -474,7 +474,7 @@
             }
         }
 
-     /* Helper class to position the View More link nicely at the base of the homepage card */
+  /* Helper class to position the View More link nicely at the base of the homepage card */
 .view-more-container {
     display: flex;
     justify-content: center;
@@ -491,6 +491,10 @@
     font-size: 0.95rem;
     display: inline-block;
     will-change: transform, opacity;
+    
+    /* Kills the ugly mobile blue tap flash box completely */
+    -webkit-tap-highlight-color: transparent !important;
+    
     /* Uses your custom premium ease curve for the zoom transition physics */
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
 }
