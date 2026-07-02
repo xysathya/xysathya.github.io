@@ -380,16 +380,6 @@
             text-decoration: none !important;
             font-size: 14.5px;
             font-weight: 400;
-            
-            /* Forces Left-Aligned Capsule Text to expand completely straight forward without turning sideways */
-            transform-origin: left center !important;
-            
-            will-change: transform, opacity;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            
             transition: color 0.4s var(--ease-premium), padding-left 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
         }
 
@@ -427,14 +417,6 @@
             font-size: 14px;
             font-weight: 400;
             display: inline-block;
-            
-            /* Forces Centered Footer links to expand perfectly straight out from their center core */
-            transform-origin: center center !important;
-            
-            will-change: transform, opacity;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            
             transition: color 0.4s var(--ease-premium);
         }
 
@@ -512,15 +494,6 @@
     text-decoration: none !important; /* Strict underline guard */
     font-size: 0.95rem;
     display: inline-block;
-    
-    /* Forces Centered View More text to expand completely straight from its center core */
-    transform-origin: center center !important;
-    
-    will-change: transform, opacity;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -529,11 +502,31 @@
     text-decoration: none !important;
 }
 
-/* Symmetrical Universal Forward Zoom Matrix Tracker State */
-.capsule-panel a.is-zooming-link, 
-footer .footer-links-row a.is-zooming-link {
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear !important;
-    transform: scale(1.4) !important; 
+/* Master Hardware Kinetic Text Span Rules */
+.kinetic-target {
+    display: inline-block !important;
+    will-change: transform, opacity !important;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear;
+}
+
+/* Row text links expand straight out from their left alignment margins */
+.document-list a .kinetic-target {
+    transform-origin: left center !important;
+}
+
+/* Centered content tags expand perfectly straight out from their middle cores */
+.view-more-link .kinetic-target,
+.footer-links-row a .kinetic-target {
+    transform-origin: center center !important;
+}
+
+/* Universal Forward Zoom Class Trigger Mapping */
+.is-zooming-link .kinetic-target {
+    transform: scale3d(1.5, 1.5, 1) !important; 
     opacity: 0 !important;          
 }
         
@@ -541,14 +534,11 @@ footer .footer-links-row a.is-zooming-link {
 </head>
 <body>
 
-    <!-- Header Block - Unified Twin View Wide Design Layout -->
     <header id="masterHeader">
         
-        <!-- View Layer A: Default Branding State -->
         <div class="header-inner-view" id="headerMainView">
             <a href="#" class="logo">sathya.</a>
             <div class="header-right-cluster">
-                <!-- Dark Mode Toggle FIRST -->
                 <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
                     <svg class="sun-icon" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="4"></circle>
@@ -558,14 +548,12 @@ footer .footer-links-row a.is-zooming-link {
                         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
-                <!-- Search Button SECOND -->
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
             </div>
         </div>
 
-        <!-- View Layer B: Active Search State -->
         <div class="header-inner-view" id="headerSearchView">
             <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
@@ -582,10 +570,8 @@ footer .footer-links-row a.is-zooming-link {
     </header>
 
     <main>
-        <!-- Matrix Canvas Layout Container -->
         <div class="matrix-canvas">
 
-            <!-- Card 1: UPSC -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
@@ -596,7 +582,6 @@ footer .footer-links-row a.is-zooming-link {
                 </ul>
             </div>
 
-            <!-- Card 2: CURRENT AFFAIRS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Current affairs</h2>
                 <ul class="document-list">
@@ -605,20 +590,17 @@ footer .footer-links-row a.is-zooming-link {
                 </ul>
             </div>
 
-          <!-- Card 3: CONTENTS -->
-<div class="capsule-panel">
+          <div class="capsule-panel">
     <h2 class="panel-title">Contents</h2>
     <ul class="document-list">
         <li><a href="contents.html#art-culture">Art and culture</a></li>
         <li><a href="contents.html#history">History</a></li>
         <li><a href="contents.html#indian-society">Indian society</a></li>
     </ul>
-    <!-- Perfectly centered View More button at the bottom -->
     <div class="view-more-container">
         <a href="contents.html" class="view-more-link">View more</a>
     </div>
 </div>
-            <!-- Card 4: MUST READ -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Must read</h2>
                 <ul class="document-list">
@@ -627,7 +609,6 @@ footer .footer-links-row a.is-zooming-link {
                 </ul>
             </div>
 
-            <!-- Card 5: CHAPTERS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Chapters</h2>
                 <ul class="document-list">
@@ -635,7 +616,6 @@ footer .footer-links-row a.is-zooming-link {
                 </ul>
             </div>
 
-            <!-- Card 6: ESSAYS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Essays</h2>
                 <ul class="document-list">
@@ -646,7 +626,6 @@ footer .footer-links-row a.is-zooming-link {
         </div>
     </main>
 
-    <!-- Grounded Minimal Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="Footer/about.html">About</a>
@@ -660,7 +639,6 @@ footer .footer-links-row a.is-zooming-link {
         </div>
     </footer>
 
-    <!-- Smart Native Device Sync & Twin-View Controller Engine -->
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
@@ -736,9 +714,21 @@ footer .footer-links-row a.is-zooming-link {
             }
         });
 
-        // --- Master Universal Kinetic Link Engine ---
+        // --- Hardware Kinetic Text Wrapping Injector ---
         const interactiveLinks = document.querySelectorAll('.capsule-panel a, footer .footer-links-row a');
         
+        interactiveLinks.forEach(link => {
+            if (!link.querySelector('.kinetic-target')) {
+                const spanWrapper = document.createElement('span');
+                spanWrapper.className = 'kinetic-target';
+                while (link.firstChild) {
+                    spanWrapper.appendChild(link.firstChild);
+                }
+                link.appendChild(spanWrapper);
+            }
+        });
+
+        // --- Master Universal Kinetic Link Engine ---
         interactiveLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 const destination = this.getAttribute('href');
@@ -797,51 +787,52 @@ footer .footer-links-row a.is-zooming-link {
                 });
                 
                 if (matchedLinkElement) {
-                    let startScale = 1.4;
-                    let endScale = 1.0;
-                    let startOpacity = 0;
+                    const targetSpan = matchedLinkElement.querySelector('.kinetic-target');
                     
-                    // Parse native resting layout opacity variables dynamically
-                    let restingOpacity = matchedLinkElement.classList.contains('view-more-link') ? 1 : 0.8;
-                    
-                    let duration = 500; // 500ms allows for an exquisite, relaxed cinematic landing
-                    let startTime = null;
-                    
-                    // Prevent style collisions with native CSS hover transitions during loops
-                    matchedLinkElement.style.transition = 'none';
-                    matchedLinkElement.style.webkitTransition = 'none';
-                    
-                    // Set starting parameters
-                    matchedLinkElement.style.transform = `scale(${startScale})`;
-                    matchedLinkElement.style.opacity = startOpacity;
-                    
-                    // Pure JS Thread Loop: Bypasses mobile swipe snapshots effortlessly
-                    function animateLinkReverse(timestamp) {
-                        if (!startTime) startTime = timestamp;
-                        let elapsed = timestamp - startTime;
-                        let progress = Math.min(elapsed / duration, 1);
+                    if (targetSpan) {
+                        let startScale = 1.5;
+                        let endScale = 1.0;
+                        let startOpacity = 0;
+                        let endOpacity = 1;
+                        let duration = 500; // 500ms allows for an exquisite, relaxed cinematic landing
+                        let startTime = null;
                         
-                        // Premium Quintic Ease-Out Equation: 1 - (1 - x)^5
-                        let ease = 1 - Math.pow(1 - progress, 5);
+                        // Prevent style collisions with native CSS hover transitions during loops
+                        targetSpan.style.transition = 'none';
+                        targetSpan.style.webkitTransition = 'none';
                         
-                        let currentScale = startScale - (startScale - endScale) * ease;
-                        let currentOpacity = startOpacity + (restingOpacity - startOpacity) * ease;
+                        // Set starting parameters
+                        targetSpan.style.transform = `scale3d(${startScale}, ${startScale}, 1)`;
+                        targetSpan.style.opacity = startOpacity;
                         
-                        matchedLinkElement.style.transform = `scale(${currentScale})`;
-                        matchedLinkElement.style.opacity = currentOpacity;
-                        
-                        if (progress < 1) {
-                            requestAnimationFrame(animateLinkReverse);
-                        } else {
-                            // Touchdown reached cleanly: Scrub styles away to unlock standard pointing hovers again
-                            matchedLinkElement.style.transform = '';
-                            matchedLinkElement.style.opacity = '';
-                            matchedLinkElement.style.transition = '';
-                            matchedLinkElement.style.webkitTransition = '';
+                        // Pure JS Thread Loop: Bypasses mobile swipe snapshots effortlessly
+                        function animateLinkReverse(timestamp) {
+                            if (!startTime) startTime = timestamp;
+                            let elapsed = timestamp - startTime;
+                            let progress = Math.min(elapsed / duration, 1);
+                            
+                            // Premium Quintic Ease-Out Equation: 1 - (1 - x)^5
+                            let ease = 1 - Math.pow(1 - progress, 5);
+                            
+                            let currentScale = startScale - (startScale - endScale) * ease;
+                            let currentOpacity = startOpacity + (endOpacity - startOpacity) * ease;
+                            
+                            targetSpan.style.transform = `scale3d(${currentScale}, ${currentScale}, 1)`;
+                            targetSpan.style.opacity = currentOpacity;
+                            
+                            if (progress < 1) {
+                                requestAnimationFrame(animateLinkReverse);
+                            } else {
+                                // Touchdown reached cleanly: Scrub styles away to unlock standard pointing hovers again
+                                targetSpan.style.transform = '';
+                                targetSpan.style.opacity = '';
+                                targetSpan.style.transition = '';
+                                targetSpan.style.webkitTransition = '';
+                            }
                         }
+                        
+                        requestAnimationFrame(animateLinkReverse);
                     }
-                    
-                    requestAnimationFrame(animateLinkReverse);
                 }
             }
         });
