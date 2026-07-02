@@ -500,12 +500,29 @@
     text-decoration: none !important;
 }
 
-/* The Synchronized Zoom & Fade Trigger State */
+/* The Synchronized Zoom & Fade Trigger State (Forward Motion) */
 .view-more-link.is-zooming {
-    /* Tied perfectly to 0.4 seconds. Linear opacity ensures a smooth, steady fade-out */
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear !important;
-    transform: scale(1.6) !important; /* Continuous steady expansion */
-    opacity: 0 !important;          /* Hits complete invisibility exactly at 400ms */
+    transform: scale(1.6) !important; 
+    opacity: 0 !important;          
+}
+
+/* The Mirrored Reverse Transition State (Backward Motion) */
+.view-more-link.is-reversing {
+    /* Uses identical timing definitions running through specialized keyframe tracks */
+    animation: reverseTransform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+               reverseOpacity 0.4s linear forwards;
+}
+
+/* Math vectors to smoothly collapse the text footprint backward */
+@keyframes reverseTransform {
+    0% { transform: scale(1.6); }
+    100% { transform: scale(1); }
+}
+
+@keyframes reverseOpacity {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
         
     </style>
@@ -712,22 +729,30 @@
         
         if (viewMoreLink) {
             viewMoreLink.addEventListener('click', function(e) {
-                e.preventDefault(); // Hold the browser back from jumping early
+                e.preventDefault(); // Hold back abrupt browser jumping
                 
                 const destination = this.getAttribute('href');
-                this.classList.add('is-zooming'); // Start the shared zoom/fade timeline
+                this.classList.add('is-zooming'); // Fire forward fade/zoom timeline
                 
-                // Fires exactly at 400ms—the precise moment the animation finishes fading out
                 setTimeout(() => {
                     window.location.href = destination;
                 }, 400);
             });
         }
 
-        // --- Ironclad Back-Button State Reset Controller ---
+        // --- Ironclad Back-Button Reverse Transition Controller ---
         window.addEventListener('pageshow', (event) => {
             if (viewMoreLink) {
+                // Instantly wipe the forward state class away 
                 viewMoreLink.classList.remove('is-zooming');
+                
+                // Kick off the synchronized reverse zoom-in/fade-solid engine
+                viewMoreLink.classList.add('is-reversing');
+                
+                // Strips the class at 400ms so standard mouse hovers and taps function perfectly again
+                setTimeout(() => {
+                    viewMoreLink.classList.remove('is-reversing');
+                }, 400);
             }
         });
         
