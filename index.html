@@ -492,8 +492,6 @@
     display: inline-block;
     will-change: transform, opacity;
     -webkit-tap-highlight-color: transparent !important; /* Kills mobile blue flash */
-    
-    /* Smooth handling for normal hover adjustments */
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -502,12 +500,12 @@
     text-decoration: none !important;
 }
 
-/* The Zoom Trigger State: Keeps text fully visible during expansion */
+/* The Zoom Trigger State: Constantly accelerates into the page transition */
 .view-more-link.is-zooming {
-    /* Focuses purely on an ultra-smooth scale vector layout path */
-    transition: transform 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) !important;
-    transform: scale(1.45) !important;
-    opacity: 1 !important; /* Ensures it stays solid right until contents.html paints over it */
+    /* Pure Ease-In curve means it gathers speed and never hits an early slowdown wall */
+    transition: transform 0.8s cubic-bezier(0.32, 0, 0.67, 0) !important;
+    transform: scale(2) !important; /* Larger scale makes the forward rush obvious */
+    opacity: 1 !important;
 }
         
     </style>
@@ -714,15 +712,15 @@
         
         if (viewMoreLink) {
             viewMoreLink.addEventListener('click', function(e) {
-                e.preventDefault(); // Pause instant browser hopping
+                e.preventDefault(); // Hold the browser back from a jerky page jump
                 
                 const destination = this.getAttribute('href');
-                this.classList.add('is-zooming'); // Fire the clean, endless zoom expansion
+                this.classList.add('is-zooming'); // Trigger the accelerating zoom
                 
-                // Switches pages at 350ms while the text is fully visible and actively scaling
+                // Cuts to the next page at 250ms while the text is actively gaining speed
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 350);
+                }, 250);
             });
         }
 
