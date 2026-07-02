@@ -490,65 +490,71 @@
     text-decoration: none !important;
     font-size: 0.95rem;
     display: inline-block;
-    -webkit-tap-highlight-color: transparent !important;
-    transition: opacity 0.3s ease;
+    -webkit-tap-highlight-color: transparent !important; /* Total mobile blue flash ban */
+    transition: opacity 0.2s ease;
 }
 
 .view-more-link:hover {
     opacity: 0.8;
 }
 
-/* Cinematic Portal Engine Setup */
-.portal-o {
+/* Structural Anchor that locks onto the physical boundaries of the text font */
+.portal-o-container {
+    position: relative;
     display: inline-block;
+    vertical-align: baseline;
+}
+
+/* 3D Hardware Accelerated Portal Ring */
+.gpu-portal-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 125%; 
+    height: 125%;
+    pointer-events: none;
+    z-index: 9999;
+    
+    /* Strict GPU Layer Isolation Rules for WebKit & Blink Engine Stability */
     will-change: transform;
-    transform-origin: center center;
-    /* Uses your system's premium deceleration curve for dramatic speed physics */
-    transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    
+    /* Using translate3d instantly forces laptops and mobile chips to allocate physical VRAM */
+    transform: translate3d(-50%, -50%, 0) scale(0);
+    -webkit-transform: translate3d(-50%, -50%, 0) scale(0);
+    
+    /* Premium cinematic layout deceleration curve */
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    -webkit-transition: -webkit-transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* The Grand Portal Launch Vector Sequence */
-.view-more-link.is-zooming .portal-o {
-    transform: scale(500) translate3d(0, 0, 0); /* Explodes the letter forward to completely eclipse the screen */
+.gpu-portal-ring circle {
+    fill: var(--bg-color);   /* Inner core color matches theme background (#0b0b0b) */
+    stroke: #8a9a86;         /* Premium olive perimeter loop line */
+    stroke-width: 2.5px;     /* Keeps the loop completely sharp across massive displays */
 }
 
-/* --- Global Layout Camera Pull-Back Cinematic Effects --- */
+/* The Grand Portal Expansion: Shoots the ring past the outer margins of any viewport */
+body.portal-active .gpu-portal-ring {
+    transform: translate3d(-50%, -50%, 0) scale(280);
+    -webkit-transform: translate3d(-50%, -50%, 0) scale(280);
+}
 
-/* Fades and scales back header and footer smoothly */
+/* --- Global Layout Environment Modifiers --- */
+
+/* Smoothly collapses background elements into space to accentuate the ring velocity */
 body.portal-active header,
-body.portal-active footer {
-    opacity: 0;
-    transform: scale(0.94);
-    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Shrinks and dissolves all surrounding timeline cards out of sight */
+body.portal-active footer,
 body.portal-active .matrix-canvas .capsule-panel {
     opacity: 0;
-    transform: scale(0.92);
-    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translate3d(0, 0, 0) scale(0.96);
+    -webkit-transform: translate3d(0, 0, 0) scale(0.96);
+    transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Smart override: Keeps ONLY the contents card container frame alive while its text fades away */
-body.portal-active .matrix-canvas .capsule-panel:has(.view-more-link) {
-    opacity: 1;
-    transform: scale(1);
-    background-color: transparent !important;
-    border-color: transparent !important;
-    box-shadow: none !important;
-}
-
-body.portal-active .matrix-canvas .capsule-panel:has(.view-more-link) .panel-title,
-body.portal-active .matrix-canvas .capsule-panel:has(.view-more-link) .document-list,
-body.portal-active .matrix-canvas .capsule-panel:has(.view-more-link) .view-more-container {
-    border-top-color: transparent;
-}
-
-body.portal-active .matrix-canvas .capsule-panel:has(.view-more-link) .panel-title,
-body.portal-active .matrix-canvas .capsule-panel:has(.view-more-link) .document-list {
-    opacity: 0;
-    transform: translateY(-5px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+body.portal-active {
+    overflow: hidden; /* Stops mobile bouncing/scrolling during transit */
 }
         
     </style>
@@ -619,20 +625,22 @@ body.portal-active .matrix-canvas .capsule-panel:has(.view-more-link) .document-
                 </ul>
             </div>
 
-         <!-- Card 3: CONTENTS -->
-<div class="capsule-panel animate-fade-in">
-    <h2 class="panel-title">Contents</h2>
-    <ul class="document-list">
-        <li><a href="contents.html#art-culture">Art and culture</a></li>
-        <li><a href="contents.html#history">History</a></li>
-        <li><a href="contents.html#indian-society">Indian society</a></li>
-    </ul>
-    <!-- Perfectly centered View More button at the bottom -->
-    <div class="view-more-container">
-        <!-- We wrap the letter 'o' so we can manipulate it independently -->
-        <a href="contents.html" class="view-more-link">View m<span class="portal-o">o</span>re</a>
-    </div>
-</div>
+       <!-- Card 3: CONTENTS -->
+            <div class="capsule-panel animate-fade-in">
+                <h2 class="panel-title">Contents</h2>
+                <ul class="document-list">
+                    <li><a href="contents.html#art-culture">Art and culture</a></li>
+                    <li><a href="contents.html#history">History</a></li>
+                    <li><a href="contents.html#indian-society">Indian society</a></li>
+                </ul>
+                <div class="view-more-container">
+                    <!-- Cross-device baseline alignment anchor -->
+                    <a href="contents.html" class="view-more-link">
+                        View m<span class="portal-o-container">o<svg class="gpu-portal-ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" vector-effect="non-scaling-stroke" /></svg></span>re
+                    </a>
+                </div>
+            </div>
+            
             <!-- Card 4: MUST READ -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Must read</h2>
@@ -751,32 +759,27 @@ body.portal-active .matrix-canvas .capsule-panel:has(.view-more-link) .document-
             }
         });
 
-// --- Premium Cinematic Portal View More Transition Controller ---
+// --- Premium GPU Cross-Device Cinematic Portal Controller ---
         const viewMoreLink = document.querySelector('.view-more-link');
         
         if (viewMoreLink) {
             viewMoreLink.addEventListener('click', function(e) {
-                e.preventDefault(); // Pause standard browser jump execution
+                e.preventDefault(); // Prevents instant page jumps that cut off rendering threads
                 
                 const destination = this.getAttribute('href');
+                document.body.classList.add('portal-active'); // Fire the full-screen cinematic sequence
                 
-                document.body.classList.add('portal-active'); // Sink background elements out of reality
-                this.classList.add('is-zooming');            // Explode the 'o' forward into space
-                
-                // Holds screen layout open for 600ms for full expansion before loading contents.html
+                // Grants the GPU thread exactly 650ms to finish the scaling sweep before redirection
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 600);
+                }, 650);
             });
         }
 
         // --- Ironclad Back-Button State Reset Controller ---
         window.addEventListener('pageshow', (event) => {
-            // Instantly restores normal layout physics when user navigates backwards
+            // Wipes the slate clean instantly if user navigates backwards via system gestures
             document.body.classList.remove('portal-active');
-            if (viewMoreLink) {
-                viewMoreLink.classList.remove('is-zooming');
-            }
         });
         
     </script>
