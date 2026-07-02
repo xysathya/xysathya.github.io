@@ -473,6 +473,30 @@
                 gap: 16px; 
             }
         }
+
+        /* Helper class to position the View More link nicely at the base of the homepage card */
+.view-more-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px dashed #222222;
+}
+
+.view-more-link {
+    color: #8a9a86 !important; /* Premium muted accent tone */
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: opacity 0.2s ease;
+}
+
+.view-more-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+        
     </style>
 </head>
 <body>
@@ -541,14 +565,19 @@
                 </ul>
             </div>
 
-            <!-- Card 3: CONTENTS -->
-            <div class="capsule-panel">
-                <h2 class="panel-title">Contents</h2>
-                <ul class="document-list">
-                    <li><a href="#">Coming up</a></li>
-                </ul>
-            </div>
-
+          <!-- Card 3: CONTENTS -->
+<div class="capsule-panel animate-fade-in">
+    <h2 class="panel-title">Contents</h2>
+    <ul class="document-list">
+        <li><a href="contents.html#art-culture">Art and culture</a></li>
+        <li><a href="contents.html#history">History</a></li>
+        <li><a href="contents.html#indian-society">Indian society</a></li>
+    </ul>
+    <!-- Perfectly centered View More button at the bottom -->
+    <div class="view-more-container">
+        <a href="contents.html" class="view-more-link">View more</a>
+    </div>
+</div>
             <!-- Card 4: MUST READ -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Must read</h2>
