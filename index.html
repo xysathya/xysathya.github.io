@@ -368,7 +368,7 @@
             transition: background-color 0.4s var(--ease-premium), border-color 0.6s var(--ease-premium);
         }
 
-        /* HARD LOCKED TRANSPARENCY: Wipes out grey capsule hover/tap backgrounds entirely */
+        /* HARD LOCKED TRANSPARENCY: Wipes out grey capsule backgrounds on hover/tap completely */
         .document-list li:hover,
         .document-list li:active,
         .document-list li:focus {
@@ -390,20 +390,19 @@
             transition: color 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
         }
 
-        /* PURGED PADDING SHIFT: Locks text completely still horizontally on cursor hover */
+        /* REMOVED PADDING SHIFT: Text stands perfectly still horizontally on cursor placement */
         .document-list li:hover a {
             opacity: 1 !important;
         }
 
         /* --- HARD INTERACTIVE STATE GUARD LOCKS ---
-           Forces every clickable link to inherit its correct structural color codes 
-           and block browser dark grey/black background flashes upon tap execution.
+           Completely blocks native mobile tap color conversions and grey flash layers
         */
-        .capsule-panel a:active, .capsule-panel a:focus, .capsule-panel a:visited,
-        .view-more-link:active, .view-more-link:focus, .view-more-link:visited,
-        .footer-links-row a:active, .footer-links-row a:focus, .footer-links-row a:visited {
+        .capsule-panel a:active, .capsule-panel a:focus,
+        .view-more-link:active, .view-more-link:focus,
+        .footer-links-row a:active, .footer-links-row a:focus {
             background-color: transparent !important;
-            color: inherit !important;
+            background: transparent !important;
         }
 
         /* Flat Grounded Footer Row */
@@ -502,9 +501,9 @@
 }
 
 .view-more-link {
-    color: #8a9a86 !important; /* Premium muted accent tone restored */
+    color: #8a9a86 !important; /* Premium muted green accent tone safely isolated */
     font-weight: 600;
-    text-decoration: none !important; /* Strict underline guard */
+    text-decoration: none !important; 
     font-size: 0.95rem;
     display: inline-block;
     transition: transform 0.2s ease, opacity 0.2s ease;
@@ -516,8 +515,8 @@
 }
 
 /* --- THE KINETIC MESH TARGET ---
-   Isolates the text into a center-centered 3D scale structure.
-   Natively drives smooth, zero-fade 1.06x cursor expansions on hover.
+   Isolates text strings into a isolated compositor layer.
+   Drives smooth, zero-fade 1.06x expansions on cursor placement straight from center midpoint coordinates.
 */
 .kinetic-target {
     display: inline-block !important;
@@ -536,7 +535,7 @@
 }
 
 .footer-links-row a .kinetic-target {
-    color: var(--text-muted) !important; /* Strictly protect footer tone */
+    color: var(--text-muted) !important; 
 }
 .footer-links-row a:hover .kinetic-target {
     transform: scale3d(1.06, 1.06, 1);
@@ -544,15 +543,15 @@
 }
 
 .view-more-link .kinetic-target {
-    color: #8a9a86 !important; /* Strictly protect view more green tone */
+    color: #8a9a86 !important; 
 }
 
 /* --- CONTINUOUS COMPOSITOR EXUL TRANSITION RULE ---
-   Forces the link's inner text wrapper to smoothly fade and zoom out via the GPU layer,
-   continuing fluidly over 600ms right until the incoming document takes over.
+   Runs the medium speed (400ms) forward zoom and fade timeline directly on the device GPU thread.
+   Animation continues tracking smoothly right up until the new window document content takes focus.
 */
 .kinetic-active-link .kinetic-target {
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s linear !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s linear !important;
     transform: scale3d(1.6, 1.6, 1) !important;
     opacity: 0 !important;
 }
@@ -564,7 +563,7 @@
 
 .kinetic-animating .kinetic-target {
     transition: none !important;
-    webkit-transition: none !important;
+    -webkit-transition: none !important;
 }
         
     </style>
@@ -789,22 +788,19 @@
                 e.preventDefault(); 
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
                 
-                // Fire native hardware composite transition rules instantly
+                // Fire continuous compositor transition engine rules natively on hardware thread context
                 this.classList.add('kinetic-active-link');
                 
-                // Allow the CSS transition layer to complete its path continuously until navigation cuts over
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 350);
+                }, 380); // Keep timeline running uniformly up until page navigation execution
             });
         });
 
         // --- Ironclad Page-Show Master Controller Pipeline ---
         window.addEventListener('pageshow', (event) => {
-            const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
             
-            // 1. UNIFORM COMPOSITE RE-TRIGGER ENGINE
-            // Replays entrance sequences for ALL grid components identically, preventing blank structural holes
+            // 1. UNIFORM CARD RESET COMPOSITOR (Guarantees card layouts never disappear or leave holes)
             const layoutElements = document.querySelectorAll('header, .capsule-panel, footer');
             
             if (layoutElements.length > 0) {
@@ -813,7 +809,7 @@
                     el.style.webkitAnimation = 'none';
                 });
                 
-                void document.body.offsetHeight; // Flush hardware registers completely
+                void document.body.offsetHeight; // Reset browser rendering register caches
                 
                 requestAnimationFrame(() => {
                     layoutElements.forEach(el => {
@@ -824,7 +820,7 @@
             }
 
             // 2. UNIVERSAL TARGETED REVERSE GLIDE RECOVERY ENGINE
-            // Clear all forward classes instantly upon incoming page display wake
+            // Erase trailing interactive zoom values instantly to normalize the text document state
             interactiveLinks.forEach(l => {
                 l.classList.remove('kinetic-active-link');
                 l.classList.remove('kinetic-animating');
@@ -835,12 +831,13 @@
                 }
             });
             
+            const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
             if (savedTargetUrl) {
-                sessionStorage.removeItem('activeUniversalTargetUrl'); // Release session parameters
+                sessionStorage.removeItem('activeUniversalTargetUrl'); // Safely flush storage data
                 
                 let matchedLinkElement = null;
                 
-                // Match links explicitly using absolute text routing strings to prevent path confusion
+                // Strictly evaluate absolute text strings to locate target nodes safely across section hashes
                 interactiveLinks.forEach(link => {
                     if (link.href === savedTargetUrl) {
                         matchedLinkElement = link;
@@ -851,7 +848,7 @@
                     const targetSpan = matchedLinkElement.querySelector('.kinetic-target');
                     
                     if (targetSpan) {
-                        // High-End Optimization: Micro 40ms delay allows WebKit swiping layers to decouple safely
+                        // High-End Optimization: 40ms layout window lets swipe engine snap parameters unbind safely
                         setTimeout(() => {
                             matchedLinkElement.classList.add('kinetic-animating'); 
                             
@@ -861,7 +858,7 @@
                             
                             let endOpacity = 0.8;
                             if (matchedLinkElement.classList.contains('view-more-link')) endOpacity = 1.0;
-                            if (matchedLinkElement.closest('footer')) endOpacity = 0.5; // Maintain native footer muted rule
+                            if (matchedLinkElement.closest('footer')) endOpacity = 0.4; // Native footer muted style lock
                             
                             let duration = 500; // 500ms allows for an exquisite, luxurious return landing glide
                             let startTime = null;
@@ -875,7 +872,7 @@
                                 let elapsed = timestamp - startTime;
                                 let progress = Math.min(elapsed / duration, 1);
                                 
-                                // High-End Premium Quintic Ease-Out Tracking Curve Physics: 1 - (1 - x)^5
+                                // Premium Quintic Ease-Out Tracking Curve Physics: 1 - (1 - x)^5
                                 let ease = 1 - Math.pow(1 - progress, 5);
                                 
                                 let currentScale = startScale - (startScale - endScale) * ease;
@@ -887,7 +884,7 @@
                                 if (progress < 1) {
                                     requestAnimationFrame(animateLinkReverse);
                                 } else {
-                                    // Touchdown target reached perfectly: Flush styles away for normal mouse hovers
+                                    // Touchdown target reached softly: Wipe away animation values to reactivate hovers
                                     targetSpan.style.transform = '';
                                     targetSpan.style.opacity = '';
                                     matchedLinkElement.classList.remove('kinetic-animating');
