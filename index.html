@@ -53,10 +53,13 @@
             --header-border: #d4d8cf;
         }
 
+        /* Ironclad Global Tap Reset: Wipes out blue highlights on phones and grey overlays on iPads completely */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
         }
 
         body {
@@ -183,8 +186,6 @@
             text-decoration: none !important;
             transition: color 0.6s var(--ease-premium);
             flex-shrink: 0;
-            -webkit-tap-highlight-color: transparent !important;
-            tap-highlight-color: transparent !important;
         }
 
         /* Unified Master Structural Controller for All Interactive Action Buttons */
@@ -202,8 +203,6 @@
             padding: 0;
             flex-shrink: 0;
             transition: opacity 0.2s var(--ease-premium), color 0.6s var(--ease-premium);
-            -webkit-tap-highlight-color: transparent !important;
-            tap-highlight-color: transparent !important;
         }
 
         .ctrl-btn:hover {
@@ -262,8 +261,6 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            -webkit-tap-highlight-color: transparent !important;
-            tap-highlight-color: transparent !important;
         }
 
         .theme-toggle svg {
@@ -384,15 +381,16 @@
             font-size: 14.5px;
             font-weight: 400;
             
-            /* Anti-Text Shivering Hardware Layer Definitions */
+            /* Forces Left-Aligned Capsule Text to expand completely straight forward without turning sideways */
+            transform-origin: left center !important;
+            
             will-change: transform, opacity;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
             
-            transition: color 0.4s var(--ease-premium), padding-left 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium), transform 0.2s ease;
-            -webkit-tap-highlight-color: transparent !important;
+            transition: color 0.4s var(--ease-premium), padding-left 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
         }
 
         /* Quiet Silent Row Hover Transitions */
@@ -430,12 +428,14 @@
             font-weight: 400;
             display: inline-block;
             
-            /* Anti-Shivering Hardware Layer Locks */
+            /* Forces Centered Footer links to expand perfectly straight out from their center core */
+            transform-origin: center center !important;
+            
             will-change: transform, opacity;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             
-            transition: color 0.4s var(--ease-premium), transform 0.2s ease, opacity 0.2s ease;
+            transition: color 0.4s var(--ease-premium);
         }
 
         .footer-links-row a:hover {
@@ -512,12 +512,15 @@
     text-decoration: none !important; /* Strict underline guard */
     font-size: 0.95rem;
     display: inline-block;
+    
+    /* Forces Centered View More text to expand completely straight from its center core */
+    transform-origin: center center !important;
+    
     will-change: transform, opacity;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    -webkit-tap-highlight-color: transparent !important; /* Kills mobile blue flash */
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -526,7 +529,7 @@
     text-decoration: none !important;
 }
 
-/* Universal Synchronized Zoom & Fade State (Forward Motion Engine) */
+/* Symmetrical Universal Forward Zoom Matrix Tracker State */
 .capsule-panel a.is-zooming-link, 
 footer .footer-links-row a.is-zooming-link {
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear !important;
@@ -538,11 +541,14 @@ footer .footer-links-row a.is-zooming-link {
 </head>
 <body>
 
+    <!-- Header Block - Unified Twin View Wide Design Layout -->
     <header id="masterHeader">
         
+        <!-- View Layer A: Default Branding State -->
         <div class="header-inner-view" id="headerMainView">
             <a href="#" class="logo">sathya.</a>
             <div class="header-right-cluster">
+                <!-- Dark Mode Toggle FIRST -->
                 <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
                     <svg class="sun-icon" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="4"></circle>
@@ -552,12 +558,14 @@ footer .footer-links-row a.is-zooming-link {
                         <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
+                <!-- Search Button SECOND -->
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
             </div>
         </div>
 
+        <!-- View Layer B: Active Search State -->
         <div class="header-inner-view" id="headerSearchView">
             <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
@@ -574,8 +582,10 @@ footer .footer-links-row a.is-zooming-link {
     </header>
 
     <main>
+        <!-- Matrix Canvas Layout Container -->
         <div class="matrix-canvas">
 
+            <!-- Card 1: UPSC -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Upsc</h2>
                 <ul class="document-list">
@@ -586,6 +596,7 @@ footer .footer-links-row a.is-zooming-link {
                 </ul>
             </div>
 
+            <!-- Card 2: CURRENT AFFAIRS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Current affairs</h2>
                 <ul class="document-list">
@@ -594,17 +605,20 @@ footer .footer-links-row a.is-zooming-link {
                 </ul>
             </div>
 
-          <div class="capsule-panel">
+          <!-- Card 3: CONTENTS -->
+<div class="capsule-panel">
     <h2 class="panel-title">Contents</h2>
     <ul class="document-list">
         <li><a href="contents.html#art-culture">Art and culture</a></li>
         <li><a href="contents.html#history">History</a></li>
         <li><a href="contents.html#indian-society">Indian society</a></li>
     </ul>
+    <!-- Perfectly centered View More button at the bottom -->
     <div class="view-more-container">
         <a href="contents.html" class="view-more-link">View more</a>
     </div>
 </div>
+            <!-- Card 4: MUST READ -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Must read</h2>
                 <ul class="document-list">
@@ -613,6 +627,7 @@ footer .footer-links-row a.is-zooming-link {
                 </ul>
             </div>
 
+            <!-- Card 5: CHAPTERS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Chapters</h2>
                 <ul class="document-list">
@@ -620,6 +635,7 @@ footer .footer-links-row a.is-zooming-link {
                 </ul>
             </div>
 
+            <!-- Card 6: ESSAYS -->
             <div class="capsule-panel">
                 <h2 class="panel-title">Essays</h2>
                 <ul class="document-list">
@@ -630,6 +646,7 @@ footer .footer-links-row a.is-zooming-link {
         </div>
     </main>
 
+    <!-- Grounded Minimal Footer -->
     <footer>
         <div class="footer-links-row">
             <a href="Footer/about.html">About</a>
@@ -643,6 +660,7 @@ footer .footer-links-row a.is-zooming-link {
         </div>
     </footer>
 
+    <!-- Smart Native Device Sync & Twin-View Controller Engine -->
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
@@ -726,12 +744,12 @@ footer .footer-links-row a.is-zooming-link {
                 const destination = this.getAttribute('href');
                 if (!destination || destination === '#') return;
                 
-                e.preventDefault(); // Suspend layout jumping
+                e.preventDefault(); // Suspend layout jumps
                 
-                // Track the unique URL string of the clicked target link
-                sessionStorage.setItem('activeUniversalTargetUrl', destination);
+                // Track absolute resolved URL string to make matching bulletproof across subdirectories
+                sessionStorage.setItem('activeUniversalTargetUrl', this.href);
                 
-                this.classList.add('is-zooming-link'); // Run cinematic forward timelines
+                this.classList.add('is-zooming-link'); // Run cinematic forward timeline
                 
                 setTimeout(() => {
                     window.location.href = destination;
@@ -742,7 +760,7 @@ footer .footer-links-row a.is-zooming-link {
         // --- Ironclad Page-Show Master Controller Pipeline ---
         window.addEventListener('pageshow', (event) => {
             
-            // 1. HARDWARE COMPOSITE RE-TRIGGER ENGINE (Restores perfect native load animations without shaking)
+            // 1. HARDWARE COMPOSITE RE-TRIGGER ENGINE (Restores perfect load animations without shaking)
             const layoutElements = document.querySelectorAll('header, .capsule-panel, footer');
             
             if (layoutElements.length > 0) {
@@ -751,7 +769,7 @@ footer .footer-links-row a.is-zooming-link {
                     el.style.webkitAnimation = 'none';
                 });
                 
-                void document.body.offsetHeight; // Reset memory caches completely
+                void document.body.offsetHeight; // Purge caches completely
                 
                 requestAnimationFrame(() => {
                     layoutElements.forEach(el => {
@@ -770,10 +788,10 @@ footer .footer-links-row a.is-zooming-link {
             if (savedTargetUrl) {
                 sessionStorage.removeItem('activeUniversalTargetUrl'); // Clear memory vault
                 
-                // Match the exact link element across the entire DOM tree via loop-matching
+                // Match the exact link element across the DOM tree using absolute link comparison
                 let matchedLinkElement = null;
                 interactiveLinks.forEach(link => {
-                    if (link.getAttribute('href') === savedTargetUrl) {
+                    if (link.href === savedTargetUrl) {
                         matchedLinkElement = link;
                     }
                 });
@@ -786,14 +804,18 @@ footer .footer-links-row a.is-zooming-link {
                     // Parse native resting layout opacity variables dynamically
                     let restingOpacity = matchedLinkElement.classList.contains('view-more-link') ? 1 : 0.8;
                     
-                    let duration = 500; // Expanded to 500ms for a more premium, relaxed deceleration
+                    let duration = 500; // 500ms allows for an exquisite, relaxed cinematic landing
                     let startTime = null;
                     
-                    // Lock starting boundaries
+                    // Prevent style collisions with native CSS hover transitions during loops
+                    matchedLinkElement.style.transition = 'none';
+                    matchedLinkElement.style.webkitTransition = 'none';
+                    
+                    // Set starting parameters
                     matchedLinkElement.style.transform = `scale(${startScale})`;
                     matchedLinkElement.style.opacity = startOpacity;
                     
-                    // Pure JS Thread Loop: Bypasses mobile swipe snapshot freezings effortlessly
+                    // Pure JS Thread Loop: Bypasses mobile swipe snapshots effortlessly
                     function animateLinkReverse(timestamp) {
                         if (!startTime) startTime = timestamp;
                         let elapsed = timestamp - startTime;
@@ -811,9 +833,11 @@ footer .footer-links-row a.is-zooming-link {
                         if (progress < 1) {
                             requestAnimationFrame(animateLinkReverse);
                         } else {
-                            // Target reached smoothly: Scrub styles away for standard mouse-hovers
+                            // Touchdown reached cleanly: Scrub styles away to unlock standard pointing hovers again
                             matchedLinkElement.style.transform = '';
                             matchedLinkElement.style.opacity = '';
+                            matchedLinkElement.style.transition = '';
+                            matchedLinkElement.style.webkitTransition = '';
                         }
                     }
                     
