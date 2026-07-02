@@ -746,26 +746,28 @@
                 const destination = this.getAttribute('href');
                 this.classList.add('is-zooming'); // Fire forward fade/zoom timeline
                 
-                /* Tunnels to the next page at exactly 300ms. This perfectly mirrors 
-                   the CSS transition finish line, ensuring the text is fully faded 
-                   out right when the page cut occurs.
-                */
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 300);
+                }, 400);
             });
         }
 
         // --- Ironclad Back-Button Reverse Transition Controller ---
         window.addEventListener('pageshow', (event) => {
             if (viewMoreLink) {
-                // Instantly wipe the forward state class away 
+                // 1. Instantly clear out any leftover forward animation classes
                 viewMoreLink.classList.remove('is-zooming');
+                viewMoreLink.classList.remove('is-reversing');
                 
-                // Kick off the synchronized reverse zoom-in/fade-solid engine
-                viewMoreLink.classList.add('is-reversing');
+                // 2. The iPad Wake-Up Call: Forces Safari to unfreeze the link layout in memory
+                void viewMoreLink.offsetHeight;
                 
-                // Strips the class at 400ms so standard mouse hovers and taps function perfectly again
+                // 3. Delays the reverse animation by a single frame so iPad Safari registers the style shift
+                requestAnimationFrame(() => {
+                    viewMoreLink.classList.add('is-reversing');
+                });
+                
+                // 4. Strips the class at 400ms so standard hovers work perfectly again
                 setTimeout(() => {
                     viewMoreLink.classList.remove('is-reversing');
                 }, 400);
