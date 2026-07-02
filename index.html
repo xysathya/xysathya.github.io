@@ -493,7 +493,7 @@
     will-change: transform, opacity;
     -webkit-tap-highlight-color: transparent !important; /* Kills mobile blue flash */
     
-    /* Quick speed for normal mouse hover/leave states */
+    /* Smooth handling for normal hover adjustments */
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -502,12 +502,12 @@
     text-decoration: none !important;
 }
 
-/* The Zoom Trigger State: Overrides timing to keep it moving indefinitely */
+/* The Zoom Trigger State: Keeps text fully visible during expansion */
 .view-more-link.is-zooming {
-    /* 1.2 seconds ensures it is still actively expanding when the browser cuts away */
-    transition: transform 1.2s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.4s ease !important;
-    transform: scale(1.4) !important;
-    opacity: 0 !important;
+    /* Focuses purely on an ultra-smooth scale vector layout path */
+    transition: transform 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) !important;
+    transform: scale(1.45) !important;
+    opacity: 1 !important; /* Ensures it stays solid right until contents.html paints over it */
 }
         
     </style>
@@ -717,9 +717,9 @@
                 e.preventDefault(); // Pause instant browser hopping
                 
                 const destination = this.getAttribute('href');
-                this.classList.add('is-zooming'); // Fire the long cinematic zoom
+                this.classList.add('is-zooming'); // Fire the clean, endless zoom expansion
                 
-                // Switches pages at 350ms, catching the text mid-flight while it is still zooming smoothly
+                // Switches pages at 350ms while the text is fully visible and actively scaling
                 setTimeout(() => {
                     window.location.href = destination;
                 }, 350);
