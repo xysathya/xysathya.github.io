@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sathya.</title>
 
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5VGX2K64Y4');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5VGX2K64Y4');
+    </script>
     
-<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,11 +90,11 @@
             }
         }
 
-        /* Staggered Load Engine - Added will-change to force iPad layer allocation on load */
+        /* Staggered Load Engine - Swapped 'forwards' to 'backwards' to unlock smooth transformation layers */
         header, .capsule-panel, footer {
-            opacity: 0;
+            opacity: 1;
             will-change: transform, opacity;
-            animation: masterEntrance 1.2s var(--ease-premium) forwards;
+            animation: masterEntrance 1.2s var(--ease-premium) backwards;
         }
 
         header { animation-delay: 0.04s; }
@@ -325,17 +324,19 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            transition: border-color 0.6s var(--ease-premium), background-color 0.6s var(--ease-premium);
+            transform: scale(1);
+            /* Added transform mapping to transitions here for smooth layout physics */
+            transition: border-color 0.5s var(--ease-premium), background-color 0.5s var(--ease-premium), transform 0.5s var(--ease-premium);
         }
 
         body:not(.light-mode) .capsule-panel {
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-     .capsule-panel:hover {
-            border-color: #444444;
+        .capsule-panel:hover {
+            border-color: #1E1E1E;
+            transform: scale(1.02);
         }
-
 
         body.light-mode .capsule-panel:hover {
             border-color: #b8b8bc;
@@ -553,7 +554,7 @@
                 <h2 class="panel-title">Must read</h2>
                 <ul class="document-list">
                     <li><a href="ramsarsites.html">Ramsar sites</a></li>
-                     <li><a href="#">Coming up</a></li>
+                    <li><a href="#">Coming up</a></li>
                 </ul>
             </div>
 
@@ -668,4 +669,3 @@
     </script>
 </body>
 </html>
-
