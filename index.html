@@ -396,14 +396,13 @@
         }
 
         /* --- HARD INTERACTIVE STATE GUARD LOCKS ---
-           Forces every clickable link to inherit its correct structural color codes 
-           and block browser dark grey/black background flashes upon tap execution.
+           Locks elements into safe background properties to stop dark grey browser flashes on click execution
         */
-        .capsule-panel a:active, .capsule-panel a:focus, .capsule-panel a:visited,
-        .view-more-link:active, .view-more-link:focus, .view-more-link:visited,
-        .footer-links-row a:active, .footer-links-row a:focus, .footer-links-row a:visited {
+        .capsule-panel a:active, .capsule-panel a:focus,
+        .view-more-link:active, .view-more-link:focus,
+        .footer-links-row a:active, .footer-links-row a:focus {
             background-color: transparent !important;
-            color: inherit !important;
+            background: transparent !important;
         }
 
         /* Flat Grounded Footer Row */
@@ -515,15 +514,13 @@
     text-decoration: none !important;
 }
 
-/* --- ULTRA-PREMIUM KINETIC TEXT MESH ---
-   Wraps link nodes completely independent of container dimensions. 
-   Locks the origin point strictly center-center so text scales 100% straight 
-   outward on cursor hover and tap, on all viewports.
+/* --- THE KINETIC MESH TARGET ---
+   Isolates the text into a center-centered 3D scale structure.
+   Natively drives smooth, zero-fade 1.06x cursor expansions on hover.
 */
 .kinetic-target {
     display: inline-block !important;
     transform-origin: center center !important; 
-    color: inherit !important; /* Force complete ancestral color dominance to kill grey/black flashes */
     will-change: transform, opacity !important;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -532,14 +529,13 @@
     transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
 }
 
-/* BUTTER SMOOTH HOVER SEQUENCE: Smoothly zooms text 1.06x on cursor placement with zero fade or jumps */
 .capsule-panel a:hover .kinetic-target,
 .view-more-link:hover .kinetic-target,
 .footer-links-row a:hover .kinetic-target {
     transform: scale3d(1.06, 1.06, 1);
 }
 
-/* Absolute Lockout state used while JavaScript thread animations take full control */
+/* Lockout state used while JavaScript thread animations take full control */
 .kinetic-animating {
     pointer-events: none !important;
     opacity: 1 !important;
@@ -777,12 +773,12 @@
                 if (innerSpan) {
                     this.classList.add('kinetic-animating'); 
                     
-                    // Capture starting frame context cleanly (whether cursor is hovering at 1.06 or at rest)
+                    // Instant Snappy Transitions: Shortened to 200ms for hyper-responsive touch execution
                     let startScale = this.matches(':hover') ? 1.06 : 1.0;
                     let endScale = 1.6;
                     let startOpacity = 1.0;
                     let endOpacity = 0;
-                    let duration = 400; // Premium forward sweep duration
+                    let duration = 200; 
                     let startTime = null;
                     
                     function animateForward(timestamp) {
@@ -790,8 +786,7 @@
                         let elapsed = timestamp - startTime;
                         let progress = Math.min(elapsed / duration, 1);
                         
-                        // Cubic ease-in forward tracking acceleration trajectory
-                        let ease = Math.pow(progress, 3);
+                        let ease = Math.pow(progress, 2.5); // Fast, premium responsive drop curve
                         
                         let currentScale = startScale + (endScale - startScale) * ease;
                         let currentOpacity = startOpacity - (startOpacity - endOpacity) * ease;
@@ -814,20 +809,31 @@
 
         // --- Ironclad Page-Show Master Controller Pipeline ---
         window.addEventListener('pageshow', (event) => {
+            const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
             
-            // 1. HARDWARE COMPOSITE RE-TRIGGER ENGINE (Restores fresh load animations smoothly)
+            // 1. HARDWARE COMPOSITE RE-TRIGGER ENGINE (Restores fresh load card transitions smoothly)
             const layoutElements = document.querySelectorAll('header, .capsule-panel, footer');
             
             if (layoutElements.length > 0) {
                 layoutElements.forEach(el => {
+                    // Safety Guard: Protect the container element from resetting its visibility 
+                    // if it contains the target link running the reverse text landing animation
+                    if (savedTargetUrl) {
+                        if (savedTargetUrl.includes('Footer/') && el.tagName.toLowerCase() === 'footer') return;
+                        if (!savedTargetUrl.includes('Footer/') && el.contains(document.querySelector(`a[href*="${savedTargetUrl.split('#')[0].split('/').pop()}"]`))) return;
+                    }
                     el.style.animation = 'none';
                     el.style.webkitAnimation = 'none';
                 });
                 
-                void document.body.offsetHeight; // Flush hardware registers completely
+                void document.body.offsetHeight; // Flush hardware layers
                 
                 requestAnimationFrame(() => {
                     layoutElements.forEach(el => {
+                        if (savedTargetUrl) {
+                            if (savedTargetUrl.includes('Footer/') && el.tagName.toLowerCase() === 'footer') return;
+                            if (!savedTargetUrl.includes('Footer/') && el.contains(document.querySelector(`a[href*="${savedTargetUrl.split('#')[0].split('/').pop()}"]`))) return;
+                        }
                         el.style.animation = '';
                         el.style.webkitAnimation = '';
                     });
@@ -845,26 +851,31 @@
                 }
             });
             
-            const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
             if (savedTargetUrl) {
-                sessionStorage.removeItem('activeUniversalTargetUrl'); // Clear session token data
+                sessionStorage.removeItem('activeUniversalTargetUrl'); // Clear session tokens
                 
                 let matchedLinkElement = null;
                 
+                // Pure deep string matcher to find exact elements across cross-directory paths perfectly
+                const getCleanPath = (urlStr) => urlStr.split('#')[0].split('?')[0].replace(/\/$/, '');
+                const cleanSaved = getCleanPath(savedTargetUrl);
+                
                 interactiveLinks.forEach(link => {
-                    try {
-                        if (new URL(link.href).href === new URL(savedTargetUrl).href) {
-                            matchedLinkElement = link;
-                        }
-                    } catch(e) {
-                        if (link.href === savedTargetUrl) {
-                            matchedLinkElement = link;
-                        }
+                    if (getCleanPath(link.href) === cleanSaved) {
+                        matchedLinkElement = link;
                     }
                 });
                 
                 if (matchedLinkElement) {
                     const targetSpan = matchedLinkElement.querySelector('.kinetic-target');
+                    const parentContainer = matchedLinkElement.closest('.capsule-panel') || matchedLinkElement.closest('footer');
+                    
+                    // Lock the parent container perfectly visible so the text animation isn't covered up
+                    if (parentContainer) {
+                        parentContainer.style.setProperty('animation', 'none', 'important');
+                        parentContainer.style.setProperty('webkitAnimation', 'none', 'important');
+                        parentContainer.style.setProperty('opacity', '1', 'important');
+                    }
                     
                     if (targetSpan) {
                         matchedLinkElement.classList.add('kinetic-animating'); 
@@ -874,19 +885,19 @@
                         let startOpacity = 0;
                         let endOpacity = matchedLinkElement.classList.contains('view-more-link') ? 1 : 0.8;
                         
-                        let duration = 500; // Extended to 500ms for a gorgeous, luxurious return landing glide
+                        let duration = 500; // Luxurious, fluid return landing glide track
                         let startTime = null;
                         
                         targetSpan.style.setProperty('transform', `scale3d(${startScale}, ${startScale}, 1)`, 'important');
                         targetSpan.style.setProperty('opacity', startOpacity, 'important');
                         
-                        // Thread-Locked Frame Renderer Loop: Unaffected by mobile safari screen tracking blocks
+                        // Thread loop layer calculations running completely independent of browser gesture snaps
                         function animateLinkReverse(timestamp) {
                             if (!startTime) startTime = timestamp;
                             let elapsed = timestamp - startTime;
                             let progress = Math.min(elapsed / duration, 1);
                             
-                            // High-End Premium Quintic Ease-Out Tracking Curve Physics: 1 - (1 - x)^5
+                            // High-End Premium Quintic Deceleration: 1 - (1 - x)^5
                             let ease = 1 - Math.pow(1 - progress, 5);
                             
                             let currentScale = startScale - (startScale - endScale) * ease;
@@ -898,10 +909,17 @@
                             if (progress < 1) {
                                 requestAnimationFrame(animateLinkReverse);
                             } else {
-                                // Destination reached softly: Wipe away all tracking styles to reactivate normal hover layers
+                                // Touchdown target reached perfectly: Flush styles away for normal mouse hovers
                                 targetSpan.style.transform = '';
                                 targetSpan.style.opacity = '';
                                 matchedLinkElement.classList.remove('kinetic-animating');
+                                
+                                // Return parent tracking elements to base layout settings safely
+                                if (parentContainer) {
+                                    parentContainer.style.animation = '';
+                                    parentContainer.style.webkitAnimation = '';
+                                    parentContainer.style.opacity = '';
+                                }
                             }
                         }
                         requestAnimationFrame(animateLinkReverse);
