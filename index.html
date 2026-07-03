@@ -37,6 +37,10 @@
             /* Premium Matte Olive Header System (Dark Mode) */
             --header-bg: #1a231e;
             --header-border: #222c26;
+
+            /* The Train Track Math: Pixel-perfect distance for the right icon to travel to the left icon's spot */
+            --track-slide: calc(-100% + 91px);
+            --track-slide-reverse: calc(100% - 91px);
         }
 
         /* Classy Light Mode Tones (Premium Off-White Gallery Style) */
@@ -137,11 +141,11 @@
             justify-content: space-between;
             padding: 0 32px; 
             will-change: opacity, transform;
-            /* Separate opacity transition curves to build a true blended crossfade over the slide layout tracks */
-            transition: opacity 0.35s ease-in-out, transform 0.55s var(--ease-premium);
+            /* Perfectly synced crossfade and slide so the overlapping icons look like a single piece */
+            transition: opacity 0.6s var(--ease-premium), transform 0.6s var(--ease-premium);
         }
 
-        /* TRACK 1: Horizontal Main View Line System */
+        /* TRACK 1: The original header content getting pushed left out of bounds */
         #headerMainView {
             opacity: 1;
             transform: translate3d(0, 0, 0);
@@ -149,14 +153,14 @@
         }
         header.search-active #headerMainView {
             opacity: 0;
-            transform: translate3d(-40px, 0, 0); 
+            transform: translate3d(var(--track-slide), 0, 0); 
             pointer-events: none;
         }
 
-        /* TRACK 2: Horizontal Search View Line System */
+        /* TRACK 2: The search pill content riding in from the right to lock into place */
         #headerSearchView {
             opacity: 0;
-            transform: translate3d(40px, 0, 0); 
+            transform: translate3d(var(--track-slide-reverse), 0, 0); 
             pointer-events: none;
         }
         header.search-active #headerSearchView {
@@ -352,6 +356,11 @@
 
         @media (max-width: 1024px) { .matrix-canvas { grid-template-columns: repeat(2, 1fr); gap: 28px; } }
         @media (max-width: 700px) {
+            :root {
+                /* Recalculated exact mathematical distance for mobile padding dimensions */
+                --track-slide: calc(-100% + 67px);
+                --track-slide-reverse: calc(100% - 67px);
+            }
             .matrix-canvas { grid-template-columns: 1fr; gap: 24px; }
             .capsule-panel { padding: 28px 4px 12px 4px; }
             body { padding: 40px 20px; }
