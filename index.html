@@ -32,7 +32,7 @@
             --header-bg: #1a231e;
             --header-border: #222c26;
             
-            /* Tight vertical cascade parameters */
+            /* Vertical cascade parameters */
             --cascade-distance: 24px;
             --cascade-duration-exit: 0.2s;
             --cascade-duration-entry: 0.28s;
@@ -252,7 +252,12 @@
             padding: 0 16px;
             width: 100%;
             min-width: 0;
-            will-change: transform;
+            
+            /* Hardware isolation layer prevents caret rounding jitter on iPadOS */
+            will-change: transform, opacity;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             transition: color 0.6s var(--ease-premium);
         }
 
@@ -611,16 +616,15 @@
         });
 
         /* ==========================================================
-           IPAD SYNCHRONOUS KEYBOARD OVERRIDE
+           STABILIZED IPAD TRANSITION CONTROLS
            ========================================================== */
         openSearchBtn.addEventListener('click', () => {
             masterHeader.classList.remove('state-main');
             masterHeader.classList.add('state-search');
             
-            // iPad/iOS keyboard fix: .focus() is executed completely 
-            // synchronously (at 0ms) directly inside the user click loop.
-            // This satisfies iOS security tokens and pops the keyboard instantly.
-            searchCoreInput.focus();
+            // Fixed: preventScroll stops iPadOS from fighting the CSS layout engine.
+            // This prevents the tiny layout vibration and locks the caret completely stable.
+            searchCoreInput.focus({ preventScroll: true });
         });
 
         clearSearchBtn.addEventListener('click', () => {
