@@ -15,17 +15,18 @@
     
     <link rel="icon" type="image/png" href="favicon.png">
     
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Modern Theme Token System */
         :root {
-            /* Smooth Premium Deceleration Curve */
             --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
-            
-            /* Default Dark Mode Tones */
+
+            /* Buttery magnetic train curve */
+            --ease-train: cubic-bezier(0.2, 0.8, 0.2, 1);
+            --ease-train-soft: cubic-bezier(0.18, 0.88, 0.2, 1);
+
             --bg-color: #0b0b0b;
             --text-main: #ffffff;
             --text-muted: #555555;
@@ -34,16 +35,18 @@
             --row-divider: #1c1c1c;
             --row-hover: rgba(255, 255, 255, 0.015);
 
-            /* Premium Matte Olive Header System (Dark Mode) */
             --header-bg: #1a231e;
             --header-border: #222c26;
 
-            /* The Train Track Math */
+            /* Train track */
             --track-slide: calc(-100% + 91px);
             --track-slide-reverse: calc(100% - 91px);
+
+            /* Unified train timings */
+            --header-train-duration: 1.28s;
+            --header-train-fade-duration: 1.28s;
         }
 
-        /* Classy Light Mode Tones */
         body.light-mode {
             --bg-color: #f5f5f7;
             --text-main: #111111;
@@ -106,63 +109,74 @@
             background-color: var(--header-bg);
             border: 1px solid var(--header-border);
             border-radius: 50px;
-            width: 100%; 
-            height: 72px; 
+            width: 100%;
+            height: 72px;
             margin: 0 auto 80px auto;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-            overflow: hidden; 
+            overflow: hidden;
             transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
         }
 
-        body:not(.light-mode) header { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); }
+        body:not(.light-mode) header {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
 
+        /* =========================
+           LINKED TRAIN HEADER SYSTEM
+           ========================= */
         .header-inner-view {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 32px; 
-            will-change: opacity, transform;
-            /* CLOSING: Smooth glide */
-            transition: opacity 0.75s ease-out, transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
-        }
+            padding: 0 32px;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translate3d(0, 0, 0);
 
-        /* OPENING: Ultra-soft, extended glide */
-        header.search-active .header-inner-view {
-            transition: opacity 1.2s cubic-bezier(0.2, 0, 0, 1), transform 1.4s cubic-bezier(0.15, 0.9, 0.2, 1);
+            /* Hard-linked slide + fade */
+            transition:
+                transform var(--header-train-duration) var(--ease-train),
+                opacity var(--header-train-fade-duration) var(--ease-train-soft);
         }
 
         #headerMainView {
             opacity: 1;
             transform: translate3d(0, 0, 0);
             pointer-events: auto;
-        }
-        header.search-active #headerMainView {
-            opacity: 0;
-            transform: translate3d(var(--track-slide), 0, 0); 
-            pointer-events: none;
+            z-index: 2;
         }
 
         #headerSearchView {
             opacity: 0;
-            transform: translate3d(var(--track-slide-reverse), 0, 0); 
+            transform: translate3d(var(--track-slide-reverse), 0, 0);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* OPEN STATE */
+        header.search-active #headerMainView {
+            opacity: 0;
+            transform: translate3d(var(--track-slide), 0, 0);
             pointer-events: none;
         }
+
         header.search-active #headerSearchView {
             opacity: 1;
             transform: translate3d(0, 0, 0);
             pointer-events: auto;
         }
 
-        .header-right-cluster, .search-control-cluster {
+        .header-right-cluster,
+        .search-control-cluster {
             display: flex;
             align-items: center;
             gap: 20px;
-            flex-shrink: 0; 
+            flex-shrink: 0;
             height: 100%;
         }
 
@@ -185,8 +199,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;  
-            height: 32px; 
+            width: 32px;
+            height: 32px;
             padding: 0;
             flex-shrink: 0;
             transition: opacity 0.2s var(--ease-premium), color 0.6s var(--ease-premium);
@@ -194,7 +208,8 @@
 
         .ctrl-btn:hover { opacity: 0.6; }
 
-        .ctrl-btn svg, .search-static-icon {
+        .ctrl-btn svg,
+        .search-static-icon {
             width: 22px;
             height: 22px;
             fill: none;
@@ -205,7 +220,10 @@
             transition: stroke 0.6s var(--ease-premium);
         }
 
-        .search-static-icon { opacity: 0.4; flex-shrink: 0; }
+        .search-static-icon {
+            opacity: 0.4;
+            flex-shrink: 0;
+        }
 
         .search-core-input {
             flex-grow: 1;
@@ -217,7 +235,7 @@
             font-size: 16px;
             padding: 0 16px;
             width: 100%;
-            min-width: 0; 
+            min-width: 0;
             transition: color 0.6s var(--ease-premium);
         }
 
@@ -225,8 +243,8 @@
         .close-search-btn svg { opacity: 0.7; }
 
         .theme-toggle {
-            width: 32px;  
-            height: 32px; 
+            width: 32px;
+            height: 32px;
             position: relative;
             cursor: pointer;
             user-select: none;
@@ -315,9 +333,15 @@
             transition: color 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
         }
 
-        .document-list li:hover, .document-list li:active, .document-list li:focus,
-        .matrix-canvas a:hover, .matrix-canvas a:active, .matrix-canvas a:focus,
-        .view-more-link:hover, .view-more-link:active, .view-more-link:focus {
+        .document-list li:hover,
+        .document-list li:active,
+        .document-list li:focus,
+        .matrix-canvas a:hover,
+        .matrix-canvas a:active,
+        .matrix-canvas a:focus,
+        .view-more-link:hover,
+        .view-more-link:active,
+        .view-more-link:focus {
             background-color: transparent !important;
             background: transparent !important;
         }
@@ -338,15 +362,22 @@
             backface-visibility: hidden;
             transition: color 0.4s var(--ease-premium);
         }
+
         .footer-links-row a:hover { color: var(--text-main) !important; }
         .copyright-tag { color: var(--text-muted); opacity: 0.6; font-size: 12.5px; letter-spacing: 0.2px; transition: color 0.4s var(--ease-premium); }
 
-        @media (max-width: 1024px) { .matrix-canvas { grid-template-columns: repeat(2, 1fr); gap: 28px; } }
+        @media (max-width: 1024px) {
+            .matrix-canvas { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+        }
+
         @media (max-width: 700px) {
             :root {
                 --track-slide: calc(-100% + 67px);
                 --track-slide-reverse: calc(100% - 67px);
+                --header-train-duration: 1.18s;
+                --header-train-fade-duration: 1.18s;
             }
+
             .matrix-canvas { grid-template-columns: 1fr; gap: 24px; }
             .capsule-panel { padding: 28px 4px 12px 4px; }
             body { padding: 40px 20px; }
@@ -357,13 +388,32 @@
             .header-right-cluster { gap: 16px; }
         }
 
-        .view-more-container { display: flex; justify-content: center; width: 100%; margin-top: 20px; padding-top: 12px; border-top: 1px dashed #222222; }
-        .view-more-link { color: #8a9a86 !important; font-weight: 600; text-decoration: none !important; font-size: 0.95rem; display: inline-block; will-change: transform, opacity; -webkit-backface-visibility: hidden; backface-visibility: hidden; transition: opacity 0.2s ease; }
+        .view-more-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px dashed #222222;
+        }
+
+        .view-more-link {
+            color: #8a9a86 !important;
+            font-weight: 600;
+            text-decoration: none !important;
+            font-size: 0.95rem;
+            display: inline-block;
+            will-change: transform, opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: opacity 0.2s ease;
+        }
+
         .view-more-link:hover { opacity: 0.8; text-decoration: none !important; }
 
         .nav-text {
             display: inline-block !important;
-            transform-origin: center center !important; 
+            transform-origin: center center !important;
             will-change: transform, opacity !important;
             transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
         }
@@ -382,12 +432,15 @@
         .view-more-link.is-zooming .nav-text,
         .footer-links-row a.is-zooming .nav-text {
             transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear !important;
-            transform: scale3d(1.6, 1.6, 1) !important; 
-            opacity: 0 !important;           
+            transform: scale3d(1.6, 1.6, 1) !important;
+            opacity: 0 !important;
         }
 
         .kinetic-locked-frame { pointer-events: none !important; }
-        .kinetic-locked-frame .nav-text { transition: none !important; -webkit-transition: none !important; }
+        .kinetic-locked-frame .nav-text {
+            transition: none !important;
+            -webkit-transition: none !important;
+        }
     </style>
 </head>
 <body>
@@ -410,6 +463,7 @@
                 </button>
             </div>
         </div>
+
         <div class="header-inner-view" id="headerSearchView">
             <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
@@ -435,6 +489,7 @@
                     <li><a href="#">Current affairs</a></li>
                 </ul>
             </div>
+
             <div class="capsule-panel">
                 <h2 class="panel-title">Current affairs</h2>
                 <ul class="document-list">
@@ -442,6 +497,7 @@
                     <li><a href="#">Topic-wise current affairs</a></li>
                 </ul>
             </div>
+
             <div class="capsule-panel">
                 <h2 class="panel-title">Contents</h2>
                 <ul class="document-list">
@@ -453,6 +509,7 @@
                     <a href="contents.html" class="view-more-link">View more</a>
                 </div>
             </div>
+
             <div class="capsule-panel">
                 <h2 class="panel-title">Must read</h2>
                 <ul class="document-list">
@@ -460,12 +517,14 @@
                     <li><a href="#">Coming up</a></li>
                 </ul>
             </div>
+
             <div class="capsule-panel">
                 <h2 class="panel-title">Chapters</h2>
                 <ul class="document-list">
                     <li><a href="#">Coming up</a></li>
                 </ul>
             </div>
+
             <div class="capsule-panel">
                 <h2 class="panel-title">Essays</h2>
                 <ul class="document-list">
@@ -530,7 +589,7 @@
         });
 
         toggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); 
+            e.stopPropagation();
             const isCurrentlyLight = bodyElement.classList.contains('light-mode');
             if (isCurrentlyLight) {
                 bodyElement.classList.remove('light-mode');
@@ -541,9 +600,12 @@
             }
         });
 
+        /* =========================
+           HEADER TRAIN CONTROLS
+           ========================= */
         openSearchBtn.addEventListener('click', () => {
             masterHeader.classList.add('search-active');
-            setTimeout(() => { searchCoreInput.focus(); }, 50);
+            setTimeout(() => { searchCoreInput.focus(); }, 420);
         });
 
         clearSearchBtn.addEventListener('click', () => {
@@ -561,6 +623,9 @@
             }
         });
 
+        /* =========================
+           LINK PORTAL ANIMATION
+           ========================= */
         const universalTargetLinks = document.querySelectorAll('.matrix-canvas a, footer .footer-links-row a');
 
         universalTargetLinks.forEach(link => {
@@ -578,18 +643,18 @@
             link.addEventListener('click', function(e) {
                 const destination = this.getAttribute('href');
                 if (!destination || destination === '#') return;
-                
-                e.preventDefault(); 
+
+                e.preventDefault();
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
                 this.classList.add('is-zooming');
-                
+
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 380); 
+                }, 380);
             });
         });
 
-        window.addEventListener('pageshow', (event) => {
+        window.addEventListener('pageshow', () => {
             universalTargetLinks.forEach(l => {
                 l.classList.remove('is-zooming');
                 l.classList.remove('kinetic-locked-frame');
@@ -599,52 +664,52 @@
                     span.style.opacity = '';
                 }
             });
-            
+
             const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
             if (savedTargetUrl) {
                 sessionStorage.removeItem('activeUniversalTargetUrl');
-                
+
                 let matchedLinkElement = null;
                 universalTargetLinks.forEach(link => {
                     if (link.href === savedTargetUrl) {
                         matchedLinkElement = link;
                     }
                 });
-                
+
                 if (matchedLinkElement) {
                     const targetSpan = matchedLinkElement.querySelector('.nav-text');
-                    
+
                     if (targetSpan) {
                         setTimeout(() => {
-                            matchedLinkElement.classList.add('kinetic-locked-frame'); 
-                            
+                            matchedLinkElement.classList.add('kinetic-locked-frame');
+
                             let startScale = 1.6;
                             let endScale = 1.0;
                             let startOpacity = 0;
-                            
+
                             let endOpacity = 0.8;
                             if (matchedLinkElement.classList.contains('view-more-link')) endOpacity = 1.0;
                             if (matchedLinkElement.closest('footer')) endOpacity = 0.4;
-                            
-                            let duration = 400; 
+
+                            let duration = 400;
                             let startTime = null;
-                            
+
                             targetSpan.style.setProperty('transform', `scale(${startScale})`, 'important');
                             targetSpan.style.setProperty('opacity', startOpacity, 'important');
-                            
+
                             function animateReverse(timestamp) {
                                 if (!startTime) startTime = timestamp;
                                 let elapsed = timestamp - startTime;
                                 let progress = Math.min(elapsed / duration, 1);
-                                
+
                                 let ease = 1 - Math.pow(1 - progress, 2.2);
-                                
+
                                 let currentScale = startScale - (startScale - endScale) * ease;
                                 let currentOpacity = startOpacity + (endOpacity - startOpacity) * ease;
-                                
+
                                 targetSpan.style.setProperty('transform', `scale(${currentScale})`, 'important');
                                 targetSpan.style.setProperty('opacity', currentOpacity, 'important');
-                                
+
                                 if (progress < 1) {
                                     requestAnimationFrame(animateReverse);
                                 } else {
@@ -653,6 +718,7 @@
                                     matchedLinkElement.classList.remove('kinetic-locked-frame');
                                 }
                             }
+
                             requestAnimationFrame(animateReverse);
                         }, 40);
                     }
