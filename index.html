@@ -443,11 +443,12 @@
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
         .view-more-link .nav-text { color: #8a9a86 !important; }
 
+        /* Calibrated 1.3 Premium Micro-Pop Portal Zoom Trigger */
         .matrix-canvas a.is-zooming .nav-text,
         .view-more-link.is-zooming .nav-text,
         .footer-links-row a.is-zooming .nav-text {
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s linear !important;
-            transform: scale3d(1.6, 1.6, 1) !important;
+            transition: transform 0.26s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.26s linear !important;
+            transform: scale3d(1.3, 1.3, 1) !important;
             opacity: 0 !important;
         }
 
@@ -622,8 +623,7 @@
             masterHeader.classList.remove('state-main');
             masterHeader.classList.add('state-search');
             
-            // Fixed: preventScroll stops iPadOS from fighting the CSS layout engine.
-            // This prevents the tiny layout vibration and locks the caret completely stable.
+            // iPad/iOS keyboard bypass rule tracks direct synchronous token focus parameters safely
             searchCoreInput.focus({ preventScroll: true });
         });
 
@@ -644,9 +644,9 @@
             }
         });
 
-        /* =========================
-           LINK PORTAL ANIMATION
-           ========================= */
+        /* ==========================================================
+           LINK PORTAL ANIMATION — RE-CALIBRATED TO SNAP 1.3 MICRO-POP
+           ========================================================== */
         const universalTargetLinks = document.querySelectorAll('.matrix-canvas a, footer .footer-links-row a');
 
         universalTargetLinks.forEach(link => {
@@ -669,9 +669,10 @@
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
                 this.classList.add('is-zooming');
 
+                // Tightened to exactly 260ms for immediate clean redirect
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 380);
+                }, 260);
             });
         });
 
@@ -704,7 +705,8 @@
                         setTimeout(() => {
                             matchedLinkElement.classList.add('kinetic-locked-frame');
 
-                            let startScale = 1.6;
+                            // Calibrated 1.3 micro parameters for backward physics execution pass
+                            let startScale = 1.3;
                             let endScale = 1.0;
                             let startOpacity = 0;
 
@@ -712,7 +714,7 @@
                             if (matchedLinkElement.classList.contains('view-more-link')) endOpacity = 1.0;
                             if (matchedLinkElement.closest('footer')) endOpacity = 0.4;
 
-                            let duration = 400;
+                            let duration = 280; // Snappy pull back duration
                             let startTime = null;
 
                             targetSpan.style.setProperty('transform', `scale(${startScale})`, 'important');
@@ -746,7 +748,6 @@
                 }
             }
         });
-        
     </script>
 </body>
 </html>
