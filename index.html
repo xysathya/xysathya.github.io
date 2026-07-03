@@ -610,7 +610,17 @@
            ========================= */
         openSearchBtn.addEventListener('click', () => {
             masterHeader.classList.add('search-active');
-            setTimeout(() => { searchCoreInput.focus(); }, 420);
+
+            // Wait for the slide to genuinely finish before focusing.
+            // Focusing mid-animation pops the mobile keyboard, which
+            // forces a viewport reflow and hitches the glide.
+            const headerSearchView = document.getElementById('headerSearchView');
+            function focusAfterGlide(e) {
+                if (e.target !== headerSearchView || e.propertyName !== 'transform') return;
+                headerSearchView.removeEventListener('transitionend', focusAfterGlide);
+                searchCoreInput.focus();
+            }
+            headerSearchView.addEventListener('transitionend', focusAfterGlide);
         });
 
         clearSearchBtn.addEventListener('click', () => {
