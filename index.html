@@ -23,9 +23,13 @@
         :root {
             --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
 
-            /* Buttery magnetic train curve */
-            --ease-train: cubic-bezier(0.2, 0.8, 0.2, 1);
-            --ease-train-soft: cubic-bezier(0.18, 0.88, 0.2, 1);
+            /* ==========================================================
+               MAGNETIC GLIDE — the single curve used for the whole train.
+               Symmetric soft-start / cushioned-stop. Same curve drives
+               both transform AND opacity so they are hard-linked and can
+               never drift out of sync with each other.
+               ========================================================== */
+            --ease-magnetic: cubic-bezier(0.37, 0, 0.63, 1);
 
             --bg-color: #0b0b0b;
             --text-main: #ffffff;
@@ -42,9 +46,9 @@
             --track-slide: calc(-100% + 91px);
             --track-slide-reverse: calc(100% - 91px);
 
-            /* Unified train timings */
-            --header-train-duration: 1.28s;
-            --header-train-fade-duration: 1.28s;
+            /* Single shared duration — long enough for the magnetic
+               curve's ease to actually read as smooth, not snappy. */
+            --header-train-duration: 1.35s;
         }
 
         body.light-mode {
@@ -138,10 +142,12 @@
             -webkit-backface-visibility: hidden;
             transform: translate3d(0, 0, 0);
 
-            /* Hard-linked slide + fade */
+            /* Hard-linked slide + fade: identical duration, identical
+               curve, on both properties. Nothing can finish a few
+               milliseconds apart from anything else. */
             transition:
-                transform var(--header-train-duration) var(--ease-train),
-                opacity var(--header-train-fade-duration) var(--ease-train-soft);
+                transform var(--header-train-duration) var(--ease-magnetic),
+                opacity var(--header-train-duration) var(--ease-magnetic);
         }
 
         #headerMainView {
@@ -374,8 +380,7 @@
             :root {
                 --track-slide: calc(-100% + 67px);
                 --track-slide-reverse: calc(100% - 67px);
-                --header-train-duration: 1.18s;
-                --header-train-fade-duration: 1.18s;
+                --header-train-duration: 1.2s;
             }
 
             .matrix-canvas { grid-template-columns: 1fr; gap: 24px; }
