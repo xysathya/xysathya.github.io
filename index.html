@@ -23,14 +23,6 @@
         :root {
             --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
 
-            /* ==========================================================
-               MAGNETIC GLIDE — the single curve used for the whole train.
-               Symmetric soft-start / cushioned-stop. Same curve drives
-               both transform AND opacity so they are hard-linked and can
-               never drift out of sync with each other.
-               ========================================================== */
-            --ease-magnetic: cubic-bezier(0.37, 0, 0.63, 1);
-
             --bg-color: #0b0b0b;
             --text-main: #ffffff;
             --text-muted: #555555;
@@ -41,14 +33,6 @@
 
             --header-bg: #1a231e;
             --header-border: #222c26;
-
-            /* Train track */
-            --track-slide: calc(-100% + 91px);
-            --track-slide-reverse: calc(100% - 91px);
-
-            /* Single shared duration — long enough for the magnetic
-               curve's ease to actually read as smooth, not snappy. */
-            --header-train-duration: 0.85s;
         }
 
         body.light-mode {
@@ -125,9 +109,9 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
-        /* =========================
-           LINKED TRAIN HEADER SYSTEM
-           ========================= */
+        /* ==========================================================
+           SKYDIVING CASCADE SYSTEM (VERTICAL CONTINUOUS WATERFALL)
+           ========================================================== */
         .header-inner-view {
             position: absolute;
             inset: 0;
@@ -140,16 +124,9 @@
             will-change: transform, opacity;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            transform: translate3d(0, 0, 0);
-
-            /* Hard-linked slide + fade: identical duration, identical
-               curve, on both properties. Nothing can finish a few
-               milliseconds apart from anything else. */
-            transition:
-                transform var(--header-train-duration) var(--ease-magnetic),
-                opacity var(--header-train-duration) var(--ease-magnetic);
         }
 
+        /* Initial Setup States */
         #headerMainView {
             opacity: 1;
             transform: translate3d(0, 0, 0);
@@ -159,22 +136,54 @@
 
         #headerSearchView {
             opacity: 0;
-            transform: translate3d(var(--track-slide-reverse), 0, 0);
+            transform: translate3d(0, -100%, 0); /* Locked at top ceiling initially */
             pointer-events: none;
             z-index: 1;
         }
 
-        /* OPEN STATE */
-        header.search-active #headerMainView {
-            opacity: 0;
-            transform: translate3d(var(--track-slide), 0, 0);
+        /* STATE: OPENING SEARCH (Main falls out floor, Search drops from ceiling) */
+        header.state-search #headerMainView {
+            animation: skyfallExit 0.4s cubic-bezier(0.3, 0, 0.2, 1) forwards;
             pointer-events: none;
         }
-
-        header.search-active #headerSearchView {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
+        header.state-search #headerSearchView {
+            animation: skyfallEntry 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.14s; /* Drops perfectly as the floor clears */
             pointer-events: auto;
+        }
+
+        /* STATE: CLOSING SEARCH (Search falls out floor, Main drops from ceiling) */
+        header.state-main #headerSearchView {
+            animation: skyfallExit 0.4s cubic-bezier(0.3, 0, 0.2, 1) forwards;
+            pointer-events: none;
+        }
+        header.state-main #headerMainView {
+            animation: skyfallEntry 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.14s; /* Drops perfectly as the floor clears */
+            pointer-events: auto;
+        }
+
+        /* Universal Gravity Keyframes */
+        @keyframes skyfallExit {
+            0% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(0, 100%, 0); /* Drops straight out through bottom */
+                opacity: 0;
+            }
+        }
+
+        @keyframes skyfallEntry {
+            0% {
+                transform: translate3d(0, -100%, 0); /* Starts high up at top boundary */
+                opacity: 0;
+            }
+            100% {
+                transform: translate3d(0, 0, 0); /* Luxury cushioned landing at center axis */
+                opacity: 1;
+            }
         }
 
         .header-right-cluster,
@@ -377,12 +386,6 @@
         }
 
         @media (max-width: 700px) {
-            :root {
-                --track-slide: calc(-100% + 67px);
-                --track-slide-reverse: calc(100% - 67px);
-                --header-train-duration: 0.75s;
-            }
-
             .matrix-canvas { grid-template-columns: 1fr; gap: 24px; }
             .capsule-panel { padding: 28px 4px 12px 4px; }
             body { padding: 40px 20px; }
@@ -605,22 +608,15 @@
             }
         });
 
-        /* =========================
-           HEADER TRAIN CONTROLS
-           ========================= */
+        /* ==========================================================
+           EXPLICIT STATE WATERFALL CYCLE CONTROLS
+           ========================================================== */
         openSearchBtn.addEventListener('click', () => {
-            masterHeader.classList.add('search-active');
-
-            // Wait for the slide to genuinely finish before focusing.
-            // Focusing mid-animation pops the mobile keyboard, which
-            // forces a viewport reflow and hitches the glide.
-            const headerSearchView = document.getElementById('headerSearchView');
-            function focusAfterGlide(e) {
-                if (e.target !== headerSearchView || e.propertyName !== 'transform') return;
-                headerSearchView.removeEventListener('transitionend', focusAfterGlide);
-                searchCoreInput.focus();
-            }
-            headerSearchView.addEventListener('transitionend', focusAfterGlide);
+            // Blazing Fast Focus at 0ms so keyboard launches instantly
+            searchCoreInput.focus();
+            
+            masterHeader.classList.remove('state-main');
+            masterHeader.classList.add('state-search');
         });
 
         clearSearchBtn.addEventListener('click', () => {
@@ -629,12 +625,14 @@
         });
 
         closeSearchBtn.addEventListener('click', () => {
-            masterHeader.classList.remove('search-active');
+            masterHeader.classList.remove('state-search');
+            masterHeader.classList.add('state-main');
         });
 
         searchCoreInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && searchCoreInput.value.trim() === "") {
-                masterHeader.classList.remove('search-active');
+                masterHeader.classList.remove('state-search');
+                masterHeader.classList.add('state-main');
             }
         });
 
@@ -743,4 +741,3 @@
     </script>
 </body>
 </html>
-
