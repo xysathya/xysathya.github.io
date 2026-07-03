@@ -41,12 +41,14 @@
             
             --bullet-color: #444444;
 
-            /* Celestial Toggle Token Canvas Variables */
-            --toggle-pill-bg: #121212;
-            --toggle-pill-border: #222222;
+            /* Upgraded Premium Celestial Toggle Design Tokens (Dark Mode) */
+            --toggle-pill-bg: #090d0a;
+            --toggle-pill-border: #222c26;
             --sun-color: #ffffff;
-            --orbit-line: rgba(255, 255, 255, 0.08);
+            --satellite-color: #a1a1a6; /* Brushed Metallic Silver */
+            --orbit-line: rgba(255, 255, 255, 0.16); /* Enhanced Track Definition */
             --star-opacity: 1;
+            --corona-glow: drop-shadow(0 0 6px rgba(255, 255, 255, 0.85)); /* High-Exposure Corona Ring */
 
             /* Vertical cascade parameters matching master optimization */
             --cascade-distance: 24px;
@@ -68,12 +70,14 @@
             
             --bullet-color: #b8b8bc;
 
-            /* Light Mode Celestial Overrides */
-            --toggle-pill-bg: #ffffff;
-            --toggle-pill-border: #e2e2e7;
-            --sun-color: #111111;
-            --orbit-line: rgba(0, 0, 0, 0.06);
+            /* Upgraded Premium Celestial Toggle Design Tokens (Light Mode) */
+            --toggle-pill-bg: #f2f4ef; /* Pristine Observatory Carved Ivory */
+            --toggle-pill-border: #d4d8cf;
+            --sun-color: #ffffff; /* Luminous High-Contrast Sun Disk */
+            --satellite-color: #444444; /* Matte Mechanical Charcoal */
+            --orbit-line: rgba(0, 0, 0, 0.12); /* Clean Astronomical Map Blueprint Lines */
             --star-opacity: 0;
+            --corona-glow: drop-shadow(0 0 2px rgba(0, 0, 0, 0.05));
         }
 
         * {
@@ -293,7 +297,7 @@
             width: 58px;
             height: 32px;
             border-radius: 30px;
-            background-color: var(--toggle-pill-bg);
+            background: var(--toggle-pill-bg);
             border: 1px solid var(--toggle-pill-border);
             position: relative;
             cursor: pointer;
@@ -328,15 +332,22 @@
             transition: stroke var(--dusk-duration) var(--dusk-curve), transform var(--dusk-duration) var(--dusk-curve);
         }
 
+        /* The Sun Anchor Core with Solar Corona Filters Enabled */
         .sun-body {
             fill: var(--sun-color);
             transform-origin: 29px 16px;
-            will-change: transform, opacity;
-            transition: fill var(--dusk-duration) var(--dusk-curve), transform var(--dusk-duration) var(--dusk-curve), opacity var(--dusk-duration) var(--dusk-curve);
+            will-change: transform, opacity, filter;
+            filter: var(--corona-glow);
+            transition: fill var(--dusk-duration) var(--dusk-curve), transform var(--dusk-duration) var(--dusk-curve), opacity var(--dusk-duration) var(--dusk-curve), filter var(--dusk-duration) var(--dusk-curve);
+        }
+
+        body.light-mode .sun-body {
+            /* Pure high-contrast solid gold-core profile for light mode */
+            fill: #e8a838; 
         }
 
         .earth-body, .moon-body {
-            fill: var(--sun-color);
+            fill: var(--satellite-color);
             transform-origin: 29px 16px;
             will-change: transform;
             transition: fill var(--dusk-duration) var(--dusk-curve), transform var(--dusk-duration) var(--dusk-curve);
@@ -347,14 +358,14 @@
         body:not(.light-mode) .orbital-track { transform: rotate(180deg); }
 
         body.light-mode .sun-body { transform: translate(0px, 0px) scale(1); opacity: 1; }
-        body:not(.light-mode) .sun-body { transform: translate(0px, 0px) scale(0.65); opacity: 0.15; }
+        body:not(.light-mode) .sun-body { transform: translate(0px, 0px) scale(0.65); }
 
         body.light-mode .earth-body { transform: rotate(0deg); }
         body:not(.light-mode) .earth-body { transform: rotate(180deg); }
 
         /* The Moon glides directly over the Sun anchor point during nightfall */
-        body.light-mode .moon-body { transform: rotate(0deg) scale(1); }
-        body:not(.light-mode) .moon-body { transform: rotate(232deg) translate(9.5px, 0px) scale(2.2); }
+        body.light-mode .moon-body { transform: rotate(0deg) scale(1); fill: #5c635e; }
+        body:not(.light-mode) .moon-body { transform: rotate(232deg) translate(9.5px, 0px) scale(2.2); fill: #121212; }
 
         .search-core-input {
             flex-grow: 1;
@@ -622,8 +633,8 @@
                         <circle class="orbital-track" cx="29" cy="16" r="9.5"/>
                         <circle class="orbital-track" cx="29" cy="16" r="15"/>
                         <circle class="sun-body" cx="29" cy="16" r="4.5"/>
-                        <circle class="earth-body" cx="44" cy="16" r="1.5"/>
-                        <circle class="moon-body" cx="38.5" cy="16" r="1"/>
+                        <circle class="earth-body" cx="44" cy="16" r="2"/>
+                        <circle class="moon-body" cx="38.5" cy="16" r="1.3"/>
                     </svg>
                 </div>
 
