@@ -42,10 +42,10 @@
             --bullet-color: #444444;
 
             /* Floating Transparent Celestial Tokens (Dark Mode) */
-            --sun-color: #ffa200;             
-            --moon-color: #dededf;            
-            --earth-color: #2b9cd3;           
-            --orbit-line: rgba(255, 255, 255, 0.65); /* High-visibility white lines */
+            --sun-color: #ffa200;             /* Custom Radiant Golden Sun */
+            --moon-color: #dededf;            /* Soft Cosmic Off-White Moon */
+            --earth-color: #2b9cd3;           /* Vivid Ocean Blue Earth */
+            --orbit-line: rgba(255, 255, 255, 0.65); /* High-visibility white tracks */
             --corona-glow: drop-shadow(0 0 8px rgba(255, 162, 0, 0.45)); 
 
             /* Vertical cascade parameters matching master optimization */
@@ -72,7 +72,7 @@
             --sun-color: #ffa200;             
             --moon-color: #cbd0d4;            
             --earth-color: #2b9cd3;           
-            --orbit-line: rgba(0, 0, 0, 0.55); /* High-contrast crisp charcoal lines */
+            --orbit-line: rgba(0, 0, 0, 0.55); /* High-contrast crisp charcoal tracks */
             --corona-glow: drop-shadow(0 0 3px rgba(255, 162, 0, 0.15));
         }
 
@@ -236,6 +236,7 @@
             100% { transform: translate3d(0, 0, 0); opacity: 1; }
         }
 
+        /* Mirror Layout Geometry configuration for strict positional sync */
         .header-right-cluster, .search-control-cluster {
             display: flex;
             align-items: center;
@@ -253,7 +254,8 @@
             flex-shrink: 0;
         }
 
-        .ctrl-btn {
+        /* Standardized touch target footprint for zero jump shifting */
+        .ctrl-btn, .theme-toggle-void {
             background: none;
             border: none;
             outline: none;
@@ -262,10 +264,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;  
-            height: 32px; 
+            width: 40px;  
+            height: 40px; 
             padding: 0;
             flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
             transition: opacity 0.2s var(--ease-premium);
         }
 
@@ -287,24 +292,8 @@
         }
 
         /* ==========================================================
-           CELESTIAL ORBITAL TOGGLE (REAL SPACE PHYSICS ENGINE)
+           CELESTIAL ORBITAL TOGGLE (REAL ASTROPHYSICS ENGINE)
            ========================================================== */
-        .theme-toggle-void {
-            width: 44px;  
-            height: 44px; 
-            background: transparent;
-            border: none;
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-right: 14px; /* Shifts placement leftward away from the search icon on all devices */
-            will-change: transform;
-        }
-
         .celestial-window-svg {
             width: 100%;
             height: 100%;
@@ -320,49 +309,50 @@
 
         body.light-mode .space-stars { opacity: 0; }
 
-        /* Fine-dashed trajectory blueprint tracks linked to enhanced visibility tokens */
+        /* Fine-dashed trajectory blueprint tracks optimized for distance legibility */
         .orbital-track-sun {
             fill: none;
             stroke: var(--orbit-line);
-            stroke-width: 1; /* Polished line thickness for distance legibility */
-            stroke-dasharray: 2 3.5;
-            transform-origin: 22px 22px;
+            stroke-width: 1.2; 
+            stroke-dasharray: 2 3;
+            transform-origin: 20px 20px;
             transition: stroke var(--dusk-duration) var(--dusk-curve);
         }
 
         .orbital-track-earth {
             fill: none;
             stroke: var(--orbit-line);
-            stroke-width: 0.8;
-            stroke-dasharray: 1.5 2.5;
-            transform-origin: 36px 22px;
+            stroke-width: 0.9;
+            stroke-dasharray: 1.5 2;
+            transform-origin: 34px 20px;
             transition: stroke var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Luminous Golden Sun Core Node */
+        /* Luminous Golden Sun Core Node (#ffa200) */
         .sun-body {
             fill: var(--sun-color);
-            transform-origin: 22px 22px;
+            transform-origin: 20px 20px;
             will-change: transform, filter;
             filter: var(--corona-glow);
             transition: fill var(--dusk-duration) var(--dusk-curve), filter var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* The Integrated Earth System (Sweeps 180° around the center Sun coordinates 22,22) */
+        /* True Coupled Earth System (Rotates around center Sun 20,20) */
         .earth-system {
-            transform-origin: 22px 22px;
+            transform-origin: 20px 20px;
             will-change: transform;
             transition: transform var(--dusk-duration) var(--dusk-curve);
         }
 
+        /* Scientifically proportioned giant Earth node */
         .earth-circle {
             fill: var(--earth-color);
             transition: fill var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* The Isolated Moon System (Revolves locally around Earth coordinates 36,22) */
+        /* Moon Satellite Group (Revolves locally around moving Earth coordinates 34,20) */
         .moon-system {
-            transform-origin: 36px 22px;
+            transform-origin: 34px 20px;
             will-change: transform;
             transition: transform var(--dusk-duration) var(--dusk-curve);
         }
@@ -372,7 +362,7 @@
             transition: fill var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Synchronized Real Space Physics Transformations */
+        /* Accurate Geocentric Relational Space System Drivers Mapped to a 20,20 Center Grid Pinpoint */
         body.light-mode .earth-system { transform: rotate(0deg); }
         body:not(.light-mode) .earth-system { transform: rotate(180deg); }
 
@@ -619,14 +609,14 @@
             .header-inner-view { padding: 0 20px; }
             .logo { font-size: 22px; }
             .search-core-input { padding: 0 12px; font-size: 15px; }
-            .header-right-cluster { gap: 16px; }
+            
+            /* Retain uniform structure targets down onto smaller viewport breakdowns */
+            .ctrl-btn, .theme-toggle-void { width: 36px; height: 36px; }
+            .header-right-cluster, .search-control-cluster { gap: 16px; }
             
             .wide-capsule { padding: 32px 24px; border-radius: 24px; }
             .topics-column-grid { grid-template-columns: 1fr; gap: 14px 0; } 
             .wide-panel-title { margin-bottom: 20px; font-size: 18px; }
-            
-            /* Responsive micro scaling shell - Coordinates automatically scale with viewBox aspect ratios */
-            .theme-toggle-void { width: 36px; height: 36px; margin-right: 8px; }
         }
     </style>
 </head>
@@ -638,26 +628,26 @@
             <div class="header-right-cluster">
                 
                 <div class="theme-toggle-void" id="themeToggleBtn" aria-label="Trigger environmental transition">
-                    <svg class="celestial-window-svg" viewBox="0 0 44 44">
+                    <svg class="celestial-window-svg" viewBox="0 0 40 40">
                         <g class="space-stars">
-                            <circle cx="10" cy="8" r="0.5"/>
-                            <circle cx="34" cy="10" r="0.4"/>
-                            <circle cx="32" cy="34" r="0.6"/>
-                            <circle cx="12" cy="32" r="0.4"/>
+                            <circle cx="8" cy="6" r="0.5"/>
+                            <circle cx="32" cy="8" r="0.4"/>
+                            <circle cx="30" cy="32" r="0.6"/>
+                            <circle cx="10" cy="30" r="0.4"/>
                         </g>
 
-                        <circle class="orbital-track-sun" cx="22" cy="22" r="14"/>
+                        <circle class="orbital-track-sun" cx="20" cy="20" r="14"/>
                         
-                        <circle class="sun-body" cx="22" cy="22" r="4.2"/>
+                        <circle class="sun-body" cx="20" cy="20" r="4.5"/>
                         
                         <g class="earth-system">
                             
-                            <circle class="orbital-track-earth" cx="36" cy="22" r="4.5" />
+                            <circle class="orbital-track-earth" cx="34" cy="20" r="5.5" />
                             
-                            <circle class="earth-circle" cx="36" cy="22" r="2.2"/>
+                            <circle class="earth-circle" cx="34" cy="20" r="2.8"/>
                             
                             <g class="moon-system">
-                                <circle class="moon-sphere" cx="40.5" cy="22" r="1.0"/>
+                                <circle class="moon-sphere" cx="39.5" cy="20" r="1.1"/>
                             </g>
                         </g>
                     </svg>
