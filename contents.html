@@ -295,7 +295,7 @@
         }
 
         /* ==========================================================
-           HYPER-REALISTIC EARTH INTERFACE STYLING
+           CINEMATIC 3D EARTH INTEGRATION STYLING
            ========================================================== */
         .celestial-window-svg {
             width: 100%;
@@ -574,45 +574,39 @@
             <span class="logo">sathya.</span>
             <div class="header-right-cluster">
                 
-                <!-- Smart Adaptive 3D Satellite Terrain Earth Toggle Widget -->
+                <!-- Smart Adaptive 3D Cinematic Earth Toggle Widget -->
                 <div class="theme-toggle-void" id="themeToggleBtn" aria-label="Trigger global environmental transition">
                     <svg class="celestial-window-svg" viewBox="0 0 100 100">
                         <defs>
-                            <!-- Spherical Planet Clipping Window -->
+                            <!-- Spherical Planet Clipping Mask -->
                             <clipPath id="earth-sphere-clip">
                                 <circle cx="50" cy="50" r="40" />
                             </clipPath>
 
-                            <!-- Satellite-Style Oceanic Depth Radial Gradient Matrix -->
+                            <!-- Deep Satellite Oceanic Base Gradient -->
                             <radialGradient id="photoreal-ocean" cx="42%" cy="42%" r="62%">
-                                <stop offset="0%" stop-color="#144380" />
-                                <stop offset="70%" stop-color="#081f4a" />
-                                <stop offset="100%" stop-color="#010617" />
+                                <stop offset="0%" stop-color="#19559c" />
+                                <stop offset="70%" stop-color="#0b2c5c" />
+                                <stop offset="100%" stop-color="#020a1c" />
+                            </radialGradient>
+                            
+                            <!-- Volumetric Core Dimensional Spherical Shadow -->
+                            <radialGradient id="earth-3d-shading" cx="35%" cy="35%" r="65%">
+                                <stop offset="55%" stop-color="#000000" stop-opacity="0" />
+                                <stop offset="85%" stop-color="#000000" stop-opacity="0.55" />
+                                <stop offset="100%" stop-color="#000000" stop-opacity="0.92" />
                             </radialGradient>
 
-                            <!-- ==========================================================
-                                 CRITICAL FIX: FRACTAL NOISE BUMP OPERATES STRICTLY ON ALPHA 
-                                 ========================================================== */ -->
-                            <filter id="terrain-bump" x="-10%" y="-10%" width="120%" height="120%">
-                                <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="4" result="noise" />
-                                <feDiffuseLighting in="noise" lighting-color="#ffffff" surfaceScale="1.4" result="bump">
-                                    <feDistantLight azimuth="125" elevation="50" />
-                                </feDiffuseLighting>
-                                <feBlend mode="multiply" in="SourceGraphic" in2="bump" result="blendedTerrain" />
-                                <!-- Hard-masks the texturized output back to the original shapes of the paths, keeping oceans crystal clear -->
-                                <feComposite operator="in" in="blendedTerrain" in2="SourceGraphic" />
-                            </filter>
-
-                            <!-- Glass Lens Volumetric Top-Left Light Glare Specular Highlight -->
-                            <radialGradient id="earth-specular-gloss" cx="26%" cy="28%" r="45%">
+                            <!-- Top-Left Soft Specular Glass Highlight Glare -->
+                            <radialGradient id="earth-specular-gloss" cx="26%" cy="26%" r="45%">
                                 <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
-                                <stop offset="45%" stop-color="#ffffff" stop-opacity="0.05" />
+                                <stop offset="40%" stop-color="#ffffff" stop-opacity="0.05" />
                                 <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
                             </radialGradient>
                             
-                            <!-- Cinematic Tilted Soft Feathered Day/Night Terminator Shroud -->
+                            <!-- Cinematic Tilted Soft Feathered Day/Night Terminator Shadow Shroud -->
                             <linearGradient id="day-night-split" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="40%" stop-color="#000000" stop-opacity="0" />
+                                <stop offset="38%" stop-color="#000000" stop-opacity="0" />
                                 <stop offset="58%" stop-color="#000000" stop-opacity="0.65" />
                                 <stop offset="88%" stop-color="#000000" stop-opacity="0.98" />
                             </linearGradient>
@@ -624,36 +618,42 @@
                             <!-- Rich Deep Ocean Base -->
                             <circle cx="50" cy="50" r="40" fill="url(#photoreal-ocean)" />
                             
-                            <!-- Clipped High-Fidelity Razor-Sharp Geography Layer with Locked Texture Filters -->
+                            <!-- Clipped High-Fidelity Razor-Sharp Geography Layer -->
                             <g clip-path="url(#earth-sphere-clip)">
                                 
                                 <!-- VIEW 1: ASIA / INDIA CENTERED (Default Frame) -->
-                                <g id="geo-asia" class="geo-view" filter="url(#terrain-bump)">
-                                    <!-- SANDY DESERT / MOUNTAIN LAYER (Sahara, Arabia Boot, Tibet, Gobi) -->
-                                    <path d="M 12,38 c 2,-1 5,-1 6,-2 c 1.5,-1 3,-3 5,-2.5 c 2,0.5 3,3 4.5,3.5 c 2.5,1 4.5,-2 7.5,-2.5 c 2.5,-0.5 4,1 6,0.5 c 1.5,-0.5 2,-2 4.5,-2 c 2,0 3.5,2.5 5,4.5 c 1,1.5 3,1 4,2 c 1.5,1.5 0.5,3.5 -1,4.5 c -1.5,1 -2.5,3.5 -4.5,3.5 c -1.5,0 -2,-1 -3.5,-1 c -1.5,0 -2,1.5 -3.5,1 c -1.5,-0.5 -2,1.5 -3.5,1.5 L 43,59 c -2,-4 -5,-6 -8,-6 c -4,0 -5,-4 -8,-6 c -3,-2 -6,1 -9,-2 c -2,-2 -3,-5 -4,-7 z" fill="#cbaf81" />
+                                <g id="geo-asia" class="geo-view">
+                                    <!-- Sahara Desert, Middle East, & High Arid Tibet/Gobi Plateaus (Sandy Ochre) -->
+                                    <path d="M 11,35 c 5,-5 12,-4 16,-1 c 4,3 7,0 10,-3 c 3,-3 8,0 10,3 c 3,3 -1,6 -3,5 c -2,0 -4,1 -4,4 c 2,3 4,1 6,4 c 3,2 8,-1 11,2 c 3,3 -1,6 -3,5 c -1.5,0 -3,1 -4,3.5 L 47,66 L 43,58 c -2,-4 -5,-6 -8,-6 c -4,0 -5,-4 -8,-6 c -3,-2 -6,1 -9,-2 c -2,-2 -3,-5 -4,-7 z" fill="#cbaf81" />
                                     
-                                    <!-- LUSH TROPICAL VEGETATION LAYER (Central Africa, Southern India Peninsula, SE Asia) -->
-                                    <path d="M 12,38 c 3,3 6,7 5,12 c -1,4 1,8 4,12 c 3,4 1,10 -3,13 c -3,2 -6,-3 -7,-7 c -1,-4 0,-8 0,-11 z" fill="#356c1c" /> 
+                                    <!-- Central African Bulge Vegetation (Lush Green) -->
+                                    <path d="M 11,35 c 4,4 8,8 7,13 c -1,4 1,8 4,12 c 3,4 1,10 -3,13 c -3,2 -6,-3 -7,-7 c -1,-4 0,-8 0,-11 z" fill="#356c1c" />
                                     
                                     <!-- Razor-Sharp Indian Subcontinent Peninsula Triangle pointing cleanly south into Ocean -->
-                                    <path d="M 45,52.2 l 12,2.8 l -3.5,11.2 c -1.5,3.5 -3.2,6.5 -5,11.5 l -3,-3.8 l -3.5,-5.5 c -1,-2 -1.8,-4.5 -1.8,-6.5 z" fill="#2d6116" /> 
-                                    <circle cx="53.5" cy="80.2" r="1.1" fill="#2d6116" /> <!-- Sri Lanka Detached Island Node -->
+                                    <path d="M 45,51.5 l 12.5,2.5 l -3,11.5 c -1.5,3.5 -3.2,6.5 -5.2,11.5 L 46.8,73.5 L 43.3,67.5 c -0.8,-1.5 -1.8,-3.5 -1.8,-5.5 z" fill="#2d6116" /> 
+                                    <circle cx="53.5" cy="79.5" r="1.2" fill="#2d6116" /> <!-- Sri Lanka Detached Island Node -->
                                     
-                                    <path d="M 59,49 c 2.5,0.8 3.5,3.5 3.5,7 c 0.8,3.5 1.8,5.2 4.5,6 c 1.8,0.8 3.5,-0.8 4.5,0.8 c 0.8,1.8 -0.8,4.5 -2.5,5.2 c -2.5,0.8 -4.5,-2.5 -5.2,-5.2 c -1.8,-2.5 -3.5,-4.5 -4.5,-5.2 z" fill="#2d6116" /> 
-                                    <path d="M 60,33 c 3.5,0.8 7,1.8 10.5,4.5 c 2.5,1.8 5.2,5.2 3.5,8.8 c -1.8,2.5 -5.2,0.8 -7,-1.8 c -1.8,-2.5 -4.5,-1.8 -7,-3.5 z" fill="#356c1c" /> 
-                                    <path d="M 70,74 c 5.2,-3.5 12.2,0 17.5,0.8 c 0,3.5 -3.5,7.8 -8.8,7.8 c -6,0 -7.8,-5.2 -8.7,-8.6 z" fill="#7a5528" /> 
+                                    <!-- Indochina, South China, Malaysia, & East Asian Vegetation -->
+                                    <path d="M 59,48 c 2.5,0.8 3.5,3.5 3.5,7 c 0.8,3.5 1.8,5.2 4.5,6 c 1.8,0.8 3.5,-0.8 4.5,0.8 c 0.8,1.8 -0.8,4.5 -2.5,5.2 c -2.5,0.8 -4.5,-2.5 -5.2,-5.2 c -1.8,-2.5 -3.5,-4.5 -4.5,-5.2 z" fill="#2d6116" /> 
+                                    <path d="M 60,32 c 3.5,0.8 7,1.8 10.5,4.5 c 2.5,1.8 5.2,5.2 3.5,8.8 c -1.8,2.5 -5.2,0.8 -7,-1.8 c -1.8,-2.5 -4.5,-1.8 -7,-3.5 z" fill="#356c1c" /> 
+                                    
+                                    <!-- Northern Edge of Australia Profile Rim -->
+                                    <path d="M 70,73 c 5.2,-3.5 12.2,0 17.5,0.8 c 0,3.5 -3.5,7.8 -8.8,7.8 c -6,0 -7.8,-5.2 -8.7,-8.6 z" fill="#6c4e23" /> 
                                 </g>
 
                                 <!-- VIEW 2: AMERICAS CENTERED (Triggers for US / Canada / South America) -->
-                                <g id="geo-americas" class="geo-view" style="display: none;" filter="url(#terrain-bump)">
+                                <g id="geo-americas" class="geo-view" style="display: none;">
+                                    <!-- Canada / Northern Forests Green Foundational Mass -->
                                     <path d="M 10,20 c 15,-2 30,2 45,0 c 8,4 5,12 0,16 c -6,5 -12,2 -18,6 c -4,3 -6,8 -10,12 c -4,-2 -6,-8 -12,0 c -5,-4 -5,-12 -5,-18 z" fill="#1b4220" />
+                                    <!-- Western Mountain Spine Rock Ridge -->
                                     <path d="M 12,22 c 2,4 4,8 6,14 c 1,4 -2,8 -1,12 c 2,4 1,8 -2,10 c -3,-4 -2,-10 -3,-14 c -1,-4 -2,-8 -2,-12 z" fill="#70542f" />
+                                    <!-- South America Teardrop Mass (Lush Amazon Green with Mountain Ridge Edge) -->
                                     <path d="M 32,52 c 12,1 22,4 26,14 c 4,6 0,14 -8,20 c -8,6 -14,-2 -18,-11 c -4,-9 0,-23 0,-23 z" fill="#2d6613" />
                                     <path d="M 32,52 c 2,4 3,9 3,14 c -1,6 -3,11 -5,16 c -2,-4 -1,-11 0,-16 c 1,-5 2,-10 2,-14 z" fill="#b0965d" /> 
                                 </g>
 
                                 <!-- VIEW 3: AFRICA / EUROPE CENTERED (Triggers for Africa / UK / Europe) -->
-                                <g id="geo-africa" class="geo-view" style="display: none;" filter="url(#terrain-bump)">
+                                <g id="geo-africa" class="geo-view" style="display: none;">
                                     <path d="M 15,18 c 12,-5 26,-4 36,1 c 5,3 12,0 16,4 c -3,4 -8,4 -13,1 c -5,-3 -10,1 -15,1 c -5,0 -10,3 -12,7 c -3,-2 -6,-2 -8,-7 c -2,-2 0,-6.5 0,-7.1 z" fill="#2d6613" />
                                     <path d="M 18,32 c 11,-3 25,2 33,9 c 6.5,5.5 10,11 6,18 c -4,7 -2,13 -7,19 c -4.5,5.5 -10,5.5 -15,1 c -5,-4.5 -6.5,-11 -6.5,-16 c 0,-6 -4.5,-10 -8,-14 c -4,-5.5 0,-11.5 2.5,-16.5 z" fill="#cbaf81" /> 
                                     <path d="M 18,52 c 8,2 14,5 15,11 c 1,6 -2,12 -6,16 c -5,3 -9,-2 -11,-9 c -2,-6 0,-13 2,-18 z" fill="#2d6613" /> 
@@ -663,18 +663,18 @@
                                 
                             </g>
                             
-                            <!-- Volumetric 3D Shadow Overlay -->
+                            <!-- Volumetric Core 3D Spherical Shadow Overlay -->
                             <circle cx="50" cy="50" r="40" fill="url(#earth-3d-shading)" pointer-events="none" />
 
-                            <!-- Glass Lens Specular Highlight Reflection -->
+                            <!-- Glass Lens Specular Highlight Reflection Layer -->
                             <circle cx="50" cy="50" r="40" fill="url(#earth-specular-gloss)" pointer-events="none" />
                             
-                            <!-- Cinematic Tilted Soft Feathered Day/Night Terminator Shroud -->
+                            <!-- Symmetrical Cosmic Twilight Day/Night Terminator Shadow Overlay -->
                             <circle id="terminatorOverlay" cx="50" cy="50" r="40" fill="url(#day-night-split)" pointer-events="none" />
                         </g>
                         
                         <!-- Luminous Outer Space Atmosphere Aura Rim Light -->
-                        <circle cx="50" cy="50" r="40.8" fill="none" stroke="#6b9ee3" stroke-width="1.4" stroke-opacity="0.22" pointer-events="none" />
+                        <circle cx="50" cy="50" r="40.8" fill="none" stroke="#6b9ee3" stroke-width="1.4" stroke-opacity="0.25" pointer-events="none" />
                     </svg>
                 </div>
 
