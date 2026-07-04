@@ -41,11 +41,13 @@
             
             --bullet-color: #444444;
 
-            /* Floating Borderless Transparent Celestial Tokens */
-            --sun-color: #ffffff;             /* Pure White Sun */
+            /* Floating Transparent Celestial Tokens (Dark Mode) */
+            --sun-color: #ffa200;             /* Custom Vibrant Golden Sun */
             --moon-color: #dededf;            /* Soft Cosmic Off-White Moon */
             --earth-color: #2b9cd3;           /* Vibrant Ocean Blue Earth */
-            --earth-shadow-opacity: 0.75;     /* Shadow layer visible in Dark Mode */
+            --orbit-line: rgba(255, 255, 255, 0.25); /* Muted Off-White Lines */
+            --earth-shadow-opacity: 0.15;     /* Reduced overlay drastically for high contrast visibility */
+            --corona-glow: drop-shadow(0 0 8px rgba(255, 162, 0, 0.4)); 
 
             /* Vertical cascade parameters matching master optimization */
             --cascade-distance: 24px;
@@ -67,11 +69,13 @@
             
             --bullet-color: #b8b8bc;
 
-            /* Floating Borderless Transparent Celestial Tokens */
-            --sun-color: #ffffff;             
+            /* Floating Transparent Celestial Tokens (Light Mode) */
+            --sun-color: #ffa200;             /* Maintained Golden Sun */
             --moon-color: #cbd0d4;            
             --earth-color: #2b9cd3;           
-            --earth-shadow-opacity: 0;        /* Pure day-lit Earth in Light Mode */
+            --orbit-line: rgba(0, 0, 0, 0.15); /* Clean Muted Black Lines */
+            --earth-shadow-opacity: 0;        /* Pure vivid day-lit Earth */
+            --corona-glow: drop-shadow(0 0 3px rgba(0, 0, 0, 0.04));
         }
 
         * {
@@ -285,7 +289,7 @@
         }
 
         /* ==========================================================
-           CELESTIAL ORBITAL TOGGLE (FLOATING BORDERLESS TRANSPARENT INTERNAL)
+           CELESTIAL ORBITAL TOGGLE (FLOATING TRANSPARENT WITH GUIDES)
            ========================================================== */
         .theme-toggle-void {
             width: 44px;  
@@ -309,7 +313,25 @@
             inset: 0;
         }
 
-        /* Pure White Luminous Sun Core */
+        .space-stars {
+            fill: #ffffff;
+            opacity: 0.4;
+            transition: opacity var(--dusk-duration) var(--dusk-curve);
+        }
+
+        body.light-mode .space-stars { opacity: 0; }
+
+        /* Highly calibrated mechanical dashed trajectory lines */
+        .orbital-track {
+            fill: none;
+            stroke: var(--orbit-line);
+            stroke-width: 0.8;
+            stroke-dasharray: 2 3;
+            transform-origin: 22px 22px;
+            transition: stroke var(--dusk-duration) var(--dusk-curve), transform var(--dusk-duration) var(--dusk-curve);
+        }
+
+        /* Luminous Golden Sun Core */
         .sun-body {
             fill: var(--sun-color);
             transform-origin: 22px 22px;
@@ -330,7 +352,6 @@
             transition: fill var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Realistic sub-pixel atmospheric shading mask pass */
         .earth-night-overlay {
             fill: #000000;
             opacity: var(--earth-shadow-opacity);
@@ -355,7 +376,10 @@
             transition: fill var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Clockwise Geocentric Rotational Alignment Controls (Centered to 22,22 Grid) */
+        /* Dynamic Clockwise Rotational Alignments (Centered exactly at 22,22) */
+        body.light-mode .orbital-track { transform: rotate(0deg); }
+        body:not(.light-mode) .orbital-track { transform: rotate(180deg); }
+
         body.light-mode .earth-track { transform: rotate(0deg); }
         body:not(.light-mode) .earth-track { transform: rotate(180deg); }
 
@@ -611,9 +635,9 @@
             .topics-column-grid { grid-template-columns: 1fr; gap: 14px 0; } 
             .wide-panel-title { margin-bottom: 20px; font-size: 18px; }
             
-            /* Responsive layout adjustments for the internal canvas row */
             .theme-toggle-void { width: 36px; height: 36px; }
             .sun-body { transform-origin: 18px 18px; }
+            .orbital-track { transform-origin: 18px 18px; }
             .earth-track { transform-origin: 18px 18px; }
             .moon-track { transform-origin: 18px 18px; }
             .moon-body { transform-origin: 28px 18px; }
@@ -631,6 +655,16 @@
                 
                 <div class="theme-toggle-void" id="themeToggleBtn" aria-label="Trigger environmental transition">
                     <svg class="celestial-window-svg" viewBox="0 0 44 44">
+                        <g class="space-stars">
+                            <circle cx="10" cy="8" r="0.5"/>
+                            <circle cx="34" cy="10" r="0.4"/>
+                            <circle cx="32" cy="34" r="0.6"/>
+                            <circle cx="12" cy="32" r="0.4"/>
+                        </g>
+
+                        <circle class="orbital-track" cx="22" cy="22" r="14"/>
+                        <circle class="orbital-track" cx="22" cy="22" r="19"/>
+                        
                         <circle class="sun-body" cx="22" cy="22" r="4.5"/>
                         
                         <g class="earth-track">
