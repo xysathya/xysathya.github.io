@@ -20,14 +20,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Modern Theme Token System */
+        /* Unified Token System Mapped Directly From index.html */
         :root {
             --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
-            
-            /* Symmetrical Continuous Dissolve Configuration */
-            --dusk-curve: cubic-bezier(0.25, 1, 0.5, 1);
-            --dusk-duration: 0.8s;
-            
             --bg-color: #0b0b0b;
             --text-main: #ffffff;
             --text-muted: #555555;
@@ -35,29 +30,25 @@
             --panel-border: #222222;
             --row-divider: #1c1c1c;
             --row-hover: rgba(255, 255, 255, 0.015);
-
             --header-bg: #1a231e;
             --header-border: #222c26;
             
-            --bullet-color: #444444;
-
-            /* Vertical cascade parameters matching master optimization */
+            /* Vertical cascade parameters */
             --cascade-distance: 24px;
             --cascade-duration-exit: 0.2s;
             --cascade-duration-entry: 0.28s;
         }
 
         body.light-mode {
-            /* Premium Organic Sage Ash Ecosystem Tokens */
-            --bg-color: #ebebe4;              /* Anti-glare Sage Ash Backdrop */
+            --bg-color: #f5f5f7;
             --text-main: #111111;
             --text-muted: #a1a1a6;
-            --panel-bg: #fdfdfb;              /* High-Contrast Soft Milk White Cards */
-            --panel-border: #d8d8d0;          /* Muted Earth Border Accents */
-            --row-divider: #e2e2da;
+            --panel-bg: #ffffff;
+            --panel-border: #e2e2e7;
+            --row-divider: #f2f2f7;
             --row-hover: rgba(0, 0, 0, 0.01);
-            
-            --bullet-color: #b8b8bc;
+            --header-bg: #e9ebe6;
+            --header-border: #d4d8cf;
         }
 
         * {
@@ -82,40 +73,15 @@
             width: 95%;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            
-            /* Unified Global Color Interpolation Clock */
-            transition: background-color var(--dusk-duration) var(--dusk-curve), 
-                        color var(--dusk-duration) var(--dusk-curve);
-        }
-
-        /* HARD-LOCKED PERFECT SYNCHRONIZATION RUNTIME */
-        header, .wide-capsule, .ctrl-btn, .ctrl-btn svg, 
-        .search-static-icon, .search-core-input, .breadcrumb-nav, 
-        .breadcrumb-nav a, .breadcrumb-separator, .breadcrumb-current, 
-        .page-main-heading, .wide-panel-title, .sub-section-title, 
-        .topics-column-grid li::before, .topics-column-grid a, 
-        footer .footer-links-row a, .copyright-tag, .celestial-svg {
-            transition: background-color var(--dusk-duration) var(--dusk-curve),
-                        border-color var(--dusk-duration) var(--dusk-curve),
-                        color var(--dusk-duration) var(--dusk-curve),
-                        stroke var(--dusk-duration) var(--dusk-curve),
-                        fill var(--dusk-duration) var(--dusk-curve),
-                        box-shadow var(--dusk-duration) var(--dusk-curve);
+            transition: background-color 0.6s var(--ease-premium), color 0.6s var(--ease-premium);
         }
 
         @keyframes masterEntrance {
-            from {
-                opacity: 0;
-                transform: translate3d(0, 24px, 0);
-            }
-            to {
-                opacity: 1;
-                transform: translate3d(0, 0, 0);
-            }
+            from { opacity: 0; transform: translate3d(0, 24px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
         }
 
-        /* Staggered Load Animation Configuration */
-        header, .breadcrumb-nav, .page-main-heading, .wide-capsule, footer {
+        header, .wide-capsule, footer, .breadcrumb-nav, .page-main-heading {
             opacity: 1;
             will-change: transform, opacity;
             animation: masterEntrance 1.2s var(--ease-premium) backwards;
@@ -125,7 +91,7 @@
         .breadcrumb-nav { animation-delay: 0.08s; }
         .page-main-heading { animation-delay: 0.12s; }
         
-        /* Staggered Cascade Engine */
+        /* Staggered Content Cascade Engine */
         .wide-capsule:nth-child(1) { animation-delay: 0.16s; }
         .wide-capsule:nth-child(2) { animation-delay: 0.20s; }
         .wide-capsule:nth-child(3) { animation-delay: 0.24s; }
@@ -139,39 +105,26 @@
         .wide-capsule:nth-child(11) { animation-delay: 0.56s; }
         .wide-capsule:nth-child(12) { animation-delay: 0.60s; }
         .wide-capsule:nth-child(13) { animation-delay: 0.64s; }
-        
         footer { animation-delay: 0.72s; }
 
         /* ==========================================================
-           HEADER BASE STRUCTURAL CONTAINER (ALWAYS LOCKED TO DARK)
+           HEADER PILL STRUCTURAL CONTAINER (MATCHES INDEX ACCENTS)
            ========================================================== */
         header {
             position: relative;
-            background-color: #1a231e !important; 
-            border: 1px solid #222c26 !important;
+            background-color: var(--header-bg);
+            border: 1px solid var(--header-border);
             border-radius: 50px;
-            width: 100%; 
-            height: 72px; 
+            width: 100%;
+            height: 72px;
             margin: 0 auto 60px auto;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important; 
-            overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            transition: background-color 0.6s var(--ease-premium), border-color 0.6s var(--ease-premium), box-shadow 0.6s var(--ease-premium);
         }
 
-        body.light-mode header.state-search {
-            background-color: #e9ebe6 !important;
-            border: 1px solid #d4d8cf !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02) !important;
-        }
-
-        #headerMainView .logo {
-            font-size: 26px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            color: #ffffff !important;
-            text-decoration: none !important;
-            flex-shrink: 0;
-            user-select: none;
-            -webkit-user-select: none;
+        body:not(.light-mode) header {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         /* ==========================================================
@@ -185,7 +138,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 32px; 
+            padding: 0 32px;
             will-change: transform, opacity;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
@@ -235,162 +188,116 @@
             100% { transform: translate3d(0, 0, 0); opacity: 1; }
         }
 
-        .header-right-cluster, .search-control-cluster {
+        .header-right-cluster,
+        .search-control-cluster {
             display: flex;
             align-items: center;
-            gap: 24px;
-            flex-shrink: 0; 
+            gap: 20px;
+            flex-shrink: 0;
             height: 100%;
         }
 
-        .ctrl-btn, .theme-toggle-void {
+        .logo {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none !important;
+            transition: color 0.6s var(--ease-premium);
+            flex-shrink: 0;
+        }
+
+        .ctrl-btn {
             background: none;
             border: none;
             outline: none;
+            color: var(--text-main);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;  
-            height: 40px; 
+            width: 32px;
+            height: 32px;
             padding: 0;
             flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-            will-change: transform;
-            touch-action: manipulation;
+            transition: opacity 0.2s var(--ease-premium), color 0.6s var(--ease-premium);
         }
 
-        /* LOCKED INTERFACE STABILITY - Absolutely no translate/scale motion on hover near icon */
-        .theme-toggle-void {
-            transition: none !important;
-        }
+        .ctrl-btn:hover { opacity: 0.6; }
 
-        #headerMainView .ctrl-btn svg {
-            stroke: #ffffff !important;
-            width: 24px;
-            height: 24px;
+        .ctrl-btn svg,
+        .search-static-icon {
+            width: 22px;
+            height: 22px;
             fill: none;
+            stroke: var(--text-main);
             stroke-width: 2.2;
             stroke-linecap: round;
             stroke-linejoin: round;
+            transition: stroke 0.6s var(--ease-premium);
         }
 
-        #headerSearchView .ctrl-btn svg, .search-static-icon {
-            width: 24px; 
-            height: 24px;
-            fill: none;
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .search-static-icon { flex-shrink: 0; }
-
-        body.light-mode #headerSearchView .search-static-icon,
-        body.light-mode #headerSearchView .ctrl-btn svg {
-            stroke: #111111 !important;
-        }
-        body:not(.light-mode) #headerSearchView .search-static-icon,
-        body:not(.light-mode) #headerSearchView .ctrl-btn svg {
-            stroke: #ffffff !important;
-        }
-
-        /* ==========================================================
-           MINIMALIST MECHANICAL WATCH-FACE CELESTIAL ICON
-           ========================================================== */
-        .celestial-svg {
-            width: 24px;
-            height: 24px;
-            fill: none;
-            stroke: #ffffff; /* Locked crisp white profile stroke lines */
-            stroke-width: 2.3; /* Bold premium geometry lines */
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        /* The Sun Outer Rays Shell */
-        .sun-ray {
-            transform-origin: 12px 12px;
-            will-change: transform, opacity;
-            transition: transform 0.16s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.14s linear;
-        }
-
-        /* Retract and disappear rays instantly when tapped to transition to Moon */
-        body:not(.light-mode) .sun-ray {
-            transform: scale(0);
-            opacity: 0;
-            transition-delay: 0s !important;
-        }
-
-        /* 1 to 2 O'Clock segment handler */
-        .clock-gap-segment {
-            will-change: transform, opacity;
-            transform-origin: 12px 12px;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.24s ease;
-        }
-
-        /* Detach and fade out the 1-2 o'clock slice smoothly right after rays disappear */
-        body:not(.light-mode) .clock-gap-segment {
-            transform: scale(0.6) rotate(15deg);
-            opacity: 0;
-            transition-delay: 0.12s;
-        }
-
-        /* 6 to 9 O'Clock crescent spreading body path */
-        .moon-crescent-body {
-            will-change: d, stroke-width;
-            transition: d 0.36s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Moon State: Morph the left/bottom wall outward into the sweeping bold crescent profile */
-        body:not(.light-mode) .moon-crescent-body {
-            d: path("M 15.5 5.5 A 7.2 7.2 0 1 0 18.5 14.5 A 5.2 5.2 0 0 1 15.5 5.5 Z");
-            fill: #ffffff; /* Fills up to create the true solid crescent shape */
-            transition-delay: 0.12s;
-        }
-
-        /* Return path variables when switching back to light mode (Sun state) */
-        body.light-mode .moon-crescent-body {
-            d: path("M 12 17.2 A 5.2 5.2 0 1 1 12.01 17.2");
-            fill: none;
-            transition-delay: 0s;
-        }
-
-        body.light-mode .clock-gap-segment {
-            transition-delay: 0.2s;
-        }
-
-        body.light-mode .sun-ray {
-            transition-delay: 0.32s;
+        .search-static-icon {
+            opacity: 0.4;
+            flex-shrink: 0;
         }
 
         .search-core-input {
-            text-align: left;
             flex-grow: 1;
             background: transparent;
             border: none;
             outline: none;
+            color: var(--text-main);
             font-family: 'Poppins', sans-serif;
             font-size: 16px;
             padding: 0 16px;
             width: 100%;
-            min-width: 0; 
+            min-width: 0;
             will-change: transform, opacity;
             transform: translate3d(0, 0, 0);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-        }
-
-        body.light-mode .search-core-input {
-            color: #111111 !important;
-        }
-        body:not(.light-mode) .search-core-input {
-            color: #ffffff !important;
+            transition: color 0.6s var(--ease-premium);
         }
 
         .clear-text-btn svg { opacity: 0.4; }
         .close-search-btn svg { opacity: 0.7; }
+
+        /* ==========================================================
+           CELESTIAL CROSS-DISSOLVE FADE TOGGLE STYLING (FROM INDEX)
+           ========================================================== */
+        .theme-toggle {
+            width: 32px;
+            height: 32px;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle svg {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--text-main);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform-origin: center center;
+            will-change: transform, opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: transform 0.6s var(--ease-premium), opacity 0.6s var(--ease-premium), stroke 0.6s var(--ease-premium);
+        }
+
+        .theme-toggle .sun-icon { opacity: 0; transform: translate3d(0, 0, 0) rotate(-90deg) scale(0.4); }
+        .theme-toggle .moon-icon { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+        body.light-mode .theme-toggle .sun-icon { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+        body.light-mode .theme-toggle .moon-icon { opacity: 0; transform: translate3d(0, 0, 0) rotate(90deg) scale(0.4); }
 
         /* Minimal Breadcrumbs Infrastructure */
         .breadcrumb-nav {
@@ -434,6 +341,7 @@
             color: var(--text-main);
             margin-bottom: 12px;
             padding-left: 8px;
+            transition: color 0.6s var(--ease-premium);
         }
 
         .wide-capsule {
@@ -451,19 +359,12 @@
             backface-visibility: hidden;
             -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
-            
-            transition: transform 0.5s var(--ease-premium),
-                        background-color var(--dusk-duration) var(--dusk-curve),
-                        border-color var(--dusk-duration) var(--dusk-curve);
+            transition: border-color 0.5s var(--ease-premium), background-color 0.5s var(--ease-premium), transform 0.5s var(--ease-premium);
         }
 
-        .wide-capsule:hover {
-            border-color: #1E1E1E;
-            transform: scale(1.005);
-        }
-        body.light-mode .wide-capsule:hover {
-            border-color: #b8b8bc;
-        }
+        body:not(.light-mode) .wide-capsule { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
+        .wide-capsule:hover { border-color: #1E1E1E; transform: scale(1.005); }
+        body.light-mode .wide-capsule:hover { border-color: #b8b8bc; }
 
         .wide-panel-title {
             font-size: 20px;
@@ -471,6 +372,7 @@
             letter-spacing: -0.3px;
             color: var(--text-main);
             margin-bottom: 28px;
+            transition: color 0.6s var(--ease-premium);
         }
 
         .sub-section-title {
@@ -480,6 +382,7 @@
             letter-spacing: 1px;
             color: var(--text-muted);
             margin: 24px 0 20px 0;
+            transition: color 0.6s var(--ease-premium);
         }
         .wide-capsule :first-child + .sub-section-title {
             margin-top: 0px;
@@ -489,59 +392,47 @@
             list-style: none;
             display: grid;
             grid-template-columns: repeat(2, 1fr); 
-            gap: 16px 64px; 
+            gap: 0px 64px; 
         }
 
         .topics-column-grid li {
-            position: relative;
-            padding-left: 20px; 
+            border-bottom: 1px solid var(--row-divider);
             display: flex;
             align-items: center;
         }
-
-        .topics-column-grid li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--bullet-color);
-            font-size: 16px;
-        }
-
-        .topics-column-grid li:hover::before {
-            color: var(--text-main);
+        .topics-column-grid li:last-child {
+            border-bottom: none;
         }
 
         .topics-column-grid a {
-            display: inline-block;
+            display: block;
+            width: 100%;
+            padding: 14px 0 14px 16px;
             color: var(--text-main);
-            opacity: 0.75;
+            opacity: 0.8;
             text-decoration: none !important;
             font-size: 15.5px;
             font-weight: 400;
-            transition: opacity 0.4s var(--ease-premium);
+            position: relative;
+            transition: color 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
         }
 
-        .topics-column-grid li:hover a {
-            opacity: 1;
-            color: var(--text-main);
+        .topics-column-grid a::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+            font-size: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: color 0.4s var(--ease-premium);
         }
 
-        footer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            width: 100%;
-        }
+        .topics-column-grid li:hover a { opacity: 1 !important; padding-left: 20px !important; }
+        .topics-column-grid li:hover a::before { color: var(--text-main); }
 
-        .footer-links-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 32px;
-            flex-wrap: wrap;
-            width: 100%;
-        }
+        footer { display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; }
+        .footer-links-row { display: flex; justify-content: center; align-items: center; gap: 32px; flex-wrap: wrap; width: 100%; }
 
         .footer-links-row a {
             color: var(--text-muted) !important;
@@ -552,18 +443,11 @@
             will-change: transform, opacity;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
+            transition: color 0.4s var(--ease-premium);
         }
 
-        .footer-links-row a:hover {
-            color: var(--text-main) !important;
-        }
-
-        .copyright-tag {
-            color: var(--text-muted);
-            opacity: 0.6;
-            font-size: 12.5px;
-            letter-spacing: 0.2px;
-        }
+        .footer-links-row a:hover { color: var(--text-main) !important; }
+        .copyright-tag { color: var(--text-muted); opacity: 0.6; font-size: 12.5px; letter-spacing: 0.2px; transition: color 0.4s var(--ease-premium); }
 
         .nav-text {
             display: inline-block !important;
@@ -572,21 +456,18 @@
             transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
         }
 
+        .contents-container a:hover .nav-text,
         .breadcrumb-nav a:hover .nav-text,
-        .topics-column-grid a:hover .nav-text {
+        .footer-links-row a:hover .nav-text {
             transform: scale3d(1.06, 1.06, 1) !important;
-        }
-
-        .topics-column-grid li :hover .nav-text {
-            transform: scale3d(1.06, 1.06, 1) translate3d(4px, 0, 0) !important;
         }
 
         .footer-links-row a .nav-text { color: var(--text-muted) !important; }
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
 
+        .contents-container a.is-zooming .nav-text,
         .breadcrumb-nav a.is-zooming .nav-text,
-        .topics-column-grid a.is-zooming .nav-text,
-        footer .footer-links-row a.is-zooming .nav-text {
+        .footer-links-row a.is-zooming .nav-text {
             transition: transform 0.26s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.26s linear !important;
             transform: scale3d(1.3, 1.3, 1) !important;
             opacity: 0 !important;
@@ -604,12 +485,9 @@
             .header-inner-view { padding: 0 20px; }
             .logo { font-size: 22px; }
             .search-core-input { padding: 0 12px; font-size: 15px; }
-            
-            .ctrl-btn, .theme-toggle-void { width: 36px; height: 36px; }
-            .header-right-cluster, .search-control-cluster { gap: 16px; }
-            
+            .header-right-cluster { gap: 16px; }
             .wide-capsule { padding: 32px 24px; border-radius: 24px; }
-            .topics-column-grid { grid-template-columns: 1fr; gap: 14px 0; } 
+            .topics-column-grid { grid-template-columns: 1fr; } 
             .wide-panel-title { margin-bottom: 20px; font-size: 18px; }
         }
     </style>
@@ -618,32 +496,17 @@
 
     <header id="masterHeader">
         <div class="header-inner-view" id="headerMainView">
-            <span class="logo">sathya.</span>
+            <a href="index.html" class="logo">sathya.</a>
             <div class="header-right-cluster">
-                
-                <!-- Fixed Mechanical Watch-Face Toggle Slot -->
-                <div class="theme-toggle-void" id="themeToggleBtn" aria-label="Trigger celestial environment transition">
-                    <svg class="celestial-svg" viewBox="0 0 24 24">
-                        <!-- Outer Ray Elements Configuration -->
-                        <g>
-                            <line class="sun-ray ray-1" x1="12" y1="5.5" x2="12" y2="2" />
-                            <line class="sun-ray ray-2" x1="16.6" y1="7.4" x2="19.1" y2="4.9" />
-                            <line class="sun-ray ray-3" x1="18.5" y1="12" x2="22" y2="12" />
-                            <line class="sun-ray ray-4" x1="16.6" y1="16.6" x2="19.1" y2="19.1" />
-                            <line class="sun-ray ray-5" x1="12" y1="18.5" x2="12" y2="22" />
-                            <line class="sun-ray ray-6" x1="7.4" y1="16.6" x2="4.9" y2="19.1" />
-                            <line class="sun-ray ray-7" x1="5.5" y1="12" x2="2" y2="12" />
-                            <line class="sun-ray ray-8" x1="7.4" y1="7.4" x2="4.9" y2="4.9" />
-                        </g>
-
-                        <!-- Detachable 1 to 2 O'Clock Segment Path -->
-                        <path class="clock-gap-segment" d="M 15.7 8.3 A 5.2 5.2 0 0 1 17.2 12" fill="none" stroke="currentColor" />
-
-                        <!-- Core 6 to 9 O'Clock Spreading Crescent Body Path (Fill is none in Sun state) -->
-                        <path class="moon-crescent-body" d="M 12 17.2 A 5.2 5.2 0 1 1 12.01 17.2" fill="none" stroke="currentColor" />
+                <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
-
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
@@ -689,7 +552,7 @@
             <h2 class="wide-panel-title">History</h2>
             
             <h3 class="sub-section-title">Indian History</h3>
-            <ul class="topics-column-grid" style="margin-bottom: 32px;">
+            <ul class="topics-column-grid">
                 <li><a href="#">Ancient History</a></li>
                 <li><a href="#">Freedom Struggle</a></li>
                 <li><a href="#">Medieval History</a></li>
@@ -723,7 +586,7 @@
             <h2 class="wide-panel-title">Geography</h2>
             
             <h3 class="sub-section-title">Indian Geography</h3>
-            <ul class="topics-column-grid" style="margin-bottom: 32px;">
+            <ul class="topics-column-grid">
                 <li><a href="#">Physiography & Relief</a></li>
                 <li><a href="#">Soils & Vegetation</a></li>
                 <li><a href="#">River Systems & Drainage</a></li>
@@ -873,15 +736,18 @@
 
         function applyTargetPalette() {
             const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
-            let determineLightState = systemLightQuery.matches;
             if (activeSessionOverride) {
-                determineLightState = (activeSessionOverride === 'light');
-            }
-            
-            if (determineLightState) {
-                bodyElement.classList.add('light-mode');
+                if (activeSessionOverride === 'light') {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
             } else {
-                bodyElement.classList.remove('light-mode');
+                if (systemLightQuery.matches) {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
             }
         }
 
@@ -897,10 +763,8 @@
         });
 
         toggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); 
-            
+            e.stopPropagation();
             const isCurrentlyLight = bodyElement.classList.contains('light-mode');
-            
             if (isCurrentlyLight) {
                 bodyElement.classList.remove('light-mode');
                 sessionStorage.setItem('dashboard-theme', 'dark');
@@ -1000,7 +864,7 @@
                             let endScale = 1.0;
                             let startOpacity = 0;
 
-                            let endOpacity = 0.75;
+                            let endOpacity = 0.8;
                             if (matchedLinkElement.closest('footer')) endOpacity = 0.4;
 
                             let duration = 280; 
@@ -1019,12 +883,7 @@
                                 let currentScale = startScale - (startScale - endScale) * ease;
                                 let currentOpacity = startOpacity + (endOpacity - startOpacity) * ease;
 
-                                if (matchedLinkElement.closest('.topics-column-grid') && progress === 1) {
-                                    targetSpan.style.transform = '';
-                                } else {
-                                    targetSpan.style.setProperty('transform', `scale(${currentScale})`, 'important');
-                                }
-                                
+                                targetSpan.style.setProperty('transform', `scale(${currentScale})`, 'important');
                                 targetSpan.style.setProperty('opacity', currentOpacity, 'important');
 
                                 if (progress < 1) {
