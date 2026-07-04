@@ -45,7 +45,7 @@
             --sun-color: #ffa200;             
             --moon-color: #dededf;            
             --earth-color: #2b9cd3;           
-            --orbit-line: rgba(255, 255, 255, 0.65); 
+            --orbit-line: rgba(255, 255, 255, 0.65); /* High-visibility track line */
             --corona-glow: drop-shadow(0 0 8px rgba(255, 162, 0, 0.45)); 
 
             /* Vertical cascade parameters matching master optimization */
@@ -72,7 +72,7 @@
             --sun-color: #ffa200;             
             --moon-color: #cbd0d4;            
             --earth-color: #2b9cd3;           
-            --orbit-line: rgba(0, 0, 0, 0.55); 
+            --orbit-line: rgba(0, 0, 0, 0.55); /* High-contrast sharp charcoal track line */
             --corona-glow: drop-shadow(0 0 3px rgba(255, 162, 0, 0.15));
         }
 
@@ -173,7 +173,7 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
-        /* Stable Static Title Configuration */
+        /* Stable Static Title Configuration (Insulated from Portal Interactivity) */
         .logo {
             font-size: 26px;
             font-weight: 600;
@@ -274,7 +274,7 @@
             position: relative;
             overflow: hidden;
             will-change: transform;
-            touch-action: manipulation; /* Eradicates iPad tap latency delay */
+            touch-action: manipulation; /* Eradicates iPad Safari latency tap delay entirely */
             transition: opacity 0.2s var(--ease-premium);
         }
 
@@ -327,20 +327,27 @@
             transition: stroke var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Luminous Golden Sun Core Node (#ffa200) */
+        /* Golden Fixed Sun Core Node (#ffa200) with hardware layer properties */
         .sun-body {
             fill: var(--sun-color);
             transform-origin: 20px 20px;
             will-change: transform, filter;
             filter: var(--corona-glow);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             transition: fill var(--dusk-duration) var(--dusk-curve), filter var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* True Coupled Earth System (Rotates around center Sun coordinates 20,20) */
+        /* Earth System handling hardware-accelerated loops on iPad */
         .earth-system {
             transform-origin: 20px 20px;
             will-change: transform;
-            transition: transform var(--dusk-duration) var(--dusk-curve);
+            transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            transition: transform var(--dusk-duration) var(--ease-premium);
         }
 
         /* Scientifically proportioned large blue Earth sphere */
@@ -349,11 +356,16 @@
             transition: fill var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Moon Satellite System Group revolving locally around moving Earth center coordinates (32,20) */
+        /* Moon Satellite System Group with hardware layer properties */
         .moon-system {
             transform-origin: 32px 20px;
             will-change: transform;
-            transition: transform var(--dusk-duration) var(--dusk-curve);
+            transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            transition: transform var(--dusk-duration) var(--ease-premium);
         }
 
         .moon-sphere {
@@ -371,15 +383,8 @@
         }
 
         body:not(.light-mode) .moon-mask-blade {
-            transform: translate(-4px, 0px); /* Slides cutter completely clear for an immaculate full dark-mode circle */
+            transform: translate(-4px, 0px); /* Slides cutter completely clear for full dark-mode circle */
         }
-
-        /* Space System Matrix Driver Transforms (Relative to absolute coordinate matrix map) */
-        body.light-mode .earth-system { transform: rotate(0deg); }
-        body:not(.light-mode) .earth-system { transform: rotate(180deg); }
-
-        body.light-mode .moon-system { transform: rotate(0deg); }
-        body:not(.light-mode) .moon-system { transform: rotate(180deg); }
 
         .search-core-input {
             flex-grow: 1;
@@ -891,23 +896,29 @@
         const clearSearchBtn = document.getElementById('clearSearchBtn');
         const searchCoreInput = document.getElementById('searchCoreInput');
 
+        // Infinite Rotational Variable Tracking Engine
+        let currentRotationDegrees = 0;
+
         localStorage.removeItem('dashboard-theme');
 
         function applyTargetPalette() {
             const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
+            let determineLightState = systemLightQuery.matches;
             if (activeSessionOverride) {
-                if (activeSessionOverride === 'light') {
-                    bodyElement.classList.add('light-mode');
-                } else {
-                    bodyElement.classList.remove('light-mode');
-                }
-            } else {
-                if (systemLightQuery.matches) {
-                    bodyElement.classList.add('light-mode');
-                } else {
-                    bodyElement.classList.remove('light-mode');
-                }
+                determineLightState = (activeSessionOverride === 'light');
             }
+            
+            if (determineLightState) {
+                bodyElement.classList.add('light-mode');
+                currentRotationDegrees = 0;
+            } else {
+                bodyElement.classList.remove('light-mode');
+                currentRotationDegrees = 180;
+            }
+            
+            // Apply absolute hardware layer positions seamlessly on entry initialization
+            document.querySelector('.earth-system').style.transform = `rotate(${currentRotationDegrees}deg)`;
+            document.querySelector('.moon-system').style.transform = `rotate(${currentRotationDegrees}deg)`;
         }
 
         applyTargetPalette();
@@ -916,14 +927,27 @@
             sessionStorage.removeItem('dashboard-theme');
             if (e.matches) {
                 bodyElement.classList.add('light-mode');
+                currentRotationDegrees += 180;
             } else {
                 bodyElement.classList.remove('light-mode');
+                currentRotationDegrees += 180;
             }
+            document.querySelector('.earth-system').style.transform = `rotate(${currentRotationDegrees}deg)`;
+            document.querySelector('.moon-system').style.transform = `rotate(${currentRotationDegrees}deg)`;
         });
 
         toggleBtn.addEventListener('click', (e) => {
             e.stopPropagation(); 
+            
+            // Add a temporary hardware rendering throttle layer to prevent shadow filter hiccups on iPad
+            const sunNode = document.querySelector('.sun-body');
+            sunNode.style.filter = 'none';
+            
             const isCurrentlyLight = bodyElement.classList.contains('light-mode');
+            
+            // Advance the degrees forward completely (+180) to produce the infinite continuous forward orbit
+            currentRotationDegrees += 180;
+            
             if (isCurrentlyLight) {
                 bodyElement.classList.remove('light-mode');
                 sessionStorage.setItem('dashboard-theme', 'dark');
@@ -931,6 +955,14 @@
                 bodyElement.classList.add('light-mode');
                 sessionStorage.setItem('dashboard-theme', 'light');
             }
+            
+            document.querySelector('.earth-system').style.transform = `rotate(${currentRotationDegrees}deg)`;
+            document.querySelector('.moon-system').style.transform = `rotate(${currentRotationDegrees}deg)`;
+            
+            // Smoothly ease the clean drop-shadow filtering back in once the execution settles
+            setTimeout(() => {
+                sunNode.style.filter = '';
+            }, 750);
         });
 
         /* ==========================================================
