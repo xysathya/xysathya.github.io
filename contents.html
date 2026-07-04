@@ -45,7 +45,7 @@
             --sun-color: #ffa200;             
             --moon-color: #dededf;            
             --earth-color: #2b9cd3;           
-            --orbit-line: rgba(255, 255, 255, 0.8); /* Maximum crisp off-white line visibility */
+            --orbit-line: rgba(255, 255, 255, 0.75); /* Highly luminous trajectory visibility from a distance */
             --corona-glow: drop-shadow(0 0 8px rgba(255, 162, 0, 0.45)); 
 
             /* Vertical cascade parameters matching master optimization */
@@ -72,7 +72,7 @@
             --sun-color: #ffa200;             
             --moon-color: #cbd0d4;            
             --earth-color: #2b9cd3;           
-            --orbit-line: rgba(0, 0, 0, 0.7); /* Maximum sharp dark charcoal line visibility */
+            --orbit-line: rgba(0, 0, 0, 0.6); /* Highly crisp charcoal line visibility from a distance */
             --corona-glow: drop-shadow(0 0 3px rgba(255, 162, 0, 0.15));
         }
 
@@ -236,7 +236,7 @@
             100% { transform: translate3d(0, 0, 0); opacity: 1; }
         }
 
-        /* Mirror Layout Geometry configuration for strict positional sync */
+        /* Master Geometry Sync Shell for Pixel-Perfect X Button Realignment */
         .header-right-cluster, .search-control-cluster {
             display: flex;
             align-items: center;
@@ -245,16 +245,7 @@
             height: 100%;
         }
 
-        .logo {
-            font-size: 26px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
-            text-decoration: none !important;
-            flex-shrink: 0;
-        }
-
-        /* Standardized touch target footprint for zero jump shifting */
+        /* Identical target dimensions across active modules prevents frame layout stuttering */
         .ctrl-btn, .theme-toggle-void {
             background: none;
             border: none;
@@ -271,7 +262,7 @@
             position: relative;
             overflow: hidden;
             will-change: transform;
-            touch-action: manipulation; /* Completely removes the 300ms touch latency delay on iPad Safari */
+            touch-action: manipulation; /* Eradicates the iPad Safari 300ms latency tap lag completely */
             transition: opacity 0.2s var(--ease-premium);
         }
 
@@ -295,10 +286,6 @@
         /* ==========================================================
            CELESTIAL ORBITAL TOGGLE (REAL SPACE PHYSICS ENGINE)
            ========================================================== */
-        .theme-toggle-void {
-            touch-action: manipulation; /* Double-secured native tap response override */
-        }
-
         .celestial-window-svg {
             width: 100%;
             height: 100%;
@@ -314,7 +301,7 @@
 
         body.light-mode .space-stars { opacity: 0; }
 
-        /* Fine-dashed blueprint trajectory tracks optimized for distance legibility */
+        /* Fine-dashed celestial blueprint tracks optimized for deep exposure legibility */
         .orbital-track-sun {
             fill: none;
             stroke: var(--orbit-line);
@@ -324,11 +311,11 @@
             transition: stroke var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Enlarged local track passing cleanly *outside* the Moon to prevent intersection lines */
+        /* Expanded orbital track loop passing completely outside the Moon boundary paths */
         .orbital-track-earth {
             fill: none;
             stroke: var(--orbit-line);
-            stroke-width: 0.9;
+            stroke-width: 1;
             stroke-dasharray: 1.5 2.5;
             transform-origin: 34px 20px;
             transition: stroke var(--dusk-duration) var(--dusk-curve);
@@ -343,32 +330,35 @@
             transition: fill var(--dusk-duration) var(--dusk-curve), filter var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* True Coupled Earth System (Rotates around center Sun 20,20) */
+        /* True Coupled Earth System (Rotates around center Sun coordinates 20,20) */
         .earth-system {
             transform-origin: 20px 20px;
             will-change: transform;
             transition: transform var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Scientifically proportioned giant Earth node */
+        /* Scientifically proportioned large blue Earth sphere */
         .earth-circle {
             fill: var(--earth-color);
             transition: fill var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Moon Satellite Group (Revolves locally around moving Earth coordinates 34,20) */
+        /* Moon Satellite System Group revolving locally around moving Earth center coordinates (34,20) */
         .moon-system {
             transform-origin: 34px 20px;
             will-change: transform;
             transition: transform var(--dusk-duration) var(--dusk-curve);
         }
 
+        /* Shielded Moon Layer: Uses a background-matching stroke to mask underlying lines out cleanly */
         .moon-sphere {
             fill: var(--moon-color);
-            transition: fill var(--dusk-duration) var(--dusk-curve);
+            stroke: var(--header-bg);
+            stroke-width: 1.5px;
+            transition: fill var(--dusk-duration) var(--dusk-curve), stroke var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Accurate Geocentric Relational Space System Drivers Mapped to a 20,20 Center Grid Pinpoint */
+        /* Space System Matrix Driver Transforms (Relative to absolute coordinate matrix map) */
         body.light-mode .earth-system { transform: rotate(0deg); }
         body:not(.light-mode) .earth-system { transform: rotate(180deg); }
 
@@ -616,7 +606,7 @@
             .logo { font-size: 22px; }
             .search-core-input { padding: 0 12px; font-size: 15px; }
             
-            /* Retain uniform structure targets down onto smaller viewport breakdowns */
+            /* Responsive layout boundaries drop to standard dimensions symmetrically */
             .ctrl-btn, .theme-toggle-void { width: 36px; height: 36px; }
             .header-right-cluster, .search-control-cluster { gap: 16px; }
             
@@ -633,8 +623,10 @@
             <a href="index.html" class="logo">sathya.</a>
             <div class="header-right-cluster">
                 
+                <!-- Zero-Jump Inline Floating Science Instrument Dock (Aligned exactly with Search X coordinate) -->
                 <div class="theme-toggle-void" id="themeToggleBtn" aria-label="Trigger environmental transition">
                     <svg class="celestial-window-svg" viewBox="0 0 40 40">
+                        <!-- Space Dust Star Node Pass -->
                         <g class="space-stars">
                             <circle cx="8" cy="6" r="0.5"/>
                             <circle cx="32" cy="8" r="0.4"/>
@@ -642,16 +634,22 @@
                             <circle cx="10" cy="30" r="0.4"/>
                         </g>
 
+                        <!-- High Contrast Trajectory Tracks Around Sun -->
                         <circle class="orbital-track-sun" cx="20" cy="20" r="14"/>
                         
+                        <!-- Fixed Deep Golden Sun Anchor Core (#ffa200) -->
                         <circle class="sun-body" cx="20" cy="20" r="4.5"/>
                         
+                        <!-- Real-Science Earth-Moon System Unit -->
                         <g class="earth-system">
                             
+                            <!-- Enlarged local track framing the outside of the Moon cleanly (r expanded to 6.5) -->
                             <circle class="orbital-track-earth" cx="34" cy="20" r="6.5" />
                             
+                            <!-- Pure Solid Ocean Blue Earth (Scientifically larger than Moon) -->
                             <circle class="earth-circle" cx="34" cy="20" r="2.8"/>
                             
+                            <!-- Moon Satellite Group revolving locally on Earth's dark hemisphere -->
                             <g class="moon-system">
                                 <circle class="moon-sphere" cx="39.5" cy="20" r="1.1"/>
                             </g>
