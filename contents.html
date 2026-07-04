@@ -41,12 +41,11 @@
             
             --bullet-color: #444444;
 
-            /* Floating Borderless Celestial Canvas Tokens (Dark Mode) */
+            /* Floating Borderless Transparent Celestial Tokens */
             --sun-color: #ffffff;             /* Pure White Sun */
             --moon-color: #dededf;            /* Soft Cosmic Off-White Moon */
             --earth-color: #2b9cd3;           /* Vibrant Ocean Blue Earth */
-            --star-opacity: 1;
-            --corona-glow: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)); 
+            --earth-shadow-opacity: 0.75;     /* Shadow layer visible in Dark Mode */
 
             /* Vertical cascade parameters matching master optimization */
             --cascade-distance: 24px;
@@ -68,12 +67,11 @@
             
             --bullet-color: #b8b8bc;
 
-            /* Floating Borderless Celestial Canvas Tokens (Light Mode) */
+            /* Floating Borderless Transparent Celestial Tokens */
             --sun-color: #ffffff;             
-            --moon-color: #d6d6d8;            
+            --moon-color: #cbd0d4;            
             --earth-color: #2b9cd3;           
-            --star-opacity: 0;
-            --corona-glow: drop-shadow(0 0 3px rgba(0, 0, 0, 0.08));
+            --earth-shadow-opacity: 0;        /* Pure day-lit Earth in Light Mode */
         }
 
         * {
@@ -287,7 +285,7 @@
         }
 
         /* ==========================================================
-           CELESTIAL ORBITAL TOGGLE (FLOATING BORDERLESS VOID INTERNAL)
+           CELESTIAL ORBITAL TOGGLE (FLOATING BORDERLESS TRANSPARENT INTERNAL)
            ========================================================== */
         .theme-toggle-void {
             width: 44px;  
@@ -311,41 +309,16 @@
             inset: 0;
         }
 
-        .space-stars {
-            fill: #ffffff;
-            opacity: var(--star-opacity);
-            transition: opacity var(--dusk-duration) var(--dusk-curve);
-        }
-
-        /* Sun Core Node Filters */
+        /* Pure White Luminous Sun Core */
         .sun-body {
             fill: var(--sun-color);
             transform-origin: 22px 22px;
-            will-change: transform, opacity, filter;
+            will-change: transform, filter;
             filter: var(--corona-glow);
-            transition: fill var(--dusk-duration) var(--dusk-curve), transform var(--dusk-duration) var(--dusk-curve), opacity var(--dusk-duration) var(--dusk-curve), filter var(--dusk-duration) var(--dusk-curve);
+            transition: fill var(--dusk-duration) var(--dusk-curve), filter var(--dusk-duration) var(--dusk-curve);
         }
 
-        body.light-mode .sun-body {
-            fill: #e8a838; 
-        }
-
-        .sun-tick {
-            stroke: #ffffff;
-            stroke-width: 0.7;
-            opacity: 0.3;
-            transition: opacity var(--dusk-duration) var(--dusk-curve), stroke var(--dusk-duration) var(--dusk-curve);
-        }
-        body.light-mode .sun-tick {
-            stroke: #e8a838;
-            opacity: 0.5;
-        }
-
-        body:not(.light-mode) .sun-tick {
-            opacity: 0; 
-        }
-
-        /* Earth blueprint rotation track framework (Solid Core Profiling) */
+        /* Solid Ocean Blue Earth Node Layout */
         .earth-track {
             transform-origin: 22px 22px;
             will-change: transform;
@@ -354,9 +327,17 @@
 
         .earth-circle {
             fill: var(--earth-color);
+            transition: fill var(--dusk-duration) var(--dusk-curve);
         }
 
-        /* Moon eclipse orbital engine tracker framework */
+        /* Realistic sub-pixel atmospheric shading mask pass */
+        .earth-night-overlay {
+            fill: #000000;
+            opacity: var(--earth-shadow-opacity);
+            transition: opacity var(--dusk-duration) var(--dusk-curve);
+        }
+
+        /* Cosmic White Moon Node Layout */
         .moon-track {
             transform-origin: 22px 22px;
             will-change: transform;
@@ -364,7 +345,7 @@
         }
 
         .moon-body {
-            transform-origin: 32px 22px;
+            transform-origin: 41px 22px;
             will-change: transform;
             transition: transform var(--dusk-duration) var(--dusk-curve);
         }
@@ -374,31 +355,15 @@
             transition: fill var(--dusk-duration) var(--dusk-curve);
         }
 
-        body:not(.light-mode) .moon-sphere {
-            fill: #1a231e; /* Smooth borderless eclipse cutout matching header canvas */
-        }
-
-        .moon-crater {
-            fill: var(--header-bg); 
-            opacity: 0.65;
-            transition: fill var(--dusk-duration) var(--dusk-curve);
-        }
-        body.light-mode .moon-crater {
-            fill: #e9ebe6;
-        }
-
-        /* Clockwise Rotational Calibration Engine (Centered at 22,22) */
+        /* Clockwise Geocentric Rotational Alignment Controls (Centered to 22,22 Grid) */
         body.light-mode .earth-track { transform: rotate(0deg); }
         body:not(.light-mode) .earth-track { transform: rotate(180deg); }
 
         body.light-mode .moon-track { transform: rotate(0deg); }
         body:not(.light-mode) .moon-track { transform: rotate(235deg); }
 
-        body.light-mode .moon-body { transform: translate(0px, 0px) scale(1.1); }
-        body:not(.light-mode) .moon-body { transform: translate(-10px, 0px) scale(2.6); }
-
-        body.light-mode .sun-body { transform: translate(0px, 0px) scale(1.1); opacity: 1; }
-        body:not(.light-mode) .sun-body { transform: translate(0px, 0px) scale(0.75); }
+        body.light-mode .moon-body { transform: translate(0px, 0px) scale(1); }
+        body:not(.light-mode) .moon-body { transform: translate(-5px, 0px) scale(1.6); }
 
         .search-core-input {
             flex-grow: 1;
@@ -646,13 +611,14 @@
             .topics-column-grid { grid-template-columns: 1fr; gap: 14px 0; } 
             .wide-panel-title { margin-bottom: 20px; font-size: 18px; }
             
+            /* Responsive layout adjustments for the internal canvas row */
             .theme-toggle-void { width: 36px; height: 36px; }
             .sun-body { transform-origin: 18px 18px; }
             .earth-track { transform-origin: 18px 18px; }
             .moon-track { transform-origin: 18px 18px; }
             .moon-body { transform-origin: 28px 18px; }
-            body.light-mode .moon-body { transform: translate(0px, 0px) scale(1.1); }
-            body:not(.light-mode) .moon-body { transform: translate(-10px, 0px) scale(2.6); }
+            body.light-mode .moon-body { transform: translate(0px, 0px) scale(1); }
+            body:not(.light-mode) .moon-body { transform: translate(-5px, 0px) scale(1.6); }
         }
     </style>
 </head>
@@ -663,30 +629,18 @@
             <a href="index.html" class="logo">sathya.</a>
             <div class="header-right-cluster">
                 
-                <div class="theme-toggle-void" id="themeToggleBtn" aria-label="Trigger environmental eclipse transition">
+                <div class="theme-toggle-void" id="themeToggleBtn" aria-label="Trigger environmental transition">
                     <svg class="celestial-window-svg" viewBox="0 0 44 44">
-                        <g class="space-stars">
-                            <circle cx="10" cy="8" r="0.5"/>
-                            <circle cx="34" cy="10" r="0.4"/>
-                            <circle cx="32" cy="34" r="0.6"/>
-                            <circle cx="12" cy="32" r="0.4"/>
-                        </g>
-                        
-                        <line class="sun-tick" x1="22" y1="13" x2="22" y2="15" />
-                        <line class="sun-tick" x1="22" y1="29" x2="22" y2="31" />
-                        <line class="sun-tick" x1="13" y1="22" x2="15" y2="22" />
-                        <line class="sun-tick" x1="29" y1="22" x2="31" y2="22" />
                         <circle class="sun-body" cx="22" cy="22" r="4.5"/>
                         
                         <g class="earth-track">
-                            <circle class="earth-circle" cx="40" cy="22" r="2.4"/>
+                            <circle class="earth-circle" cx="36" cy="22" r="2.4"/>
+                            <circle class="earth-night-overlay" cx="36" cy="22" r="2.4"/>
                         </g>
                         
                         <g class="moon-track">
                             <g class="moon-body">
-                                <circle class="moon-sphere" cx="32" cy="22" r="1.6"/>
-                                <circle class="moon-crater" cx="31.4" cy="21.2" r="0.3"/>
-                                <circle class="moon-crater" cx="32.6" cy="22.6" r="0.25"/>
+                                <circle class="moon-sphere" cx="41" cy="22" r="1.4"/>
                             </g>
                         </g>
                     </svg>
@@ -748,7 +702,7 @@
             <h3 class="sub-section-title">World History</h3>
             <ul class="topics-column-grid">
                 <li><a href="#">Industrial Revolution</a></li>
-                <li><a href="#">Colonization & DecColonization</a></li>
+                <li><a href="#">Colonization & Decolonization</a></li>
                 <li><a href="#">World Wars</a></li>
                 <li><a href="#">Political Philosophies</a></li>
             </ul>
