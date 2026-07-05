@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - sathya.</title>
 
-     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5VGX2K64Y4');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5VGX2K64Y4');
+    </script>
 
     <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -449,7 +448,6 @@
 </head>
 <body>
 
-    <!-- Cloned Unified Twin View Design Header -->
     <header id="masterHeader">
         <div class="header-inner-view" id="headerMainView">
             <a href="../index.html" class="logo">sathya.</a>
@@ -484,12 +482,10 @@
     </header>
 
     <main>
-        <!-- Premium Intelligent Breadcrumb Engine Hook -->
         <nav class="breadcrumbs" id="dynamicBreadcrumbNav" aria-label="breadcrumb">
-            <!-- JavaScript builds this out dynamically on execution -->
+            <a href="../index.html">Home</a><span class="separator">/</span><span class="current">About</span>
         </nav>
 
-        <!-- Single Stretched Classy Focused Capsule -->
         <div class="capsule-panel">
             <h1 class="panel-title">About</h1>
             <div class="prose-text">
@@ -499,7 +495,6 @@
         </div>
     </main>
 
-    <!-- Grounded Minimal Footer (Direct Subfolder Routing Mapping) -->
     <footer>
         <div class="footer-links-row">
             <a href="about.html" class="active-footer-page">About</a>
@@ -513,7 +508,6 @@
         </div>
     </footer>
 
-    <!-- Smart Native Device Sync & Twin-View Controller Engine -->
     <script>
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
@@ -586,42 +580,6 @@
                 masterHeader.classList.remove('search-active');
             }
         });
-
-        // --- Intelligent Referrer Breadcrumb Engine ---
-        (function buildDynamicBreadcrumbs() {
-            const container = document.getElementById('dynamicBreadcrumbNav');
-            const referrer = document.referrer.toLowerCase();
-            
-            let trail = [];
-
-            // Evaluates incoming browser history string signatures
-            if (referrer.includes('ramsarsites.html')) {
-                trail = [
-                    { name: 'Home', url: '../index.html' },
-                    { name: 'Notes', url: '../notes.html' },
-                    { name: 'Ramsar Sites', url: '../ramsarsites.html' }
-                ];
-            } else if (referrer.includes('notes.html')) {
-                trail = [
-                    { name: 'Home', url: '../index.html' },
-                    { name: 'Notes', url: '../notes.html' }
-                ];
-            } else {
-                // Default fallback configuration for home entry or direct links
-                trail = [
-                    { name: 'Home', url: '../index.html' }
-                ];
-            }
-
-            // Render out generated structural array string natively
-            let htmlMarkup = '';
-            trail.forEach(step => {
-                htmlMarkup += `<a href="${step.url}">${step.name}</a><span class="separator">/</span>`;
-            });
-            htmlMarkup += `<span class="current">About</span>`;
-            
-            container.innerHTML = htmlMarkup;
-        })();
     </script>
 </body>
 </html>
