@@ -1,1 +1,62 @@
+/* ==========================================
+   main.css - Master Design Control Center
+   ========================================== */
 
+/* 1. GLOBAL FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* 2. DARK MODE VARIABLES (Default) */
+:root {
+    --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+    
+    --bg-color: #0b0b0b;
+    --text-main: #ffffff;
+    --text-muted: #555555;
+    --panel-bg: #121212;
+    --panel-border: #222222;
+    --row-divider: #1c1c1c;
+    --row-hover: rgba(255, 255, 255, 0.015);
+
+    --header-bg: #1a231e;
+    --header-border: #222c26;
+
+    --table-header: #1b4740;
+    --table-header-hover: #1d5b51;
+    --accent-color: #257a6c;
+    --row-even: #111111;
+    --row-odd: #000000;
+
+    --cascade-distance: 24px;
+    --cascade-duration-exit: 0.2s;
+    --cascade-duration-entry: 0.28s;
+}
+
+/* 3. LIGHT MODE VARIABLES */
+body.light-mode {
+    --bg-color: #ebebe4; /* Globally locked to Sage Ash */
+    --text-main: #111111;
+    --text-muted: #a1a1a6;
+    --panel-bg: #ffffff;
+    --panel-border: #e2e2e7;
+    --row-divider: #f2f2f7;
+    --row-hover: rgba(0, 0, 0, 0.01);
+
+    --header-bg: #e9ebe6;
+    --header-border: #d4d8cf;
+
+    --table-header: #215c52;
+    --table-header-hover: #2a7366;
+    --accent-color: #2d8a77;
+    --row-even: #fafafa;
+    --row-odd: #ffffff;
+}
+
+/* 4. GLOBAL BASE STYLES */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s var(--ease-premium), color 0.3s var(--ease-premium);
+}
