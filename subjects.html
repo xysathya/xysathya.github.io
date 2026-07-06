@@ -1,1092 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>sathya.</title>
-
-<link rel="icon" type="image/png" href="favicon-v2.png">
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-5VGX2K64Y4');
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-
-background:#0b0b0b;
-color:#cfcfcf;
-
-font-family:'Poppins',sans-serif;
-
-transition:
-background 0.55s cubic-bezier(0.22,1,0.36,1),
-color 0.55s cubic-bezier(0.22,1,0.36,1);
-  
-min-height:100vh;
-
-padding:40px 28px 80px;
-
-overflow-x:hidden;
-  
--webkit-font-smoothing:antialiased;
-
--moz-osx-font-smoothing:grayscale;
-
-text-rendering:optimizeLegibility;
-}
-
-/* MAIN */
-
-.wrapper{
-max-width:1200px;
-width:100%;
-margin:auto;
-}
-
-/* LOGO */
-
-.logo{
-
-position:relative;
-top:-10px;
-font-size:35px;
-font-weight:600;
-
-letter-spacing:-2px;
-
-color:#efefef;
-
-margin-bottom:42px;
-
-}
-
-.logo a{
-
-color:#efefef;
-
-text-decoration:none;
-
-}
-
-/* SEARCH BAR */
-
-.search-bar{
-
-width:100%;
-max-width:480px;
-
-height:48px;
-
-margin:0 auto 56px;
-
-display:flex;
-align-items:center;
-
-background:#111111;
-
-border:1px solid #2f2f2f;
-
-border-radius:20px;
-
-padding:0 18px;
-
-transition:all .25s ease;
-
-}
-
-.search-bar:hover{
-
-border-color:#3a3a3a;
-
-}
-
-.search-bar:focus-within{
-
-border-color:#555555;
-
-background:#151515;
-
-}
-
-.search-bar input{
-
-flex:1;
-
-background:transparent;
-
-border:none;
-
-outline:none;
-
-color:#cfcfcf;
-
-font-family:'Poppins',sans-serif;
-
-font-size:16px;
-
-}
-
-.search-bar input::placeholder{
-
-color:#7d7d7d;
-
-}
-
-.search-icon{
-
-color:#8a8a8a;
-
-font-size:18px;
-
-user-select:none;
-
-}
-
-/* GRID */
-
-.grid{
-
-display:grid;
-
-grid-template-columns:repeat(3,1fr);
-
-gap:56px;
-}
-
-/* CATEGORY */
-
-.category h2{
-
-font-size:30px;
-font-weight:600;
-
-letter-spacing:-1px;
-
-margin-bottom:16px;
-
-color:var(--text);
-}
-
-.line{
-
-height:1px;
-width:100%;
-
-background:#2f2f2f;
-
-margin-bottom:24px;
-}
-
-/* LINKS */
-
-.links{
-
-display:flex;
-flex-direction:column;
-
-gap:16px;
-}
-
-.links a{
-
-text-decoration:none;
-
-color:#cfcfcf;
-
-font-size:18px;
-font-weight:400;
-
-transition:
-transform 0.18s ease,
-opacity 0.18s ease,
-color 0.18s ease;
-
-width:fit-content;
-}
-
-.links a:hover{
-
-transform:translateX(4px);
-
-opacity:1;
-
-color:#efefef;
-}
-
-/* TABLET */
-
-@media(max-width:1024px){
-
-body{
-padding:34px 24px 70px;
-}
-
-.logo{
-font-size:35px;
-}
-
-.grid{
-
-grid-template-columns:1fr;
-
-gap:18px;
-}
-
-.category h2{
-font-size:30px;
-}
-
-.links a{
-font-size:18px;
-}
-
-}
-
-/* MOBILE */
-
-@media(max-width:640px){
-
-body{
-padding:28px 20px 60px;
-}
-
-.logo{
-
-font-size:35px;
-
-margin-bottom:34px;
-}
-
-.grid{
-gap:42px;
-}
-
-.category h2{
-font-size:28px;
-}
-
-.links a{
-font-size:18px;
-}
-
-}
-
-.menu-btn{
-
-position:fixed;
-
-top:28px;
-right:40px;
-
-font-size:28px;
-
-color:#cfcfcf;
-
-cursor:pointer;
-
-z-index:2000;
-
-transition:
-transform 0.35s ease,
-opacity 0.25s ease;
-
-user-select:none;
-font-family: 'poppins',sans-serif;
-font-variant-emoji:text;
-}
-
-.menu-btn:hover{
-
-opacity:0.7;
-}
-
-.menu-btn.active{
-
-transform:rotate(180deg);
-}
-
-.sidebar{
-
-position:fixed;
-
-top:20px;
-right:20px;
-
-width:260px;
-height:auto;
-
-background:#1f1f1f;
-
-border:1px solid rgba(255,255,255,0.05);
-
-border-radius:28px;
-
-padding-top:110px;
-padding-bottom:34px;
-
-padding-left:34px;
-padding-right:34px;
-
-transform:translateX(120%);
-
-transition:
-transform 0.45s cubic-bezier(0.22,1,0.36,1);
-
-z-index:1500;
-
-box-shadow:
-0 20px 60px rgba(0,0,0,0.45);
-
-will-change:transform;
-}
-  
-.sidebar.open{
-
-transform:translateX(0);
-}
-
-.sidebar a{
-
-display:block;
-
-color:#cfcfcf;
-
-text-decoration:none;
-
-font-size:18px;
-
-margin-bottom:10px;
-
-transition:
-transform 0.2s ease,
-color 0.2s ease;
-
-}
-
-.sidebar a:hover{
-
-color:#efefef;
-
-transform:translateX(4px);
-}
-
-/* IPAD */
-
-@media(min-width:768px) and (max-width:1024px){
-
-body{
-padding:40px 28px 80px;
-}
-
-.sidebar{
-
-width:250px;
-
-top:18px;
-
-border-radius:28px;
-}
-
-.sidebar.open{
-right:18px;
-}
-
-}
-
-/* MOBILE */
-
-@media(max-width:767px){
-
-body{
-padding:28px 18px 60px;
-}
-
-.sidebar{
-
-width:220px;
-
-top:14px;
-
-border-radius:24px;
-}
-
-.sidebar.open{
-right:14px;
-}
-
-}
-
-/* IPAD */
-
-@media(min-width:768px) and (max-width:1024px){
-
-.wrapper{
-
-max-width:92%;
-}
-
-}
-
-/* MOBILE */
-
-@media(max-width:767px){
-
-.wrapper{
-
-max-width:100%;
-}
-
-}
-
-/* BREADCRUMB */
-
-.breadcrumb{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-margin-top:6px;
-
-margin-bottom:40px;
-
-font-size:18px;
-
-}
-
-.breadcrumb a{
-
-text-decoration:none;
-
-color:#cfcfcf;
-
-transition:color .2s ease;
-
-}
-
-.breadcrumb a:hover{
-
-color:#efefef;
-
-}
-
-.breadcrumb span{
-
-color:#666666;
-
-}
-
-.breadcrumb p{
-
-color:#9a9a9a;
-
-margin:0;
-
-}/* SUBJECT */
-
-.subject-block{
-
-margin-bottom:42px;
-
-}
-
-.subject-block h2{
-
-font-size:25px;
-
-font-weight:500;
-
-color:#efefef;
-
-margin-bottom:18px;
-
-}
-
-/* TOGGLE */
-
-.toggle{
-
-margin-bottom:16px;
-
-background:#151515;
-
-border:1px solid #2b2b2b;
-
-border-radius:18px;
-
-overflow:hidden;
-
-}
-
-.toggle-title{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-padding:16px 22px;
-
-font-size:18px;
-
-font-weight:500;
-
-color:#cfcfcf;
-
-}
-
-.toggle-content{
-
-padding:0 22px 20px 46px;
-
-display:flex;
-
-flex-direction:column;
-
-gap:12px;
-
-}
-
-.toggle-content a{
-
-text-decoration:none;
-
-color:#cfcfcf;
-
-font-size:17px;
-
-transition:.2s;
-
-}
-
-.toggle-content a:hover{
-
-color:#efefef;
-
-transform:translateX(4px);
-
-}
-
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjects - sathya.</title>
+
+    <!-- Unified Master Analytics Tracker -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-5VGX2K64Y4');
+    </script>
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Modern Theme Token System Mapped Globally */
+        :root {
+            --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-color: #0b0b0b;
+            --text-main: #ffffff;
+            --text-muted: #555555;
+            --panel-bg: #121212;
+            --panel-border: #222222;
+            --row-divider: #1c1c1c;
+            --row-hover: rgba(255, 255, 255, 0.015);
+            --header-bg: #1a231e;
+            --header-border: #222c26;
+            
+            --cascade-distance: 24px;
+            --cascade-duration-exit: 0.2s;
+            --cascade-duration-entry: 0.28s;
+        }
+
+        body.light-mode {
+            --bg-color: #ebebe4;
+            --text-main: #111111;
+            --text-muted: #a1a1a6;
+            --panel-bg: #ffffff;
+            --panel-border: #e2e2e7;
+            --row-divider: #f2f2f7;
+            --row-hover: rgba(0, 0, 0, 0.01);
+            --header-bg: #e9ebe6;
+            --header-border: #d4d8cf;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 95%;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            transition: background-color 0.8s var(--ease-premium), color 0.8s var(--ease-premium);
+        }
+
+        /* Master Entrance System Reveal Wave */
+        @keyframes masterEntrance {
+            from { opacity: 0; transform: translate3d(0, 24px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
+        header, .breadcrumb-nav, .page-main-heading, .wide-capsule, footer {
+            opacity: 1;
+            will-change: transform, opacity;
+            animation: masterEntrance 1.2s var(--ease-premium) backwards;
+        }
+
+        header { animation-delay: 0.04s; }
+        .breadcrumb-nav { animation-delay: 0.08s; }
+        .page-main-heading { animation-delay: 0.12s; }
+        .wide-capsule { animation-delay: 0.16s; }
+        footer { animation-delay: 0.24s; }
+
+        /* Header Framework Components */
+        header {
+            position: relative;
+            background-color: var(--header-bg);
+            border: 1px solid var(--header-border);
+            border-radius: 50px;
+            width: 100%;
+            height: 72px;
+            margin: 0 auto 60px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            transition: background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
+        }
+        body:not(.light-mode) header { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); }
+
+        .header-inner-view {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px; will-change: transform, opacity;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+        }
+
+        #headerMainView { opacity: 1; transform: translate3d(0, 0, 0); pointer-events: auto; z-index: 2; }
+        #headerSearchView { opacity: 0; transform: translate3d(0, calc(-1 * var(--cascade-distance)), 0); pointer-events: none; z-index: 1; }
+
+        header.state-search #headerMainView { animation: skyfallExit var(--cascade-duration-exit) ease-in both; pointer-events: none; }
+        header.state-search #headerSearchView { animation: skyfallEntry var(--cascade-duration-entry) var(--ease-premium) both; animation-delay: var(--cascade-duration-exit); pointer-events: auto; }
+        header.state-main #headerSearchView { animation: skyfallExit var(--cascade-duration-exit) ease-in both; pointer-events: none; }
+        header.state-main #headerMainView { animation: skyfallEntry var(--cascade-duration-entry) var(--ease-premium) both; animation-delay: var(--cascade-duration-exit); pointer-events: auto; }
+
+        @keyframes skyfallExit { 0% { transform: translate3d(0, 0, 0); opacity: 1; } 100% { transform: translate3d(0, var(--cascade-distance), 0); opacity: 0; } }
+        @keyframes skyfallEntry { 0% { transform: translate3d(0, calc(-1 * var(--cascade-distance)), 0); opacity: 0; } 100% { transform: translate3d(0, 0, 0); opacity: 1; } }
+
+        .header-right-cluster, .search-control-cluster { display: flex; align-items: center; gap: 20px; height: 100%; }
+        .logo { font-size: 26px; font-weight: 600; letter-spacing: -0.5px; color: var(--text-main); text-decoration: none !important; transition: color 0.8s var(--ease-premium); }
+        .ctrl-btn { background: none; border: none; outline: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; transition: opacity 0.2s var(--ease-premium), color 0.8s var(--ease-premium); }
+        .ctrl-btn:hover { opacity: 0.6; }
+        .ctrl-btn svg, .search-static-icon { width: 22px; height: 22px; fill: none; stroke: var(--text-main); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.8s var(--ease-premium); }
+        .search-static-icon { opacity: 0.4; }
+        .search-core-input { flex-grow: 1; background: transparent; border: none; outline: none; color: var(--text-main); font-family: 'Poppins', sans-serif; font-size: 16px; padding: 0 16px; width: 100%; will-change: transform, opacity; transition: color 0.8s var(--ease-premium); }
+        
+        .theme-toggle { width: 32px; height: 32px; position: relative; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: center; }
+        .theme-toggle svg { position: absolute; width: 22px; height: 22px; fill: none; stroke: var(--text-main); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transform-origin: center center; transition: transform 0.8s var(--ease-premium), opacity 0.8s var(--ease-premium), stroke 0.8s var(--ease-premium); }
+        .theme-toggle .sun-icon { opacity: 0; transform: translate3d(0, 0, 0) rotate(-90deg) scale(0.4); }
+        .theme-toggle .moon-icon { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+        body.light-mode .theme-toggle .sun-icon { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+        body.light-mode .theme-toggle .moon-icon { opacity: 0; transform: translate3d(0, 0, 0) rotate(90deg) scale(0.4); }
+
+        /* Minimal Breadcrumbs Infrastructure */
+        .breadcrumb-nav { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 400; margin-bottom: 8px; padding-left: 8px; }
+        .breadcrumb-nav a { color: var(--text-muted) !important; text-decoration: none !important; }
+        .breadcrumb-separator { color: var(--text-muted); opacity: 0.4; }
+        .breadcrumb-current { color: var(--text-main); opacity: 0.8; }
+
+        .page-main-heading { font-size: 24px; font-weight: 600; letter-spacing: -0.5px; color: var(--text-main); margin-bottom: 12px; padding-left: 8px; transition: color 0.8s var(--ease-premium); }
+
+        /* Stretched Wide-Capsule Container Design Shell */
+        .subjects-container { display: flex; flex-direction: column; gap: 32px; margin-bottom: 80px; width: 100%; }
+        
+        .wide-capsule {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 28px;
+            padding: 40px 48px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            transition: border-color 0.8s var(--ease-premium), background-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
+        }
+        body:not(.light-mode) .wide-capsule { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
+        .wide-capsule:hover { border-color: #1E1E1E; }
+        body.light-mode .wide-capsule:hover { border-color: #b8b8bc; }
+
+        .wide-panel-title { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-main); margin-bottom: 28px; transition: color 0.8s var(--ease-premium); }
+
+        /* Numbered Horizontal Split Grid List Layout */
+        .topics-column-grid {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 0px 64px; 
+            counter-reset: subject-counter;
+        }
+
+        .topics-column-grid li {
+            border-bottom: 1px solid var(--row-divider);
+            display: flex;
+            align-items: center;
+            transition: border-color 0.8s var(--ease-premium);
+            counter-increment: subject-counter;
+        }
+
+        .topics-column-grid a {
+            display: block;
+            width: 100%;
+            padding: 14px 0 14px 32px;
+            color: var(--text-main);
+            opacity: 0.8;
+            text-decoration: none !important;
+            font-size: 15.5px;
+            font-weight: 400;
+            position: relative;
+            transition: color 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium), padding 0.4s var(--ease-premium);
+        }
+
+        /* Factual Number Rendering Mechanism */
+        .topics-column-grid a::before {
+            content: counter(subject-counter) ".";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14.5px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: color 0.4s var(--ease-premium);
+        }
+
+        .topics-column-grid li:hover a { opacity: 1 !important; padding-left: 38px !important; }
+        .topics-column-grid li:hover a::before { color: var(--text-main); }
+
+        /* Universal Footer System Styles */
+        footer { display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; }
+        .footer-links-row { display: flex; justify-content: center; align-items: center; gap: 32px; flex-wrap: wrap; width: 100%; }
+        .footer-links-row a { color: var(--text-muted) !important; text-decoration: none !important; font-size: 14px; font-weight: 400; display: inline-block; transition: color 0.4s var(--ease-premium); }
+        .footer-links-row a:hover { color: var(--text-main) !important; }
+        .copyright-tag { color: var(--text-muted); opacity: 0.6; font-size: 12.5px; letter-spacing: 0.2px; transition: color 0.8s var(--ease-premium); }
+
+        /* 1.3 Premium Portal Zoom Engine */
+        .nav-text { display: inline-block !important; transform-origin: center center !important; will-change: transform, opacity !important; transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium); }
+        .subjects-container a:hover .nav-text, .breadcrumb-nav a:hover .nav-text, .footer-links-row a:hover .nav-text { transform: scale3d(1.06, 1.06, 1) !important; }
+        .footer-links-row a .nav-text { color: var(--text-muted) !important; }
+        .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
+        .subjects-container a.is-zooming .nav-text, .breadcrumb-nav a.is-zooming .nav-text, .footer-links-row a.is-zooming .nav-text { transition: transform 0.26s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.26s linear !important; transform: scale3d(1.3, 1.3, 1) !important; opacity: 0 !important; }
+        .kinetic-locked-frame { pointer-events: none !important; }
+        .kinetic-locked-frame .nav-text { transition: none !important; }
+
+        @media (max-width: 700px) {
+            body { padding: 40px 20px; }
+            header { margin-bottom: 40px; height: 64px; }
+            .header-inner-view { padding: 0 20px; }
+            .logo { font-size: 22px; }
+            .search-core-input { padding: 0 12px; font-size: 15px; }
+            .header-right-cluster, .search-control-cluster { gap: 16px; }
+            .wide-capsule { padding: 32px 24px; border-radius: 24px; }
+            .topics-column-grid { grid-template-columns: 1fr; } 
+            .wide-panel-title { margin-bottom: 20px; font-size: 18px; }
+        }
+    </style>
 </head>
-
-<script>
-
-function toggleSidebar(){
-
-const sidebar = document.getElementById("sidebar");
-
-const button = document.querySelector(".menu-btn");
-
-sidebar.classList.toggle("open");
-
-button.classList.toggle("active");
-
-}
-/* CLOSE WHEN CLICKING OUTSIDE */
-
-document.addEventListener("click", function(event){
-
-const sidebar = document.getElementById("sidebar");
-
-const button = document.querySelector(".menu-btn");
-
-const clickedInsideSidebar = sidebar.contains(event.target);
-
-const clickedMenuButton = button.contains(event.target);
-
-if(
-
-sidebar.classList.contains("open")
-
-&&
-
-!clickedInsideSidebar
-
-&&
-
-!clickedMenuButton
-
-){
-
-sidebar.classList.remove("open");
-
-button.classList.remove("active");
-
-}
-
-});
-  
-</script>
-
 <body>
 
-<div class="menu-btn" onclick="toggleSidebar()">
-⟷
-</div>
-
-<div class="sidebar" id="sidebar">
-
-<a href="#">Upsc</a>
-<a href="#">Planning</a>
-<a href="#">Growth</a>
-
-</div>
-
-<div class="wrapper">
-
-<div class="logo">
-
-<a href="index.html">sathya.</a>
-
-</div>
-
-<div class="breadcrumb">
-
-<a href="index.html">Home</a>
-
-<span>/</span>
-
-<p>Subjects</p>
-
-</div>
-
-<div class="subject-block">
-
-<h2>1. Art and Culture</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resource</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>Art and Culture by Nitin Singhania</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>2. History</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Indian History</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>NCERTs</li>
-
-<li>Ancient History by RS Sharma (Old NCERT)</li>
-
-<li>Medieval History by Satish Chandra (Old NCERT)</li>
-
-<li>Modern History by Spectrum</li>
-
-<li>India's Struggle for Independence – Bipin Chandra</li>
-
-</ul>
-
-</div>
-
-</div>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>World History</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>History of the world from the 18th century</li>
-
-<li>Industrial Revolution</li>
-
-<li>World Wars</li>
-
-<li>Redrawal of National Boundaries</li>
-
-<li>Colonisation and Decolonisation</li>
-
-<li>Political philosophies: Communism, Capitalism, Socialism, their forms and effect on the society.</li>
-
-</ul>
-
-<p><strong>Note:</strong> Read about these topics. They are sufficient for World History.</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>3. Indian Society</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>NCERTs</li>
-
-<li>Indian Society: Themes and Social Issues by Nadeem Hasnain</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>4. India and World Geography</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>NCERTs</li>
-
-<li>PMF Physical Geography</li>
-
-<li>PMF Indian Physical Geography</li>
-
-<li>PMF Human and Economic Geography</li>
-
-<li>PMF World Geography Through Maps</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>5. Polity</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>NCERTs</li>
-
-<li>M. Laxmikanth (Latest Edition)</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>6. Social Justice</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>NCERTs</li>
-
-<li>Current Affairs</li>
-
-<li>Standard Book</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>7. Governance</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>Governance in India – M. Laxmikanth</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>8. International Relations</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>Not yet written</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>9. Economy</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>NCERTs</li>
-
-<li>Indian Economy by Nitin Singhania (Latest Edition)</li>
-
-<li>Newspapers and Economic Survey</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>10. Science and Technology</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>NCERTs</li>
-
-<li>Science and Technology by Ravi P. Agrahari</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>11. Environment and Disaster Management</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>NCERTs</li>
-
-<li>PMF IAS Environment</li>
-
-<li>Disaster Management – NCERTs and NDMA Guidelines</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="subject-block">
-
-<h2>12. Internal Security</h2>
-
-<div class="toggle">
-
-<div class="toggle-title">
-
-<span>▾</span>
-
-<span>Resources</span>
-
-</div>
-
-<div class="toggle-content">
-
-<ul>
-
-<li>Challenges to Internal Security by Ashok Kumar IPS</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
+    <header id="masterHeader">
+        <div class="header-inner-view" id="headerMainView">
+            <a href="index.html" class="logo">sathya.</a>
+            <div class="header-right-cluster">
+                <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+                </div>
+                <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="header-inner-view" id="headerSearchView">
+            <svg class="search-static-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" class="search-core-input" id="searchCoreInput" placeholder="Search..." autocomplete="off">
+            <div class="search-control-cluster">
+                <button class="ctrl-btn" id="clearSearchBtn"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                <button class="ctrl-btn" id="closeSearchBtn"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="subjects-container">
+        <nav class="breadcrumb-nav">
+            <a href="index.html">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">Subjects</span>
+        </nav>
+
+        <h1 class="page-main-heading">Subjects</h1>
+
+        <!-- Stretched Capsule Row Component Block -->
+        <div class="wide-capsule">
+            <h2 class="wide-panel-title">Subjects</h2>
+            <ul class="topics-column-grid">
+                <li><a href="contents.html#art-culture">Art and culture</a></li>
+                <li><a href="contents.html#history"History</a></li>
+                <li><a href="contents.html#indian-society">Indian society</a></li>
+                <li><a href="contents.html#geography">Geography</a></li>
+                <li><a href="contents.html#polity">Polity</a></li>
+                <li><a href="contents.html#social-justice">Social justice</a></li>
+                <li><a href="contents.html#governance">Governance</a></li>
+                <li><a href="contents.html#international-relations">International relations</a></li>
+                <li><a href="contents.html#economy">Economy</a></li>
+                <li><a href="contents.html#science-technology">Science and technology</a></li>
+                <li><a href="contents.html#environment">Environment</a></li>
+                <li><a href="contents.html#disaster-management">Disaster management</a></li>
+                <li><a href="contents.html#internal-security">Internal security</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links-row">
+            <a href="Footer/about.html">About</a>
+            <a href="Footer/contact.html">Contact</a>
+            <a href="Footer/privacy.html">Privacy Policy</a>
+            <a href="Footer/terms.html">Terms & Conditions</a>
+            <a href="Footer/disclaimer.html">Disclaimer</a>
+        </div>
+        <div class="copyright-tag">&copy; 2026 Sathya. All rights reserved.</div>
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('themeToggleBtn');
+        const bodyElement = document.body;
+        const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
+        const masterHeader = document.getElementById('masterHeader');
+        const openSearchBtn = document.getElementById('openSearchBtn');
+        const closeSearchBtn = document.getElementById('closeSearchBtn');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const searchCoreInput = document.getElementById('searchCoreInput');
+
+        function applyTargetPalette() {
+            const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
+            if (activeSessionOverride) {
+                if (activeSessionOverride === 'light') { bodyElement.classList.add('light-mode'); }
+                else { bodyElement.classList.remove('light-mode'); }
+            } else {
+                if (systemLightQuery.matches) { bodyElement.classList.add('light-mode'); }
+                else { bodyElement.classList.remove('light-mode'); }
+            }
+        }
+        applyTargetPalette();
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            if (bodyElement.classList.contains('light-mode')) {
+                bodyElement.classList.remove('light-mode');
+                sessionStorage.setItem('dashboard-theme', 'dark');
+            } else {
+                bodyElement.classList.add('light-mode');
+                sessionStorage.setItem('dashboard-theme', 'light');
+            }
+        });
+
+        openSearchBtn.addEventListener('click', () => {
+            masterHeader.classList.remove('state-main'); masterHeader.classList.add('state-search');
+            searchCoreInput.focus({ preventScroll: true });
+        });
+        clearSearchBtn.addEventListener('click', () => { searchCoreInput.value = ""; searchCoreInput.focus(); });
+        closeSearchBtn.addEventListener('click', () => { masterHeader.classList.remove('state-search'); masterHeader.classList.add('state-main'); });
+
+        const universalTargetLinks = document.querySelectorAll('.subjects-container a, .breadcrumb-nav a, footer .footer-links-row a');
+        universalTargetLinks.forEach(link => {
+            if (!link.querySelector('.nav-text')) {
+                const wrapper = document.createElement('span'); wrapper.className = 'nav-text';
+                while (link.firstChild) { wrapper.appendChild(link.firstChild); }
+                link.appendChild(wrapper);
+            }
+        });
+
+        universalTargetLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const destination = this.getAttribute('href');
+                if (!destination || destination === '#' || destination.startsWith('#')) return;
+                e.preventDefault();
+                sessionStorage.setItem('activeUniversalTargetUrl', this.href);
+                this.classList.add('is-zooming');
+                setTimeout(() => { window.location.href = destination; }, 260);
+            });
+        });
+    </script>
 </body>
-
 </html>
