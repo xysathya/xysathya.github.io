@@ -14,7 +14,7 @@
       gtag('config', 'G-5VGX2K64Y4');
     </script>
 
-    <link id="favicon" rel="icon" type="image/png" href="favicon-light.png">
+   <link id="favicon" rel="icon" type="image/png" href="favicon-light.png">
 
 <script>
   const favicon = document.getElementById('favicon');
@@ -54,6 +54,7 @@
             --row-even: #111111;
             --row-odd: #000000;
 
+            /* Vertical cascade parameters matching master optimization */
             --cascade-distance: 24px;
             --cascade-duration-exit: 0.2s;
             --cascade-duration-entry: 0.28s;
@@ -222,13 +223,13 @@
         .site-name:hover { opacity: 0.6; }
 
         /* ==========================================================
-           FIXED PREMIUM WEBKIT ENGINE MODAL ACCELERATION
+           IPAD BULLETPROOF VISIBILITY FIX (Zero Display: None!)
            ========================================================== */
         .modal {
-            display: flex; 
-            visibility: hidden; 
-            opacity: 0; 
-            pointer-events: none; 
+            display: flex; /* Always structural on screen */
+            visibility: hidden; /* Hidden from eyes and clicks */
+            pointer-events: none; /* Blocks touches while hidden */
+            opacity: 0;
             
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -239,14 +240,14 @@
             -webkit-tap-highlight-color: transparent !important;
             tap-highlight-color: transparent !important;
             
-            transition: opacity 0.4s var(--ease-premium), visibility 0s linear 0.4s;
+            will-change: opacity, visibility;
+            transition: opacity 0.4s var(--ease-premium), visibility 0.4s var(--ease-premium);
         }
 
         .modal.active {
             visibility: visible;
-            opacity: 1;
             pointer-events: auto;
-            transition: opacity 0.4s var(--ease-premium), visibility 0s linear 0s;
+            opacity: 1;
         }
 
         .modal-card {
@@ -258,19 +259,20 @@
             box-shadow: 0 25px 60px rgba(0,0,0,.3);
             cursor: default;
             
-            opacity: 0; /* Smooth entry foundation */
-            transform: scale3d(0.6, 0.6, 1); 
+            opacity: 0;
+            transform: scale(0.6); 
             
             will-change: transform, opacity;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
+            transform-style: preserve-3d;
             
             transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium), background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
         }
 
         .modal.active .modal-card {
-            opacity: 1; /* FIXED: Restored alpha painting channels */
-            transform: scale3d(1, 1, 1);
+            opacity: 1;
+            transform: scale(1);
         }
 
         .close-btn { float: right; font-size: 28px; cursor: pointer; color: var(--text-muted); line-height: 1; transition: color 0.4s var(--ease-premium); }
@@ -340,8 +342,11 @@
     </header>
 
     <main>
-        <!-- AUTOMATED BREADCRUMBS CONTAINER (Empty by design) -->
-        <nav class="breadcrumbs" id="autoBreadcrumbs" aria-label="breadcrumb"></nav>
+        <nav class="breadcrumbs" aria-label="breadcrumb">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <span class="current">Ramsar Sites</span>
+        </nav>
          
         <div class="card">
             <h2 class="section-title"> Ramsar sites in india 2026</h2>
@@ -778,83 +783,7 @@
             }
         });
 
-        /* ==========================================================
-           FIXED AUTOMATED JOURNEY BREADCRUMBS SCRIPT (Uses Absolute HREFs)
-           ========================================================== */
-        function buildAutomatedJourney() {
-            const breadcrumbNav = document.getElementById('autoBreadcrumbs');
-            if (!breadcrumbNav) return;
-
-            let currentUrl = window.location.href;
-            let niceTitle = document.title.split('-')[0].trim(); 
-            
-            if (niceTitle.toLowerCase() === 'home' || currentUrl.endsWith('/') || currentUrl.includes('index.html')) {
-                niceTitle = "Home";
-            }
-
-            let journey = JSON.parse(sessionStorage.getItem('userJourney')) || [];
-
-            // Dynamically calculate the matching path to index.html without hardcoded root slashes
-            if (journey.length === 0 && niceTitle !== "Home") {
-                let homeUrl = currentUrl.includes('/Footer/') 
-                    ? currentUrl.replace(/\/Footer\/[^/]+$/, '/index.html')
-                    : currentUrl.replace(/\/[^/]+$/, '/index.html');
-                journey.push({ path: homeUrl, title: 'Home' });
-            }
-
-            let existingIndex = journey.findIndex(step => step.path === currentUrl);
-
-            if (existingIndex !== -1) {
-                journey = journey.slice(0, existingIndex + 1);
-            } else {
-                journey.push({ path: currentUrl, title: niceTitle });
-            }
-
-            sessionStorage.setItem('userJourney', JSON.stringify(journey));
-
-            breadcrumbNav.innerHTML = '';
-
-            journey.forEach((step, index) => {
-                if (index === journey.length - 1) {
-                    const span = document.createElement('span');
-                    span.className = 'current';
-                    span.textContent = step.title;
-                    breadcrumbNav.appendChild(span);
-                } else {
-                    const a = document.createElement('a');
-                    a.href = step.path;
-                    
-                    const navText = document.createElement('span');
-                    navText.className = 'nav-text';
-                    navText.textContent = step.title;
-                    a.appendChild(navText);
-                    
-                    a.addEventListener('click', function(e) {
-                        const destination = this.getAttribute('href');
-                        if (!destination || destination === '#' || destination.startsWith('#')) return;
-
-                        e.preventDefault();
-                        sessionStorage.setItem('activeUniversalTargetUrl', this.href);
-                        this.classList.add('is-zooming');
-
-                        setTimeout(() => {
-                            window.location.href = destination;
-                        }, 260);
-                    });
-
-                    breadcrumbNav.appendChild(a);
-
-                    const separator = document.createElement('span');
-                    separator.className = 'separator';
-                    separator.textContent = ' / ';
-                    breadcrumbNav.appendChild(separator);
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', buildAutomatedJourney);
-
-        const universalTargetLinks = document.querySelectorAll('footer .footer-links-row a, .logo');
+        const universalTargetLinks = document.querySelectorAll('.breadcrumbs a, footer .footer-links-row a, .logo');
 
         universalTargetLinks.forEach(link => {
             if (!link.querySelector('.nav-text')) {
@@ -883,8 +812,7 @@
         });
 
         window.addEventListener('pageshow', () => {
-            const allLinks = document.querySelectorAll('a');
-            allLinks.forEach(l => {
+            universalTargetLinks.forEach(l => {
                 l.classList.remove('is-zooming');
                 l.classList.remove('kinetic-locked-frame');
                 const span = l.querySelector('.nav-text');
@@ -899,7 +827,7 @@
                 sessionStorage.removeItem('activeUniversalTargetUrl');
 
                 let matchedLinkElement = null;
-                allLinks.forEach(link => {
+                universalTargetLinks.forEach(link => {
                     if (link.href === savedTargetUrl) {
                         matchedLinkElement = link;
                     }
@@ -985,6 +913,7 @@
             rows.forEach(row => tbody.appendChild(row));
         }
 
+        /* SUPER CLEAN IPAD-SAFE JAVASCRIPT */
         function openSite(site) {
             const modal = document.getElementById("siteModal");
             const title = document.getElementById("modalTitle");
@@ -1002,11 +931,14 @@
                     <p style="opacity: 0.8; font-size: 14px; margin-top: 4px;">Largest freshwater lake in India and an important habitat for migratory birds.</p>
                 `;
             }
+            
+            // Just add the class! CSS visibility handles everything now perfectly on all devices.
             modal.classList.add("active");
         }
 
         function closeSite() {
-            document.getElementById("siteModal").classList.remove("active");
+            const modal = document.getElementById("siteModal");
+            modal.classList.remove("active");
         }
 
         document.getElementById("siteModal").addEventListener("click", function(event) {
