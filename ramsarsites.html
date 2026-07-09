@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramsar Sites - sathya.</title>
-    
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -15,20 +10,10 @@
       gtag('config', 'G-5VGX2K64Y4');
     </script>
 
-    <link id="favicon" rel="icon" type="image/png" href="favicon-light.png">
-
-<script>
-  const favicon = document.getElementById('favicon');
-  const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  function updateFavicon(e) {
-    favicon.href = e.matches ? 'favicon-dark.png' : 'favicon-light.png';
-  }
-  
-  updateFavicon(darkMode);
-  darkMode.addEventListener('change', updateFavicon);
-</script>
-    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramsar Sites in India 2026 - UPSC Notes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -261,7 +246,8 @@
             cursor: default;
             
             opacity: 0;
-            transform: scale(0.6); 
+            /* HARDWARE BOOST FOR IPAD/MOBILE using scale3d */
+            transform: scale3d(0.6, 0.6, 1); 
             
             will-change: transform, opacity;
             -webkit-backface-visibility: hidden;
@@ -273,7 +259,8 @@
 
         .modal.active .modal-card {
             opacity: 1;
-            transform: scale(1);
+            /* Zooms to full size straight on */
+            transform: scale3d(1, 1, 1);
         }
 
         .close-btn { float: right; font-size: 28px; cursor: pointer; color: var(--text-muted); line-height: 1; transition: color 0.4s var(--ease-premium); }
@@ -914,7 +901,7 @@
             rows.forEach(row => tbody.appendChild(row));
         }
 
-        /* SUPER CLEAN IPAD-SAFE JAVASCRIPT */
+        /* SUPER CLEAN IPAD-SAFE JAVASCRIPT WITH TIMEOUT */
         function openSite(site) {
             const modal = document.getElementById("siteModal");
             const title = document.getElementById("modalTitle");
@@ -933,8 +920,13 @@
                 `;
             }
             
-            // Just add the class! CSS visibility handles everything now perfectly on all devices.
-            modal.classList.add("active");
+            // 1. Force the iPad to calculate the new text layout first
+            void modal.offsetWidth; 
+            
+            // 2. Give the iPad a 10-millisecond breath before animating
+            setTimeout(() => {
+                modal.classList.add("active");
+            }, 10);
         }
 
         function closeSite() {
@@ -953,7 +945,7 @@
                 closeSite();
             }
         }, { passive: true });
-        
+         
     </script>
 </body>
 </html>
