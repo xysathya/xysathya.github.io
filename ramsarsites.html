@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     
-   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-5VGX2K64Y4');
-</script>
+      gtag('config', 'G-5VGX2K64Y4');
+    </script>
 
     <link rel="icon" type="image/png" href="favicon.png">
-     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ramsar Sites in India 2026 - UPSC Notes</title>
@@ -333,7 +331,7 @@
             flex-direction: column;
         }
 
-        /* High-End Classy Breadcrumb System (Updated Size, Weight, and 32px Breathing Room Below) */
+        /* High-End Classy Breadcrumb System */
         .breadcrumbs {
             display: flex;
             align-items: center;
@@ -384,7 +382,6 @@
             padding: 32px 24px;
             margin-bottom: 35px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-            /* CALIBRATED: Sync Content Frame Matrix Interp Curve */
             transition: border-color 0.8s var(--ease-premium), background-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
         }
 
@@ -493,9 +490,12 @@
             opacity: 0.6;
         }
 
-        /* Modal windows */
+        /* ==========================================================
+           FIXED TWO-WAY SMOOTH MODAL ANIMATION
+           ========================================================== */
         .modal {
             display: none;
+            opacity: 0;
             position: fixed;
             top: 0;
             left: 0;
@@ -510,6 +510,11 @@
             cursor: pointer;
             -webkit-tap-highlight-color: transparent !important;
             tap-highlight-color: transparent !important;
+            transition: opacity 0.3s var(--ease-premium);
+        }
+
+        .modal.active {
+            opacity: 1;
         }
 
         .modal-card {
@@ -519,20 +524,15 @@
             border-radius: 28px;
             padding: 32px;
             box-shadow: 0 25px 60px rgba(0,0,0,.3);
-            animation: popup .4s var(--ease-premium);
             cursor: default;
-            transition: background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
+            opacity: 0;
+            transform: scale(0.96) translateY(10px);
+            transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium), background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
         }
 
-        @keyframes popup {
-            from {
-                opacity: 0;
-                transform: scale(.96) translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+        .modal.active .modal-card {
+            opacity: 1;
+            transform: scale(1) translateY(0);
         }
 
         .close-btn {
@@ -1352,4 +1352,3 @@
     </script>
 </body>
 </html>
-
