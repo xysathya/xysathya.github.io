@@ -209,7 +209,7 @@
         .site-name:hover { opacity: 0.6; }
 
         /* ==========================================================
-           FIXED FULL-HARDWARE ACCELERATED MODAL ANIMATION
+           FIXED FULL-HARDWARE ACCELERATED MODAL ANIMATION (3D ZOOM)
            ========================================================== */
         .modal {
             display: none;
@@ -242,7 +242,7 @@
             cursor: default;
             
             opacity: 0;
-            transform: scale(0.96) translateY(10px);
+            transform: scale(0.6); /* Starts deep in the background */
             
             /* HARDWARE BOOST FOR IPAD/MOBILE: */
             will-change: transform, opacity;
@@ -255,7 +255,7 @@
 
         .modal.active .modal-card {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: scale(1); /* Zooms to full size straight on */
         }
 
         .close-btn { float: right; font-size: 28px; cursor: pointer; color: var(--text-muted); line-height: 1; transition: color 0.4s var(--ease-premium); }
@@ -917,7 +917,6 @@
             setTimeout(() => modal.classList.add("active"), 10);
         }
 
-        /* HARDWARE ACCELERATED FIX: Re-synced timeout from 300ms to a full 400ms to allow smooth closing */
         function closeSite() {
             const modal = document.getElementById("siteModal");
             modal.classList.remove("active");
@@ -934,7 +933,8 @@
             if (event.target === this) {
                 closeSite();
             }
-        }, { passive: true }); 
+        }, { passive: true });
+         
     </script>
 </body>
 </html>
