@@ -221,7 +221,9 @@
         .site-name { cursor: pointer !important; color: var(--text-main) !important; text-decoration: none !important; border-bottom: none !important; font-weight: 500; transition: color 0.8s var(--ease-premium); }
         .site-name:hover { opacity: 0.6; }
 
-        /* PURE CSS MODAL - ZERO JS TIMERS */
+        /* ==========================================================
+           FIXED PREMIUM WEBKIT ENGINE MODAL ACCELERATION
+           ========================================================== */
         .modal {
             display: flex; 
             visibility: hidden; 
@@ -256,18 +258,19 @@
             box-shadow: 0 25px 60px rgba(0,0,0,.3);
             cursor: default;
             
-            opacity: 0;
-            transform: scale(0.6); 
+            opacity: 0; /* Smooth entry foundation */
+            transform: scale3d(0.6, 0.6, 1); 
             
-            will-change: transform;
+            will-change: transform, opacity;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             
-            transition: transform 0.4s var(--ease-premium), background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
+            transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium), background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
         }
 
         .modal.active .modal-card {
-            transform: scale(1);
+            opacity: 1; /* FIXED: Restored alpha painting channels */
+            transform: scale3d(1, 1, 1);
         }
 
         .close-btn { float: right; font-size: 28px; cursor: pointer; color: var(--text-muted); line-height: 1; transition: color 0.4s var(--ease-premium); }
@@ -776,31 +779,35 @@
         });
 
         /* ==========================================================
-           AUTOMATED JOURNEY BREADCRUMBS SCRIPT
+           FIXED AUTOMATED JOURNEY BREADCRUMBS SCRIPT (Uses Absolute HREFs)
            ========================================================== */
         function buildAutomatedJourney() {
             const breadcrumbNav = document.getElementById('autoBreadcrumbs');
             if (!breadcrumbNav) return;
 
-            let currentPath = window.location.pathname;
+            let currentUrl = window.location.href;
             let niceTitle = document.title.split('-')[0].trim(); 
             
-            if (currentPath === '/' || currentPath.includes('index.html')) {
+            if (niceTitle.toLowerCase() === 'home' || currentUrl.endsWith('/') || currentUrl.includes('index.html')) {
                 niceTitle = "Home";
             }
 
             let journey = JSON.parse(sessionStorage.getItem('userJourney')) || [];
 
+            // Dynamically calculate the matching path to index.html without hardcoded root slashes
             if (journey.length === 0 && niceTitle !== "Home") {
-                journey.push({ path: '/index.html', title: 'Home' });
+                let homeUrl = currentUrl.includes('/Footer/') 
+                    ? currentUrl.replace(/\/Footer\/[^/]+$/, '/index.html')
+                    : currentUrl.replace(/\/[^/]+$/, '/index.html');
+                journey.push({ path: homeUrl, title: 'Home' });
             }
 
-            let existingIndex = journey.findIndex(step => step.path === currentPath);
+            let existingIndex = journey.findIndex(step => step.path === currentUrl);
 
             if (existingIndex !== -1) {
                 journey = journey.slice(0, existingIndex + 1);
             } else {
-                journey.push({ path: currentPath, title: niceTitle });
+                journey.push({ path: currentUrl, title: niceTitle });
             }
 
             sessionStorage.setItem('userJourney', JSON.stringify(journey));
@@ -822,7 +829,6 @@
                     navText.textContent = step.title;
                     a.appendChild(navText);
                     
-                    // Attach your kinetic zoom effect directly to the dynamic link!
                     a.addEventListener('click', function(e) {
                         const destination = this.getAttribute('href');
                         if (!destination || destination === '#' || destination.startsWith('#')) return;
@@ -846,11 +852,8 @@
             });
         }
 
-        // Run the dynamic builder right away
         document.addEventListener('DOMContentLoaded', buildAutomatedJourney);
 
-
-        // Attach zoom effects to fixed links (Notice .breadcrumbs a is removed so it doesn't conflict!)
         const universalTargetLinks = document.querySelectorAll('footer .footer-links-row a, .logo');
 
         universalTargetLinks.forEach(link => {
@@ -880,7 +883,6 @@
         });
 
         window.addEventListener('pageshow', () => {
-            // Apply un-zoom to all possible links including dynamic ones
             const allLinks = document.querySelectorAll('a');
             allLinks.forEach(l => {
                 l.classList.remove('is-zooming');
@@ -983,12 +985,6 @@
             rows.forEach(row => tbody.appendChild(row));
         }
 
-        /* ----------------------------------------------------
-           THE FINAL APPLE-SAFE JAVASCRIPT
-           Absolutely NO display: none. NO JavaScript timeouts.
-           Completely clean execution.
-           ---------------------------------------------------- */
-
         function openSite(site) {
             const modal = document.getElementById("siteModal");
             const title = document.getElementById("modalTitle");
@@ -1006,13 +1002,10 @@
                     <p style="opacity: 0.8; font-size: 14px; margin-top: 4px;">Largest freshwater lake in India and an important habitat for migratory birds.</p>
                 `;
             }
-            
-            // Just add the class! CSS visibility handles EVERYTHING.
             modal.classList.add("active");
         }
 
         function closeSite() {
-            // Just remove the class! CSS visibility waits exactly 0.4s to hide automatically.
             document.getElementById("siteModal").classList.remove("active");
         }
 
