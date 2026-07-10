@@ -54,7 +54,6 @@
             --row-even: #111111;
             --row-odd: #000000;
 
-            /* Vertical cascade parameters matching master optimization */
             --cascade-distance: 24px;
             --cascade-duration-exit: 0.2s;
             --cascade-duration-entry: 0.28s;
@@ -222,61 +221,25 @@
         .site-name { cursor: pointer !important; color: var(--text-main) !important; text-decoration: none !important; border-bottom: none !important; font-weight: 500; transition: color 0.8s var(--ease-premium); }
         .site-name:hover { opacity: 0.6; }
 
-        /* ==========================================================
-           THE HOLY GRAIL PURE CSS MODAL
-           No display:none. No JS timeouts. Flawless on iPad & WebKit.
-           ========================================================== */
         .modal {
-            display: flex; /* Always structural on screen */
-            visibility: hidden; /* Removes from screen readers & clicks */
-            opacity: 0; /* Visually hidden */
-            pointer-events: none; /* Hard block on touches */
-            
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, .4);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            justify-content: center; align-items: center;
-            z-index: 9999; cursor: pointer;
-            -webkit-tap-highlight-color: transparent !important;
-            tap-highlight-color: transparent !important;
-            
-            /* WHEN CLOSING: Fade opacity for 0.4s, and wait 0.4s BEFORE hiding visibility */
+            display: flex; visibility: hidden; opacity: 0; pointer-events: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, .4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            justify-content: center; align-items: center; z-index: 9999; cursor: pointer;
+            -webkit-tap-highlight-color: transparent !important; tap-highlight-color: transparent !important;
             transition: opacity 0.4s var(--ease-premium), visibility 0s linear 0.4s;
         }
 
-        .modal.active {
-            visibility: visible;
-            opacity: 1;
-            pointer-events: auto;
-            
-            /* WHEN OPENING: Instantly visible (0s), then smoothly fade opacity */
-            transition: opacity 0.4s var(--ease-premium), visibility 0s linear 0s;
-        }
+        .modal.active { visibility: visible; opacity: 1; pointer-events: auto; transition: opacity 0.4s var(--ease-premium), visibility 0s linear 0s; }
 
         .modal-card {
-            width: min(600px, 90%);
-            background: var(--panel-bg);
-            border: 1px solid var(--panel-border);
-            border-radius: 28px;
-            padding: 32px;
-            box-shadow: 0 25px 60px rgba(0,0,0,.3);
-            cursor: default;
-            
-            /* Deep Zoom Start */
-            transform: scale(0.6); 
-            
-            will-change: transform;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            
+            width: min(600px, 90%); background: var(--panel-bg); border: 1px solid var(--panel-border);
+            border-radius: 28px; padding: 32px; box-shadow: 0 25px 60px rgba(0,0,0,.3); cursor: default;
+            transform: scale(0.6); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden;
             transition: transform 0.4s var(--ease-premium), background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
         }
 
-        .modal.active .modal-card {
-            /* Full Zoom End */
-            transform: scale(1);
-        }
+        .modal.active .modal-card { transform: scale(1); }
 
         .close-btn { float: right; font-size: 28px; cursor: pointer; color: var(--text-muted); line-height: 1; transition: color 0.4s var(--ease-premium); }
         .close-btn:hover { color: var(--text-main); }
@@ -346,7 +309,7 @@
 
     <main>
         <nav class="breadcrumbs" aria-label="breadcrumb">
-            <a href="index.html">Home</a>
+            <a href="index.html"><span class="nav-text">Home</span></a>
             <span class="separator">/</span>
             <span class="current">Ramsar Sites</span>
         </nav>
@@ -365,105 +328,105 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>1</td><td><span class="site-name" onclick="openSite('kolleru')">Kolleru lake</span></td><td>Andhra Pradesh</td><td>2002</td><td>Krishna–Godavari Delta</td></tr>
-                        <tr><td>2</td><td>Deepor Beel</td><td>Assam</td><td>2002</td><td>Near Guwahati</td></tr>
-                        <tr><td>3</td><td>Kabartal Wetland</td><td>Bihar</td><td>2020</td><td>Begusarai district</td></tr>
-                        <tr><td>4</td><td>Nagi Bird Sanctuary</td><td>Bihar</td><td>2023</td><td>Jamui district</td></tr>
-                        <tr><td>5</td><td>Nakti Bird Sanctuary</td><td>Bihar</td><td>2023</td><td>Jamui district</td></tr>
-                        <tr><td>6</td><td>Gokul Jalashay</td><td>Bihar</td><td>2025</td><td>West Champaran</td></tr>
-                        <tr><td>7</td><td>Udaipur Jheel</td><td>Bihar</td><td>2025</td><td>West Champaran</td></tr>
-                        <tr><td>8</td><td>Gogabil Lake</td><td>Bihar</td><td>2025</td><td>Katihar district</td></tr>
-                        <tr><td>9</td><td>Kopra Jalashay</td><td>Chhattisgarh</td><td>2025</td><td>Balodabazar district</td></tr>
-                        <tr><td>10</td><td>Nalsarovar Bird Sanctuary</td><td>Gujarat</td><td>2012</td><td>Ahmedabad district</td></tr>
-                        <tr><td>11</td><td>Wadhvana Wetland</td><td>Gujarat</td><td>2021</td><td>Vadodara district</td></tr>
-                        <tr><td>12</td><td>Thol Lake Wildlife Sanctuary</td><td>Gujarat</td><td>2021</td><td>Mehsana district</td></tr>
-                        <tr><td>13</td><td>Khijadia Wildlife Sanctuary</td><td>Gujarat</td><td>2021</td><td>Jamnagar district</td></tr>
-                        <tr><td>14</td><td>Chhari Dhand</td><td>Gujarat</td><td>2025</td><td>Kutch district</td></tr>
-                        <tr><td>15</td><td>Nanda Lake</td><td>Goa</td><td>2022</td><td>North Goa</td></tr>
-                        <tr><td>16</td><td>Sultanpur National Park</td><td>Haryana</td><td>2021</td><td>Gurugram district</td></tr>
-                        <tr><td>17</td><td>Bhindawas Wildlife Sanctuary</td><td>Haryana</td><td>2021</td><td>Jjhajjar district</td></tr>
-                        <tr><td>18</td><td>Pong Dam Lake</td><td>Himachal Pradesh</td><td>2002</td><td>Kangra district</td></tr>
-                        <tr><td>19</td><td>Chandertal Wetland</td><td>Himachal Pradesh</td><td>2005</td><td>Lahaul–Spiti</td></tr>
-                        <tr><td>20</td><td>Renuka Wetland</td><td>Himachal Pradesh</td><td>2005</td><td>Sirmaur district</td></tr>
-                        <tr><td>21</td><td>Wular Lake</td><td>Jammu & Kashmir</td><td>1990</td><td>Bandipora district</td></tr>
-                        <tr><td>22</td><td>Surinsar–Mansar Lakes</td><td>Jammu & Kashmir</td><td>2005</td><td>Near Jammu</td></tr>
-                        <tr><td>23</td><td>Hokera Wetland</td><td>Jammu & Kashmir</td><td>2005</td><td>Srinagar district</td></tr>
-                        <tr><td>24</td><td>Hygam Wetland Conservation Reserve</td><td>Jammu & Kashmir</td><td>2022</td><td>Baramulla district</td></tr>
-                        <tr><td>25</td><td>Shallabugh Wetland Conservation Reserve</td><td>Jammu & Kashmir</td><td>2022</td><td>Ganderbal district</td></tr>
-                        <tr><td>26</td><td>Udhwa Lake Bird Sanctuary</td><td>Jharkhand</td><td>2024</td><td>Sahibganj district</td></tr>
-                        <tr><td>27</td><td>Ranganathittu Bird Sanctuary</td><td>Karnataka</td><td>2022</td><td>Mandya district</td></tr>
-                        <tr><td>28</td><td>Ankasamudra Bird Conservation Reserve</td><td>Karnataka</td><td>2023</td><td>Ballari district</td></tr>
-                        <tr><td>29</td><td>Aghanashini Estuary</td><td>Karnataka</td><td>2023</td><td>Uttara Kannada</td></tr>
-                        <tr><td>30</td><td>Magadi Kere Conservation Reserve</td><td>Karnataka</td><td>2023</td><td>Gadag district</td></tr>
-                        <tr><td>31</td><td>Ashtamudi Wetland</td><td>Kerala</td><td>2002</td><td>Kollam district</td></tr>
-                        <tr><td>32</td><td>Sasthamkotta Lake</td><td>Kerala</td><td>2002</td><td>Kollam district</td></tr>
-                        <tr><td>33</td><td>Vembanad-Kol Wetland</td><td>Kerala</td><td>2002</td><td>Alappuzha–Kottayam</td></tr>
-                        <tr><td>34</td><td>Tso Kar Wetland Complex</td><td>Ladakh</td><td>2020</td><td>Changthang region</td></tr>
-                        <tr><td>35</td><td>Tsomoriri Lake</td><td>Ladakh</td><td>2002</td><td>Changthang plateau</td></tr>
-                        <tr><td>36</td><td>Bhoj Wetlands</td><td>Madhya Pradesh</td><td>2002</td><td>Bhopal</td></tr>
-                        <tr><td>37</td><td>Sirpur Wetland</td><td>Madhya Pradesh</td><td>2022</td><td>Indore district</td></tr>
-                        <tr><td>38</td><td>Sakhya Sagar</td><td>Madhya Pradesh</td><td>2022</td><td>Shivpuri district</td></tr>
-                        <tr><td>39</td><td>Yashwant Sagar</td><td>Madhya Pradesh</td><td>2022</td><td>Indore district</td></tr>
-                        <tr><td>40</td><td>Tawa Reservoir</td><td>Madhya Pradesh</td><td>2024</td><td>Narmadapuram district</td></tr>
-                        <tr><td>41</td><td>Nandur Madhameshwar</td><td>Maharashtra</td><td>2019</td><td>Nashik district</td></tr>
-                        <tr><td>42</td><td>Lonar Lake</td><td>Maharashtra</td><td>2020</td><td>Buldhana district</td></tr>
-                        <tr><td>43</td><td>Thane Creek</td><td>Maharashtra</td><td>2022</td><td>Mumbai–Thane</td></tr>
-                        <tr><td>44</td><td>Loktak Lake</td><td>Manipur</td><td>1990</td><td>Bishnupur district</td></tr>
-                        <tr><td>45</td><td>Pala Wetland</td><td>Mizoram</td><td>2021</td><td>Siaha district</td></tr>
-                        <tr><td>46</td><td>Chilika Lake</td><td>Odisha</td><td>1981</td><td>Puri–Khordha–Ganjam</td></tr>
-                        <tr><td>47</td><td>Bhitarkanika Mangroves</td><td>Odisha</td><td>2002</td><td>Kendrapara district</td></tr>
-                        <tr><td>48</td><td>Satkosia Gorge</td><td>Odisha</td><td>2021</td><td>Angul district</td></tr>
-                        <tr><td>49</td><td>Tampara Lake</td><td>Odisha</td><td>2021</td><td>Ganjam district</td></tr>
-                        <tr><td>50</td><td>Hirakud Reservoir</td><td>Odisha</td><td>2021</td><td>Sambalpur district</td></tr>
-                        <tr><td>51</td><td>Ansupa Lake</td><td>Odisha</td><td>2021</td><td>Cuttack district</td></tr>
-                        <tr><td>52</td><td>Harike Wetland</td><td>Punjab</td><td>1990</td><td>Beas–Sutlej confluence</td></tr>
-                        <tr><td>53</td><td>Kanjli Lake</td><td>Punjab</td><td>2002</td><td>Kapurthala district</td></tr>
-                        <tr><td>54</td><td>Ropar Lake</td><td>Punjab</td><td>2002</td><td>Rupnagar district</td></tr>
-                        <tr><td>55</td><td>Beas Conservation Reserve</td><td>Punjab</td><td>2019</td><td>Beas river stretch</td></tr>
-                        <tr><td>56</td><td>Keshopur-Miani Reserve</td><td>Punjab</td><td>2019</td><td>Gurdaspur district</td></tr>
-                        <tr><td>57</td><td>Nangal Wildlife Sanctuary</td><td>Punjab</td><td>2019</td><td>Rupnagar district</td></tr>
-                        <tr><td>58</td><td>Keoladeo Ghana National Park</td><td>Rajasthan</td><td>1981</td><td>Bharatpur district</td></tr>
-                        <tr><td>59</td><td>Sambhar Lake</td><td>Rajasthan</td><td>1990</td><td>Jaipur–Nagaur</td></tr>
-                        <tr><td>60</td><td>Menar Wetland Complex</td><td>Rajasthan</td><td>2025</td><td>Udaipur district</td></tr>
-                        <tr><td>61</td><td>Khichan Wetland</td><td>Rajasthan</td><td>2025</td><td>Phalodi</td></tr>
-                        <tr><td>62</td><td>Siliserh Lake</td><td>Rajasthan</td><td>2025</td><td>Alwar district</td></tr>
-                        <tr><td>63</td><td>Khecheopalri Wetland</td><td>Sikkim</td><td>2024</td><td>West Sikkim</td></tr>
-                        <tr><td>64</td><td>Point Calimere Wildlife and bird Sanctuary</td><td>Tamil Nadu</td><td>2002</td><td>Nagapattinam district</td></tr>
-                        <tr><td>65</td><td>Koonthankulam Bird Sanctuary</td><td>Tamil Nadu</td><td>2021</td><td>Tirunelveli district</td></tr>
-                        <tr><td>66</td><td>Chitrangudi Bird Sanctuary</td><td>Tamil Nadu</td><td>2021</td><td>Ramanathapuram district</td></tr>
-                        <tr><td>67</td><td>Karikili Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram district</td></tr>
-                        <tr><td>68</td><td>Pichavaram Mangroves</td><td>Tamil Nadu</td><td>2022</td><td>Cuddalore district</td></tr>
-                        <tr><td>69</td><td>Pallikaranai Marsh reserve forest</td><td>Tamil Nadu</td><td>2022</td><td>Chennai</td></tr>
-                        <tr><td>70</td><td>Gulf of Mannar Marine Biosphere Reserve</td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram–Thoothukudi</td></tr>
-                        <tr><td>71</td><td>Vembannur Wetland</td><td>Tamil Nadu</td><td>2022</td><td>Kanyakumari district</td></tr>
-                        <tr><td>72</td><td>Vellode Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Erode district</td></tr>
-                        <tr><td>73</td><td>Udhayamarthandapuram Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Tiruvarur district</td></tr>
-                        <tr><td>74</td><td>Vedanthangal Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Chengalpattu district</td></tr>
-                        <tr><td>75</td><td>Suchindram–Theroor Wetland</td><td>Tamil Nadu</td><td>2022</td><td>Kanyakumari district</td></tr>
-                        <tr><td>76</td><td>Vaduvur Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Tiruvarur district</td></tr>
-                        <tr><td>77</td><td>Kanjirankulam Bird Sanctuary</td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram district</td></tr>
-                        <tr><td>78</td><td>Karaivetti Bird Sanctuary</td><td>Tamil Nadu</td><td>2023</td><td>Ariyalur district</td></tr>
-                        <tr><td>79</td><td>Longwood Shola reserve forest</td><td>Tamil Nadu</td><td>2023</td><td>Nilgiris district</td></tr>
-                        <tr><td>80</td><td>Kazhuveli Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Villupuram district</td></tr>
-                        <tr><td>81</td><td>Nanjarayan Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Tiruppur district</td></tr>
-                        <tr><td>82</td><td>Sakkarakottai Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Ramanathapuram district</td></tr>
-                        <tr><td>83</td><td>Therthangal Bird Sanctuary</td><td>Tamil Nadu</td><td>2024</td><td>Sivaganga district</td></tr>
-                        <tr><td>84</td><td>Rudrasagar Lake</td><td>Tripura</td><td>2005</td><td>West Tripura</td></tr>
-                        <tr><td>85</td><td>Upper Ganga River</td><td>Uttar Pradesh</td><td>2005</td><td>Brijghat–Narora</td></tr>
-                        <tr><td>86</td><td>Nawabganj Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Unnao district</td></tr>
-                        <tr><td>87</td><td>Parvati Arga Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Gonda district</td></tr>
-                        <tr><td>88</td><td>Saman Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Mainpuri district</td></tr>
-                        <tr><td>89</td><td>Samaspur Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Raebareli district</td></tr>
-                        <tr><td>90</td><td>Sandi Bird Sanctuary</td><td>Uttar Pradesh</td><td>2019</td><td>Hardoi district</td></tr>
-                        <tr><td>91</td><td>Sarsai Nawar Jheel</td><td>Uttar Pradesh</td><td>2019</td><td>Etawah district</td></tr>
-                        <tr><td>92</td><td>Sur Sarovar (Keetham Lake)</td><td>Uttar Pradesh</td><td>2020</td><td>Agra district</td></tr>
-                        <tr><td>93</td><td>Haiderpur Wetland</td><td>Uttar Pradesh</td><td>2021</td><td>Bijnor district</td></tr>
-                        <tr><td>94</td><td>Bakhira Wildlife Sanctuary</td><td>Uttar Pradesh</td><td>2021</td><td>Sant Kabir Nagar</td></tr>
-                        <tr><td>95</td><td>Patna Bird Sanctuary</td><td>Uttar Pradesh</td><td>2025</td><td>Etah district</td></tr>
-                        <tr><td>96</td><td>Sheikha Jheel Bird Sanctuary</td><td>Uttar Pradesh</td><td>2026</td><td>Aligarh</td></tr>
-                        <tr><td>97</td><td>Asan Conservation Reserve</td><td>Uttarakhand</td><td>2020</td><td>Dehradun district</td></tr>
-                        <tr><td>98</td><td>East Calcutta Wetlands</td><td>West Bengal</td><td>2002</td><td>Kolkata region</td></tr>
-                        <tr><td>99</td><td>Sundarban Wetland</td><td>West Bengal</td><td>2019</td><td>Ganga–Brahmaputra delta</td></tr>
+                        <tr><td>1</td><td><span class="site-name" onclick="openSite('s1')">Kolleru lake</span></td><td>Andhra Pradesh</td><td>2002</td><td>Krishna–Godavari Delta</td></tr>
+                        <tr><td>2</td><td><span class="site-name" onclick="openSite('s2')">Deepor Beel</span></td><td>Assam</td><td>2002</td><td>Near Guwahati</td></tr>
+                        <tr><td>3</td><td><span class="site-name" onclick="openSite('s3')">Kabartal Wetland</span></td><td>Bihar</td><td>2020</td><td>Begusarai district</td></tr>
+                        <tr><td>4</td><td><span class="site-name" onclick="openSite('s4')">Nagi Bird Sanctuary</span></td><td>Bihar</td><td>2023</td><td>Jamui district</td></tr>
+                        <tr><td>5</td><td><span class="site-name" onclick="openSite('s5')">Nakti Bird Sanctuary</span></td><td>Bihar</td><td>2023</td><td>Jamui district</td></tr>
+                        <tr><td>6</td><td><span class="site-name" onclick="openSite('s6')">Gokul Jalashay</span></td><td>Bihar</td><td>2025</td><td>West Champaran</td></tr>
+                        <tr><td>7</td><td><span class="site-name" onclick="openSite('s7')">Udaipur Jheel</span></td><td>Bihar</td><td>2025</td><td>West Champaran</td></tr>
+                        <tr><td>8</td><td><span class="site-name" onclick="openSite('s8')">Gogabil Lake</span></td><td>Bihar</td><td>2025</td><td>Katihar district</td></tr>
+                        <tr><td>9</td><td><span class="site-name" onclick="openSite('s9')">Kopra Jalashay</span></td><td>Chhattisgarh</td><td>2025</td><td>Balodabazar district</td></tr>
+                        <tr><td>10</td><td><span class="site-name" onclick="openSite('s10')">Nalsarovar Bird Sanctuary</span></td><td>Gujarat</td><td>2012</td><td>Ahmedabad district</td></tr>
+                        <tr><td>11</td><td><span class="site-name" onclick="openSite('s11')">Wadhvana Wetland</span></td><td>Gujarat</td><td>2021</td><td>Vadodara district</td></tr>
+                        <tr><td>12</td><td><span class="site-name" onclick="openSite('s12')">Thol Lake Wildlife Sanctuary</span></td><td>Gujarat</td><td>2021</td><td>Mehsana district</td></tr>
+                        <tr><td>13</td><td><span class="site-name" onclick="openSite('s13')">Khijadia Wildlife Sanctuary</span></td><td>Gujarat</td><td>2021</td><td>Jamnagar district</td></tr>
+                        <tr><td>14</td><td><span class="site-name" onclick="openSite('s14')">Chhari Dhand</span></td><td>Gujarat</td><td>2025</td><td>Kutch district</td></tr>
+                        <tr><td>15</td><td><span class="site-name" onclick="openSite('s15')">Nanda Lake</span></td><td>Goa</td><td>2022</td><td>North Goa</td></tr>
+                        <tr><td>16</td><td><span class="site-name" onclick="openSite('s16')">Sultanpur National Park</span></td><td>Haryana</td><td>2021</td><td>Gurugram district</td></tr>
+                        <tr><td>17</td><td><span class="site-name" onclick="openSite('s17')">Bhindawas Wildlife Sanctuary</span></td><td>Haryana</td><td>2021</td><td>Jjhajjar district</td></tr>
+                        <tr><td>18</td><td><span class="site-name" onclick="openSite('s18')">Pong Dam Lake</span></td><td>Himachal Pradesh</td><td>2002</td><td>Kangra district</td></tr>
+                        <tr><td>19</td><td><span class="site-name" onclick="openSite('s19')">Chandertal Wetland</span></td><td>Himachal Pradesh</td><td>2005</td><td>Lahaul–Spiti</td></tr>
+                        <tr><td>20</td><td><span class="site-name" onclick="openSite('s20')">Renuka Wetland</span></td><td>Himachal Pradesh</td><td>2005</td><td>Sirmaur district</td></tr>
+                        <tr><td>21</td><td><span class="site-name" onclick="openSite('s21')">Wular Lake</span></td><td>Jammu & Kashmir</td><td>1990</td><td>Bandipora district</td></tr>
+                        <tr><td>22</td><td><span class="site-name" onclick="openSite('s22')">Surinsar–Mansar Lakes</span></td><td>Jammu & Kashmir</td><td>2005</td><td>Near Jammu</td></tr>
+                        <tr><td>23</td><td><span class="site-name" onclick="openSite('s23')">Hokera Wetland</span></td><td>Jammu & Kashmir</td><td>2005</td><td>Srinagar district</td></tr>
+                        <tr><td>24</td><td><span class="site-name" onclick="openSite('s24')">Hygam Wetland Conservation Reserve</span></td><td>Jammu & Kashmir</td><td>2022</td><td>Baramulla district</td></tr>
+                        <tr><td>25</td><td><span class="site-name" onclick="openSite('s25')">Shallabugh Wetland Conservation Reserve</span></td><td>Jammu & Kashmir</td><td>2022</td><td>Ganderbal district</td></tr>
+                        <tr><td>26</td><td><span class="site-name" onclick="openSite('s26')">Udhwa Lake Bird Sanctuary</span></td><td>Jharkhand</td><td>2024</td><td>Sahibganj district</td></tr>
+                        <tr><td>27</td><td><span class="site-name" onclick="openSite('s27')">Ranganathittu Bird Sanctuary</span></td><td>Karnataka</td><td>2022</td><td>Mandya district</td></tr>
+                        <tr><td>28</td><td><span class="site-name" onclick="openSite('s28')">Ankasamudra Bird Conservation Reserve</span></td><td>Karnataka</td><td>2023</td><td>Ballari district</td></tr>
+                        <tr><td>29</td><td><span class="site-name" onclick="openSite('s29')">Aghanashini Estuary</span></td><td>Karnataka</td><td>2023</td><td>Uttara Kannada</td></tr>
+                        <tr><td>30</td><td><span class="site-name" onclick="openSite('s30')">Magadi Kere Conservation Reserve</span></td><td>Karnataka</td><td>2023</td><td>Gadag district</td></tr>
+                        <tr><td>31</td><td><span class="site-name" onclick="openSite('s31')">Ashtamudi Wetland</span></td><td>Kerala</td><td>2002</td><td>Kollam district</td></tr>
+                        <tr><td>32</td><td><span class="site-name" onclick="openSite('s32')">Sasthamkotta Lake</span></td><td>Kerala</td><td>2002</td><td>Kollam district</td></tr>
+                        <tr><td>33</td><td><span class="site-name" onclick="openSite('s33')">Vembanad-Kol Wetland</span></td><td>Kerala</td><td>2002</td><td>Alappuzha–Kottayam</td></tr>
+                        <tr><td>34</td><td><span class="site-name" onclick="openSite('s34')">Tso Kar Wetland Complex</span></td><td>Ladakh</td><td>2020</td><td>Changthang region</td></tr>
+                        <tr><td>35</td><td><span class="site-name" onclick="openSite('s35')">Tsomoriri Lake</span></td><td>Ladakh</td><td>2002</td><td>Changthang plateau</td></tr>
+                        <tr><td>36</td><td><span class="site-name" onclick="openSite('s36')">Bhoj Wetlands</span></td><td>Madhya Pradesh</td><td>2002</td><td>Bhopal</td></tr>
+                        <tr><td>37</td><td><span class="site-name" onclick="openSite('s37')">Sirpur Wetland</span></td><td>Madhya Pradesh</td><td>2022</td><td>Indore district</td></tr>
+                        <tr><td>38</td><td><span class="site-name" onclick="openSite('s38')">Sakhya Sagar</span></td><td>Madhya Pradesh</td><td>2022</td><td>Shivpuri district</td></tr>
+                        <tr><td>39</td><td><span class="site-name" onclick="openSite('s39')">Yashwant Sagar</span></td><td>Madhya Pradesh</td><td>2022</td><td>Indore district</td></tr>
+                        <tr><td>40</td><td><span class="site-name" onclick="openSite('s40')">Tawa Reservoir</span></td><td>Madhya Pradesh</td><td>2024</td><td>Narmadapuram district</td></tr>
+                        <tr><td>41</td><td><span class="site-name" onclick="openSite('s41')">Nandur Madhameshwar</span></td><td>Maharashtra</td><td>2019</td><td>Nashik district</td></tr>
+                        <tr><td>42</td><td><span class="site-name" onclick="openSite('s42')">Lonar Lake</span></td><td>Maharashtra</td><td>2020</td><td>Buldhana district</td></tr>
+                        <tr><td>43</td><td><span class="site-name" onclick="openSite('s43')">Thane Creek</span></td><td>Maharashtra</td><td>2022</td><td>Mumbai–Thane</td></tr>
+                        <tr><td>44</td><td><span class="site-name" onclick="openSite('s44')">Loktak Lake</span></td><td>Manipur</td><td>1990</td><td>Bishnupur district</td></tr>
+                        <tr><td>45</td><td><span class="site-name" onclick="openSite('s45')">Pala Wetland</span></td><td>Mizoram</td><td>2021</td><td>Siaha district</td></tr>
+                        <tr><td>46</td><td><span class="site-name" onclick="openSite('s46')">Chilika Lake</span></td><td>Odisha</td><td>1981</td><td>Puri–Khordha–Ganjam</td></tr>
+                        <tr><td>47</td><td><span class="site-name" onclick="openSite('s47')">Bhitarkanika Mangroves</span></td><td>Odisha</td><td>2002</td><td>Kendrapara district</td></tr>
+                        <tr><td>48</td><td><span class="site-name" onclick="openSite('s48')">Satkosia Gorge</span></td><td>Odisha</td><td>2021</td><td>Angul district</td></tr>
+                        <tr><td>49</td><td><span class="site-name" onclick="openSite('s49')">Tampara Lake</span></td><td>Odisha</td><td>2021</td><td>Ganjam district</td></tr>
+                        <tr><td>50</td><td><span class="site-name" onclick="openSite('s50')">Hirakud Reservoir</span></td><td>Odisha</td><td>2021</td><td>Sambalpur district</td></tr>
+                        <tr><td>51</td><td><span class="site-name" onclick="openSite('s51')">Ansupa Lake</span></td><td>Odisha</td><td>2021</td><td>Cuttack district</td></tr>
+                        <tr><td>52</td><td><span class="site-name" onclick="openSite('s52')">Harike Wetland</span></td><td>Punjab</td><td>1990</td><td>Beas–Sutlej confluence</td></tr>
+                        <tr><td>53</td><td><span class="site-name" onclick="openSite('s53')">Kanjli Lake</span></td><td>Punjab</td><td>2002</td><td>Kapurthala district</td></tr>
+                        <tr><td>54</td><td><span class="site-name" onclick="openSite('s54')">Ropar Lake</span></td><td>Punjab</td><td>2002</td><td>Rupnagar district</td></tr>
+                        <tr><td>55</td><td><span class="site-name" onclick="openSite('s55')">Beas Conservation Reserve</span></td><td>Punjab</td><td>2019</td><td>Beas river stretch</td></tr>
+                        <tr><td>56</td><td><span class="site-name" onclick="openSite('s56')">Keshopur-Miani Reserve</span></td><td>Punjab</td><td>2019</td><td>Gurdaspur district</td></tr>
+                        <tr><td>57</td><td><span class="site-name" onclick="openSite('s57')">Nangal Wildlife Sanctuary</span></td><td>Punjab</td><td>2019</td><td>Rupnagar district</td></tr>
+                        <tr><td>58</td><td><span class="site-name" onclick="openSite('s58')">Keoladeo Ghana National Park</span></td><td>Rajasthan</td><td>1981</td><td>Bharatpur district</td></tr>
+                        <tr><td>59</td><td><span class="site-name" onclick="openSite('s59')">Sambhar Lake</span></td><td>Rajasthan</td><td>1990</td><td>Jaipur–Nagaur</td></tr>
+                        <tr><td>60</td><td><span class="site-name" onclick="openSite('s60')">Menar Wetland Complex</span></td><td>Rajasthan</td><td>2025</td><td>Udaipur district</td></tr>
+                        <tr><td>61</td><td><span class="site-name" onclick="openSite('s61')">Khichan Wetland</span></td><td>Rajasthan</td><td>2025</td><td>Phalodi</td></tr>
+                        <tr><td>62</td><td><span class="site-name" onclick="openSite('s62')">Siliserh Lake</span></td><td>Rajasthan</td><td>2025</td><td>Alwar district</td></tr>
+                        <tr><td>63</td><td><span class="site-name" onclick="openSite('s63')">Khecheopalri Wetland</span></td><td>Sikkim</td><td>2024</td><td>West Sikkim</td></tr>
+                        <tr><td>64</td><td><span class="site-name" onclick="openSite('s64')">Point Calimere Wildlife and bird Sanctuary</span></td><td>Tamil Nadu</td><td>2002</td><td>Nagapattinam district</td></tr>
+                        <tr><td>65</td><td><span class="site-name" onclick="openSite('s65')">Koonthankulam Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2021</td><td>Tirunelveli district</td></tr>
+                        <tr><td>66</td><td><span class="site-name" onclick="openSite('s66')">Chitrangudi Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2021</td><td>Ramanathapuram district</td></tr>
+                        <tr><td>67</td><td><span class="site-name" onclick="openSite('s67')">Karikili Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram district</td></tr>
+                        <tr><td>68</td><td><span class="site-name" onclick="openSite('s68')">Pichavaram Mangroves</span></td><td>Tamil Nadu</td><td>2022</td><td>Cuddalore district</td></tr>
+                        <tr><td>69</td><td><span class="site-name" onclick="openSite('s69')">Pallikaranai Marsh reserve forest</span></td><td>Tamil Nadu</td><td>2022</td><td>Chennai</td></tr>
+                        <tr><td>70</td><td><span class="site-name" onclick="openSite('s70')">Gulf of Mannar Marine Biosphere Reserve</span></td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram–Thoothukudi</td></tr>
+                        <tr><td>71</td><td><span class="site-name" onclick="openSite('s71')">Vembannur Wetland</span></td><td>Tamil Nadu</td><td>2022</td><td>Kanyakumari district</td></tr>
+                        <tr><td>72</td><td><span class="site-name" onclick="openSite('s72')">Vellode Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2022</td><td>Erode district</td></tr>
+                        <tr><td>73</td><td><span class="site-name" onclick="openSite('s73')">Udhayamarthandapuram Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2022</td><td>Tiruvarur district</td></tr>
+                        <tr><td>74</td><td><span class="site-name" onclick="openSite('s74')">Vedanthangal Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2022</td><td>Chengalpattu district</td></tr>
+                        <tr><td>75</td><td><span class="site-name" onclick="openSite('s75')">Suchindram–Theroor Wetland</span></td><td>Tamil Nadu</td><td>2022</td><td>Kanyakumari district</td></tr>
+                        <tr><td>76</td><td><span class="site-name" onclick="openSite('s76')">Vaduvur Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2022</td><td>Tiruvarur district</td></tr>
+                        <tr><td>77</td><td><span class="site-name" onclick="openSite('s77')">Kanjirankulam Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2022</td><td>Ramanathapuram district</td></tr>
+                        <tr><td>78</td><td><span class="site-name" onclick="openSite('s78')">Karaivetti Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2023</td><td>Ariyalur district</td></tr>
+                        <tr><td>79</td><td><span class="site-name" onclick="openSite('s79')">Longwood Shola reserve forest</span></td><td>Tamil Nadu</td><td>2023</td><td>Nilgiris district</td></tr>
+                        <tr><td>80</td><td><span class="site-name" onclick="openSite('s80')">Kazhuveli Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2024</td><td>Villupuram district</td></tr>
+                        <tr><td>81</td><td><span class="site-name" onclick="openSite('s81')">Nanjarayan Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2024</td><td>Tiruppur district</td></tr>
+                        <tr><td>82</td><td><span class="site-name" onclick="openSite('s82')">Sakkarakottai Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2024</td><td>Ramanathapuram district</td></tr>
+                        <tr><td>83</td><td><span class="site-name" onclick="openSite('s83')">Therthangal Bird Sanctuary</span></td><td>Tamil Nadu</td><td>2024</td><td>Sivaganga district</td></tr>
+                        <tr><td>84</td><td><span class="site-name" onclick="openSite('s84')">Rudrasagar Lake</span></td><td>Tripura</td><td>2005</td><td>West Tripura</td></tr>
+                        <tr><td>85</td><td><span class="site-name" onclick="openSite('s85')">Upper Ganga River</span></td><td>Uttar Pradesh</td><td>2005</td><td>Brijghat–Narora</td></tr>
+                        <tr><td>86</td><td><span class="site-name" onclick="openSite('s86')">Nawabganj Bird Sanctuary</span></td><td>Uttar Pradesh</td><td>2019</td><td>Unnao district</td></tr>
+                        <tr><td>87</td><td><span class="site-name" onclick="openSite('s87')">Parvati Arga Bird Sanctuary</span></td><td>Uttar Pradesh</td><td>2019</td><td>Gonda district</td></tr>
+                        <tr><td>88</td><td><span class="site-name" onclick="openSite('s88')">Saman Bird Sanctuary</span></td><td>Uttar Pradesh</td><td>2019</td><td>Mainpuri district</td></tr>
+                        <tr><td>89</td><td><span class="site-name" onclick="openSite('s89')">Samaspur Bird Sanctuary</span></td><td>Uttar Pradesh</td><td>2019</td><td>Raebareli district</td></tr>
+                        <tr><td>90</td><td><span class="site-name" onclick="openSite('s90')">Sandi Bird Sanctuary</span></td><td>Uttar Pradesh</td><td>2019</td><td>Hardoi district</td></tr>
+                        <tr><td>91</td><td><span class="site-name" onclick="openSite('s91')">Sarsai Nawar Jheel</span></td><td>Uttar Pradesh</td><td>2019</td><td>Etawah district</td></tr>
+                        <tr><td>92</td><td><span class="site-name" onclick="openSite('s92')">Sur Sarovar (Keetham Lake)</span></td><td>Uttar Pradesh</td><td>2020</td><td>Agra district</td></tr>
+                        <tr><td>93</td><td><span class="site-name" onclick="openSite('s93')">Haiderpur Wetland</span></td><td>Uttar Pradesh</td><td>2021</td><td>Bijnor district</td></tr>
+                        <tr><td>94</td><td><span class="site-name" onclick="openSite('s94')">Bakhira Wildlife Sanctuary</span></td><td>Uttar Pradesh</td><td>2021</td><td>Sant Kabir Nagar</td></tr>
+                        <tr><td>95</td><td><span class="site-name" onclick="openSite('s95')">Patna Bird Sanctuary</span></td><td>Uttar Pradesh</td><td>2025</td><td>Etah district</td></tr>
+                        <tr><td>96</td><td><span class="site-name" onclick="openSite('s96')">Sheikha Jheel Bird Sanctuary</span></td><td>Uttar Pradesh</td><td>2026</td><td>Aligarh</td></tr>
+                        <tr><td>97</td><td><span class="site-name" onclick="openSite('s97')">Asan Conservation Reserve</span></td><td>Uttarakhand</td><td>2020</td><td>Dehradun district</td></tr>
+                        <tr><td>98</td><td><span class="site-name" onclick="openSite('s98')">East Calcutta Wetlands</span></td><td>West Bengal</td><td>2002</td><td>Kolkata region</td></tr>
+                        <tr><td>99</td><td><span class="site-name" onclick="openSite('s99')">Sundarban Wetland</span></td><td>West Bengal</td><td>2019</td><td>Ganga–Brahmaputra delta</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -917,48 +880,148 @@
         }
 
         /* ==========================================================
-           THE FINAL APPLE-SAFE JAVASCRIPT
-           Absolutely NO display: none. NO JavaScript timeouts.
-           Completely clean execution.
+           RAMSAR DATA DICTIONARY - ALL 99 SITES
            ========================================================== */
+        const ramsarData = {
+            "s1": { name: "Kolleru Lake", state: "Andhra Pradesh", year: "2002", area: "901 km²", district: "Krishna–Godavari Delta", imp: "One of India's largest freshwater lakes, flood buffer between Krishna & Godavari, major migratory bird habitat, rich fisheries", thr: "Aquaculture, encroachment, pollution, invasive weeds, siltation" },
+            "s2": { name: "Deepor Beel", state: "Assam", year: "2002", area: "40 km²", district: "Near Guwahati", imp: "Permanent freshwater wetland, Brahmaputra floodplain, Important Bird Area, elephant corridor, rich fish diversity", thr: "Urban encroachment, sewage, solid waste, railway disturbance, pollution" },
+            "s3": { name: "Kabartal Wetland", state: "Bihar", year: "2020", area: "26.2 km²", district: "Begusarai district", imp: "Asia's largest freshwater oxbow lake, Central Asian Flyway site, threatened birds, flood regulation", thr: "Encroachment, agricultural runoff, siltation, water diversion, invasive species" },
+            "s4": { name: "Nagi Bird Sanctuary", state: "Bihar", year: "2023", area: "2.06 km²", district: "Jamui district", imp: "Reservoir wetland, wintering ground for migratory birds, Central Asian Flyway, rich avifauna", thr: "Water-level fluctuations, human disturbance, catchment degradation, invasive vegetation" },
+            "s5": { name: "Nakti Bird Sanctuary", state: "Bihar", year: "2023", area: "3.33 km²", district: "Jamui district", imp: "Reservoir wetland, important migratory bird habitat, Central Asian Flyway, aquatic biodiversity", thr: "Water-level changes, siltation, invasive plants, human disturbance" },
+            "s6": { name: "Gokul Jalashay", state: "Bihar", year: "2025", area: "4.48 km²", district: "West Champaran", imp: "Irrigation reservoir, supports migratory birds, rich wetland biodiversity, fish habitat", thr: "Siltation, pollution, invasive aquatic vegetation, human pressure" },
+            "s7": { name: "Udaipur Jheel", state: "Bihar", year: "2025", area: "3.19 km²", district: "West Champaran", imp: "Floodplain wetland, bird habitat, aquatic biodiversity, fisheries", thr: "Encroachment, pollution, siltation, invasive weeds" },
+            "s8": { name: "Gogabil Lake", state: "Bihar", year: "2025", area: "2.18 km²", district: "Katihar district", imp: "Oxbow lake, Central Asian Flyway stopover, rich fish diversity, community-managed wetland", thr: "Siltation, pollution, invasive weeds, human disturbance" },
+            "s9": { name: "Kopra Jalashay", state: "Chhattisgarh", year: "2025", area: "3.58 km²", district: "Balodabazar district", imp: "Chhattisgarh's first Ramsar Site, irrigation reservoir, important waterbird habitat, wetland biodiversity", thr: "Pollution, catchment degradation, invasive plants, water-level fluctuations" },
+            "s10": { name: "Nalsarovar Bird Sanctuary", state: "Gujarat", year: "2012", area: "120 km²", district: "Ahmedabad district", imp: "Gujarat's largest natural wetland, internationally important bird sanctuary, Central Asian Flyway, shallow saline lake", thr: "Water extraction, salinity changes, tourism pressure, pollution, invasive species" },
+            "s11": { name: "Wadhvana Wetland", state: "Gujarat", year: "2021", area: "6.30 km²", district: "Vadodara district", imp: "Man-made reservoir, major wintering site for migratory waterbirds, Central Asian Flyway, supports rich aquatic biodiversity", thr: "Water-level fluctuations, pollution, invasive species, human disturbance" },
+            "s12": { name: "Thol Lake Wildlife Sanctuary", state: "Gujarat", year: "2021", area: "6.99 km²", district: "Mehsana district", imp: "Shallow freshwater wetland, important breeding and wintering ground for birds, Central Asian Flyway, rich wetland biodiversity", thr: "Encroachment, pollution, water abstraction, invasive weeds, disturbance" },
+            "s13": { name: "Khijadia Wildlife Sanctuary", state: "Gujarat", year: "2021", area: "5.12 km²", district: "Jamnagar district", imp: "Unique freshwater–marine ecosystem, mangroves with mudflats, supports large migratory bird population, high biodiversity", thr: "Salinity changes, invasive Prosopis, pollution, habitat degradation" },
+            "s14": { name: "Chhari Dhand", state: "Gujarat", year: "2025", area: "227 km²", district: "Kutch district", imp: "Seasonal saline wetland between Banni grasslands & Rann of Kutch, major wintering site for migratory birds, supports over 250 bird species", thr: "Irregular rainfall, habitat degradation, invasive vegetation, human disturbance" },
+            "s15": { name: "Nanda Lake", state: "Goa", year: "2022", area: "0.42 km²", district: "North Goa", imp: "Freshwater marsh, supports migratory birds, aquatic biodiversity, groundwater recharge", thr: "Encroachment, pollution, invasive plants, siltation" },
+            "s16": { name: "Sultanpur National Park", state: "Haryana", year: "2021", area: "1.43 km²", district: "Gurugram district", imp: "Important bird sanctuary, Central Asian Flyway stopover, breeding and wintering waterbirds", thr: "Urbanization, reduced water availability, pollution, invasive vegetation" },
+            "s17": { name: "Bhindawas Wildlife Sanctuary", state: "Haryana", year: "2021", area: "4.12 km²", district: "Jjhajjar district", imp: "Haryana's largest wetland, major habitat for migratory birds, groundwater recharge, rich aquatic biodiversity", thr: "Water scarcity, eutrophication, pollution, invasive weeds" },
+            "s18": { name: "Pong Dam Lake", state: "Himachal Pradesh", year: "2002", area: "156.62 km²", district: "Kangra district", imp: "Large reservoir on Beas River, internationally important waterbird habitat, supports fish diversity, flood regulation", thr: "Water-level fluctuations, siltation, pollution, human disturbance" },
+            "s19": { name: "Chandertal Wetland", state: "Himachal Pradesh", year: "2005", area: "0.49 km²", district: "Lahaul–Spiti", imp: "High-altitude oligotrophic lake, Himalayan biodiversity, supports rare alpine flora & fauna, climate-sensitive ecosystem", thr: "Climate change, tourism pressure, grazing, habitat disturbance" },
+            "s20": { name: "Renuka Wetland", state: "Himachal Pradesh", year: "2005", area: "0.20 km²", district: "Sirmaur district", imp: "Largest natural lake in Himachal Pradesh, sacred wetland, rich aquatic biodiversity, supports local wildlife", thr: "Siltation, pollution, encroachment, tourism pressure" },
+            "s21": { name: "Wular Lake", state: "Jammu & Kashmir", year: "1990", area: "189 km²", district: "Bandipora district", imp: "One of Asia's largest freshwater lakes, Jhelum flood regulation, rich fish diversity, major migratory bird habitat", thr: "Siltation, encroachment, willow plantations, pollution, weed infestation" },
+            "s22": { name: "Surinsar–Mansar Lakes", state: "Jammu & Kashmir", year: "2005", area: "3.5 km²", district: "Near Jammu", imp: "Twin freshwater lakes, sacred wetlands, rich aquatic biodiversity, important waterbird habitat", thr: "Pollution, tourism pressure, catchment degradation, invasive species" },
+            "s23": { name: "Hokera Wetland", state: "Jammu & Kashmir", year: "2005", area: "13.75 km²", district: "Srinagar district", imp: "Only remaining natural wetland in Kashmir Valley, major staging ground for migratory birds, floodplain ecosystem", thr: "Encroachment, siltation, pollution, weed infestation, urban pressure" },
+            "s24": { name: "Hygam Wetland Conservation Reserve", state: "Jammu & Kashmir", year: "2022", area: "8.02 km²", district: "Baramulla district", imp: "Floodplain wetland linked to Wular Lake, breeding and wintering habitat for waterbirds, fish nursery", thr: "Siltation, pollution, encroachment, invasive aquatic vegetation" },
+            "s25": { name: "Shallabugh Wetland Conservation Reserve", state: "Jammu & Kashmir", year: "2022", area: "16.75 km²", district: "Ganderbal district", imp: "Important floodplain wetland, Central Asian Flyway, rich bird and fish diversity, flood regulation", thr: "Encroachment, pollution, siltation, excessive weed growth" },
+            "s26": { name: "Udhwa Lake Bird Sanctuary", state: "Jharkhand", year: "2024", area: "9.36 km²", district: "Sahibganj district", imp: "Jharkhand's only bird sanctuary, twin oxbow lakes, important migratory bird habitat, rich fisheries", thr: "Siltation, pollution, invasive weeds, human disturbance" },
+            "s27": { name: "Ranganathittu Bird Sanctuary", state: "Karnataka", year: "2022", area: "5.18 km²", district: "Mandya district", imp: "Largest bird sanctuary in Karnataka, Cauvery river islands, nesting site for colonial waterbirds, crocodile habitat", thr: "Water-level fluctuations, tourism pressure, pollution, invasive plants" },
+            "s28": { name: "Ankasamudra Bird Conservation Reserve", state: "Karnataka", year: "2023", area: "0.99 km²", district: "Ballari district", imp: "Ancient irrigation tank, important habitat for migratory birds, supports wetland biodiversity", thr: "Water scarcity, siltation, pollution, invasive vegetation" },
+            "s29": { name: "Aghanashini Estuary", state: "Karnataka", year: "2023", area: "48.01 km²", district: "Uttara Kannada", imp: "Pristine free-flowing estuary, mangroves, mudflats, oyster beds, high marine and estuarine biodiversity", thr: "Unsustainable development, pollution, sand mining, habitat alteration" },
+            "s30": { name: "Magadi Kere Conservation Reserve", state: "Karnataka", year: "2023", area: "0.54 km²", district: "Gadag district", imp: "Important breeding site of Bar-headed Goose in South India, freshwater wetland, supports diverse waterbirds", thr: "Water shortage, pollution, human disturbance, invasive plants" },
+            "s31": { name: "Ashtamudi Wetland", state: "Kerala", year: "2002", area: "61.4 km²", district: "Kollam district", imp: "Second-largest estuarine ecosystem in Kerala, gateway to Kerala backwaters, rich mangroves, clam fishery, migratory birds", thr: "Pollution, sand mining, encroachment, overfishing, invasive species" },
+            "s32": { name: "Sasthamkotta Lake", state: "Kerala", year: "2002", area: "3.73 km²", district: "Kollam district", imp: "Kerala's largest freshwater lake, major drinking water source, rich freshwater biodiversity", thr: "Pollution, water extraction, catchment degradation, invasive species" },
+            "s33": { name: "Vembanad-Kol Wetland", state: "Kerala", year: "2002", area: "1,512.5 km²", district: "Alappuzha–Kottayam", imp: "India's largest wetland system, longest lake in India, Ramsar site supporting Kuttanad agriculture, fisheries, migratory birds", thr: "Pollution, reclamation, invasive weeds, sand mining, salinity changes" },
+            "s34": { name: "Tso Kar Wetland Complex", state: "Ladakh", year: "2020", area: "95.77 km²", district: "Changthang region", imp: "High-altitude saline wetland, breeding habitat for Black-necked Crane, unique Himalayan biodiversity", thr: "Climate change, tourism, grazing pressure, habitat disturbance" },
+            "s35": { name: "Tsomoriri Lake", state: "Ladakh", year: "2002", area: "120 km²", district: "Changthang plateau", imp: "High-altitude freshwater lake, breeding ground for Black-necked Crane, habitat for Tibetan Wild Ass and migratory birds", thr: "Climate change, tourism, grazing, habitat disturbance" },
+            "s36": { name: "Bhoj Wetlands", state: "Madhya Pradesh", year: "2002", area: "32.01 km²", district: "Bhopal", imp: "Upper & Lower Bhoj lakes, major drinking water source for Bhopal, rich bird and fish diversity", thr: "Urban pollution, sewage, eutrophication, encroachment" },
+            "s37": { name: "Sirpur Wetland", state: "Madhya Pradesh", year: "2022", area: "1.61 km²", district: "Indore district", imp: "Human-made wetland, important habitat for migratory birds, rich aquatic biodiversity", thr: "Pollution, encroachment, water-level fluctuations, invasive plants" },
+            "s38": { name: "Sakhya Sagar", state: "Madhya Pradesh", year: "2022", area: "2.48 km²", district: "Shivpuri district", imp: "Reservoir inside Madhav National Park, supports marsh crocodiles, waterbirds and diverse aquatic fauna", thr: "Siltation, pollution, water-level changes, human disturbance" },
+            "s39": { name: "Yashwant Sagar", state: "Madhya Pradesh", year: "2022", area: "8.23 km²", district: "Indore district", imp: "One of Central India's important bird habitats, supports migratory waterbirds, major water reservoir", thr: "Water shortage, pollution, eutrophication, invasive species" },
+            "s40": { name: "Tawa Reservoir", state: "Madhya Pradesh", year: "2024", area: "200.5 km²", district: "Narmadapuram district", imp: "Largest reservoir in Madhya Pradesh, supports fisheries, migratory birds, Satpura ecosystem", thr: "Water-level fluctuations, siltation, pollution, invasive aquatic weeds" },
+            "s41": { name: "Nandur Madhameshwar", state: "Maharashtra", year: "2019", area: "14.77 km²", district: "Nashik district", imp: "Deccan's largest floodplain wetland, confluence of Godavari & Kadwa rivers, important migratory bird habitat, rich fish diversity", thr: "Siltation, pollution, water-level fluctuations, invasive weeds" },
+            "s42": { name: "Lonar Lake", state: "Maharashtra", year: "2020", area: "4.27 km²", district: "Buldhana district", imp: "World's largest basaltic meteorite crater lake, unique saline-alkaline ecosystem, rich microbial diversity, geological significance", thr: "Pollution, eutrophication, invasive species, tourism pressure" },
+            "s43": { name: "Thane Creek", state: "Maharashtra", year: "2022", area: "65.21 km²", district: "Mumbai–Thane", imp: "India's largest creek, extensive mangroves, flamingo habitat, important estuarine ecosystem", thr: "Industrial pollution, sewage, mangrove loss, reclamation, plastic waste" },
+            "s44": { name: "Loktak Lake", state: "Manipur", year: "1990", area: "266 km²", district: "Bishnupur district", imp: "Northeast India's largest freshwater lake, home to Keibul Lamjao National Park & Sangai deer, unique floating phumdis", thr: "Phumdi degradation, hydrological changes, pollution, encroachment, overfishing" },
+            "s45": { name: "Pala Wetland", state: "Mizoram", year: "2021", area: "0.59 km²", district: "Siaha district", imp: "Freshwater wetland supporting migratory birds, fish diversity and local livelihoods", thr: "Pollution, encroachment, invasive plants, siltation" },
+            "s46": { name: "Chilika Lake", state: "Odisha", year: "1981", area: "1,165 km²", district: "Puri–Khordha–Ganjam", imp: "World's largest brackish water lagoon, Irrawaddy dolphins, major migratory bird destination, rich fisheries", thr: "Siltation, invasive species, pollution, aquaculture, climate change" },
+            "s47": { name: "Bhitarkanika Mangroves", state: "Odisha", year: "2002", area: "650 km²", district: "Kendrapara district", imp: "India's second-largest mangrove ecosystem, saltwater crocodile habitat, Olive Ridley turtles, rich estuarine biodiversity", thr: "Cyclones, erosion, pollution, illegal resource extraction, climate change" },
+            "s48": { name: "Satkosia Gorge", state: "Odisha", year: "2021", area: "981.96 km²", district: "Angul district", imp: "Mahanadi River gorge, riverine ecosystem, gharial and freshwater biodiversity, elephant & tiger landscape", thr: "Habitat degradation, pollution, sand mining, human disturbance" },
+            "s49": { name: "Tampara Lake", state: "Odisha", year: "2021", area: "3.04 km²", district: "Ganjam district", imp: "Coastal freshwater lagoon, migratory bird habitat, supports fisheries and wetland biodiversity", thr: "Encroachment, pollution, siltation, invasive aquatic weeds" },
+            "s50": { name: "Hirakud Reservoir", state: "Odisha", year: "2021", area: "654 km²", district: "Sambalpur district", imp: "One of India's largest man-made reservoirs, flood control, irrigation, fisheries, important waterbird habitat", thr: "Siltation, pollution, water-level fluctuations, invasive species" },
+            "s51": { name: "Ansupa Lake", state: "Odisha", year: "2021", area: "2.31 km²", district: "Cuttack district", imp: "Odisha's largest freshwater oxbow lake, important migratory bird habitat, rich aquatic biodiversity, floodplain ecosystem", thr: "Siltation, encroachment, pollution, invasive aquatic weeds" },
+            "s52": { name: "Harike Wetland", state: "Punjab", year: "1990", area: "41 km²", district: "Beas–Sutlej confluence", imp: "Largest wetland in North India, confluence of Beas & Sutlej, major migratory bird habitat, rich fish diversity", thr: "Pollution, siltation, water hyacinth, encroachment, industrial effluents" },
+            "s53": { name: "Kanjli Lake", state: "Punjab", year: "2002", area: "1.83 km²", district: "Kapurthala district", imp: "Smallest Ramsar Site in Punjab, Beas River wetland, important bird habitat, supports fisheries", thr: "Pollution, invasive weeds, siltation, human disturbance" },
+            "s54": { name: "Ropar Lake", state: "Punjab", year: "2002", area: "13.65 km²", district: "Rupnagar district", imp: "Riverine wetland on Sutlej, supports migratory birds, groundwater recharge, rich aquatic biodiversity", thr: "Industrial pollution, sewage, siltation, invasive aquatic plants" },
+            "s55": { name: "Beas Conservation Reserve", state: "Punjab", year: "2019", area: "64.29 km²", district: "Beas river stretch", imp: "Stretch of Beas River, habitat for Indus River Dolphin, Smooth-coated Otter, rich riverine biodiversity", thr: "Sand mining, pollution, overfishing, habitat degradation" },
+            "s56": { name: "Keshopur-Miani Reserve", state: "Punjab", year: "2019", area: "3.44 km²", district: "Gurdaspur district", imp: "Largest natural wetland in Punjab, important migratory bird habitat, supports fish and amphibians", thr: "Encroachment, pollution, siltation, invasive weeds" },
+            "s57": { name: "Nangal Wildlife Sanctuary", state: "Punjab", year: "2019", area: "1.16 km²", district: "Rupnagar district", imp: "Human-made reservoir on Sutlej, important wintering site for migratory birds, aquatic biodiversity", thr: "Water-level fluctuations, pollution, human disturbance, invasive plants" },
+            "s58": { name: "Keoladeo Ghana National Park", state: "Rajasthan", year: "1981", area: "28.73 km²", district: "Bharatpur district", imp: "UNESCO World Heritage Site, one of the world's finest bird sanctuaries, Central Asian Flyway, rich wetland biodiversity", thr: "Water scarcity, invasive Prosopis, habitat succession, climate variability" },
+            "s59": { name: "Sambhar Lake", state: "Rajasthan", year: "1990", area: "240 km²", district: "Jaipur–Nagaur", imp: "India's largest inland saline lake, major salt producer, flamingo habitat, unique saline ecosystem", thr: "Illegal salt extraction, groundwater depletion, pollution, habitat degradation" },
+            "s60": { name: "Menar Wetland Complex", state: "Rajasthan", year: "2025", area: "4.08 km²", district: "Udaipur district", imp: "Twin freshwater lakes, important stopover for migratory birds, supports rich aquatic biodiversity", thr: "Encroachment, pollution, invasive species, human disturbance" },
+            "s61": { name: "Khichan Wetland", state: "Rajasthan", year: "2025", area: "0.54 km²", district: "Phalodi", imp: "Artificial wetland, world-famous wintering site for Demoiselle Cranes, supports migratory birds and community-led conservation", thr: "Water scarcity, habitat degradation, human disturbance, climate change" },
+            "s62": { name: "Siliserh Lake", state: "Rajasthan", year: "2025", area: "10.57 km²", district: "Alwar district", imp: "Freshwater reservoir in Aravalli Hills, important waterbird habitat, supports aquatic biodiversity and groundwater recharge", thr: "Siltation, pollution, tourism pressure, invasive aquatic plants" },
+            "s63": { name: "Khecheopalri Wetland", state: "Sikkim", year: "2024", area: "0.04 km²", district: "West Sikkim", imp: "Sacred Himalayan lake, rich biodiversity, supports endemic flora and fauna, important cultural and ecological site", thr: "Siltation, tourism, catchment degradation, invasive vegetation" },
+            "s64": { name: "Point Calimere Wildlife and bird Sanctuary", state: "Tamil Nadu", year: "2002", area: "385 km²", district: "Nagapattinam district", imp: "Coastal wetland with mangroves, mudflats and salt marshes, major migratory bird habitat, Blackbuck and flamingo habitat", thr: "Coastal erosion, invasive Prosopis, pollution, habitat degradation" },
+            "s65": { name: "Koonthankulam Bird Sanctuary", state: "Tamil Nadu", year: "2021", area: "1.29 km²", district: "Tirunelveli district", imp: "One of South India's largest breeding grounds for resident and migratory birds, community-protected wetland", thr: "Water scarcity, habitat disturbance, pollution, invasive plants" },
+            "s66": { name: "Chitrangudi Bird Sanctuary", state: "Tamil Nadu", year: "2021", area: "2.60 km²", district: "Ramanathapuram district", imp: "Important nesting colony for herons, egrets and storks, supports rich wetland biodiversity", thr: "Water shortage, pollution, human disturbance, invasive vegetation" },
+            "s67": { name: "Karikili Bird Sanctuary", state: "Tamil Nadu", year: "2022", area: "0.61 km²", district: "Ramanathapuram district", imp: "Shallow freshwater wetland, important breeding and wintering habitat for waterbirds, rich aquatic biodiversity", thr: "Water scarcity, siltation, pollution, invasive weeds" },
+            "s68": { name: "Pichavaram Mangroves", state: "Tamil Nadu", year: "2022", area: "14.78 km²", district: "Cuddalore district", imp: "One of India's largest mangrove ecosystems, estuarine biodiversity, nursery for fish and crustaceans, coastal protection", thr: "Pollution, shrimp farming, habitat degradation, climate change" },
+            "s69": { name: "Pallikaranai Marsh reserve forest", state: "Tamil Nadu", year: "2022", area: "13.17 km²", district: "Chennai", imp: "One of the last natural urban wetlands in South India, flood mitigation, rich bird diversity, groundwater recharge", thr: "Urban encroachment, sewage, solid waste dumping, invasive species" },
+            "s70": { name: "Gulf of Mannar Marine Biosphere Reserve", state: "Tamil Nadu", year: "2022", area: "526.72 km²", district: "Ramanathapuram–Thoothukudi", imp: "India's first Marine Biosphere Reserve, coral reefs, seagrass beds, dugong habitat, exceptional marine biodiversity", thr: "Coral bleaching, overfishing, pollution, coastal development, climate change" },
+            "s71": { name: "Vembannur Wetland", state: "Tamil Nadu", year: "2022", area: "0.20 km²", district: "Kanyakumari district", imp: "Freshwater wetland, important habitat for resident and migratory birds, supports local fisheries and groundwater recharge", thr: "Encroachment, pollution, siltation, invasive aquatic plants" },
+            "s72": { name: "Vellode Bird Sanctuary", state: "Tamil Nadu", year: "2022", area: "0.77 km²", district: "Erode district", imp: "Irrigation tank supporting large populations of migratory waterbirds, breeding site for herons, egrets and ibises", thr: "Water scarcity, pollution, invasive weeds, human disturbance" },
+            "s73": { name: "Udhayamarthandapuram Bird Sanctuary", state: "Tamil Nadu", year: "2022", area: "0.45 km²", district: "Tiruvarur district", imp: "Seasonal irrigation tank, major breeding ground for colonial waterbirds, supports rich wetland biodiversity", thr: "Irregular water supply, pollution, siltation, invasive vegetation" },
+            "s74": { name: "Vedanthangal Bird Sanctuary", state: "Tamil Nadu", year: "2022", area: "0.30 km²", district: "Chengalpattu district", imp: "One of India's oldest bird sanctuaries, internationally important breeding colony for migratory and resident birds", thr: "Water shortage, pollution, urban pressure, habitat disturbance" },
+            "s75": { name: "Suchindram–Theroor Wetland", state: "Tamil Nadu", year: "2022", area: "0.94 km²", district: "Kanyakumari district", imp: "Network of irrigation tanks, important stopover for migratory birds, rich aquatic biodiversity", thr: "Encroachment, pollution, invasive species, water-level fluctuations" },
+            "s76": { name: "Vaduvur Bird Sanctuary", state: "Tamil Nadu", year: "2022", area: "1.29 km²", district: "Tiruvarur district", imp: "Large irrigation tank, important wintering and breeding habitat for migratory waterbirds, Central Asian Flyway site", thr: "Water scarcity, pollution, invasive weeds, human disturbance" },
+            "s77": { name: "Kanjirankulam Bird Sanctuary", state: "Tamil Nadu", year: "2022", area: "1.04 km²", district: "Ramanathapuram district", imp: "Breeding site for herons, ibises and storks, supports dryland wetland biodiversity", thr: "Water shortage, habitat degradation, pollution, invasive vegetation" },
+            "s78": { name: "Karaivetti Bird Sanctuary", state: "Tamil Nadu", year: "2023", area: "4.54 km²", district: "Ariyalur district", imp: "One of Tamil Nadu's largest inland wetlands, important wintering site for migratory ducks and waders, rich fish diversity", thr: "Siltation, water scarcity, pollution, invasive aquatic weeds" },
+            "s79": { name: "Longwood Shola reserve forest", state: "Tamil Nadu", year: "2023", area: "1.16 km²", district: "Nilgiris district", imp: "Rare shola forest ecosystem, perennial streams, endemic flora and fauna, important watershed", thr: "Invasive species, habitat fragmentation, fire, climate change" },
+            "s80": { name: "Kazhuveli Bird Sanctuary", state: "Tamil Nadu", year: "2024", area: "51.51 km²", district: "Villupuram district", imp: "One of South India's largest brackish water wetlands, major Central Asian Flyway stopover, supports migratory birds, fisheries and coastal biodiversity", thr: "Encroachment, pollution, siltation, invasive species, aquaculture" },
+            "s81": { name: "Nanjarayan Bird Sanctuary", state: "Tamil Nadu", year: "2024", area: "1.26 km²", district: "Tiruppur district", imp: "Freshwater irrigation tank, important habitat for migratory and resident waterbirds, supports fish diversity", thr: "Pollution, encroachment, invasive weeds, water scarcity" },
+            "s82": { name: "Sakkarakottai Bird Sanctuary", state: "Tamil Nadu", year: "2024", area: "2.30 km²", district: "Ramanathapuram district", imp: "Freshwater wetland supporting migratory birds, breeding habitat for waterbirds, rich aquatic biodiversity", thr: "Pollution, siltation, invasive aquatic plants, human disturbance" },
+            "s83": { name: "Therthangal Bird Sanctuary", state: "Tamil Nadu", year: "2024", area: "0.29 km²", district: "Sivaganga district", imp: "Small irrigation tank, nesting site for herons, ibises and storks, important breeding habitat", thr: "Water shortage, pollution, habitat disturbance, invasive vegetation" },
+            "s84": { name: "Rudrasagar Lake", state: "Tripura", year: "2005", area: "2.40 km²", district: "West Tripura", imp: "Freshwater lake, habitat for migratory birds, supports fisheries, home to Neermahal Palace", thr: "Siltation, encroachment, pollution, invasive aquatic weeds" },
+            "s85": { name: "Upper Ganga River", state: "Uttar Pradesh", year: "2005", area: "265.9 km²", district: "Brijghat–Narora", imp: "Riverine ecosystem supporting Ganges River Dolphin, Gharial, Otter, turtles and rich fish diversity", thr: "Pollution, sand mining, dams, overfishing, habitat degradation" },
+            "s86": { name: "Nawabganj Bird Sanctuary", state: "Uttar Pradesh", year: "2019", area: "2.25 km²", district: "Unnao district", imp: "Shallow freshwater wetland, important wintering habitat for migratory birds, rich aquatic biodiversity", thr: "Pollution, water shortage, invasive weeds, human disturbance" },
+            "s87": { name: "Parvati Arga Bird Sanctuary", state: "Uttar Pradesh", year: "2019", area: "7.22 km²", district: "Gonda district", imp: "Floodplain wetland, important stopover for migratory birds, supports fish and amphibians", thr: "Encroachment, pollution, siltation, invasive species" },
+            "s88": { name: "Saman Bird Sanctuary", state: "Uttar Pradesh", year: "2019", area: "5.26 km²", district: "Mainpuri district", imp: "Seasonal oxbow wetland, major wintering ground for migratory waterbirds, rich biodiversity", thr: "Water scarcity, encroachment, pollution, invasive weeds" },
+            "s89": { name: "Samaspur Bird Sanctuary", state: "Uttar Pradesh", year: "2019", area: "7.99 km²", district: "Raebareli district", imp: "Freshwater wetland, important breeding and wintering site for waterbirds, supports fish diversity", thr: "Encroachment, pollution, siltation, invasive vegetation" },
+            "s90": { name: "Sandi Bird Sanctuary", state: "Uttar Pradesh", year: "2019", area: "3.09 km²", district: "Hardoi district", imp: "Freshwater marsh, important habitat for migratory birds, rich wetland biodiversity", thr: "Water shortage, pollution, invasive weeds, human disturbance" },
+            "s91": { name: "Sarsai Nawar Jheel", state: "Uttar Pradesh", year: "2019", area: "1.75 km²", district: "Etawah district", imp: "Permanent marsh, important habitat for Sarus Crane, migratory waterbirds, rich wetland biodiversity", thr: "Encroachment, pollution, water shortage, invasive weeds" },
+            "s92": { name: "Sur Sarovar (Keetham Lake)", state: "Uttar Pradesh", year: "2020", area: "4.31 km²", district: "Agra district", imp: "Man-made freshwater lake, important habitat for migratory birds, supports fish diversity, bear rescue centre nearby", thr: "Pollution, water-level fluctuations, invasive species, human disturbance" },
+            "s93": { name: "Haiderpur Wetland", state: "Uttar Pradesh", year: "2021", area: "69.08 km²", district: "Bijnor district", imp: "Ganga floodplain wetland, major stopover for migratory birds, supports dolphins, turtles and rich fish diversity", thr: "Pollution, encroachment, invasive weeds, water regulation changes" },
+            "s94": { name: "Bakhira Wildlife Sanctuary", state: "Uttar Pradesh", year: "2021", area: "28.94 km²", district: "Sant Kabir Nagar", imp: "Largest natural floodplain wetland in Eastern Uttar Pradesh, important breeding and wintering site for migratory birds", thr: "Encroachment, pollution, overfishing, invasive aquatic plants" },
+            "s95": { name: "Patna Bird Sanctuary", state: "Uttar Pradesh", year: "2025", area: "1.09 km²", district: "Etah district", imp: "Seasonal wetland, supports migratory and resident birds, important breeding habitat", thr: "Water scarcity, pollution, habitat degradation, invasive weeds" },
+            "s96": { name: "Sheikha Jheel Bird Sanctuary", state: "Uttar Pradesh", year: "2026", area: "0.26 km²", district: "Aligarh", imp: "Natural freshwater wetland, important habitat for migratory waterbirds, groundwater recharge", thr: "Encroachment, pollution, siltation, invasive vegetation" },
+            "s97": { name: "Asan Conservation Reserve", state: "Uttarakhand", year: "2020", area: "4.44 km²", district: "Dehradun district", imp: "Confluence of Asan & Yamuna rivers, important migratory bird habitat, supports rich fish diversity", thr: "Water-level fluctuations, pollution, habitat disturbance, invasive species" },
+            "s98": { name: "East Calcutta Wetlands", state: "West Bengal", year: "2002", area: "125 km²", district: "Kolkata region", imp: "World's largest wastewater-fed aquaculture system, natural sewage treatment, fisheries, agriculture, rich biodiversity", thr: "Urban encroachment, pollution, land-use change, solid waste dumping" },
+            "s99": { name: "Sundarban Wetland", state: "West Bengal", year: "2019", area: "4,230 km²", district: "Ganga–Brahmaputra delta", imp: "World's largest mangrove ecosystem, habitat of Royal Bengal Tiger, estuarine biodiversity, cyclone buffer, blue carbon ecosystem", thr: "Sea-level rise, cyclones, erosion, salinity intrusion, climate change, habitat loss" }
+        };
 
-        function openSite(site) {
+        function openSite(id) {
             const modal = document.getElementById("siteModal");
             const title = document.getElementById("modalTitle");
             const content = document.getElementById("modalContent");
-
-            if (site === "kolleru") {
-                title.innerHTML = "Kolleru Lake";
+            
+            const data = ramsarData[id];
+            
+            if (data) {
+                title.innerHTML = data.name;
                 content.innerHTML = `
-                    <p><strong style="display:inline-block;width:90px;">State</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;Andhra Pradesh</p>
-                    <p><strong style="display:inline-block;width:90px;">Year</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;2002</p>
-                    <p><strong style="display:inline-block;width:90px;">Area</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;901 km²</p>
-                    <p><strong style="display:inline-block;width:90px;">District</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;Krishna–Godavari Delta</p>
-                    <div style="border-top: 1px solid var(--panel-border); margin: 16px 0;"></div>
-                    <p><strong>Importance:</strong></p>
-                    <p style="opacity: 0.8; font-size: 14px; margin-top: 4px;">Largest freshwater lake in India and an important habitat for migratory birds.</p>
+                    <p><strong style="display:inline-block;width:110px;">State</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;${data.state}</p>
+                    <p><strong style="display:inline-block;width:110px;">Year</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;${data.year}</p>
+                    <p><strong style="display:inline-block;width:110px;">Area</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;${data.area}</p>
+                    <p><strong style="display:inline-block;width:110px;">Location</strong><span style="display:inline-block;width:16px;text-align:center;">:</span>&nbsp;${data.district}</p>
+                    
+                    <div style="border-top: 1px solid var(--panel-border); margin: 20px 0;"></div>
+                    
+                    <p style="margin-bottom: 4px;"><strong>Importance:</strong></p>
+                    <p style="opacity: 0.8; font-size: 14.5px; margin-top: 0; line-height: 1.6; margin-bottom: 16px;">${data.imp}</p>
+                    
+                    <p style="margin-bottom: 4px;"><strong>Major Threats:</strong></p>
+                    <p style="opacity: 0.8; font-size: 14.5px; margin-top: 0; line-height: 1.6;">${data.thr}</p>
                 `;
             }
             
-            // Just add the class! CSS visibility handles EVERYTHING.
             modal.classList.add("active");
         }
 
         function closeSite() {
-            // Just remove the class! CSS visibility waits exactly 0.4s to hide automatically.
             document.getElementById("siteModal").classList.remove("active");
         }
 
         document.getElementById("siteModal").addEventListener("click", function(event) {
-            if (event.target === this) {
-                closeSite();
-            }
+            if (event.target === this) closeSite();
         });
         
         document.getElementById("siteModal").addEventListener("touchstart", function(event) {
-            if (event.target === this) {
-                closeSite();
-            }
+            if (event.target === this) closeSite();
         }, { passive: true });
          
     </script>
