@@ -321,11 +321,7 @@
     </header>
 
     <main>
-        <nav class="breadcrumbs" aria-label="breadcrumb">
-            <a href="index.html"><span class="nav-text">Home</span></a>
-            <span class="separator">/</span>
-            <span class="current">Ramsar Sites</span>
-        </nav>
+        <nav class="breadcrumbs" id="dynamicBreadcrumbNav" aria-label="breadcrumb"></nav>
         
         <!-- INSTRUCTION TEXT WITH BOLD DOT ADDED HERE -->
         <div class="instruction-text">&bull; Tap on Ramsar site names to know more</div>
@@ -692,6 +688,58 @@
     </footer>
 
     <script>
+        /* ==========================================================
+           DYNAMIC BREADCRUMB TRAIL ENGINE (Option A: truncates on
+           revisit instead of growing forever). Runs first so the
+           breadcrumb links exist in the DOM before the kinetic
+           portal engine below wraps/binds them.
+           ========================================================== */
+        (function buildDynamicBreadcrumbs() {
+            const container = document.getElementById('dynamicBreadcrumbNav');
+            if (!container) return;
+
+            const PAGE_PREFIX = "";
+            const CURRENT_PAGE = { name: "Ramsar Sites", path: "ramsarsites.html" };
+            const SEPARATOR_CLASS = "separator";
+            const CURRENT_CLASS = "current";
+            const HOME_PAGE = { name: "Home", path: "index.html" };
+
+            let trail = [];
+            try {
+                const stored = sessionStorage.getItem('breadcrumbTrail');
+                trail = stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                trail = [];
+            }
+
+            if (trail.length === 0 || trail[0].path !== HOME_PAGE.path) {
+                trail = [HOME_PAGE];
+            }
+
+            const existingIndex = trail.findIndex(step => step.path === CURRENT_PAGE.path);
+            if (existingIndex !== -1) {
+                trail = trail.slice(0, existingIndex + 1);
+            } else {
+                trail.push(CURRENT_PAGE);
+            }
+
+            try {
+                sessionStorage.setItem('breadcrumbTrail', JSON.stringify(trail));
+            } catch (e) { /* ignore */ }
+
+            let htmlMarkup = '';
+            trail.forEach((step, i) => {
+                const href = PAGE_PREFIX + step.path;
+                if (i === trail.length - 1) {
+                    htmlMarkup += `<span class="${CURRENT_CLASS}">${step.name}</span>`;
+                } else {
+                    htmlMarkup += `<a href="${href}">${step.name}</a><span class="${SEPARATOR_CLASS}">/</span>`;
+                }
+            });
+
+            container.innerHTML = htmlMarkup;
+        })();
+
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
         const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
@@ -921,7 +969,7 @@
             "s20": { name: "Renuka Wetland", state: "Himachal Pradesh", year: "2005", area: "0.20 km²", district: "Sirmaur district", imp: "Largest natural lake in Himachal Pradesh, sacred wetland, rich aquatic biodiversity, supports local wildlife", thr: "Siltation, pollution, encroachment, tourism pressure" },
             "s21": { name: "Wular Lake", state: "Jammu & Kashmir", year: "1990", area: "189 km²", district: "Bandipora district", imp: "One of Asia's largest freshwater lakes, Jhelum flood regulation, rich fish diversity, major migratory bird habitat", thr: "Siltation, encroachment, willow plantations, pollution, weed infestation" },
             "s22": { name: "Surinsar–Mansar Lakes", state: "Jammu & Kashmir", year: "2005", area: "3.5 km²", district: "Near Jammu", imp: "Twin freshwater lakes, sacred wetlands, rich aquatic biodiversity, important waterbird habitat", thr: "Pollution, tourism pressure, catchment degradation, invasive species" },
-            "s23": { name: "Hokera Wetland", state: "Jammu & Kashmir", year: "2005", area: "13.75 km²", district: "Srinagar district", imp: "Only remaining natural wetland in Kashmir Valley, major staging ground for migratory birds, floodplain ecosystem", thr: "Encroachment, siltation, pollution, weed infestation, urban pressure" },
+            "s23": { name: "Hokera Wetland", state: "Jammu & Kashmir", year: "2005", area: "13.75 km²", district: "Srinagar district", imp: "Only remaining natural wetland in Kashmir Valley, major staging ground for migratory birds, floodplain ecosystem", thr: "Encroachment, siltation, pollution, urban pressure" },
             "s24": { name: "Hygam Wetland Conservation Reserve", state: "Jammu & Kashmir", year: "2022", area: "8.02 km²", district: "Baramulla district", imp: "Floodplain wetland linked to Wular Lake, breeding and wintering habitat for waterbirds, fish nursery", thr: "Siltation, pollution, encroachment, invasive aquatic vegetation" },
             "s25": { name: "Shallabugh Wetland Conservation Reserve", state: "Jammu & Kashmir", year: "2022", area: "16.75 km²", district: "Ganderbal district", imp: "Important floodplain wetland, Central Asian Flyway, rich bird and fish diversity, flood regulation", thr: "Encroachment, pollution, siltation, excessive weed growth" },
             "s26": { name: "Udhwa Lake Bird Sanctuary", state: "Jharkhand", year: "2024", area: "9.36 km²", district: "Sahibganj district", imp: "Jharkhand's only bird sanctuary, twin oxbow lakes, important migratory bird habitat, rich fisheries", thr: "Siltation, pollution, invasive weeds, human disturbance" },
