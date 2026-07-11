@@ -13,19 +13,20 @@
       gtag('config', 'G-5VGX2K64Y4');
     </script>
     
-    <link id="favicon" rel="icon" type="image/png" href="favicon-light.png">
+    <!-- Absolute paths for the favicon so it loads perfectly everywhere -->
+    <link id="favicon" rel="icon" type="image/png" href="/favicon-light.png">
 
-<script>
-  const favicon = document.getElementById('favicon');
-  const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  function updateFavicon(e) {
-    favicon.href = e.matches ? 'favicon-dark.png' : 'favicon-light.png';
-  }
-  
-  updateFavicon(darkMode);
-  darkMode.addEventListener('change', updateFavicon);
-</script>
+    <script>
+      const favicon = document.getElementById('favicon');
+      const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+      
+      function updateFavicon(e) {
+        favicon.href = e.matches ? '/favicon-dark.png' : '/favicon-light.png';
+      }
+      
+      updateFavicon(darkMode);
+      darkMode.addEventListener('change', updateFavicon);
+    </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -122,26 +123,16 @@
 
         /* Premium Micro-Zoom Target Pulse */
         @keyframes capsuleHighlightPulse {
-            0% {
-                transform: scale(1);
-            }
-            30% {
-                transform: scale(1.015);
-                border-color: var(--text-main);
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            }
-            100% {
-                transform: scale(1);
-            }
+            0% { transform: scale(1); }
+            30% { transform: scale(1.015); border-color: var(--text-main); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); }
+            100% { transform: scale(1); }
         }
 
         .wide-capsule.activated-target {
             animation: capsuleHighlightPulse 1s var(--ease-premium) both;
         }
 
-        /* ==========================================================
-           HEADER PILL STRUCTURAL CONTAINER (MATCHES INDEX ACCENTS)
-           ========================================================== */
+        /* Top Header Navigation Shell */
         header {
             position: relative;
             background-color: var(--header-bg);
@@ -155,223 +146,53 @@
             transition: background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
         }
 
-        body:not(.light-mode) header {
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
+        body:not(.light-mode) header { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); }
 
         .header-inner-view {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            will-change: transform, opacity;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px; will-change: transform, opacity;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
         }
 
-        #headerMainView {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-            pointer-events: auto;
-            z-index: 2;
-        }
+        #headerMainView { opacity: 1; transform: translate3d(0, 0, 0); pointer-events: auto; z-index: 2; }
+        #headerSearchView { opacity: 0; transform: translate3d(0, calc(-1 * var(--cascade-distance)), 0); pointer-events: none; z-index: 1; }
 
-        #headerSearchView {
-            opacity: 0;
-            transform: translate3d(0, calc(-1 * var(--cascade-distance)), 0);
-            pointer-events: none;
-            z-index: 1;
-        }
+        header.state-search #headerMainView { animation: skyfallExit var(--cascade-duration-exit) ease-in both; pointer-events: none; }
+        header.state-search #headerSearchView { animation: skyfallEntry var(--cascade-duration-entry) cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--cascade-duration-exit); pointer-events: auto; }
+        header.state-main #headerSearchView { animation: skyfallExit var(--cascade-duration-exit) ease-in both; pointer-events: none; }
+        header.state-main #headerMainView { animation: skyfallEntry var(--cascade-duration-entry) cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--cascade-duration-exit); pointer-events: auto; }
 
-        header.state-search #headerMainView {
-            animation: skyfallExit var(--cascade-duration-exit) ease-in both;
-            pointer-events: none;
-        }
-        header.state-search #headerSearchView {
-            animation: skyfallEntry var(--cascade-duration-entry) cubic-bezier(0.16, 1, 0.3, 1) both;
-            animation-delay: var(--cascade-duration-exit);
-            pointer-events: auto;
-        }
+        @keyframes skyfallExit { 0% { transform: translate3d(0, 0, 0); opacity: 1; } 100% { transform: translate3d(0, var(--cascade-distance), 0); opacity: 0; } }
+        @keyframes skyfallEntry { 0% { transform: translate3d(0, calc(-1 * var(--cascade-distance)), 0); opacity: 0; } 100% { transform: translate3d(0, 0, 0); opacity: 1; } }
 
-        header.state-main #headerSearchView {
-            animation: skyfallExit var(--cascade-duration-exit) ease-in both;
-            pointer-events: none;
-        }
-        header.state-main #headerMainView {
-            animation: skyfallEntry var(--cascade-duration-entry) cubic-bezier(0.16, 1, 0.3, 1) both;
-            animation-delay: var(--cascade-duration-exit);
-            pointer-events: auto;
-        }
-
-        @keyframes skyfallExit {
-            0% { transform: translate3d(0, 0, 0); opacity: 1; }
-            100% { transform: translate3d(0, var(--cascade-distance), 0); opacity: 0; }
-        }
-
-        @keyframes skyfallEntry {
-            0% { transform: translate3d(0, calc(-1 * var(--cascade-distance)), 0); opacity: 0; }
-            100% { transform: translate3d(0, 0, 0); opacity: 1; }
-        }
-
-        .header-right-cluster,
-        .search-control-cluster {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-shrink: 0;
-            height: 100%;
-        }
-
-        .logo {
-            font-size: 26px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
-            text-decoration: none !important;
-            transition: color 0.8s var(--ease-premium);
-            flex-shrink: 0;
-        }
-
-        .ctrl-btn {
-            background: none;
-            border: none;
-            outline: none;
-            color: var(--text-main);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            flex-shrink: 0;
-            transition: opacity 0.2s var(--ease-premium), color 0.8s var(--ease-premium);
-        }
-
+        .header-right-cluster, .search-control-cluster { display: flex; align-items: center; gap: 20px; flex-shrink: 0; height: 100%; }
+        .logo { font-size: 26px; font-weight: 600; letter-spacing: -0.5px; color: var(--text-main); text-decoration: none !important; transition: color 0.8s var(--ease-premium); flex-shrink: 0; }
+        .ctrl-btn { background: none; border: none; outline: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; flex-shrink: 0; transition: opacity 0.2s var(--ease-premium), color 0.8s var(--ease-premium); }
         .ctrl-btn:hover { opacity: 0.6; }
-
-        .ctrl-btn svg,
-        .search-static-icon {
-            width: 22px;
-            height: 22px;
-            fill: none;
-            stroke: var(--text-main);
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transition: stroke 0.8s var(--ease-premium);
-        }
-
-        .search-static-icon {
-            opacity: 0.4;
-            flex-shrink: 0;
-        }
-
-        .search-core-input {
-            flex-grow: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            padding: 0 16px;
-            width: 100%;
-            min-width: 0;
-            will-change: transform, opacity;
-            transform: translate3d(0, 0, 0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            transition: color 0.8s var(--ease-premium);
-        }
+        .ctrl-btn svg, .search-static-icon { width: 22px; height: 22px; fill: none; stroke: var(--text-main); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.8s var(--ease-premium); }
+        .search-static-icon { opacity: 0.4; flex-shrink: 0; }
+        .search-core-input { flex-grow: 1; background: transparent; border: none; outline: none; color: var(--text-main); font-family: 'Poppins', sans-serif; font-size: 16px; padding: 0 16px; width: 100%; min-width: 0; will-change: transform, opacity; transform: translate3d(0, 0, 0); backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: color 0.8s var(--ease-premium); }
 
         .clear-text-btn svg { opacity: 0.4; }
         .close-search-btn svg { opacity: 0.7; }
 
-        /* ==========================================================
-           CELESTIAL CROSS-DISSOLVE FADE TOGGLE STYLING (FROM INDEX)
-           ========================================================== */
-        .theme-toggle {
-            width: 32px;
-            height: 32px;
-            position: relative;
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .theme-toggle svg {
-            position: absolute;
-            width: 22px;
-            height: 22px;
-            fill: none;
-            stroke: var(--text-main);
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transform-origin: center center;
-            will-change: transform, opacity;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transition: transform 0.8s var(--ease-premium), opacity 0.8s var(--ease-premium), stroke 0.8s var(--ease-premium);
-        }
-
+        .theme-toggle { width: 32px; height: 32px; position: relative; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .theme-toggle svg { position: absolute; width: 22px; height: 22px; fill: none; stroke: var(--text-main); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transform-origin: center center; will-change: transform, opacity; -webkit-backface-visibility: hidden; backface-visibility: hidden; transition: transform 0.8s var(--ease-premium), opacity 0.8s var(--ease-premium), stroke 0.8s var(--ease-premium); }
         .theme-toggle .sun-icon { opacity: 0; transform: translate3d(0, 0, 0) rotate(-90deg) scale(0.4); }
         .theme-toggle .moon-icon { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
         body.light-mode .theme-toggle .sun-icon { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
         body.light-mode .theme-toggle .moon-icon { opacity: 0; transform: translate3d(0, 0, 0) rotate(90deg) scale(0.4); }
 
-        /* Minimal Breadcrumbs Infrastructure */
-        .breadcrumb-nav {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 15px;
-            font-weight: 400;
-            margin-bottom: 8px;
-            padding-left: 8px;
-        }
-
-        .breadcrumb-nav a {
-            color: var(--text-muted) !important;
-            text-decoration: none !important;
-        }
-
-        .breadcrumb-separator {
-            color: var(--text-muted);
-            opacity: 0.4;
-        }
-
-        .breadcrumb-current {
-            color: var(--text-main);
-            opacity: 0.8;
-        }
+        /* High-End Classy Breadcrumb System */
+        .breadcrumb-nav { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 400; margin-bottom: 8px; padding-left: 8px; }
+        .breadcrumb-nav a { color: var(--text-muted) !important; text-decoration: none !important; transition: color 0.4s var(--ease-premium); }
+        .breadcrumb-separator { color: var(--text-muted); opacity: 0.4; user-select: none; }
+        .breadcrumb-current { color: var(--text-main); opacity: 0.8; }
 
         /* Wide Stack Content Architecture Engine */
-        .contents-container {
-            display: flex;
-            flex-direction: column;
-            gap: 32px; 
-            margin-bottom: 80px;
-            width: 100%;
-        }
-
-        .page-main-heading {
-            font-size: 24px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
-            margin-bottom: 12px;
-            padding-left: 8px;
-            transition: color 0.8s var(--ease-premium);
-        }
+        .contents-container { display: flex; flex-direction: column; gap: 32px; margin-bottom: 80px; width: 100%; }
+        .page-main-heading { font-size: 24px; font-weight: 600; letter-spacing: -0.5px; color: var(--text-main); margin-bottom: 12px; padding-left: 8px; transition: color 0.8s var(--ease-premium); }
 
         .wide-capsule {
             background-color: var(--panel-bg);
@@ -395,44 +216,13 @@
         .wide-capsule:hover { border-color: #1E1E1E; }
         body.light-mode .wide-capsule:hover { border-color: #b8b8bc; }
 
-        .wide-panel-title {
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-            color: var(--text-main);
-            margin-bottom: 28px;
-            transition: color 0.8s var(--ease-premium);
-        }
+        .wide-panel-title { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-main); margin-bottom: 28px; transition: color 0.8s var(--ease-premium); }
+        .sub-section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin: 24px 0 20px 0; transition: color 0.8s var(--ease-premium); }
+        .wide-capsule :first-child + .sub-section-title { margin-top: 0px; }
 
-        .sub-section-title {
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin: 24px 0 20px 0;
-            transition: color 0.8s var(--ease-premium);
-        }
-        .wide-capsule :first-child + .sub-section-title {
-            margin-top: 0px;
-        }
-
-        .topics-column-grid {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 0px 64px; 
-        }
-
-        .topics-column-grid li {
-            border-bottom: 1px solid var(--row-divider);
-            display: flex;
-            align-items: center;
-            transition: border-color 0.8s var(--ease-premium);
-        }
-        .topics-column-grid li:last-child {
-            border-bottom: none;
-        }
+        .topics-column-grid { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0px 64px; }
+        .topics-column-grid li { border-bottom: 1px solid var(--row-divider); display: flex; align-items: center; transition: border-color 0.8s var(--ease-premium); }
+        .topics-column-grid li:last-child { border-bottom: none; }
 
         .topics-column-grid a {
             display: block;
@@ -447,67 +237,29 @@
             transition: color 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium), padding 0.4s var(--ease-premium);
         }
 
-        .topics-column-grid a::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--text-muted);
-            font-size: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: color 0.4s var(--ease-premium);
-        }
-
+        .topics-column-grid a::before { content: "•"; position: absolute; left: 0; color: var(--text-muted); font-size: 16px; top: 50%; transform: translateY(-50%); transition: color 0.4s var(--ease-premium); }
         .topics-column-grid li:hover a { opacity: 1 !important; padding-left: 20px !important; }
         .topics-column-grid li:hover a::before { color: var(--text-main); }
 
         footer { display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; }
         .footer-links-row { display: flex; justify-content: center; align-items: center; gap: 32px; flex-wrap: wrap; width: 100%; }
-
-        .footer-links-row a {
-            color: var(--text-muted) !important;
-            text-decoration: none !important;
-            font-size: 14px;
-            font-weight: 400;
-            display: inline-block;
-            will-change: transform, opacity;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transition: color 0.4s var(--ease-premium);
-        }
-
+        .footer-links-row a { color: var(--text-muted) !important; text-decoration: none !important; font-size: 14px; font-weight: 400; display: inline-block; will-change: transform, opacity; -webkit-backface-visibility: hidden; backface-visibility: hidden; transition: color 0.4s var(--ease-premium); }
         .footer-links-row a:hover { color: var(--text-main) !important; }
         .copyright-tag { color: var(--text-muted); opacity: 0.6; font-size: 12.5px; letter-spacing: 0.2px; transition: color 0.8s var(--ease-premium); }
 
-        .nav-text {
-            display: inline-block !important;
-            transform-origin: center center !important;
-            will-change: transform, opacity !important;
-            transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
-        }
-
-        .contents-container a:hover .nav-text,
-        .breadcrumb-nav a:hover .nav-text,
-        .footer-links-row a:hover .nav-text {
-            transform: scale3d(1.06, 1.06, 1) !important;
-        }
-
+        .nav-text { display: inline-block !important; transform-origin: center center !important; will-change: transform, opacity !important; transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium); }
+        .contents-container a:hover .nav-text, .breadcrumb-nav a:hover .nav-text, .footer-links-row a:hover .nav-text, .logo:hover .nav-text { transform: scale3d(1.06, 1.06, 1) !important; }
+        
         .footer-links-row a .nav-text { color: var(--text-muted) !important; }
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
 
-        .contents-container a.is-zooming .nav-text,
-        .breadcrumb-nav a.is-zooming .nav-text,
-        .footer-links-row a.is-zooming .nav-text {
-            transition: transform 0.26s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.26s linear !important;
-            transform: scale3d(1.3, 1.3, 1) !important;
-            opacity: 0 !important;
+        .contents-container a.is-zooming .nav-text, .breadcrumb-nav a.is-zooming .nav-text, .footer-links-row a.is-zooming .nav-text, .logo.is-zooming .nav-text { 
+            transition: transform 0.26s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.26s linear !important; 
+            transform: scale3d(1.3, 1.3, 1) !important; 
+            opacity: 0 !important; 
         }
-
         .kinetic-locked-frame { pointer-events: none !important; }
-        .kinetic-locked-frame .nav-text {
-            transition: none !important;
-            -webkit-transition: none !important;
-        }
+        .kinetic-locked-frame .nav-text { transition: none !important; -webkit-transition: none !important; }
 
         @media (max-width: 700px) {
             body { padding: 40px 20px; }
@@ -526,16 +278,11 @@
 
     <header id="masterHeader">
         <div class="header-inner-view" id="headerMainView">
-            <a href="index.html" class="logo">sathya.</a>
+            <a href="/index.html" class="logo">sathya.</a>
             <div class="header-right-cluster">
                 <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
-                    <svg class="sun-icon" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="4"></circle>
-                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-                    </svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24">
-                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-                    </svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
                 </div>
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -559,11 +306,7 @@
 
     <main class="contents-container">
         
-        <div class="breadcrumb-nav">
-            <a href="index.html">Home</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">Contents</span>
-        </div>
+        <nav class="breadcrumb-nav" id="dynamicBreadcrumbNav" aria-label="breadcrumb"></nav>
 
         <h1 class="page-main-heading">Contents</h1>
 
@@ -740,11 +483,11 @@
 
     <footer>
         <div class="footer-links-row">
-            <a href="Footer/about.html">About</a>
-            <a href="Footer/contact.html">Contact</a>
-            <a href="Footer/privacy.html">Privacy Policy</a>
-            <a href="Footer/terms.html">Terms & Conditions</a>
-            <a href="Footer/disclaimer.html">Disclaimer</a>
+            <a href="/Footer/about.html">About</a>
+            <a href="/Footer/contact.html">Contact</a>
+            <a href="/Footer/privacy.html">Privacy Policy</a>
+            <a href="/Footer/terms.html">Terms & Conditions</a>
+            <a href="/Footer/disclaimer.html">Disclaimer</a>
         </div>
         <div class="copyright-tag">
             &copy; 2026 Sathya. All rights reserved.
@@ -752,6 +495,83 @@
     </footer>
 
     <script>
+        // --- Universal Persistent Master Breadcrumb Engine ---
+        (function buildDynamicBreadcrumbs() {
+            const container = document.getElementById('dynamicBreadcrumbNav');
+            if (!container) return;
+
+            // 1. Auto-detect the exact path from the browser address bar
+            const searchPath = window.location.pathname;
+            const HOME_PATH = "/index.html";
+
+            // 2. Global Map to ensure pristine display names across your brand
+            const pageNames = {
+                "/index.html": "Home",
+                "/contents.html": "Contents",
+                "/subjects.html": "Subjects",
+                "/ramsarsites.html": "Ramsar Sites",
+                "/Footer/about.html": "About",
+                "/Footer/contact.html": "Contact",
+                "/Footer/privacy.html": "Privacy Policy",
+                "/Footer/terms.html": "Terms & Conditions",
+                "/Footer/disclaimer.html": "Disclaimer"
+            };
+
+            // Auto-resolve display name or fallback to clean capitalized string
+            let currentPageName = pageNames[searchPath];
+            if (!currentPageName) {
+                const filename = searchPath.substring(searchPath.lastIndexOf('/') + 1).replace('.html', '');
+                currentPageName = filename.charAt(0).toUpperCase() + filename.slice(1);
+            }
+
+            // 3. Pull persistent session storage memory
+            let trail = [];
+            try {
+                const stored = sessionStorage.getItem('breadcrumbTrail');
+                trail = stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                trail = [];
+            }
+
+            // Enforce structural Home base node anchor state
+            if (trail.length === 0 || (trail[0].path !== HOME_PATH && trail[0].path !== "/")) {
+                trail = [{ name: "Home", path: HOME_PATH }];
+            }
+
+            // 4. Check if current page is already in our chain
+            const existingIndex = trail.findIndex(step => step.path === searchPath);
+            
+            if (existingIndex !== -1) {
+                // Keep the current sequence intact, no truncation on forward path tracking
+                // IF it already exists, we leave the array completely untouched to fulfill your order requirement!
+            } else {
+                if (searchPath !== HOME_PATH && searchPath !== "/") {
+                    trail.push({ name: currentPageName, path: searchPath });
+                }
+            }
+
+            try {
+                sessionStorage.setItem('breadcrumbTrail', JSON.stringify(trail));
+            } catch (e) {}
+
+            // 5. Dynamic Rendering & Live Highlight Matrix
+            let htmlMarkup = '';
+            trail.forEach((step) => {
+                if (step.path === searchPath) {
+                    htmlMarkup += `<span class="breadcrumb-current">${step.name}</span><span class="breadcrumb-separator">/</span>`;
+                } else {
+                    htmlMarkup += `<a href="${step.path}">${step.name}</a><span class="breadcrumb-separator">/</span>`;
+                }
+            });
+
+            // Clean up trailing slash decoration at the end of the string
+            if (htmlMarkup.endsWith('<span class="breadcrumb-separator">/</span>')) {
+                htmlMarkup = htmlMarkup.slice(0, -'<span class="breadcrumb-separator">/</span>'.length);
+            }
+
+            container.innerHTML = htmlMarkup;
+        })();
+
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
         const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
@@ -761,8 +581,6 @@
         const closeSearchBtn = document.getElementById('closeSearchBtn');
         const clearSearchBtn = document.getElementById('clearSearchBtn');
         const searchCoreInput = document.getElementById('searchCoreInput');
-
-        localStorage.removeItem('dashboard-theme');
 
         function applyTargetPalette() {
             const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
@@ -804,9 +622,6 @@
             }
         });
 
-        /* ==========================================================
-           STABILIZED IPAD TRANSITION CONTROLS
-           ========================================================== */
         openSearchBtn.addEventListener('click', () => {
             masterHeader.classList.remove('state-main');
             masterHeader.classList.add('state-search');
@@ -830,10 +645,7 @@
             }
         });
 
-        /* ==========================================================
-           KINETIC PORTAL INTERACTION ENGINE
-           ========================================================== */
-        const universalTargetLinks = document.querySelectorAll('.contents-container a, .breadcrumb-nav a, footer .footer-links-row a');
+        const universalTargetLinks = document.querySelectorAll('.contents-container a, .breadcrumb-nav a, footer .footer-links-row a, .logo');
 
         universalTargetLinks.forEach(link => {
             if (!link.querySelector('.nav-text')) {
@@ -896,6 +708,7 @@
 
                             let endOpacity = 0.8;
                             if (matchedLinkElement.closest('footer')) endOpacity = 0.4;
+                            if (matchedLinkElement.classList.contains('logo')) endOpacity = 1.0;
 
                             let duration = 280; 
                             let startTime = null;
@@ -933,7 +746,7 @@
         });
 
         /* ==========================================================
-           DYNAMIC SMOOTH CENTER-SCROLL & ZOOM CONTROLLER
+            DYNAMIC SMOOTH CENTER-SCROLL & ZOOM CONTROLLER
            ========================================================== */
         function clearAndScrollToHashTarget() {
             const activeHash = window.location.hash;
@@ -942,22 +755,19 @@
             const targetedCapsule = document.querySelector(activeHash);
             if (targetedCapsule && targetedCapsule.classList.contains('wide-capsule')) {
                 
-                // Execute smooth vertical center-alignment pass
                 setTimeout(() => {
                     targetedCapsule.scrollIntoView({
                         block: 'center',
                         behavior: 'smooth'
                     });
 
-                    // Trigger the micro-zoom notice animation safely
                     targetedCapsule.classList.remove('activated-target');
-                    void targetedCapsule.offsetWidth; // Force layout reflow pass
+                    void targetedCapsule.offsetWidth; 
                     targetedCapsule.classList.add('activated-target');
-                }, 150); // Balanced gap to let page entry cascade finish cleanly
+                }, 150); 
             }
         }
 
-        // Watch both incoming page loads and inner-page hash changes
         window.addEventListener('DOMContentLoaded', () => {
             if (window.location.hash) {
                 window.scrollTo(0, 0); 
