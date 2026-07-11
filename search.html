@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - sathya.</title>
+    
+    <!-- Import Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            color: #333;
+            background-color: #fff;
+        }
+        h2 {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .search-term {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .search-pill {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f4f4f4;
+            color: #00766c;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 1px solid #e0e0e0;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        .search-pill:hover {
+            background-color: #e2e8f0;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+        }
+        .status-message {
+            color: #888;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .back-home {
+            display: inline-block;
+            margin-top: 40px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Search Results</h2>
+    <div class="search-term" id="searchTermDisplay">Processing search...</div>
+    <div id="statusMessage" class="status-message">Scanning study space...</div>
+    <div class="pill-container" id="pillResults"></div>
+
+    <a href="index.html" class="back-home">← Back to Home</a>
+
+    <script>
+        async function executeAutoSearch() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userQuery = urlParams.get('q') ? urlParams.get('q').toLowerCase().trim() : '';
+            
+            const termDisplay = document.getElementById('searchTermDisplay');
+            const statusMessage = document.getElementById('statusMessage');
+            const container = document.getElementById('pillResults');
+
+            if (!userQuery) {
+                termDisplay.textContent = "No search term entered.";
+                statusMessage.textContent = "Please enter a topic in the search bar.";
+                return;
+            }
+
+            termDisplay.textContent = `Showing results for: "${urlParams.get('q')}"`;
+
+            try {
+                // 1. Fetch your sitemap to get every page link automatically
+                const sitemapResponse = await fetch('/sitemap.xml');
+                if (!sitemapResponse.ok) throw new Error("Sitemap not found");
+                
+                const sitemapText = await sitemapResponse.text();
+                const xmlDoc = new DOMParser().parseFromString(sitemapText, 'text/xml');
+                const pageUrls = Array.from(xmlDoc.getElementsByTagName('loc')).map(el => el.textContent.trim());
+                
+                let matchCount = 0;
+
+                // 2. Scan all listed pages for matches
+                await Promise.all(pageUrls.map(async (url) => {
+                    // Skip system, footer utility, and search utility pages
+                    if (url.includes('search.html') || url.includes('privacy.html') || url.includes('terms.html') || url.includes('disclaimer.html')) {
+                        return;
+                    }
+
+                    try {
+                        const pageResponse = await fetch(url);
+                        if (!pageResponse.ok) return;
+                        
+                        const pageHtml = await pageResponse.text();
+                        const pageDoc = new DOMParser().parseFromString(pageHtml, 'text/html');
+
+                        const pageTitle = pageDoc.querySelector('title')?.textContent || 'Untitled Page';
+                        const pageDesc = pageDoc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
+                        const pageKeys = pageDoc.querySelector('meta[name="keywords"]')?.getAttribute('content') || '';
+
+                        const combinedContent = `${pageTitle} ${pageDesc} ${pageKeys}`.toLowerCase();
+
+                        // 3. Generate pill if the text matches
+                        if (combinedContent.includes(userQuery)) {
+                            matchCount++;
+                            const pillElement = document.createElement('a');
+                            pillElement.href = url;
+                            pillElement.className = 'search-pill';
+                            pillElement.textContent = pageTitle.replace(' - sathya.', '').trim() + " ↗";
+                            container.appendChild(pillElement);
+                        }
+                    } catch (err) {
+                        console.error(`Could not read page: ${url}`, err);
+                    }
+                }));
+
+                // 4. Update status interface
+                if (matchCount > 0) {
+                    statusMessage.style.display = 'none';
+                } else {
+                    statusMessage.textContent = "No matching study topics found. Try searching for 'Ramsar', 'Polity', or 'Syllabus'.";
+                }
+
+            } catch (error) {
+                console.error("Search engine error:", error);
+                statusMessage.textContent = "Unable to process search. Please ensure your sitemap.xml file is active.";
+            }
+        }
+
+        executeAutoSearch();
+    </script>
+</body>
+</html>
