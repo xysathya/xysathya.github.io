@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ramsar Sites - sathya.</title>
+     <title>Ramsar Sites - sathya.</title>
        
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VGX2K64Y4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+
       gtag('config', 'G-5VGX2K64Y4');
     </script>
 
-    <!-- Absolute path configuration for consistent cross-folder resolution -->
-    <link id="favicon" rel="icon" type="image/png" href="/favicon-light.png">
+   <link id="favicon" rel="icon" type="image/png" href="/favicon-light.png">
 
-    <script>
-      const favicon = document.getElementById('favicon');
-      const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
-      
-      function updateFavicon(e) {
-        favicon.href = e.matches ? '/favicon-dark.png' : '/favicon-light.png';
-      }
-      
-      updateFavicon(darkMode);
-      darkMode.addEventListener('change', updateFavicon);
-    </script>
+<script>
+  const favicon = document.getElementById('favicon');
+  const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+  
+  function updateFavicon(e) {
+    favicon.href = e.matches ? '/favicon-dark.png' : '/favicon-light.png';
+  }
+  
+  updateFavicon(darkMode);
+  darkMode.addEventListener('change', updateFavicon);
+</script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -691,7 +691,7 @@
             const container = document.getElementById('dynamicBreadcrumbNav');
             if (!container) return;
 
-            // Property synchronization fix ('path' metric mapping across global matrix)
+            // Property keys synced cleanly across the master codebase
             const CURRENT_PAGE = { name: "Ramsar Sites", path: "/ramsarsites.html" };
             const HOME_PAGE = { name: "Home", path: "/index.html" };
 
@@ -703,12 +703,10 @@
                 trail = [];
             }
 
-            // Ensure structural home anchor node state
             if (trail.length === 0 || trail[0].path !== HOME_PAGE.path) {
                 trail = [HOME_PAGE];
             }
 
-            // Option A: check index to execute step truncation rules
             const existingIndex = trail.findIndex(step => step.path === CURRENT_PAGE.path);
             if (existingIndex !== -1) {
                 trail = trail.slice(0, existingIndex + 1);
@@ -805,7 +803,6 @@
             }
         });
 
-        // --- Link Portal Micro-Pop Zoom Engine Expanded Targets ---
         const universalTargetLinks = document.querySelectorAll('.breadcrumbs a, footer .footer-links-row a, .logo');
 
         universalTargetLinks.forEach(link => {
@@ -936,9 +933,6 @@
             rows.forEach(row => tbody.appendChild(row));
         }
 
-        /* ==========================================================
-            RAMSAR DATA DICTIONARY - ALL 99 SITES
-           ========================================================== */
         const ramsarData = {
             "s1": { name: "Kolleru Lake", state: "Andhra Pradesh", year: "2002", area: "901 km²", district: "Krishna–Godavari Delta", imp: "One of India's largest freshwater lakes, flood buffer between Krishna & Godavari, major migratory bird habitat, rich fisheries", thr: "Aquaculture, encroachment, pollution, invasive weeds, siltation" },
             "s2": { name: "Deepor Beel", state: "Assam", year: "2002", area: "40 km²", district: "Near Guwahati", imp: "Permanent freshwater wetland, Brahmaputra floodplain, Important Bird Area, elephant corridor, rich fish diversity", thr: "Urban encroachment, sewage, solid waste, railway disturbance, pollution" },
