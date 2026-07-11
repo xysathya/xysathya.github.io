@@ -821,6 +821,17 @@
                 const destination = this.getAttribute('href');
                 if (!destination || destination === '#' || destination.startsWith('#')) return;
 
+                // Truncate breadcrumb trail when a breadcrumb itself is clicked
+                if (this.closest('.breadcrumbs')) {
+                    try {
+                        const trail = JSON.parse(sessionStorage.getItem('breadcrumbTrail') || '[]');
+                        const idx = trail.findIndex(item => item.path === destination);
+                        if (idx !== -1) {
+                            sessionStorage.setItem('breadcrumbTrail', JSON.stringify(trail.slice(0, idx + 1)));
+                        }
+                    } catch(e){}
+                }
+
                 e.preventDefault();
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
                 this.classList.add('is-zooming');
