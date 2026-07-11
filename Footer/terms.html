@@ -13,21 +13,20 @@
       gtag('config', 'G-5VGX2K64Y4');
     </script>
 
-   <!-- Use "../" to tell the browser to look in the main folder -->
-<link id="favicon" rel="icon" type="image/png" href="../favicon-light.png">
+    <!-- Absolute path configuration for consistent cross-folder resolution -->
+    <link id="favicon" rel="icon" type="image/png" href="/favicon-light.png">
 
-<script>
-  const favicon = document.getElementById('favicon');
-  const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  
-  function updateFavicon(e) {
-    // Also update these paths with ../
-    favicon.href = e.matches ? '../favicon-dark.png' : '../favicon-light.png';
-  }
-  
-  updateFavicon(darkMode);
-  darkMode.addEventListener('change', updateFavicon);
-</script>
+    <script>
+      const favicon = document.getElementById('favicon');
+      const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+      
+      function updateFavicon(e) {
+        favicon.href = e.matches ? '/favicon-dark.png' : '/favicon-light.png';
+      }
+      
+      updateFavicon(darkMode);
+      darkMode.addEventListener('change', updateFavicon);
+    </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -269,51 +268,6 @@
         .clear-text-btn svg { opacity: 0.4; }
         .close-search-btn svg { opacity: 0.7; }
 
-        .theme-toggle {
-            width: 32px;  
-            height: 32px; 
-            position: relative;
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .theme-toggle svg {
-            position: absolute;
-            width: 22px;
-            height: 22px;
-            fill: none;
-            stroke: var(--text-main);
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transform-origin: center center;
-            will-change: transform, opacity;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transition: transform 0.8s var(--ease-premium), opacity 0.8s var(--ease-premium), stroke 0.8s var(--ease-premium);
-        }
-
-        .theme-toggle .sun-icon {
-            opacity: 0;
-            transform: translate3d(0, 0, 0) rotate(-90deg) scale(0.4);
-        }
-        .theme-toggle .moon-icon {
-            opacity: 1;
-            transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-        }
-        body.light-mode .theme-toggle .sun-icon {
-            opacity: 1;
-            transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-        }
-        body.light-mode .theme-toggle .moon-icon {
-            opacity: 0;
-            transform: translate3d(0, 0, 0) rotate(90deg) scale(0.4);
-        }
-
         /* Core Layout Architecture Engine */
         main {
             flex-grow: 1; 
@@ -509,7 +463,7 @@
     <!-- Cloned Unified Twin View Design Header -->
     <header id="masterHeader">
         <div class="header-inner-view" id="headerMainView">
-            <a href="../index.html" class="logo">sathya.</a>
+            <a href="/index.html" class="logo">sathya.</a>
             <div class="header-right-cluster">
                 <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
                     <svg class="sun-icon" viewBox="0 0 24 24">
@@ -560,11 +514,11 @@
     <!-- Grounded Minimal Footer Row -->
     <footer>
         <div class="footer-links-row">
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html" class="active-footer-page">Terms & Conditions</a>
-            <a href="disclaimer.html">Disclaimer</a>
+            <a href="/Footer/about.html">About</a>
+            <a href="/Footer/contact.html">Contact</a>
+            <a href="/Footer/privacy.html">Privacy Policy</a>
+            <a href="/Footer/terms.html" class="active-footer-page">Terms & Conditions</a>
+            <a href="/Footer/disclaimer.html">Disclaimer</a>
         </div>
         <div class="copyright-tag">
             &copy; 2026 Sathya. All rights reserved.
@@ -573,6 +527,82 @@
 
     <!-- Smart Native Device Sync & Twin-View Controller Engine -->
     <script>
+        // --- Universal Persistent Master Breadcrumb Engine ---
+        (function buildDynamicBreadcrumbs() {
+            const container = document.getElementById('dynamicBreadcrumbNav');
+            if (!container) return;
+
+            // 1. Auto-detect the exact path from the browser address bar
+            const searchPath = window.location.pathname;
+            const HOME_PATH = "/index.html";
+
+            // 2. Global Map to ensure pristine display names across your brand
+            const pageNames = {
+                "/index.html": "Home",
+                "/ramsarsites.html": "Ramsar Sites",
+                "/Footer/about.html": "About",
+                "/Footer/contact.html": "Contact",
+                "/Footer/privacy.html": "Privacy Policy",
+                "/Footer/terms.html": "Terms & Conditions",
+                "/Footer/disclaimer.html": "Disclaimer"
+            };
+
+            // Auto-resolve display name or fallback to clean capitalized string
+            let currentPageName = pageNames[searchPath];
+            if (!currentPageName) {
+                const filename = searchPath.substring(searchPath.lastIndexOf('/') + 1).replace('.html', '');
+                currentPageName = filename.charAt(0).toUpperCase() + filename.slice(1);
+            }
+
+            // 3. Pull persistent session storage memory
+            let trail = [];
+            try {
+                const stored = sessionStorage.getItem('breadcrumbTrail');
+                trail = stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                trail = [];
+            }
+
+            // Enforce structural Home base node anchor state
+            if (trail.length === 0 || (trail[0].path !== HOME_PATH && trail[0].path !== "/")) {
+                trail = [{ name: "Home", path: HOME_PATH }];
+            }
+
+            // 4. Check if current page is already in our chain
+            const existingIndex = trail.findIndex(step => step.path === searchPath);
+            
+            if (existingIndex !== -1) {
+                // Keep the current sequence intact, no truncation on forward path tracking
+                // If it already exists, we leave the array completely untouched to fulfill your order requirement!
+            } else {
+                if (searchPath !== HOME_PATH && searchPath !== "/") {
+                    trail.push({ name: currentPageName, path: searchPath });
+                }
+            }
+
+            try {
+                sessionStorage.setItem('breadcrumbTrail', JSON.stringify(trail));
+            } catch (e) {}
+
+            // 5. Dynamic Rendering & Live Highlight Matrix
+            let htmlMarkup = '';
+            trail.forEach((step) => {
+                // If this step matches the page you are on, render it highlighted (no link)
+                if (step.path === searchPath) {
+                    htmlMarkup += `<span class="current">${step.name}</span><span class="separator">/</span>`;
+                } else {
+                    htmlMarkup += `<a href="${step.path}">${step.name}</a><span class="separator">/</span>`;
+                }
+            });
+
+            // Clean up trailing slash decoration at the end of the string
+            if (htmlMarkup.endsWith('<span class="separator">/</span>')) {
+                htmlMarkup = htmlMarkup.slice(0, -'<span class="separator">/</span>'.length);
+            }
+
+            container.innerHTML = htmlMarkup;
+        })();
+
         const toggleBtn = document.getElementById('themeToggleBtn');
         const bodyElement = document.body;
         const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
@@ -623,7 +653,6 @@
             }
         });
 
-        // --- Stabilized iPad Search Transition Controls from index.html ---
         openSearchBtn.addEventListener('click', () => {
             masterHeader.classList.remove('state-main');
             masterHeader.classList.add('state-search');
@@ -647,8 +676,7 @@
             }
         });
 
-        // --- Link Portal Micro-Pop Zoom Engine from index.html ---
-        const universalTargetLinks = document.querySelectorAll('.footer-links-row a');
+        const universalTargetLinks = document.querySelectorAll('.breadcrumbs a, .footer-links-row a, .logo');
 
         universalTargetLinks.forEach(link => {
             if (!link.querySelector('.nav-text')) {
@@ -709,7 +737,9 @@
                             let endScale = 1.0;
                             let startOpacity = 0;
                             let endOpacity = 0.4;
-                            if (matchedLinkElement.classList.contains('active-footer-page')) endOpacity = 1.0;
+                            if (matchedLinkElement.closest('footer') && matchedLinkElement.classList.contains('active-footer-page')) endOpacity = 1.0;
+                            if (matchedLinkElement.classList.contains('logo')) endOpacity = 1.0;
+                            if (matchedLinkElement.closest('.breadcrumbs')) endOpacity = 0.75;
 
                             let duration = 280; 
                             let startTime = null;
@@ -745,52 +775,6 @@
                 }
             }
         });
-
-    // --- Fixed Dynamic Breadcrumb Engine ---
-(function buildDynamicBreadcrumbs() {
-    const container = document.getElementById('dynamicBreadcrumbNav');
-    const referrer = document.referrer;
-    
-    // This is the name of the page you are on
-    const currentPageName = "Terms & Conditions"; 
-    
-    let trail = [{ name: 'Home', url: '../index.html' }];
-
-    // This checks where the user came from
-    if (referrer && !referrer.includes('index.html')) {
-        let pageFile = referrer.substring(referrer.lastIndexOf('/') + 1).split('#')[0];
-        
-        if (pageFile && pageFile.includes('.html')) {
-            let pageLabel = pageFile.replace('.html', '');
-            pageLabel = pageLabel.charAt(0).toUpperCase() + pageLabel.slice(1);
-            if (pageLabel === "Ramsarsites") pageLabel = "Ramsar Sites";
-
-            // THE REVERSE FOLDER-TRAP FIX:
-            // This page lives inside /Footer/. If the referrer is NOT
-            // inside /Footer/, it's a root-level page (contents.html,
-            // ramsarsites.html, subjects.html, etc), so the link needs
-            // "../" to climb back up out of this folder. If the
-            // referrer IS inside /Footer/, it's a sibling page in this
-            // same folder, so the bare filename is already correct.
-            if (!referrer.includes('/Footer/')) {
-                pageFile = '../' + pageFile;
-            }
-            
-            trail.push({ name: pageLabel, url: pageFile });
-        }
-    }
-
-    // This creates the links
-    let htmlMarkup = '';
-    trail.forEach(step => {
-        htmlMarkup += `<a href="${step.url}">${step.name}</a><span class="separator">/</span>`;
-    });
-    
-    // This adds the current page name correctly
-    htmlMarkup += `<span class="current">${currentPageName}</span>`;
-    
-    container.innerHTML = htmlMarkup;
-})();
     </script>
 </body>
 </html>
