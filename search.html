@@ -4,155 +4,239 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results - sathya.</title>
-    
-    <!-- Import Poppins Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Poppins Font Integration -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-
+    
     <style>
-        body {
+        /* 1. Global Reset & Clean Interactivity Rules */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            color: #333;
-            background-color: #fff;
+            font-style: normal !important; /* Strictly blocks italic text overrides */
+            text-decoration: none !important; /* Strictly strips all underlines */
+            -webkit-tap-highlight-color: transparent; /* Removes blue/grey highlight flash on touch devices */
         }
-        h2 {
-            font-weight: 500;
-            margin-bottom: 5px;
+
+        /* 2. Dynamic Adaptive Canvas Systems */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #0b0b0b;
+                color: #ffffff;
+            }
+            .capsule-panel {
+                background-color: #161616;
+                color: #ffffff;
+                border: 1px solid #222222;
+            }
+            .search-title { color: #ffffff; }
+            .search-subtitle { color: #888888; }
+            .search-notice { color: #aaaaaa; }
+            .back-home-btn { color: #666666; }
+            .back-home-btn:hover { color: #ffffff; }
         }
-        .search-term {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 30px;
+
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: #ebebe4;
+                color: #1c1c1c;
+            }
+            .capsule-panel {
+                background-color: #ffffff;
+                color: #1c1c1c;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            }
+            .search-title { color: #1c1c1c; }
+            .search-subtitle { color: #555555; }
+            .search-notice { color: #444444; }
+            .back-home-btn { color: #777777; }
+            .back-home-btn:hover { color: #1c1c1c; }
         }
-        .pill-container {
+
+        /* 3. Universal Centering Engine Layout */
+        body {
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 20px;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
         }
-        .search-pill {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #f4f4f4;
-            color: #00766c;
-            text-decoration: none;
-            border-radius: 30px;
-            border: 1px solid #e0e0e0;
+
+        /* 4. Smooth Workspace Entry Animation Engine */
+        .workspace-animate-frame {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            max-width: 650px;
+            padding: 40px 24px;
+            
+            /* Home page replica transitions */
+            opacity: 0;
+            transform: scale3d(1.3, 1.3, 1);
+            transition: transform 0.26s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.26s linear !important;
+        }
+
+        .workspace-animate-frame.is-initialized {
+            opacity: 1;
+            transform: scale3d(1, 1, 1);
+        }
+
+        /* 5. Clean Interface Typography Layouts */
+        .search-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .search-subtitle {
             font-size: 15px;
-            transition: all 0.2s ease;
-            font-weight: 500;
+            font-weight: 400;
+            margin-bottom: 32px;
         }
-        .search-pill:hover {
-            background-color: #e2e8f0;
-            border-color: #cbd5e1;
-            transform: translateY(-1px);
-        }
-        .status-message {
-            color: #888;
+
+        .search-notice {
             font-size: 16px;
-            margin-top: 20px;
+            font-weight: 400;
+            margin-bottom: 24px;
+            line-height: 1.5;
         }
-        .back-home {
-            display: inline-block;
-            margin-top: 40px;
-            color: #666;
-            text-decoration: none;
+
+        /* 6. Precision Match Capsule Shape Design */
+        .capsule-panel {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 40px; /* Exact uniform pill profile */
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            margin-bottom: 40px;
+        }
+
+        .capsule-panel:hover {
+            transform: translateY(-2px);
+        }
+
+        .capsule-panel svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: #00766c; /* Clean accent color anchor */
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .back-home-btn {
             font-size: 14px;
-        }
-        .back-home:hover {
-            text-decoration: underline;
+            font-weight: 400;
+            transition: color 0.2s ease;
         }
     </style>
 </head>
 <body>
 
-    <h2>Search Results</h2>
-    <div class="search-term" id="searchTermDisplay">Processing search...</div>
-    <div id="statusMessage" class="status-message">Scanning study space...</div>
-    <div class="pill-container" id="pillResults"></div>
+    <div class="workspace-animate-frame" id="searchWorkspace">
+        <h1 class="search-title">Search Results</h1>
+        <div class="search-subtitle" id="queryTarget">Showing results for: ""</div>
+        
+        <!-- Output Injection Matrix Area -->
+        <div id="resultsEngineOutput"></div>
 
-    <a href="index.html" class="back-home">← Back to Home</a>
+        <a href="index.html" class="back-home-btn">← Back to Home</a>
+    </div>
 
     <script>
-        async function executeAutoSearch() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const userQuery = urlParams.get('q') ? urlParams.get('q').toLowerCase().trim() : '';
-            
-            const termDisplay = document.getElementById('searchTermDisplay');
-            const statusMessage = document.getElementById('statusMessage');
-            const container = document.getElementById('pillResults');
+        // 1. Live Index Search Database Registry
+        const siteSearchIndex = [
+            { title: "Ramsar Sites", url: "ramsarsites.html", tags: ["ramsar", "sites", "kolleru", "ladakh", "lake", "wetland", "wetlands", "chilika", "wular"] },
+            { title: "Subjects", url: "subjects.html", tags: ["subjects", "polity", "history", "geography", "laxmikanth", "ncert", "ncerts", "economy"] },
+            { title: "Contents", url: "contents.html", tags: ["contents", "art and culture", "indian society", "essays", "essay"] }
+        ];
 
-            if (!userQuery) {
-                termDisplay.textContent = "No search term entered.";
-                statusMessage.textContent = "Please enter a topic in the search bar.";
+        // 2. High-Fidelity Filler Extraction Filter
+        const basicFillerWords = new Set(["the", "that", "this", "these", "those", "within", "with", "from", "into", "here", "their", "your", "and", "for", "are"]);
+
+        function processSearchEngine() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let userQuery = urlParams.get('q') || '';
+            
+            // Sanitize query parameters safely
+            userQuery = userQuery.replace(/\+/g, ' ').trim();
+            document.getElementById('queryTarget').textContent = `Showing results for: "${userQuery}"`;
+
+            const outputContainer = document.getElementById('resultsEngineOutput');
+            
+            // Filter out query string variables down to pure diagnostic arrays
+            const cleanTokens = userQuery.toLowerCase()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+                .split(/\s+/)
+                .filter(token => token && !basicFillerWords.has(token));
+
+            if (cleanTokens.length === 0) {
+                renderEmptyState(outputContainer);
                 return;
             }
 
-            termDisplay.textContent = `Showing results for: "${urlParams.get('q')}"`;
+            // Run database diagnostics scan mapping 
+            let bestPageMatch = null;
+            let trackingMaxScore = 0;
 
-            try {
-                // 1. Fetch your sitemap to get every page link automatically
-                const sitemapResponse = await fetch('/sitemap.xml');
-                if (!sitemapResponse.ok) throw new Error("Sitemap not found");
-                
-                const sitemapText = await sitemapResponse.text();
-                const xmlDoc = new DOMParser().parseFromString(sitemapText, 'text/xml');
-                const pageUrls = Array.from(xmlDoc.getElementsByTagName('loc')).map(el => el.textContent.trim());
-                
-                let matchCount = 0;
-
-                // 2. Scan all listed pages for matches
-                await Promise.all(pageUrls.map(async (url) => {
-                    // Skip system, footer utility, and search utility pages
-                    if (url.includes('search.html') || url.includes('privacy.html') || url.includes('terms.html') || url.includes('disclaimer.html')) {
-                        return;
-                    }
-
-                    try {
-                        const pageResponse = await fetch(url);
-                        if (!pageResponse.ok) return;
-                        
-                        const pageHtml = await pageResponse.text();
-                        const pageDoc = new DOMParser().parseFromString(pageHtml, 'text/html');
-
-                        const pageTitle = pageDoc.querySelector('title')?.textContent || 'Untitled Page';
-                        const pageDesc = pageDoc.querySelector('meta[name="description"]')?.getAttribute('content') || '';
-                        const pageKeys = pageDoc.querySelector('meta[name="keywords"]')?.getAttribute('content') || '';
-
-                        const combinedContent = `${pageTitle} ${pageDesc} ${pageKeys}`.toLowerCase();
-
-                        // 3. Generate pill if the text matches
-                        if (combinedContent.includes(userQuery)) {
-                            matchCount++;
-                            const pillElement = document.createElement('a');
-                            pillElement.href = url;
-                            pillElement.className = 'search-pill';
-                            pillElement.textContent = pageTitle.replace(' - sathya.', '').trim() + " ↗";
-                            container.appendChild(pillElement);
+            for (const records of siteSearchIndex) {
+                let currentScore = 0;
+                for (const token of cleanTokens) {
+                    if (records.tags.includes(token)) {
+                        currentScore += 5; // Direct matching keyword weighting
+                    } else {
+                        // Scan matching partial substring fragments
+                        for (const tag of records.tags) {
+                            if (tag.includes(token) || token.includes(tag)) {
+                                currentScore += 2;
+                            }
                         }
-                    } catch (err) {
-                        console.error(`Could not read page: ${url}`, err);
                     }
-                }));
-
-                // 4. Update status interface
-                if (matchCount > 0) {
-                    statusMessage.style.display = 'none';
-                } else {
-                    statusMessage.textContent = "No matching study topics found. Try searching for 'Ramsar', 'Polity', or 'Syllabus'.";
                 }
+                if (currentScore > trackingMaxScore) {
+                    trackingMaxScore = currentScore;
+                    bestPageMatch = records;
+                }
+            }
 
-            } catch (error) {
-                console.error("Search engine error:", error);
-                statusMessage.textContent = "Unable to process search. Please ensure your sitemap.xml file is active.";
+            // Render matched layout modules or default handling routines
+            if (bestPageMatch && trackingMaxScore > 0) {
+                outputContainer.innerHTML = `
+                    <div class="search-notice">The word you're searching for is in the ${bestPageMatch.title.toLowerCase()}</div>
+                    <a href="${bestPageMatch.url}" class="capsule-panel">
+                        <span>${bestPageMatch.title}</span>
+                        <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </a>
+                `;
+            } else {
+                renderEmptyState(outputContainer);
             }
         }
 
-        executeAutoSearch();
+        function renderEmptyState(container) {
+            container.innerHTML = `<div class="search-notice" style="margin-bottom: 40px;">The word you're searching is not available here</div>`;
+        }
+
+        // 3. Absolute Smooth Load Execution Synchronizer
+        window.addEventListener('DOMContentLoaded', () => {
+            processSearchEngine();
+            
+            // Fires micro-delay to let canvas paint before triggering the 0.26s cubic-bezier zoom entry
+            setTimeout(() => {
+                document.getElementById('searchWorkspace').classList.add('is-initialized');
+            }, 60);
+        });
     </script>
 </body>
 </html>
