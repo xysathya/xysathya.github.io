@@ -2,28 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Search - sathya.</title>
     
-    <!-- Dynamic Favicon Setup -->
+    <!-- Dynamic Favicon Link Component -->
     <link id="favicon" rel="icon" type="image/png" href="/favicon-light.png">
     
     <!-- Poppins Font Integration -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* Global Reset & Strict Structural Typography */
+        /* Global Reset & Strict Mobile App Containment Layout */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            font-style: normal !important; /* Eliminates all lean/italic typography */
-            text-decoration: none !important; /* Strips out text underlines site-wide */
-            -webkit-tap-highlight-color: transparent; /* Wipes out default mobile blue/grey touch flashes */
+            font-style: normal !important; 
+            text-decoration: none !important; 
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Responsive Background Canvas & Capsule Profiles */
+        html, body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden; /* Fixes mobile desktop scaling display bugs */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive Background Canvas Profiles */
         @media (prefers-color-scheme: dark) {
             body {
                 background-color: #0b0b0b;
@@ -58,17 +67,7 @@
             .back-home-btn:hover { color: #1c1c1c; }
         }
 
-        /* Flex Centering Layout Grid */
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        /* Smooth Homepage Entry Animation Structure */
+        /* Smooth Homepage Entry Animation Wrapper */
         .workspace-animate-frame {
             display: flex;
             flex-direction: column;
@@ -76,8 +75,8 @@
             justify-content: center;
             text-align: center;
             width: 100%;
-            max-width: 650px;
-            padding: 40px 24px;
+            max-width: 480px; /* Tight bounds to fit mobile profiles beautifully */
+            padding: 24px;
             
             opacity: 0;
             transform: scale3d(1.3, 1.3, 1);
@@ -89,7 +88,6 @@
             transform: scale3d(1, 1, 1);
         }
 
-        /* Visual Element Stylings */
         .status-title {
             font-size: 32px;
             font-weight: 600;
@@ -100,26 +98,27 @@
         .search-subtitle {
             font-size: 15px;
             font-weight: 400;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .status-message {
             font-size: 16px;
             font-weight: 400;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             line-height: 1.5;
+            padding: 0 10px;
         }
 
         .capsule-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             width: 100%;
-            margin-bottom: 40px;
+            margin-bottom: 36px;
         }
 
-        /* Uniform Capsule Design Elements */
+        /* Capsule Pill Components Styling */
         .capsule-panel {
             display: inline-flex;
             align-items: center;
@@ -156,129 +155,151 @@
 <body>
 
     <div class="workspace-animate-frame" id="searchWorkspace">
-        <!-- Dynamic Header (Found / Not found) -->
         <h1 class="status-title" id="statusTitle">Search</h1>
         <div class="search-subtitle" id="queryTarget">Showing results for: ""</div>
         
-        <!-- Condition Statement Message Line -->
-        <div class="status-message" id="statusMessage"></div>
+        <div class="status-message" id="statusMessage">Scanning page content...</div>
         
-        <!-- Multi-capsule Result Interface Mount -->
         <div class="capsule-container" id="capsuleContainer"></div>
 
         <a href="index.html" class="back-home-btn">← Back to Home</a>
     </div>
 
     <script>
-        // 1. Synchronized Dynamic Favicon Engine
+        // 1. Theme Synced Favicon Handling Setup
         const favicon = document.getElementById('favicon');
         const darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
-        
-        function updateFavicon(e) {
-            favicon.href = e.matches ? '/favicon-dark.png' : '/favicon-light.png';
-        }
+        function updateFavicon(e) { favicon.href = e.matches ? '/favicon-dark.png' : '/favicon-light.png'; }
         darkModeMatcher.addEventListener('change', updateFavicon);
         updateFavicon(darkModeMatcher);
 
-        // 2. Comprehensive Site Target Subject Index (Includes deep table words like gadag)
-        const siteSearchIndex = [
-            { 
-                title: "Ramsar Sites", 
-                url: "ramsarsites.html", 
-                tags: ["ramsar", "sites", "kolleru", "ladakh", "lake", "wetland", "wetlands", "chilika", "wular", "gadag", "district", "magadi", "ankasamudra", "karnataka", "anupa", "tso kar", "somoriri"] 
-            },
-            { 
-                title: "Subjects", 
-                url: "subjects.html", 
-                tags: ["subjects", "polity", "history", "geography", "laxmikanth", "ncert", "ncerts", "economy", "csat", "prelims"] 
-            },
-            { 
-                title: "Contents", 
-                url: "contents.html", 
-                tags: ["contents", "art and culture", "indian society", "essays", "essay", "notes", "view more"] 
-            }
+        // 2. Automated AI Assistant Live Network Crawler Registry
+        // Drop any new file path names in this array to automatically expand indexing
+        const targetPagesIndex = [
+            { title: "Ramsar Sites", url: "ramsarsites.html" },
+            { title: "Subjects", url: "subjects.html" },
+            { title: "Contents", url: "contents.html" }
         ];
 
-        // Strict Grammatical Connecting & Helping Verbs Filter List
-        const strictFilterVerbs = new Set([
-            "the", "is", "and", "or", "an", "a", "in", "on", "at", "to", "for", "of", "by", "with", "that", "this", "these", "those", "am", "are", "was", "were", "be", "been", "being", "has", "have", "had", "do", "does", "did"
-        ]);
+        // Structural Grammatical Common Connector Words Filter List
+        const commonFilterWords = new Set(["the", "and", "they", "them", "here", "this", "that", "with", "from", "your", "their"]);
 
-        function executeSearchEngine() {
+        async function processAutomatedSearch() {
             const urlParams = new URLSearchParams(window.location.search);
-            let userQuery = urlParams.get('q') || '';
-            userQuery = userQuery.replace(/\+/g, ' ').trim();
+            let rawQuery = urlParams.get('q') || '';
+            rawQuery = rawQuery.replace(/\+/g, ' ').trim();
             
-            document.getElementById('queryTarget').textContent = `Showing results for: "${userQuery}"`;
+            document.getElementById('queryTarget').textContent = `Showing results for: "${rawQuery}"`;
 
-            const titleElement = document.getElementById('statusTitle');
-            const messageElement = document.getElementById('statusMessage');
-            const containerElement = document.getElementById('capsuleContainer');
+            const titleEl = document.getElementById('statusTitle');
+            const msgEl = document.getElementById('statusMessage');
+            const containerEl = document.getElementById('capsuleContainer');
 
-            // Breakdown Query into Component Processing Tokens
-            const isolatedTokens = userQuery.toLowerCase()
-                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
-                .split(/\s+/);
+            const cleanQuery = rawQuery.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").trim();
 
-            // If query consists ONLY of connecting words/helping verbs, trigger clear empty state instantly
-            const validTokens = isolatedTokens.filter(token => token && !strictFilterVerbs.has(token));
-
-            if (validTokens.length === 0) {
-                renderEmptyState(titleElement, messageElement, containerElement);
+            // Condition Check A: Single Letters or Half-Word validation checks (< 4 chars)
+            if (cleanQuery.length < 4) {
+                titleEl.textContent = "Not found";
+                msgEl.textContent = "Please enter full word to know";
+                containerEl.innerHTML = "";
                 return;
             }
 
-            // Cross-check items through the full index registry
-            let matchedPages = [];
+            // Condition Check B: Common Word filtering execution rule
+            if (commonFilterWords.has(cleanQuery)) {
+                titleEl.textContent = "Not found";
+                msgEl.textContent = "these are common words so please try other words";
+                containerEl.innerHTML = "";
+                return;
+            }
 
-            for (const page of siteSearchIndex) {
-                let matchConfirmed = false;
-                for (const token of validTokens) {
-                    if (page.tags.some(tag => tag.includes(token) || token.includes(tag))) {
-                        matchConfirmed = true;
+            let searchMatchesList = [];
+
+            // Condition Check C: Live Scraper Scanner Engine execution loop
+            try {
+                const scanOperations = targetPagesIndex.map(async (page) => {
+                    const fetchResponse = await fetch(page.url);
+                    if (!fetchResponse.ok) return;
+                    
+                    const sourceHTML = await fetchResponse.text();
+                    
+                    // Creates an internal parsing document window box to scrape clean text content strips
+                    const documentParser = new DOMParser();
+                    const cleanDoc = documentParser.parseFromString(sourceHTML, 'text/html');
+                    
+                    // Completely strips stylesheet tags, raw scripts, and navigation bars to prevent code leakage
+                    cleanDoc.querySelectorAll('script, style, nav, header, footer').forEach(node => node.remove());
+                    
+                    const pureContentText = cleanDoc.body.textContent.toLowerCase();
+                    
+                    // Compute word occurrances count precisely
+                    const textTokensList = pureContentText.split(/\s+/);
+                    let occurrenceCounter = 0;
+                    
+                    textTokensList.forEach(token => {
+                        if (token.includes(cleanQuery) || cleanQuery.includes(token)) {
+                            occurrenceCounter++;
+                        }
+                    });
+
+                    if (occurrenceCounter > 0) {
+                        searchMatchesList.push({
+                            title: page.title,
+                            url: page.url,
+                            matchesCount: occurrenceCounter
+                        });
                     }
-                }
-                if (matchConfirmed) {
-                    matchedPages.push(page);
-                }
-            }
+                });
 
-            // Render Output Blocks based on Matched Page Volume
-            if (matchedPages.length > 0) {
-                titleElement.textContent = "Found";
-                
-                // Set text string variants for singular vs plural target listings
-                if (matchedPages.length === 1) {
-                    messageElement.textContent = "it is available in this page";
+                await Promise.all(scanOperations);
+
+                // 3. Render Module Distribution Core Interface logic
+                if (searchMatchesList.length > 0) {
+                    titleEl.textContent = "Found";
+                    
+                    // Determine if the search query word matches generic mass counts (like "district" or "mission")
+                    const hasHighVolumeMatches = searchMatchesList.some(item => item.matchesCount > 3);
+
+                    if (hasHighVolumeMatches) {
+                        msgEl.textContent = searchMatchesList.length === 1 
+                            ? "but many words are there in this page" 
+                            : "but many words are there in these pages";
+                    } else {
+                        msgEl.textContent = searchMatchesList.length === 1 
+                            ? "it is available in this page" 
+                            : "it is available in these pages";
+                    }
+
+                    containerEl.innerHTML = searchMatchesList.map(page => {
+                        // Drop text highlighters completely if the query matches multi-line targets
+                        const finalDestinationURL = hasHighVolumeMatches 
+                            ? page.url 
+                            : `${page.url}#:~:text=${encodeURIComponent(rawQuery)}`;
+
+                        return `
+                            <a href="${finalDestinationURL}" class="capsule-panel">
+                                <span>${page.title}</span>
+                                <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </a>
+                        `;
+                    }).join('');
+
                 } else {
-                    messageElement.textContent = "it is available in these pages";
+                    titleEl.textContent = "Not found";
+                    msgEl.textContent = "The word you're searching is not available here";
+                    containerEl.innerHTML = "";
                 }
 
-                // Append matching capsule pills complete with Text-Highlight Anchor Hooks
-                containerElement.innerHTML = matchedPages.map(page => {
-                    const scrollHighlightAnchor = `#:~:text=${encodeURIComponent(userQuery)}`;
-                    return `
-                        <a href="${page.url}${scrollHighlightAnchor}" class="capsule-panel">
-                            <span>${page.title}</span>
-                            <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                        </a>
-                    `;
-                }).join('');
-
-            } else {
-                renderEmptyState(titleElement, messageElement, containerElement);
+            } catch (networkError) {
+                titleEl.textContent = "Not found";
+                msgEl.textContent = "The word you're searching is not available here";
+                containerEl.innerHTML = "";
             }
         }
 
-        function renderEmptyState(title, message, container) {
-            title.textContent = "Not found";
-            message.textContent = "The word you're searching is not available here";
-            container.innerHTML = "";
-        }
-
-        // Initialize Workspace Animation Sequence synchronously
-        window.addEventListener('DOMContentLoaded', () => {
-            executeSearchEngine();
+        // Initialize Smooth Loading Canvas Sequences
+        window.addEventListener('DOMContentLoaded', async () => {
+            await processAutomatedSearch();
             
             setTimeout(() => {
                 document.getElementById('searchWorkspace').classList.add('is-initialized');
