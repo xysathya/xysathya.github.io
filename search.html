@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results - sathya.</title>
+    <title>Search - sathya.</title>
+    
+    <!-- Dynamic Favicon Setup -->
+    <link id="favicon" rel="icon" type="image/png" href="/favicon-light.png">
+    
     <!-- Poppins Font Integration -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* 1. Global Reset & Clean Interactivity Rules */
+        /* Global Reset & Strict Structural Typography */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            font-style: normal !important; /* Strictly blocks italic text overrides */
-            text-decoration: none !important; /* Strictly strips all underlines */
-            -webkit-tap-highlight-color: transparent; /* Removes blue/grey highlight flash on touch devices */
+            font-style: normal !important; /* Eliminates all lean/italic typography */
+            text-decoration: none !important; /* Strips out text underlines site-wide */
+            -webkit-tap-highlight-color: transparent; /* Wipes out default mobile blue/grey touch flashes */
         }
 
-        /* 2. Dynamic Adaptive Canvas Systems */
+        /* Responsive Background Canvas & Capsule Profiles */
         @media (prefers-color-scheme: dark) {
             body {
                 background-color: #0b0b0b;
@@ -30,9 +34,9 @@
                 color: #ffffff;
                 border: 1px solid #222222;
             }
-            .search-title { color: #ffffff; }
+            .status-title { color: #ffffff; }
             .search-subtitle { color: #888888; }
-            .search-notice { color: #aaaaaa; }
+            .status-message { color: #aaaaaa; }
             .back-home-btn { color: #666666; }
             .back-home-btn:hover { color: #ffffff; }
         }
@@ -47,14 +51,14 @@
                 color: #1c1c1c;
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             }
-            .search-title { color: #1c1c1c; }
+            .status-title { color: #1c1c1c; }
             .search-subtitle { color: #555555; }
-            .search-notice { color: #444444; }
+            .status-message { color: #444444; }
             .back-home-btn { color: #777777; }
             .back-home-btn:hover { color: #1c1c1c; }
         }
 
-        /* 3. Universal Centering Engine Layout */
+        /* Flex Centering Layout Grid */
         body {
             display: flex;
             align-items: center;
@@ -64,7 +68,7 @@
             overflow-x: hidden;
         }
 
-        /* 4. Smooth Workspace Entry Animation Engine */
+        /* Smooth Homepage Entry Animation Structure */
         .workspace-animate-frame {
             display: flex;
             flex-direction: column;
@@ -75,7 +79,6 @@
             max-width: 650px;
             padding: 40px 24px;
             
-            /* Home page replica transitions */
             opacity: 0;
             transform: scale3d(1.3, 1.3, 1);
             transition: transform 0.26s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.26s linear !important;
@@ -86,8 +89,8 @@
             transform: scale3d(1, 1, 1);
         }
 
-        /* 5. Clean Interface Typography Layouts */
-        .search-title {
+        /* Visual Element Stylings */
+        .status-title {
             font-size: 32px;
             font-weight: 600;
             margin-bottom: 8px;
@@ -100,25 +103,33 @@
             margin-bottom: 32px;
         }
 
-        .search-notice {
+        .status-message {
             font-size: 16px;
             font-weight: 400;
             margin-bottom: 24px;
             line-height: 1.5;
         }
 
-        /* 6. Precision Match Capsule Shape Design */
+        .capsule-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        /* Uniform Capsule Design Elements */
         .capsule-panel {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 14px 32px;
-            border-radius: 40px; /* Exact uniform pill profile */
+            border-radius: 40px;
             font-size: 15px;
             font-weight: 500;
             cursor: pointer;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-            margin-bottom: 40px;
+            transition: transform 0.2s ease;
         }
 
         .capsule-panel:hover {
@@ -129,7 +140,7 @@
             width: 16px;
             height: 16px;
             fill: none;
-            stroke: #00766c; /* Clean accent color anchor */
+            stroke: #00766c;
             stroke-width: 2.5;
             stroke-linecap: round;
             stroke-linejoin: round;
@@ -145,94 +156,130 @@
 <body>
 
     <div class="workspace-animate-frame" id="searchWorkspace">
-        <h1 class="search-title">Search Results</h1>
+        <!-- Dynamic Header (Found / Not found) -->
+        <h1 class="status-title" id="statusTitle">Search</h1>
         <div class="search-subtitle" id="queryTarget">Showing results for: ""</div>
         
-        <!-- Output Injection Matrix Area -->
-        <div id="resultsEngineOutput"></div>
+        <!-- Condition Statement Message Line -->
+        <div class="status-message" id="statusMessage"></div>
+        
+        <!-- Multi-capsule Result Interface Mount -->
+        <div class="capsule-container" id="capsuleContainer"></div>
 
         <a href="index.html" class="back-home-btn">← Back to Home</a>
     </div>
 
     <script>
-        // 1. Live Index Search Database Registry
+        // 1. Synchronized Dynamic Favicon Engine
+        const favicon = document.getElementById('favicon');
+        const darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        function updateFavicon(e) {
+            favicon.href = e.matches ? '/favicon-dark.png' : '/favicon-light.png';
+        }
+        darkModeMatcher.addEventListener('change', updateFavicon);
+        updateFavicon(darkModeMatcher);
+
+        // 2. Comprehensive Site Target Subject Index (Includes deep table words like gadag)
         const siteSearchIndex = [
-            { title: "Ramsar Sites", url: "ramsarsites.html", tags: ["ramsar", "sites", "kolleru", "ladakh", "lake", "wetland", "wetlands", "chilika", "wular"] },
-            { title: "Subjects", url: "subjects.html", tags: ["subjects", "polity", "history", "geography", "laxmikanth", "ncert", "ncerts", "economy"] },
-            { title: "Contents", url: "contents.html", tags: ["contents", "art and culture", "indian society", "essays", "essay"] }
+            { 
+                title: "Ramsar Sites", 
+                url: "ramsarsites.html", 
+                tags: ["ramsar", "sites", "kolleru", "ladakh", "lake", "wetland", "wetlands", "chilika", "wular", "gadag", "district", "magadi", "ankasamudra", "karnataka", "anupa", "tso kar", "somoriri"] 
+            },
+            { 
+                title: "Subjects", 
+                url: "subjects.html", 
+                tags: ["subjects", "polity", "history", "geography", "laxmikanth", "ncert", "ncerts", "economy", "csat", "prelims"] 
+            },
+            { 
+                title: "Contents", 
+                url: "contents.html", 
+                tags: ["contents", "art and culture", "indian society", "essays", "essay", "notes", "view more"] 
+            }
         ];
 
-        // 2. High-Fidelity Filler Extraction Filter
-        const basicFillerWords = new Set(["the", "that", "this", "these", "those", "within", "with", "from", "into", "here", "their", "your", "and", "for", "are"]);
+        // Strict Grammatical Connecting & Helping Verbs Filter List
+        const strictFilterVerbs = new Set([
+            "the", "is", "and", "or", "an", "a", "in", "on", "at", "to", "for", "of", "by", "with", "that", "this", "these", "those", "am", "are", "was", "were", "be", "been", "being", "has", "have", "had", "do", "does", "did"
+        ]);
 
-        function processSearchEngine() {
+        function executeSearchEngine() {
             const urlParams = new URLSearchParams(window.location.search);
             let userQuery = urlParams.get('q') || '';
-            
-            // Sanitize query parameters safely
             userQuery = userQuery.replace(/\+/g, ' ').trim();
+            
             document.getElementById('queryTarget').textContent = `Showing results for: "${userQuery}"`;
 
-            const outputContainer = document.getElementById('resultsEngineOutput');
-            
-            // Filter out query string variables down to pure diagnostic arrays
-            const cleanTokens = userQuery.toLowerCase()
-                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
-                .split(/\s+/)
-                .filter(token => token && !basicFillerWords.has(token));
+            const titleElement = document.getElementById('statusTitle');
+            const messageElement = document.getElementById('statusMessage');
+            const containerElement = document.getElementById('capsuleContainer');
 
-            if (cleanTokens.length === 0) {
-                renderEmptyState(outputContainer);
+            // Breakdown Query into Component Processing Tokens
+            const isolatedTokens = userQuery.toLowerCase()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+                .split(/\s+/);
+
+            // If query consists ONLY of connecting words/helping verbs, trigger clear empty state instantly
+            const validTokens = isolatedTokens.filter(token => token && !strictFilterVerbs.has(token));
+
+            if (validTokens.length === 0) {
+                renderEmptyState(titleElement, messageElement, containerElement);
                 return;
             }
 
-            // Run database diagnostics scan mapping 
-            let bestPageMatch = null;
-            let trackingMaxScore = 0;
+            // Cross-check items through the full index registry
+            let matchedPages = [];
 
-            for (const records of siteSearchIndex) {
-                let currentScore = 0;
-                for (const token of cleanTokens) {
-                    if (records.tags.includes(token)) {
-                        currentScore += 5; // Direct matching keyword weighting
-                    } else {
-                        // Scan matching partial substring fragments
-                        for (const tag of records.tags) {
-                            if (tag.includes(token) || token.includes(tag)) {
-                                currentScore += 2;
-                            }
-                        }
+            for (const page of siteSearchIndex) {
+                let matchConfirmed = false;
+                for (const token of validTokens) {
+                    if (page.tags.some(tag => tag.includes(token) || token.includes(tag))) {
+                        matchConfirmed = true;
                     }
                 }
-                if (currentScore > trackingMaxScore) {
-                    trackingMaxScore = currentScore;
-                    bestPageMatch = records;
+                if (matchConfirmed) {
+                    matchedPages.push(page);
                 }
             }
 
-            // Render matched layout modules or default handling routines
-            if (bestPageMatch && trackingMaxScore > 0) {
-                outputContainer.innerHTML = `
-                    <div class="search-notice">The word you're searching for is in the ${bestPageMatch.title.toLowerCase()}</div>
-                    <a href="${bestPageMatch.url}" class="capsule-panel">
-                        <span>${bestPageMatch.title}</span>
-                        <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                    </a>
-                `;
+            // Render Output Blocks based on Matched Page Volume
+            if (matchedPages.length > 0) {
+                titleElement.textContent = "Found";
+                
+                // Set text string variants for singular vs plural target listings
+                if (matchedPages.length === 1) {
+                    messageElement.textContent = "it is available in this page";
+                } else {
+                    messageElement.textContent = "it is available in these pages";
+                }
+
+                // Append matching capsule pills complete with Text-Highlight Anchor Hooks
+                containerElement.innerHTML = matchedPages.map(page => {
+                    const scrollHighlightAnchor = `#:~:text=${encodeURIComponent(userQuery)}`;
+                    return `
+                        <a href="${page.url}${scrollHighlightAnchor}" class="capsule-panel">
+                            <span>${page.title}</span>
+                            <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </a>
+                    `;
+                }).join('');
+
             } else {
-                renderEmptyState(outputContainer);
+                renderEmptyState(titleElement, messageElement, containerElement);
             }
         }
 
-        function renderEmptyState(container) {
-            container.innerHTML = `<div class="search-notice" style="margin-bottom: 40px;">The word you're searching is not available here</div>`;
+        function renderEmptyState(title, message, container) {
+            title.textContent = "Not found";
+            message.textContent = "The word you're searching is not available here";
+            container.innerHTML = "";
         }
 
-        // 3. Absolute Smooth Load Execution Synchronizer
+        // Initialize Workspace Animation Sequence synchronously
         window.addEventListener('DOMContentLoaded', () => {
-            processSearchEngine();
+            executeSearchEngine();
             
-            // Fires micro-delay to let canvas paint before triggering the 0.26s cubic-bezier zoom entry
             setTimeout(() => {
                 document.getElementById('searchWorkspace').classList.add('is-initialized');
             }, 60);
