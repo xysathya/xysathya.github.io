@@ -310,35 +310,27 @@
         .kinetic-locked-frame { pointer-events: none !important; }
         .kinetic-locked-frame .nav-text { transition: none !important; -webkit-transition: none !important; }
 
-        /* Pristine Copy-Paste Micro Border Frame Pulse Animation */
+        /* INFINITE MULTI-MATCH PULSE FRAMEWORK SYSTEM */
         .activated-word-target {
             display: inline-block !important;
             position: relative !important;
-            padding: 2px 8px !important;
+            padding: 3px 8px !important;
             margin: -2px -4px !important;
             border-radius: 8px !important;
-            border: 1px solid transparent !important;
-            transform: scale(1);
-            will-change: transform, border-color, background-color, box-shadow;
-            animation: premiumWordPulse 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+            border: 1.5px solid var(--text-main) !important;
+            background-color: rgba(37, 122, 108, 0.22) !important; /* Continuous premium background tint */
+            will-change: transform, box-shadow;
+            animation: infinitePremiumWordPulse 2.2s infinite ease-in-out; /* Infinite loop cures scroll timing bugs */
         }
 
-        @keyframes premiumWordPulse {
-            0% { 
-                transform: scale(1); 
-                border-color: transparent; 
-                background-color: transparent; 
+        @keyframes infinitePremiumWordPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 122, 108, 0.4);
             }
-            30% { 
-                transform: scale(1.08); 
-                border-color: var(--text-main); 
-                background-color: rgba(37, 122, 108, 0.16);
-                box-shadow: 0 4px 12px rgba(37, 122, 108, 0.12);
-            }
-            100% { 
-                transform: scale(1); 
-                border-color: var(--text-main); 
-                background-color: transparent; 
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 14px 6px rgba(37, 122, 108, 0.55);
             }
         }
     </style>
@@ -1030,7 +1022,7 @@
             "s16": { name: "Sultanpur National Park", state: "Haryana", year: "2021", area: "1.43 km²", district: "Gurugram district", imp: "Important bird sanctuary, Central Asian Flyway stopover, breeding and wintering waterbirds", thr: "Urbanization, reduced water availability, pollution, invasive vegetation" },
             "s17": { name: "Bhindawas Wildlife Sanctuary", state: "Haryana", year: "2021", area: "4.12 km²", district: "Jjhajjar district", imp: "Haryana's largest wetland, major habitat for migratory birds, groundwater recharge, rich aquatic biodiversity", thr: "Water scarcity, eutrophication, pollution, invasive weeds" },
             "s18": { name: "Pong Dam Lake", state: "Himachal Pradesh", year: "2002", area: "156.62 km²", district: "Kangra district", imp: "Large reservoir on Beas River, internationally important waterbird habitat, supports fish diversity, flood regulation", thr: "Water-level fluctuations, siltation, pollution, human disturbance" },
-            "s19": { name: "Chandertal Wetland", state: "Himachal Pradesh", year: "2005", area: "0.49 km²", district: "Lahaul–Spiti", imp: "High-altitude oligotrophic lake, Himalayan biodiversity, supports rare alpine flora & fauna, climate-sensitive ecosystem", thr: "Climate change, tourism pressure, grazing, habitat disturbance" },
+            "s19": { name: "Chandertal Wetland", state: "Himachal Pradesh", year: "2005", area: "0.49 km²", district: "Lahaul–Spiti", imp: "High-altitude oligotrophic lake, Himalayan biodiversity, supports rare alpine flora & fauna, climate-sensitive ecosystem", thr: "Climate change, tourism, grazing, habitat disturbance" },
             "s20": { name: "Renuka Wetland", state: "Himachal Pradesh", year: "2005", area: "0.20 km²", district: "Sirmaur district", imp: "Largest natural lake in Himachal Pradesh, sacred wetland, rich aquatic biodiversity, supports local wildlife", thr: "Siltation, pollution, encroachment, tourism pressure" },
             "s21": { name: "Wular Lake", state: "Jammu & Kashmir", year: "1990", area: "189 km²", district: "Bandipora district", imp: "One of Asia's largest freshwater lakes, Jhelum flood regulation, rich fish diversity, major migratory bird habitat", thr: "Siltation, encroachment, willow plantations, pollution, weed infestation" },
             "s22": { name: "Surinsar–Mansar Lakes", state: "Jammu & Kashmir", year: "2005", area: "3.5 km²", district: "Near Jammu", imp: "Twin freshwater lakes, sacred wetlands, rich aquatic biodiversity, important waterbird habitat", thr: "Pollution, tourism pressure, catchment degradation, invasive species" },
@@ -1162,7 +1154,7 @@
             const cleanTargetQuery = rawTargetQuery.trim().toLowerCase();
             if (cleanTargetQuery.length === 0) return;
 
-            // Deep clean-scanner loops backwards through raw text components to map ALL matches securely
+            // Deep clean-scanner loops backwards through raw text components to map ALL matches securely cross-platform
             function executeGlobalTextHighlight(node, searchText) {
                 if (node.nodeType === 3) { // Pure Text Node layer match
                     const nodeRawValue = node.nodeValue;
@@ -1181,7 +1173,10 @@
                         node.parentNode.removeChild(node);
                     }
                 } else if (node.nodeType === 1 && node.childNodes && !node.classList.contains('activated-word-target')) {
-                    // Backwards iteration logic ensures dynamic cell additions never break internal structure index limits
+                    // Safety check layout layers to prevent breaking interactive scripts or elements
+                    if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE' || node.tagName === 'HEADER' || node.tagName === 'FOOTER') return;
+                    
+                    // Backwards iteration logic ensures dynamic additions never break nested element structures
                     for (let i = node.childNodes.length - 1; i >= 0; i--) {
                         executeGlobalTextHighlight(node.childNodes[i], searchText);
                     }
@@ -1192,7 +1187,7 @@
             if (mainStudyDashboard) {
                 executeGlobalTextHighlight(mainStudyDashboard, cleanTargetQuery);
 
-                // Instantly snaps viewport and smoothly centers the very first occurrence found on page
+                // Instantly snaps viewport and smoothly centers the very first occurrence found on page layout matrices
                 setTimeout(() => {
                     const primaryFocusMatch = document.querySelector('.activated-word-target');
                     if (primaryFocusMatch) {
