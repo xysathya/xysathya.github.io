@@ -409,11 +409,11 @@
                         <tr><td>18</td><td><span class="site-name" onclick="openSite('s18')">Pong Dam Lake</span></td><td>Himachal Pradesh</td><td>2002</td><td>Kangra district</td></tr>
                         <tr><td>19</td><td><span class="site-name" onclick="openSite('s19')">Chandertal Wetland</span></td><td>Himachal Pradesh</td><td>2005</td><td>Lahaul–Spiti</td></tr>
                         <tr><td>20</td><td><span class="site-name" onclick="openSite('s20')">Renuka Wetland</span></td><td>Himachal Pradesh</td><td>2005</td><td>Sirmaur district</td></tr>
-                        <tr><td>21</td><td><span class="site-name" onclick="openSite('s21')">Wular Lake</span></td><td>Jammu & Kashmir</td><td>1990</td><td>Bandipora district</td></tr>
-                        <tr><td>22</td><td><span class="site-name" onclick="openSite('s22')">Surinsar–Mansar Lakes</span></td><td>Jammu & Kashmir</td><td>2005</td><td>Near Jammu</td></tr>
-                        <tr><td>23</td><td><span class="site-name" onclick="openSite('s23')">Hokera Wetland</span></td><td>Jammu & Kashmir</td><td>2005</td><td>Srinagar district</td></tr>
-                        <tr><td>24</td><td><span class="site-name" onclick="openSite('s24')">Hygam Wetland Conservation Reserve</span></td><td>Jammu & Kashmir</td><td>2022</td><td>Baramulla district</td></tr>
-                        <tr><td>25</td><td><span class="site-name" onclick="openSite('s25')">Shallabugh Wetland Conservation Reserve</span></td><td>Jammu & Kashmir</td><td>2022</td><td>Ganderbal district</td></tr>
+                        <tr><td>21</td><td><span class="site-name" onclick="openSite('s21')">Wular Lake</span></td><td>Jammu &amp; Kashmir</td><td>1990</td><td>Bandipora district</td></tr>
+                        <tr><td>22</td><td><span class="site-name" onclick="openSite('s22')">Surinsar–Mansar Lakes</span></td><td>Jammu &amp; Kashmir</td><td>2005</td><td>Near Jammu</td></tr>
+                        <tr><td>23</td><td><span class="site-name" onclick="openSite('s23')">Hokera Wetland</span></td><td>Jammu &amp; Kashmir</td><td>2005</td><td>Srinagar district</td></tr>
+                        <tr><td>24</td><td><span class="site-name" onclick="openSite('s24')">Hygam Wetland Conservation Reserve</span></td><td>Jammu &amp; Kashmir</td><td>2022</td><td>Baramulla district</td></tr>
+                        <tr><td>25</td><td><span class="site-name" onclick="openSite('s25')">Shallabugh Wetland Conservation Reserve</span></td><td>Jammu &amp; Kashmir</td><td>2022</td><td>Ganderbal district</td></tr>
                         <tr><td>26</td><td><span class="site-name" onclick="openSite('s26')">Udhwa Lake Bird Sanctuary</span></td><td>Jharkhand</td><td>2024</td><td>Sahibganj district</td></tr>
                         <tr><td>27</td><td><span class="site-name" onclick="openSite('s27')">Ranganathittu Bird Sanctuary</span></td><td>Karnataka</td><td>2022</td><td>Mandya district</td></tr>
                         <tr><td>28</td><td><span class="site-name" onclick="openSite('s28')">Ankasamudra Bird Conservation Reserve</span></td><td>Karnataka</td><td>2023</td><td>Ballari district</td></tr>
@@ -582,7 +582,7 @@
                                 <span class="site-name" onclick="openSite('s65')">Koonthankulam Bird Sanctuary</span> (2021)<br>
                                 <span class="site-name" onclick="openSite('s69')">Pallikaranai Marsh Reserve Forest</span> (2022)<br>
                                 <span class="site-name" onclick="openSite('s68')">Pichavaram Mangrove</span> (2022)<br>
-                                <span class="site-name" onclick="openSite('s64')">Point Calimere Wildlife & Bird Sanctuary</span> (2002)<br>
+                                <span class="site-name" onclick="openSite('s64')">Point Calimere Wildlife &amp; Bird Sanctuary</span> (2002)<br>
                                 <span class="site-name" onclick="openSite('s75')">Suchindram Theroor Wetland Complex</span> (2022)<br>
                                 <span class="site-name" onclick="openSite('s73')">Udayamarthandapuram Bird Sanctuary</span> (2022)<br>
                                 <span class="site-name" onclick="openSite('s76')">Vaduvur Bird Sanctuary</span> (2022)<br>
@@ -686,7 +686,7 @@
                         </tr>
                         <tr>
                             <td>9</td>
-                            <td>Jammu & Kashmir</td>
+                            <td>Jammu &amp; Kashmir</td>
                             <td>5</td>
                             <td>
                                 <span class="site-name" onclick="openSite('s21')">Wular Lake</span> (1990)<br>
@@ -728,7 +728,7 @@
             <a href="/Footer/about.html">About</a>
             <a href="/Footer/contact.html">Contact</a>
             <a href="/Footer/privacy.html">Privacy Policy</a>
-            <a href="/Footer/terms.html">Terms & Conditions</a>
+            <a href="/Footer/terms.html">Terms &amp; Conditions</a>
             <a href="/Footer/disclaimer.html">Disclaimer</a>
         </div>
         <div class="copyright-tag">
@@ -773,11 +773,35 @@
                 trail = [{ name: "Home", path: HOME_PATH }];
             }
 
-            const existingIndex = trail.findIndex(step => step.path === searchPath);
-            
-            if (existingIndex === -1) {
+            // 4. Smart "Slice & Clean" Truncation Logic
+            let cameFromHome = false;
+            if (document.referrer) {
+                try {
+                    const refUrl = new URL(document.referrer);
+                    cameFromHome = refUrl.pathname === HOME_PATH || refUrl.pathname === "/";
+                } catch (e) {
+                    cameFromHome = document.referrer.endsWith(HOME_PATH) || document.referrer.endsWith("/");
+                }
+            }
+
+            if (cameFromHome) {
+                // Instantly wipe memory clean and reset back to Home -> Current Page
+                trail = [{ name: "Home", path: HOME_PATH }];
                 if (searchPath !== HOME_PATH && searchPath !== "/") {
                     trail.push({ name: currentPageName, path: searchPath });
+                }
+            } else {
+                // If moving within inner pages, check if the current page already exists in the memory array
+                const existingIndex = trail.findIndex(step => step.path === searchPath);
+                
+                if (existingIndex !== -1) {
+                    // Backtracking: Chop off the tail of the history trail completely!
+                    trail = trail.slice(0, existingIndex + 1);
+                } else {
+                    // Forward Tracking: Append the new entry to the end of the line
+                    if (searchPath !== HOME_PATH && searchPath !== "/") {
+                        trail.push({ name: currentPageName, path: searchPath });
+                    }
                 }
             }
 
