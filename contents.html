@@ -701,6 +701,12 @@
                 }
             });
 
+            // HIGH-END SHIELD: Instantly blocks layout engine reverse animation cycles on search fragment landing
+            if (window.location.href.includes(':~:text=')) {
+                sessionStorage.removeItem('activeUniversalTargetUrl');
+                return;
+            }
+
             const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
             if (savedTargetUrl) {
                 sessionStorage.removeItem('activeUniversalTargetUrl');
