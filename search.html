@@ -252,7 +252,7 @@
                     "alappuzha–rottayam", "tso kar wetland complex", "ladakh", "changthang region", "tsomoriri lake", 
                     "changthang plateau", "bhoj wetlands", "madhya pradesh", "bhopal", "sirpur wetland", 
                     "indore district", "sakhya sagar", "shivpuri district", "yashwant sagar", "tawa reservoir", 
-                    "narmadapuram district", "narmadapuram district", "nandur madhameshwar", "maharashtra", "nashik district", "lonar lake", 
+                    "narmadapuram district", "nandur madhameshwar", "maharashtra", "nashik district", "lonar lake", 
                     "buldhana district", "thane creek", "mumbai–thane", "loktak lake", "manipur", "bishnupur district", 
                     "pala wetland", "mizoram", "siaha district", "chilika lake", "odisha", "puri–khordha–ganjam", 
                     "bhitarkanika mangroves", "kendrapara district", "satkosia gorge", "angul district", 
@@ -286,6 +286,23 @@
                 ]
             }
         ];
+
+        // Core Word-to-Section Mapping Dictionary Matrix
+        const sectionMapping = {
+            "art and culture": "#art-culture", "dances": "#art-culture", "literature": "#art-culture", "art forms": "#art-culture", "folk songs": "#art-culture", "architecture": "#art-culture",
+            "history": "#history", "indian history": "#history", "ancient history": "#history", "freedom struggle": "#history", "medieval history": "#history", "post-independence": "#history", "modern history": "#history", "world history": "#history", "industrial revolution": "#history", "colonization & decolonization": "#history", "world wars": "#history", "political philosophies": "#history",
+            "indian society": "#indian-society", "salient features of indian society": "#indian-society", "urbanization": "#indian-society", "diversity of india": "#indian-society", "effects of globalization": "#indian-society", "role of women & organizations": "#indian-society", "social empowerment & communalism": "#indian-society", "poverty & developmental issues": "#indian-society",
+            "geography": "#geography", "indian geography": "#geography", "physiography & relief": "#geography", "soils & vegetation": "#geography", "river systems & drainage": "#geography", "economic & human geography": "#geography", "climate & monsoons": "#geography", "world geography": "#geography", "geomorphology": "#geography", "major natural regions": "#geography", "climatology": "#geography", "distribution of key resources": "#geography", "oceanography": "#geography",
+            "polity": "#polity", "constitutional framework": "#polity", "local government": "#polity", "system of government": "#polity", "judiciary": "#polity", "central government": "#polity", "constitutional & non-constitutional bodies": "#polity", "state government": "#polity",
+            "social justice": "#social-justice", "welfare schemes for vulnerable sections": "#social-justice", "education system": "#social-justice", "mechanisms, laws & institutions": "#social-justice", "human resources": "#social-justice", "health sector issues": "#social-justice", "issues relating to poverty & hunger": "#social-justice",
+            "governance": "#governance", "important aspects of governance": "#governance", "citizens charters": "#governance", "transparency & accountability": "#governance", "role of civil services in a democracy": "#governance", "e-governance applications & models": "#governance",
+            "international relations": "#international-relations", "india and its neighborhood": "#international-relations", "effect of policies of developed countries": "#international-relations", "bilateral, regional & global groupings": "#international-relations", "important international institutions": "#international-relations",
+            "economy": "#economy", "indian economy & issues relating to planning": "#economy", "government budgeting": "#economy", "mobilization of resources": "#economy", "land reforms in india": "#economy", "growth, development & employment": "#economy", "infrastructure & investment models": "#economy", "inclusive growth": "#economy",
+            "science and technology": "#science-technology", "developments & everyday applications": "#science-technology", "it, space & computers": "#science-technology", "achievements of indians in sci-tech": "#science-technology", "robotics & nanotech": "#science-technology", "indigenization of technology": "#science-technology", "biotechnology & ipr issues": "#science-technology",
+            "environment": "#environment", "conservation & biodiversity": "#environment", "climate change mitigation": "#environment", "environmental pollution & degradation": "#environment", "environmental impact assessment (eia)": "#environment",
+            "disaster management": "#disaster-management", "disaster profiles of india": "#disaster-management", "mitigation strategies": "#disaster-management", "vulnerability & risk assessment": "#disaster-management", "ndma guidelines & frameworks": "#disaster-management",
+            "internal security": "#internal-security", "linkages between development & extremism": "#internal-security", "money laundering & its prevention": "#internal-security", "role of external state & non-state actors": "#internal-security", "border area management & security forces": "#internal-security", "cyber security challenges": "#internal-security", "ngos": "#internal-security"
+        };
 
         function executeManualSearchEngine() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -340,36 +357,11 @@
                 containerEl.innerHTML = matchedPages.map(page => {
                     let destinationLink = page.url;
 
-                    // Stable Section Jump Director System
-                    // Instantly matches your typed word directly to the stable container IDs on your destination page
+                    // Absolute Direct Mapping Engine
                     if (page.url === "contents.html") {
-                        const word = cleanQuery;
-                        if (word.includes("art") || word.includes("dance") || word.includes("literat") || word.includes("song") || word.includes("architect")) {
-                            destinationLink += "#art-culture";
-                        } else if (word.includes("histor") || word.includes("war") || word.includes("revolut") || word.includes("colon")) {
-                            destinationLink += "#history";
-                        } else if (word.includes("societ") || word.includes("urban") || word.includes("diver") || word.includes("global") || word.includes("women") || word.includes("povert")) {
-                            destinationLink += "#indian-society";
-                        } else if (word.includes("geograph") || word.includes("soil") || word.includes("river") || word.includes("climat") || word.includes("monsoon") || word.includes("ocean")) {
-                            destinationLink += "#geography";
-                        } else if (word.includes("scheme") || word.includes("educat") || word.includes("health") || word.includes("vulner") || word.includes("hunger")) {
-                            destinationLink += "#social-justice";
-                        } else if (word.includes("democr") || word.includes("e-govern") || word.includes("account") || word.includes("transpar") || word.includes("charter")) {
-                            destinationLink += "#governance";
-                        } else if (word.includes("polit") || word.includes("constitut") || word.includes("judiciar") || word.includes("state") || word.includes("central")) {
-                            destinationLink += "#polity";
-                        } else if (word.includes("relation") || word.includes("neighbor") || word.includes("bilater") || word.includes("group") || word.includes("institut")) {
-                            destinationLink += "#international-relations";
-                        } else if (word.includes("econom") || word.includes("budget") || word.includes("resourc") || word.includes("reform") || word.includes("grow") || word.includes("invest")) {
-                            destinationLink += "#economy";
-                        } else if (word.includes("sci") || word.includes("tech") || word.includes("space") || word.includes("comput") || word.includes("robot") || word.includes("nano") || word.includes("biotech")) {
-                            destinationLink += "#science-technology";
-                        } else if (word.includes("environ") || word.includes("conserv") || word.includes("biodiver") || word.includes("pollut") || word.includes("eia")) {
-                            destinationLink += "#environment";
-                        } else if (word.includes("disaster") || word.includes("mitigat") || word.includes("risk") || word.includes("ndma")) {
-                            destinationLink += "#disaster-management";
-                        } else if (word.includes("securit") || word.includes("extrem") || word.includes("launder") || word.includes("cyber") || word.includes("border")) {
-                            destinationLink += "#internal-security";
+                        const matchingKeyword = page.words.find(keyword => keyword.includes(cleanQuery));
+                        if (matchingKeyword && sectionMapping[matchingKeyword]) {
+                            destinationLink += sectionMapping[matchingKeyword];
                         }
                     }
 
