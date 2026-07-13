@@ -309,6 +309,38 @@
             .modal-card { padding: 24px; border-radius: 20px; }
             .modal h2 { font-size: 20px; margin-bottom: 20px; }
         }
+
+        /* Pristine Copy-Paste Micro Border Frame Pulse Animation */
+        .activated-word-target {
+            display: inline-block !important;
+            position: relative !important;
+            padding: 2px 8px !important;
+            margin: -2px -4px !important;
+            border-radius: 8px !important;
+            border: 1px solid transparent !important;
+            transform: scale(1);
+            will-change: transform, border-color, background-color, box-shadow;
+            animation: premiumWordPulse 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes premiumWordPulse {
+            0% { 
+                transform: scale(1); 
+                border-color: transparent; 
+                background-color: transparent; 
+            }
+            30% { 
+                transform: scale(1.08); 
+                border-color: var(--text-main); 
+                background-color: rgba(37, 122, 108, 0.16);
+                box-shadow: 0 4px 12px rgba(37, 122, 108, 0.12);
+            }
+            100% { 
+                transform: scale(1); 
+                border-color: var(--text-main); 
+                background-color: transparent; 
+            }
+        }
     </style>
 </head>
 <body>
@@ -1134,7 +1166,50 @@
         document.getElementById("siteModal").addEventListener("touchstart", function(event) {
             if (event.target === this) closeSite();
         }, { passive: true });
-         
+        
+        // --- Universal Drop-In Search Parameter Scanner & Center-Scroll Engine ---
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const rawTargetQuery = urlParams.get('shq');
+            if (!rawTargetQuery) return;
+
+            const cleanTargetQuery = rawTargetQuery.trim().toLowerCase();
+            if (cleanTargetQuery.length === 0) return;
+
+            // Securely maps content nodes across table row arrays without disrupting cell click paths
+            const scanTargets = document.querySelectorAll('table td, table th, .site-name');
+            let perfectMatchElement = null;
+
+            for (const cell of scanTargets) {
+                if (cell.textContent.toLowerCase().includes(cleanTargetQuery)) {
+                    perfectMatchElement = cell;
+                    if (cell.classList.contains('site-name')) {
+                        break; // Stop immediately to prioritize anchor site tags
+                    }
+                }
+            }
+
+            if (perfectMatchElement) {
+                const innerDataMarkup = perfectMatchElement.innerHTML;
+                const escapeRegexPattern = rawTargetQuery.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                const searchRegexMatch = new RegExp(`(${escapeRegexPattern})`, 'gi');
+
+                // Clean check limits injection behavior specifically outside nested interactive structure blocks
+                if (!innerDataMarkup.includes('<span') || perfectMatchElement.classList.contains('site-name')) {
+                    perfectMatchElement.innerHTML = innerDataMarkup.replace(searchRegexMatch, '<span class="activated-word-target">$1</span>');
+
+                    setTimeout(() => {
+                        const dynamicFocusTarget = perfectMatchElement.querySelector('.activated-word-target');
+                        if (dynamicFocusTarget) {
+                            dynamicFocusTarget.scrollIntoView({
+                                block: 'center',
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 320);
+                }
+            }
+        });
     </script>
 </body>
 </html>
