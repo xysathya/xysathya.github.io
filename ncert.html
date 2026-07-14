@@ -228,9 +228,21 @@
         .sub-section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin: 24px 0 20px 0; transition: color 0.8s var(--ease-premium); }
         .wide-capsule :first-child + .sub-section-title { margin-top: 0px; }
 
-        .topics-column-grid { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0px 64px; }
-        .topics-column-grid li { border-bottom: 1px solid var(--row-divider); display: flex; align-items: center; transition: border-color 0.8s var(--ease-premium); }
-        .topics-column-grid li:last-child { border-bottom: none; }
+        /* Upgraded Premium CSS Columns Flow Architecture (Newspaper Mode) */
+        .topics-column-grid { 
+            list-style: none; 
+            column-count: 2; 
+            column-gap: 64px; 
+            width: 100%;
+        }
+        
+        .topics-column-grid li { 
+            border-bottom: 1px solid var(--row-divider); 
+            display: block; 
+            width: 100%;
+            break-inside: avoid; /* Completely safeguards against items breaking in half across columns */
+            transition: border-color 0.8s var(--ease-premium); 
+        }
 
         .topics-column-grid a {
             display: block;
@@ -277,7 +289,7 @@
             .search-core-input { padding: 0 12px; font-size: 15px; }
             .header-right-cluster { gap: 16px; }
             .wide-capsule { padding: 32px 24px; border-radius: 24px; }
-            .topics-column-grid { grid-template-columns: 1fr; } 
+            .topics-column-grid { column-count: 1; } 
             .wide-panel-title { margin-bottom: 20px; font-size: 18px; }
         }
 
