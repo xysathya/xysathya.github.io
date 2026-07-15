@@ -248,7 +248,7 @@
             transition: color 0.8s var(--ease-premium); 
         }
 
-        /* Hard-Locked Capsule Button Component - Total Eradication of Flashes and Outlines */
+        /* Hard-Aligned Poppins Capsule Badge Button Frame - Stripped of Bright Outline/Flashes */
         .capsule-toggle-btn {
             font-family: 'Poppins', sans-serif !important;
             background-color: transparent;
@@ -274,7 +274,6 @@
             transition: border-color 0.4s var(--ease-premium), background-color 0.4s var(--ease-premium);
         }
         
-        /* Subtle, Matted Hover State */
         .capsule-toggle-btn:hover {
             background-color: var(--row-hover);
             border-color: rgba(255, 255, 255, 0.12);
@@ -283,7 +282,6 @@
             border-color: rgba(0, 0, 0, 0.12);
         }
 
-        /* Locks Down Click Focus Behavior Natively */
         .capsule-toggle-btn:focus, 
         .capsule-toggle-btn:active, 
         .capsule-toggle-btn:focus-visible,
@@ -295,7 +293,7 @@
             border-color: var(--panel-border) !important;
         }
 
-        /* Pure Fading Text Wrapper Matrix */
+        /* Fluid Inner Text Layer Matrix - Smooth Symmetrical Skyfall Fall-Down Motion */
         .btn-txt-frame {
             position: relative;
             width: 100%;
@@ -311,15 +309,16 @@
             font-size: 13.5px;
             font-weight: 500;
             font-family: 'Poppins', sans-serif !important;
-            transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1), transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
+        /* Skyfall Drop-Down Coordinates Mapping Vector */
         .txt-view { opacity: 1; transform: translate3d(0, 0, 0); }
-        .txt-hide { opacity: 0; transform: translate3d(0, 4px, 0); }
+        .txt-hide { opacity: 0; transform: translate3d(0, -12px, 0); } /* Dropped from top above */
 
-        .wide-capsule.is-expanded .txt-view { opacity: 0; transform: translate3d(0, -4px, 0); }
-        .wide-capsule.is-expanded .txt-hide { opacity: 1; transform: translate3d(0, 0, 0); }
+        .wide-capsule.is-expanded .txt-view { opacity: 0; transform: translate3d(0, 12px, 0); } /* Exits smoothly down */
+        .wide-capsule.is-expanded .txt-hide { opacity: 1; transform: translate3d(0, 0, 0); }   /* Falls smoothly into center */
 
         .capsule-divider {
             border: none;
@@ -333,14 +332,15 @@
             display: block;
         }
 
-        /* Balanced Layout Symmetrical Expansion Matrix */
+        /* Balanced Layout Fixed-Speed Symmetrical Expansion Matrix */
         .capsule-content-wrapper {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.42s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: grid-template-rows 0.46s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
             width: 100%;
             will-change: grid-template-rows;
+            contain: layout;
         }
 
         .wide-capsule.is-expanded .capsule-content-wrapper {
@@ -351,13 +351,14 @@
             min-height: 0;
             opacity: 0;
             transform: translate3d(0, -6px, 0);
-            transition: opacity 0.38s var(--ease-premium), transform 0.38s var(--ease-premium);
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
             width: 100%;
             
-            /* GPU Layer Optimization to block text rendering lags during height transition */
+            /* Anti-Flicker Hardware Accelerated Layout Masking Pinned Vectors */
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             transform: translateZ(0);
+            will-change: transform, opacity;
         }
 
         .wide-capsule.is-expanded .capsule-content-inner {
@@ -427,7 +428,7 @@
         .nav-text { display: inline-block !important; transform-origin: center center !important; will-change: transform, opacity !important; transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium); }
         .contents-container a:hover .nav-text, .breadcrumb-nav a:hover .nav-text, .footer-links-row a:hover .nav-text, .logo:hover .nav-text { transform: scale3d(1.06, 1.06, 1) !important; }
         
-        .footer-links-row a .nav-text { color: var(--text-muted) !important; }
+        .footer-links-row d a .nav-text { color: var(--text-muted) !important; }
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
 
         .contents-container a.is-zooming .nav-text, .breadcrumb-nav a.is-zooming .nav-text, .footer-links-row a.is-zooming .nav-text, .logo.is-zooming .nav-text { 
@@ -1504,7 +1505,7 @@
             container.innerHTML = htmlMarkup;
         })();
 
-        // --- Frame-Locked Scroll Synchronization Engine ---
+        // --- Optimized Frame-Locked Rollup Structural Isolation Engine ---
         document.querySelectorAll('.wide-capsule').forEach(capsule => {
             const toggleButtons = capsule.querySelectorAll('.capsule-toggle-btn');
             
@@ -1513,25 +1514,9 @@
                     e.stopPropagation();
                     const isOpen = capsule.classList.contains('is-expanded');
                     
-                    // Capture layout coordinates before modifying sizes to avoid window bouncing
-                    const finalTargetTop = capsule.offsetTop - 40;
-                    
                     if (isOpen) {
-                        if (btn.classList.contains('bottom-btn')) {
-                            // Bottom Trigger: Locks document position immediately to prevent layout shifts
-                            window.scrollTo({
-                                top: finalTargetTop,
-                                behavior: 'smooth'
-                            });
-                            
-                            // Delays collapse by a frame so the tracking algorithm executes perfectly
-                            requestAnimationFrame(() => {
-                                capsule.classList.remove('is-expanded');
-                            });
-                        } else {
-                            // Top Trigger: Collapse naturally
-                            capsule.classList.remove('is-expanded');
-                        }
+                        // Vid 1 Symmetrical Pure Mechanical Rollup - Aggressive program scrolls are outlawed
+                        capsule.classList.remove('is-expanded');
                     } else {
                         capsule.classList.add('is-expanded');
                     }
