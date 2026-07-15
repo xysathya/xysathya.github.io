@@ -314,12 +314,12 @@
             will-change: opacity, transform;
         }
 
-        /* Skyfall Smooth Drop-Down Coordinated Vector Framework */
+        /* Skyfall Drop-Down Coordinated Vector Framework */
         .txt-view { opacity: 1; transform: translate3d(0, -50%, 0); }
-        .txt-hide { opacity: 0; transform: translate3d(0, -150%, 0); } /* Positioned high above */
+        .txt-hide { opacity: 0; transform: translate3d(0, -150%, 0); }
 
-        .wide-capsule.is-expanded .txt-view { opacity: 0; transform: translate3d(0, 50%, 0); } /* Drops down and out */
-        .wide-capsule.is-expanded .txt-hide { opacity: 1; transform: translate3d(0, -50%, 0); } /* Drops down into center */
+        .wide-capsule.is-expanded .txt-view { opacity: 0; transform: translate3d(0, 50%, 0); }
+        .wide-capsule.is-expanded .txt-hide { opacity: 1; transform: translate3d(0, -50%, 0); }
 
         .capsule-divider {
             border: none;
@@ -333,7 +333,7 @@
             display: block;
         }
 
-        /* GPU-Composited Pure Layout Mask Container */
+        /* Pure Geometric Layout Mask Container — CSS Transitions are REMOVED here to prevent conflict lags in JS threads */
         .capsule-content-wrapper {
             height: 0px;
             overflow: hidden;
@@ -349,9 +349,9 @@
             display: block;
             opacity: 0;
             transform: translate3d(0, -8px, 0);
-            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             
-            contain: layout paint style !important; /* Forces total layout isolation */
+            contain: layout paint style !important;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             transform: translateZ(0);
@@ -1502,12 +1502,14 @@
             container.innerHTML = htmlMarkup;
         })();
 
-        // --- Core Architectural Frame-Locked Screen Pinning Accordion Engine ---
+        // --- Hardware-Accelerated Layout-Thrashing-Free Accordion Architecture Engine ---
         document.querySelectorAll('.wide-capsule').forEach(capsule => {
             const toggleButtons = capsule.querySelectorAll('.capsule-toggle-btn');
             const wrapper = capsule.querySelector('.capsule-content-wrapper');
             const inner = capsule.querySelector('.capsule-content-inner');
             
+            if (wrapper) wrapper.style.height = '0px';
+
             toggleButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1517,65 +1519,50 @@
                         cancelAnimationFrame(capsule.animationFrameId);
                     }
 
-                    const targetHeight = inner.scrollHeight;
-                    const duration = 440; 
-                    const startTime = performance.now();
+                    // Strict Layout Performance Strategy: Geometric boundaries are read exactly ONCE here
+                    const startHeight = isOpen ? wrapper.offsetHeight : 0;
+                    const targetHeight = isOpen ? 0 : inner.scrollHeight;
+                    const startScrollY = window.scrollY;
+                    const isBottomBtn = btn.classList.contains('bottom-btn');
                     
-                    if (isOpen) {
-                        // CLOSING ACTION
-                        const startHeight = wrapper.offsetHeight;
+                    const duration = 380; // Optimized snappy responsive transition matrix
+                    let startTime = null;
+
+                    if (!isOpen) {
+                        capsule.classList.add('is-expanded');
+                    }
+
+                    function animateAccordion(timestamp) {
+                        if (!startTime) startTime = timestamp;
+                        const elapsed = timestamp - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
                         
-                        // Captures initial screen matrix before document mutation to freeze coordinates completely
-                        const initialVisualTop = capsule.getBoundingClientRect().top;
+                        // Clean Cubic Deceleration Vector
+                        const ease = 1 - Math.pow(1 - progress, 3);
                         
-                        function executeRollupFrame(now) {
-                            const elapsed = now - startTime;
-                            const progress = Math.min(elapsed / duration, 1);
-                            
-                            // Premium Deceleration Curve Parameter Mapping
-                            const ease = 1 - Math.pow(1 - progress, 4);
-                            
-                            const currentHeight = startHeight * (1 - ease);
-                            wrapper.style.height = currentHeight + 'px';
-                            
-                            // Dynamic Hardware Lock Loop: Keeps capsule top at the exact same pixel layout height on screen
-                            const currentVisualTop = capsule.getBoundingClientRect().top;
-                            const coordinateDifference = currentVisualTop - initialVisualTop;
-                            if (coordinateDifference !== 0) {
-                                window.scrollBy(0, coordinateDifference);
-                            }
-                            
-                            if (progress < 1) {
-                                capsule.animationFrameId = requestAnimationFrame(executeRollupFrame);
-                            } else {
+                        const currentHeight = startHeight + (targetHeight - startHeight) * ease;
+                        wrapper.style.height = currentHeight + 'px';
+                        
+                        // Frame-Synchronized Scroll Anchor Lock: Subtly alters scroll offsets step-for-step 
+                        // with height updates so elements below stay frozen inside the user's viewports
+                        if (isOpen && isBottomBtn) {
+                            const deltaHeight = startHeight - currentHeight;
+                            window.scrollTo(0, Math.max(startScrollY - deltaHeight, 0));
+                        }
+
+                        if (progress < 1) {
+                            capsule.animationFrameId = requestAnimationFrame(animateAccordion);
+                        } else {
+                            if (isOpen) {
                                 wrapper.style.height = '0px';
                                 capsule.classList.remove('is-expanded');
-                                capsule.animationFrameId = null;
-                            }
-                        }
-                        capsule.animationFrameId = requestAnimationFrame(executeRollupFrame);
-                    } else {
-                        // OPENING ACTION
-                        capsule.classList.add('is-expanded');
-                        const startHeight = wrapper.offsetHeight;
-                        
-                        function executeExpandFrame(now) {
-                            const elapsed = now - startTime;
-                            const progress = Math.min(elapsed / duration, 1);
-                            const ease = 1 - Math.pow(1 - progress, 4);
-                            
-                            const currentHeight = startHeight + (targetHeight - startHeight) * ease;
-                            wrapper.style.height = currentHeight + 'px';
-                            
-                            if (progress < 1) {
-                                capsule.animationFrameId = requestAnimationFrame(executeExpandFrame);
                             } else {
-                                wrapper.style.height = 'auto';
-                                capsule.animationFrameId = null;
+                                wrapper.style.height = 'auto'; // Reverts to auto for client device window rotations
                             }
+                            capsule.animationFrameId = null;
                         }
-                        capsule.animationFrameId = requestAnimationFrame(executeExpandFrame);
                     }
+                    capsule.animationFrameId = requestAnimationFrame(animateAccordion);
                 });
             });
         });
