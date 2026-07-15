@@ -314,12 +314,12 @@
             will-change: opacity, transform;
         }
 
-        /* Skyfall Drop-Down Coordinated Vector Framework */
+        /* Skyfall Smooth Drop-Down Coordinated Vector Framework */
         .txt-view { opacity: 1; transform: translate3d(0, -50%, 0); }
-        .txt-hide { opacity: 0; transform: translate3d(0, -130%, 0); }
+        .txt-hide { opacity: 0; transform: translate3d(0, -150%, 0); } /* Positioned high above */
 
-        .wide-capsule.is-expanded .txt-view { opacity: 0; transform: translate3d(0, 30%, 0); }
-        .wide-capsule.is-expanded .txt-hide { opacity: 1; transform: translate3d(0, -50%, 0); }
+        .wide-capsule.is-expanded .txt-view { opacity: 0; transform: translate3d(0, 50%, 0); } /* Drops down and out */
+        .wide-capsule.is-expanded .txt-hide { opacity: 1; transform: translate3d(0, -50%, 0); } /* Drops down into center */
 
         .capsule-divider {
             border: none;
@@ -333,25 +333,25 @@
             display: block;
         }
 
-        /* Hardware-Accelerated Dynamic Linear Height Mask Engine */
+        /* GPU-Composited Pure Layout Mask Container */
         .capsule-content-wrapper {
-            height: 0;
+            height: 0px;
             overflow: hidden;
-            transition: height 0.44s cubic-bezier(0.16, 1, 0.3, 1);
+            display: block;
             width: 100%;
             will-change: height;
-            contain: layout;
+            contain: layout paint;
         }
 
-        /* Structural Isolation Engine - Completely Freezes Text Reflow Passes and Eliminates the Flicker Bug */
+        /* Rigid Content Core - Freezes Layout Bounds completely to solve the Text Wrapping Flicker Bug on WebKit */
         .capsule-content-inner {
             width: 100%;
             display: block;
             opacity: 0;
-            transform: translate3d(0, -6px, 0);
-            transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translate3d(0, -8px, 0);
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             
-            contain: layout paint !important; /* Insulates WebKit from line wrapping / block tree queries on height shifts */
+            contain: layout paint style !important; /* Forces total layout isolation */
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             transform: translateZ(0);
@@ -1502,44 +1502,79 @@
             container.innerHTML = htmlMarkup;
         })();
 
-        // --- Hardware-Accelerated Hybrid Layer Position Sync Accordion Engine ---
+        // --- Core Architectural Frame-Locked Screen Pinning Accordion Engine ---
         document.querySelectorAll('.wide-capsule').forEach(capsule => {
             const toggleButtons = capsule.querySelectorAll('.capsule-toggle-btn');
             const wrapper = capsule.querySelector('.capsule-content-wrapper');
+            const inner = capsule.querySelector('.capsule-content-inner');
             
-            if (wrapper) wrapper.style.height = '0px';
-
             toggleButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const isOpen = capsule.classList.contains('is-expanded');
                     
+                    if (capsule.animationFrameId) {
+                        cancelAnimationFrame(capsule.animationFrameId);
+                    }
+
+                    const targetHeight = inner.scrollHeight;
+                    const duration = 440; 
+                    const startTime = performance.now();
+                    
                     if (isOpen) {
-                        if (btn.classList.contains('bottom-btn')) {
-                            // Dynamic Neighborhood Position Lock: Anchors sight matrix naturally to the card's active space
-                            const naturalNeighborhoodTop = Math.max(capsule.offsetTop - 120, 0);
-                            window.scrollTo({
-                                top: naturalNeighborhoodTop,
-                                behavior: 'smooth'
-                            });
-                        }
+                        // CLOSING ACTION
+                        const startHeight = wrapper.offsetHeight;
                         
-                        // Pure Frame Layer Height Rollup Transition
-                        wrapper.style.height = wrapper.scrollHeight + 'px';
-                        void wrapper.offsetHeight; 
-                        wrapper.style.height = '0px';
-                        capsule.classList.remove('is-expanded');
-                    } else {
-                        wrapper.style.height = wrapper.scrollHeight + 'px';
-                        capsule.classList.add('is-expanded');
+                        // Captures initial screen matrix before document mutation to freeze coordinates completely
+                        const initialVisualTop = capsule.getBoundingClientRect().top;
                         
-                        const handleExpandEnd = (event) => {
-                            if (event.propertyName === 'height' && capsule.classList.contains('is-expanded')) {
-                                wrapper.style.height = 'auto';
-                                wrapper.removeEventListener('transitionend', handleExpandEnd);
+                        function executeRollupFrame(now) {
+                            const elapsed = now - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            
+                            // Premium Deceleration Curve Parameter Mapping
+                            const ease = 1 - Math.pow(1 - progress, 4);
+                            
+                            const currentHeight = startHeight * (1 - ease);
+                            wrapper.style.height = currentHeight + 'px';
+                            
+                            // Dynamic Hardware Lock Loop: Keeps capsule top at the exact same pixel layout height on screen
+                            const currentVisualTop = capsule.getBoundingClientRect().top;
+                            const coordinateDifference = currentVisualTop - initialVisualTop;
+                            if (coordinateDifference !== 0) {
+                                window.scrollBy(0, coordinateDifference);
                             }
-                        };
-                        wrapper.addEventListener('transitionend', handleExpandEnd);
+                            
+                            if (progress < 1) {
+                                capsule.animationFrameId = requestAnimationFrame(executeRollupFrame);
+                            } else {
+                                wrapper.style.height = '0px';
+                                capsule.classList.remove('is-expanded');
+                                capsule.animationFrameId = null;
+                            }
+                        }
+                        capsule.animationFrameId = requestAnimationFrame(executeRollupFrame);
+                    } else {
+                        // OPENING ACTION
+                        capsule.classList.add('is-expanded');
+                        const startHeight = wrapper.offsetHeight;
+                        
+                        function executeExpandFrame(now) {
+                            const elapsed = now - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const ease = 1 - Math.pow(1 - progress, 4);
+                            
+                            const currentHeight = startHeight + (targetHeight - startHeight) * ease;
+                            wrapper.style.height = currentHeight + 'px';
+                            
+                            if (progress < 1) {
+                                capsule.animationFrameId = requestAnimationFrame(executeExpandFrame);
+                            } else {
+                                wrapper.style.height = 'auto';
+                                capsule.animationFrameId = null;
+                            }
+                        }
+                        capsule.animationFrameId = requestAnimationFrame(executeExpandFrame);
                     }
                 });
             });
