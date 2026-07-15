@@ -291,7 +291,7 @@
             border-color: var(--panel-border) !important;
         }
 
-        /* Fixed Width Skyfall Text Layer Frame - Hardware Accelerated Anchors for iPad WebKit Stabil stabilization */
+        /* Fixed Width Skyfall Text Layer Frame - Hardware Accelerated Anchors for iPad WebKit Stabilization */
         .btn-txt-frame {
             position: absolute;
             inset: 0;
@@ -333,30 +333,25 @@
             display: block;
         }
 
-        /* Symmetrical Height Containment Mechanics Matrix */
+        /* Dynamic Linear Height Core Mask - Completely Eliminates iPad Layout Quirks */
         .capsule-content-wrapper {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 0.46s cubic-bezier(0.16, 1, 0.3, 1);
+            height: 0;
             overflow: hidden;
+            transition: height 0.44s cubic-bezier(0.16, 1, 0.3, 1);
             width: 100%;
-            will-change: grid-template-rows;
+            will-change: height;
             contain: layout;
         }
 
-        .wide-capsule.is-expanded .capsule-content-wrapper {
-            grid-template-rows: 1fr;
-        }
-
-        /* Strict Structural Isolation Engine - Completely Kills Layout Compression and Flickers */
+        /* Rigid Layout Structural Mask - Completely Freezes Text Wrapping / Eliminates Content Flickers */
         .capsule-content-inner {
-            min-height: max-content !important; /* Forces layout tracking to stay frozen during card collapse */
+            min-height: max-content !important; /* Locks layout size tracking bounds */
             width: 100%;
             opacity: 0;
             transform: translate3d(0, -6px, 0);
-            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             
-            contain: content !important; /* Blocks iPad graphics engine from calculating internal content line boxes */
+            contain: content !important; /* Shields child nodes from WebKit recalculation passes during collapse */
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             transform: translateZ(0);
@@ -776,7 +771,7 @@
                         <li><a href="#">Roads</a></li>
                         <li><a href="#">Railways</a></li>
                         <li><a href="#">Ports</a></li>
-                        <li><a href="#">Air airports</a></li>
+                        <li><a href="#">Airports</a></li>
                         <li><a href="#">Logistics</a></li>
                         <li><a href="#">Inland waterways</a></li>
                     </ul>
@@ -1507,29 +1502,52 @@
             container.innerHTML = htmlMarkup;
         })();
 
-        // --- Hardware-Accelerated Layout Pinned Rollup Thread Engine ---
+        // --- Hardware-Accelerated Dynamic Linear Height Accordion Thread Engine ---
         document.querySelectorAll('.wide-capsule').forEach(capsule => {
             const toggleButtons = capsule.querySelectorAll('.capsule-toggle-btn');
+            const wrapper = capsule.querySelector('.capsule-content-wrapper');
             
+            if (wrapper) wrapper.style.height = '0px';
+
             toggleButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const isOpen = capsule.classList.contains('is-expanded');
                     
                     if (isOpen) {
+                        // Capture static layout parameters before mutating heights
+                        const currentScrollTop = window.scrollY;
+                        const targetAnchorTop = capsule.offsetTop - 40;
+                        
+                        // Force structural lock layout values prior to rollup collapse execution
+                        if (wrapper.style.height === 'auto' || !wrapper.style.height) {
+                            wrapper.style.height = wrapper.scrollHeight + 'px';
+                            void wrapper.offsetHeight; 
+                        }
+                        
+                        wrapper.style.height = '0px';
+                        capsule.classList.remove('is-expanded');
+                        
                         if (btn.classList.contains('bottom-btn')) {
-                            // Captures static document coordinates beforehand to bypass layout thrashing calculations
-                            const anchorCoordinate = capsule.offsetTop - 40;
-                            
-                            // Native composited smoothing avoids loop delays across laptops, iPads, and phone displays
+                            // Native smooth layout anchoring locks eyes onto capsule top seamlessly
                             window.scrollTo({
-                                top: anchorCoordinate,
+                                top: targetAnchorTop,
                                 behavior: 'smooth'
                             });
                         }
-                        capsule.classList.remove('is-expanded');
                     } else {
+                        // Set exact dynamic inner content boundary height
+                        wrapper.style.height = wrapper.scrollHeight + 'px';
                         capsule.classList.add('is-expanded');
+                        
+                        // Transition cleanup swaps explicit pixels to auto for fluid cross-device orientation
+                        const onExpandTransitionEnd = function(event) {
+                            if (event.propertyName === 'height' && capsule.classList.contains('is-expanded')) {
+                                wrapper.style.height = 'auto';
+                                wrapper.removeEventListener('transitionend', onExpandTransitionEnd);
+                            }
+                        };
+                        wrapper.addEventListener('transitionend', onExpandTransitionEnd);
                     }
                 });
             });
