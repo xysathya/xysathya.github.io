@@ -315,10 +315,10 @@
 
         /* Skyfall Drop-Down Coordinates Mapping Vector */
         .txt-view { opacity: 1; transform: translate3d(0, 0, 0); }
-        .txt-hide { opacity: 0; transform: translate3d(0, -12px, 0); } /* Dropped from top above */
+        .txt-hide { opacity: 0; transform: translate3d(0, -12px, 0); }
 
-        .wide-capsule.is-expanded .txt-view { opacity: 0; transform: translate3d(0, 12px, 0); } /* Exits smoothly down */
-        .wide-capsule.is-expanded .txt-hide { opacity: 1; transform: translate3d(0, 0, 0); }   /* Falls smoothly into center */
+        .wide-capsule.is-expanded .txt-view { opacity: 0; transform: translate3d(0, 12px, 0); }
+        .wide-capsule.is-expanded .txt-hide { opacity: 1; transform: translate3d(0, 0, 0); }
 
         .capsule-divider {
             border: none;
@@ -353,8 +353,10 @@
             transform: translate3d(0, -6px, 0);
             transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
             width: 100%;
+            overflow: hidden;
             
             /* Anti-Flicker Hardware Accelerated Layout Masking Pinned Vectors */
+            contain: layout paint;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             transform: translateZ(0);
@@ -428,7 +430,7 @@
         .nav-text { display: inline-block !important; transform-origin: center center !important; will-change: transform, opacity !important; transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium); }
         .contents-container a:hover .nav-text, .breadcrumb-nav a:hover .nav-text, .footer-links-row a:hover .nav-text, .logo:hover .nav-text { transform: scale3d(1.06, 1.06, 1) !important; }
         
-        .footer-links-row d a .nav-text { color: var(--text-muted) !important; }
+        .footer-links-row a .nav-text { color: var(--text-muted) !important; }
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
 
         .contents-container a.is-zooming .nav-text, .breadcrumb-nav a.is-zooming .nav-text, .footer-links-row a.is-zooming .nav-text, .logo.is-zooming .nav-text { 
@@ -1505,7 +1507,7 @@
             container.innerHTML = htmlMarkup;
         })();
 
-        // --- Optimized Frame-Locked Rollup Structural Isolation Engine ---
+        // --- Frame-Locked Scroll Synchronization Loop Logic ---
         document.querySelectorAll('.wide-capsule').forEach(capsule => {
             const toggleButtons = capsule.querySelectorAll('.capsule-toggle-btn');
             
@@ -1515,8 +1517,34 @@
                     const isOpen = capsule.classList.contains('is-expanded');
                     
                     if (isOpen) {
-                        // Vid 1 Symmetrical Pure Mechanical Rollup - Aggressive program scrolls are outlawed
-                        capsule.classList.remove('is-expanded');
+                        if (btn.classList.contains('bottom-btn')) {
+                            // Bottom Trigger: Locks layout to top element using high-frequency manual translation track
+                            const startScrollY = window.scrollY;
+                            const targetAnchorTop = capsule.offsetTop - 40;
+                            capsule.classList.remove('is-expanded');
+                            
+                            let startTime = null;
+                            const duration = 460; // Exact match to CSS cross-grid contraction speeds
+                            
+                            function scrollSync(timestamp) {
+                                if (!startTime) startTime = timestamp;
+                                let elapsed = timestamp - startTime;
+                                let progress = Math.min(elapsed / duration, 1);
+                                
+                                // Perfect quadratic deceleration curve matches scrolling behavior naturally
+                                let ease = 1 - Math.pow(1 - progress, 3);
+                                
+                                window.scrollTo(0, startScrollY + (targetAnchorTop - startScrollY) * ease);
+                                
+                                if (progress < 1) {
+                                    requestAnimationFrame(scrollSync);
+                                }
+                            }
+                            requestAnimationFrame(scrollSync);
+                        } else {
+                            // Top Trigger: Collapse structurally
+                            capsule.classList.remove('is-expanded');
+                        }
                     } else {
                         capsule.classList.add('is-expanded');
                     }
