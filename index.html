@@ -374,10 +374,11 @@
             -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
             
-            transition: transform 0.35s var(--ease-premium), 
-                        box-shadow 0.35s var(--ease-premium), 
-                        border-color 0.35s var(--ease-premium), 
-                        background-color 0.8s var(--ease-premium);
+            /* Exact same 0.35s premium cubic-bezier easing as laptop */
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                        background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @media (min-width: 701px) {
@@ -394,7 +395,7 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            transition: transform 0.35s var(--ease-premium);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .myspace-card-title {
@@ -405,7 +406,7 @@
             transition: color 0.8s var(--ease-premium);
         }
 
-        /* --- LAPTOP MOUSE HOVER --- */
+        /* Desktop Hover State */
         @media (hover: hover) and (pointer: fine) {
             .myspace-card:hover {
                 transform: translate3d(0, -6px, 0) scale3d(1.02, 1.02, 1);
@@ -423,28 +424,19 @@
             }
         }
 
-        /* --- UNIVERSAL 3D ANIMATION LOCK (IPAD, MOBILE & LAPTOP) --- */
-        /* Forces the card container to elevate, scale, and glow border during 750ms transition */
-        .myspace-card:active,
-        .myspace-card.is-touch-active,
-        .myspace-card.is-wave-loading {
+        /* Dedicated Elevation Lock Class (Used by JS to force laptop hover on iPad/Touch) */
+        .myspace-card.is-card-lifted {
             transform: translate3d(0, -6px, 0) scale3d(1.02, 1.02, 1) !important;
             border-color: var(--card-border-hover) !important;
             box-shadow: var(--card-shadow-hover) !important;
         }
 
-        .myspace-card:active .myspace-card-icon,
-        .myspace-card.is-touch-active .myspace-card-icon,
-        .myspace-card.is-wave-loading .myspace-card-icon {
+        .myspace-card.is-card-lifted .myspace-card-icon {
             transform: scale3d(1.08, 1.08, 1) !important;
         }
 
-        .footer-links-row a:active .nav-text,
-        .footer-links-row a.is-touch-active .nav-text,
-        .footer-links-row a.is-wave-loading .nav-text,
-        .logo:active .nav-text,
-        .logo.is-touch-active .nav-text,
-        .logo.is-wave-loading .nav-text {
+        .footer-links-row a.is-card-lifted .nav-text,
+        .logo.is-card-lifted .nav-text {
             transform: scale3d(1.06, 1.06, 1) !important;
         }
 
@@ -768,6 +760,11 @@
         });
 
         universalTargetLinks.forEach(link => {
+            // Touch Start: Immediately starts the 0.35s smooth elevation transition on finger contact
+            link.addEventListener('pointerdown', function() {
+                this.classList.add('is-card-lifted');
+            }, { passive: true });
+
             link.addEventListener('click', function(e) {
                 const destination = this.getAttribute('href');
                 if (!destination || destination === '#' || destination.startsWith('#')) return;
@@ -776,12 +773,12 @@
 
                 universalTargetLinks.forEach(l => {
                     l.classList.remove('is-wave-loading');
-                    l.classList.remove('is-touch-active');
+                    l.classList.remove('is-card-lifted');
                 });
 
-                // Lock both classes to trigger card elevation + wave text shimmer together
+                // Lock elevation state AND start wave shimmer
+                this.classList.add('is-card-lifted');
                 this.classList.add('is-wave-loading');
-                this.classList.add('is-touch-active');
 
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
 
@@ -798,7 +795,7 @@
 
             universalTargetLinks.forEach(l => {
                 l.classList.remove('is-wave-loading');
-                l.classList.remove('is-touch-active');
+                l.classList.remove('is-card-lifted');
                 l.classList.remove('kinetic-locked-frame');
                 const span = l.querySelector('.nav-text');
                 if (span) {
