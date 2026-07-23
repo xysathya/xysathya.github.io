@@ -146,7 +146,6 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
-        /* Twin View Header System Setup */
         .header-inner-view {
             position: absolute;
             inset: 0;
@@ -345,7 +344,6 @@
             transition: color 0.8s var(--ease-premium);
         }
 
-        /* Smart Responsive Flex Layout Engine (Handles 2, 3, or 4 Capsules) */
         .myspace-grid {
             display: flex;
             flex-wrap: wrap;
@@ -371,7 +369,6 @@
             text-decoration: none !important;
             box-shadow: var(--card-shadow);
             
-            /* Hardware-Accelerated Safari Smoothness */
             will-change: transform, box-shadow, border-color;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -384,7 +381,6 @@
                         background-color 0.8s var(--ease-premium);
         }
 
-        /* 3-Capsule Desktop Override Rule (3 in a row on laptop/iPad) */
         @media (min-width: 701px) {
             .myspace-grid.has-3-items .myspace-card {
                 flex: 1 1 calc(33.333% - 14px) !important;
@@ -410,7 +406,6 @@
             transition: color 0.8s var(--ease-premium);
         }
 
-        /* --- Safari-Smooth Hover Lift Animation (NO YELLOW BG) --- */
         @media (hover: hover) and (pointer: fine) {
             .myspace-card:hover {
                 transform: translate3d(0, -6px, 0) scale3d(1.02, 1.02, 1);
@@ -474,13 +469,11 @@
         .footer-links-row a .nav-text { color: var(--text-muted) !important; }
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
 
-        /* --- GPU-Accelerated Continuous Fluid Wave Engine --- */
         @keyframes fluidWave {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
 
-        /* Continuous Hardware-Accelerated Wave Sweep */
         a.is-wave-loading .nav-text {
             background-image: linear-gradient(90deg, #ffffff 0%, #ffffff 25%, #555555 50%, #ffffff 75%, #ffffff 100%) !important;
             background-size: 200% 100% !important;
@@ -493,7 +486,6 @@
             opacity: 1 !important;
         }
 
-        /* Light Mode Fluid Wave Engine */
         body.light-mode a.is-wave-loading .nav-text {
             background-image: linear-gradient(90deg, #111111 0%, #111111 25%, #8a8a8e 50%, #111111 75%, #111111 100%) !important;
             background-size: 200% 100% !important;
@@ -555,7 +547,7 @@
                         <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
                     </svg>
                     <svg class="moon-icon" viewBox="0 0 24 24">
-                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
@@ -592,14 +584,13 @@
                 <!-- Capsule 1: Study -->
                 <a href="/study/index.html" class="myspace-card">
                     <div class="myspace-card-icon">
-                        <!-- Custom Blue Open Book SVG (Algrafika Style) -->
+                        <!-- Custom Blue Open Book SVG -->
                         <svg width="52" height="52" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7 16C7 13.2386 9.23858 11 12 11H30V50H12C9.23858 50 7 47.7614 7 45V16Z" fill="#0C2340"/>
                             <path d="M57 16C57 13.2386 54.7614 11 52 11H34V50H52C54.7614 50 57 47.7614 57 45V16Z" fill="#0C2340"/>
                             <path d="M10 17C10 14.7909 11.7909 13 14 13H30V48H14C11.7909 48 10 46.2091 10 44V17Z" fill="#0080FF"/>
                             <path d="M54 17C54 14.7909 52.2091 13 50 13H34V48H50C52.2091 48 54 46.2091 54 44V17Z" fill="#0080FF"/>
                             <path d="M30 50C30 51.6569 30.8954 53 32 53C33.1046 53 34 51.6569 34 50V11H30V50Z" fill="#071526"/>
-                            <!-- White Rule Lines -->
                             <rect x="14" y="19" width="12" height="2.5" rx="1.25" fill="#FFFFFF"/>
                             <rect x="14" y="25" width="12" height="2.5" rx="1.25" fill="#FFFFFF"/>
                             <rect x="14" y="31" width="12" height="2.5" rx="1.25" fill="#FFFFFF"/>
@@ -616,17 +607,31 @@
                 <!-- Capsule 2: Nutrition -->
                 <a href="/nutrition/index.html" class="myspace-card">
                     <div class="myspace-card-icon">
-                        <!-- Custom Green Sprout SVG (Magnific Style) -->
-                        <svg width="52" height="52" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Soil Mound -->
-                            <path d="M12 52C14.5 45 22 43 32 43C42 43 49.5 45 52 52C46 54 38 55 32 55C26 55 18 54 12 52Z" fill="#8B5A2B"/>
-                            <path d="M16 52C18 47 24 45 32 45C40 45 46 47 48 52C43 53.5 37 54 32 54C27 54 21 53.5 16 52Z" fill="#A06832"/>
-                            <!-- Stem -->
-                            <path d="M30 45C30 35 32 25 32 18" stroke="#72B028" stroke-width="3.5" stroke-linecap="round"/>
-                            <!-- Left Leaf -->
-                            <path d="M31 34C21 34 13 25 13 18C21 18 30 23 31 34Z" fill="#88D132"/>
-                            <!-- Right Leaf -->
-                            <path d="M31 28C41 28 49 19 49 12C41 12 32 17 31 28Z" fill="#72B028"/>
+                        <!-- Custom Green Sprout Vector (Exact Match to Image 1) -->
+                        <svg width="54" height="54" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Bottom Dark Line -->
+                            <rect x="95" y="440" width="322" height="12" rx="6" fill="#5c381c"/>
+                            
+                            <!-- Soil Mound Shadow Base -->
+                            <path d="M135 440 C 135 420, 155 405, 180 405 C 190 405, 200 410, 210 400 C 225 385, 250 375, 275 375 C 300 375, 320 385, 335 400 C 345 408, 360 410, 375 420 C 390 430, 395 440, 395 440 Z" fill="#884f28"/>
+                            
+                            <!-- Soil Mound Main Surface -->
+                            <path d="M135 440 C 140 415, 165 395, 195 395 C 210 395, 220 402, 230 395 C 245 380, 270 370, 290 370 C 315 370, 335 382, 350 398 C 362 408, 375 415, 395 440 Z" fill="#aa6b3c"/>
+                            <path d="M210 420 C 235 390, 275 375, 325 380 C 355 385, 380 410, 395 440 C 370 430, 335 425, 290 425 C 250 425, 220 432, 210 420 Z" fill="#bc7a46"/>
+
+                            <!-- Y-Sprout Stem -->
+                            <path d="M 256 385 C 256 340 242 290 190 230" stroke="#72b528" stroke-width="17" stroke-linecap="round"/>
+                            <path d="M 252 345 C 252 315 268 285 298 250" stroke="#72b528" stroke-width="16" stroke-linecap="round"/>
+
+                            <!-- Left Leaf (Broad Curved Leaf with Top Accent Lip and Vein) -->
+                            <path d="M 242 285 C 220 310 135 315 88 225 C 78 200 82 172 85 170 C 90 170 120 165 182 188 C 242 210 258 255 242 285 Z" fill="#80ca34"/>
+                            <path d="M 85 170 C 115 168 185 178 242 245 C 235 220 180 185 120 172 C 100 168 88 170 85 170 Z" fill="#6cb124"/>
+                            <path d="M 205 272 Q 145 225 105 205" stroke="#a4e74e" stroke-width="11" stroke-linecap="round"/>
+
+                            <!-- Right Leaf (Broad Curved Leaf with Top Accent Lip and Vein) -->
+                            <path d="M 268 288 C 285 308 355 312 400 252 C 412 232 408 208 405 205 C 400 205 372 202 322 218 C 268 235 252 268 268 288 Z" fill="#78c230"/>
+                            <path d="M 405 205 C 378 203 318 212 268 268 C 275 248 322 218 375 208 C 392 204 402 205 405 205 Z" fill="#66aa23"/>
+                            <path d="M 292 272 Q 345 242 388 232" stroke="#9ee24a" stroke-width="10" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <span class="myspace-card-title nav-text">Nutrition</span>
@@ -723,13 +728,11 @@
             }
         });
 
-        // 3-Capsule Layout Helper Class Toggle
         const myspaceGrid = document.getElementById('myspaceGrid');
         if (myspaceGrid && myspaceGrid.children.length === 3) {
             myspaceGrid.classList.add('has-3-items');
         }
 
-        // Fluid Wave Navigation Engine Target Registry
         const universalTargetLinks = document.querySelectorAll('footer .footer-links-row a, .logo, .myspace-card');
 
         universalTargetLinks.forEach(link => {
