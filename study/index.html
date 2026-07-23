@@ -424,7 +424,7 @@
         .nav-text {
             display: inline-block !important;
             transform-origin: center center !important;
-            will-change: transform, opacity !important;
+            will-change: transform, opacity, background-position !important;
             transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
         }
 
@@ -439,14 +439,36 @@
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
         .view-more-link .nav-text { color: #8a9a86 !important; }
 
-        /* Synchronized Word Zoom-Fade (260ms timing match) */
-        .matrix-canvas a.is-zooming .nav-text,
-        .view-more-link.is-zooming .nav-text,
-        .footer-links-row a.is-zooming .nav-text,
-        .logo.is-zooming .nav-text {
-            transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            transform: scale3d(1.28, 1.28, 1) !important;
-            opacity: 0.15 !important;
+        /* --- Fluid Wave Sweep Loading Animation Engine --- */
+        @keyframes fluidWave {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .matrix-canvas a.is-wave-loading .nav-text,
+        .view-more-link.is-wave-loading .nav-text,
+        .footer-links-row a.is-wave-loading .nav-text,
+        .logo.is-wave-loading .nav-text {
+            background: linear-gradient(90deg, #868686 0%, #868686 35%, #ffffff 50%, #868686 65%, #868686 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fluidWave 1.2s infinite linear !important;
+            transform: none !important;
+            opacity: 1 !important;
+        }
+
+        body.light-mode .matrix-canvas a.is-wave-loading .nav-text,
+        body.light-mode .view-more-link.is-wave-loading .nav-text,
+        body.light-mode .footer-links-row a.is-wave-loading .nav-text,
+        body.light-mode .logo.is-wave-loading .nav-text {
+            background: linear-gradient(90deg, #a1a1a6 0%, #a1a1a6 35%, #111111 50%, #a1a1a6 65%, #a1a1a6 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fluidWave 1.2s infinite linear !important;
         }
 
         .kinetic-locked-frame { pointer-events: none !important; }
@@ -454,34 +476,9 @@
             transition: none !important;
             -webkit-transition: none !important;
         }
-
-        /* Pure Soft Backdrop Blur Overlay (No Dimming) */
-        .page-transition-overlay {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.01);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 99999;
-            transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        body.light-mode .page-transition-overlay {
-            background-color: rgba(255, 255, 255, 0.01);
-        }
-
-        body.is-blurring .page-transition-overlay {
-            opacity: 1;
-        }
     </style>
 </head>
 <body>
-
-    <div class="page-transition-overlay" id="pageTransitionOverlay"></div>
 
     <header id="masterHeader">
         <div class="header-inner-view" id="headerMainView">
@@ -693,93 +690,36 @@
                 e.preventDefault();
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
 
-                // Step 1: Start smooth word zoom-fade
-                this.classList.add('is-zooming');
+                // Reset any active wave classes on other links
+                universalTargetLinks.forEach(l => l.classList.remove('is-wave-loading'));
 
-                // Step 2: Trigger subtle frosted blur smoothly as word reaches end of zoom
-                setTimeout(() => {
-                    document.body.classList.add('is-blurring');
-                }, 180);
+                // Activate continuous fluid wave sweep on clicked link
+                this.classList.add('is-wave-loading');
 
-                // Step 3: Trigger page navigation after word transition fully completes
+                // Trigger navigation smoothly
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 280);
+                }, 40);
             });
         });
 
         window.addEventListener('pageshow', () => {
-            document.body.classList.remove('is-blurring');
-
             universalTargetLinks.forEach(l => {
-                l.classList.remove('is-zooming');
+                l.classList.remove('is-wave-loading');
                 l.classList.remove('kinetic-locked-frame');
                 const span = l.querySelector('.nav-text');
                 if (span) {
                     span.style.transform = '';
                     span.style.opacity = '';
+                    span.style.background = '';
+                    span.style.webkitBackgroundClip = '';
+                    span.style.webkitTextFillColor = '';
                 }
             });
 
             const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
             if (savedTargetUrl) {
                 sessionStorage.removeItem('activeUniversalTargetUrl');
-
-                let matchedLinkElement = null;
-                universalTargetLinks.forEach(link => {
-                    if (link.href === savedTargetUrl) {
-                        matchedLinkElement = link;
-                    }
-                });
-
-                if (matchedLinkElement) {
-                    const targetSpan = matchedLinkElement.querySelector('.nav-text');
-
-                    if (targetSpan) {
-                        setTimeout(() => {
-                            matchedLinkElement.classList.add('kinetic-locked-frame');
-
-                            let startScale = 1.3;
-                            let endScale = 1.0;
-                            let startOpacity = 0;
-
-                            let endOpacity = 0.8;
-                            if (matchedLinkElement.classList.contains('view-more-link')) endOpacity = 1.0;
-                            if (matchedLinkElement.closest('footer')) endOpacity = 0.4;
-                            if (matchedLinkElement.classList.contains('logo')) endOpacity = 1.0;
-
-                            let duration = 280; 
-                            let startTime = null;
-
-                            targetSpan.style.setProperty('transform', `scale(${startScale})`, 'important');
-                            targetSpan.style.setProperty('opacity', startOpacity, 'important');
-
-                            function animateReverse(timestamp) {
-                                if (!startTime) startTime = timestamp;
-                                let elapsed = timestamp - startTime;
-                                let progress = Math.min(elapsed / duration, 1);
-
-                                let ease = 1 - Math.pow(1 - progress, 2.2);
-
-                                let currentScale = startScale - (startScale - endScale) * ease;
-                                let currentOpacity = startOpacity + (endOpacity - startOpacity) * ease;
-
-                                targetSpan.style.setProperty('transform', `scale(${currentScale})`, 'important');
-                                targetSpan.style.setProperty('opacity', currentOpacity, 'important');
-
-                                if (progress < 1) {
-                                    requestAnimationFrame(animateReverse);
-                                } else {
-                                    targetSpan.style.transform = '';
-                                    targetSpan.style.opacity = '';
-                                    matchedLinkElement.classList.remove('kinetic-locked-frame');
-                                }
-                            }
-
-                            requestAnimationFrame(animateReverse);
-                        }, 40);
-                    }
-                }
             }
         });
     </script>
