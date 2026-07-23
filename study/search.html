@@ -5,13 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Search - sathya.</title>
     
+    <!-- Universal iPad stabilization: catches text fragments instantly before document draw -->
+    <script>
+      if (window.location.search.includes('tf=1') || window.location.href.includes(':~:text=')) {
+        document.documentElement.classList.add('instant-landing');
+      }
+    </script>
+
     <!-- Dynamic Favicon Link Component -->
     <link id="favicon" rel="icon" type="image/png" href="../favicon-light.png">
+
+    <script>
+      const favicon = document.getElementById('favicon');
+      const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+      
+      function updateFavicon(e) {
+        favicon.href = e.matches ? '../favicon-dark.png' : '../favicon-light.png';
+      }
+      
+      updateFavicon(darkMode);
+      darkMode.addEventListener('change', updateFavicon);
+    </script>
     
     <!-- Poppins Font Integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
+        /* Modern Token System */
+        :root {
+            --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-color: #0b0b0b;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --text-sub: #aaaaaa;
+            --panel-bg: #161616;
+            --panel-border: #222222;
+            --accent-color: #00766c;
+            --btn-muted: #666666;
+        }
+
+        body.light-mode {
+            --bg-color: #ebebe4;
+            --text-main: #1c1c1c;
+            --text-muted: #555555;
+            --text-sub: #444444;
+            --panel-bg: #ffffff;
+            --panel-border: #e2e2e7;
+            --accent-color: #2d8a77;
+            --btn-muted: #777777;
+        }
+
         /* Global Reset & Strict Mobile App Containment Layout */
         * {
             margin: 0;
@@ -20,7 +65,8 @@
             font-family: 'Poppins', sans-serif;
             font-style: normal !important; 
             text-decoration: none !important; 
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
         }
 
         html, body {
@@ -30,41 +76,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        /* Responsive Background Canvas Profiles */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #0b0b0b;
-                color: #ffffff;
-            }
-            .capsule-panel {
-                background-color: #161616;
-                color: #ffffff;
-                border: 1px solid #222222;
-            }
-            .status-title { color: #ffffff; }
-            .search-subtitle { color: #888888; }
-            .status-message { color: #aaaaaa; }
-            .back-home-btn { color: #666666; }
-            .back-home-btn:hover { color: #ffffff; }
-        }
-
-        @media (prefers-color-scheme: light) {
-            body {
-                background-color: #ebebe4;
-                color: #1c1c1c;
-            }
-            .capsule-panel {
-                background-color: #ffffff;
-                color: #1c1c1c;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-            }
-            .status-title { color: #1c1c1c; }
-            .search-subtitle { color: #555555; }
-            .status-message { color: #444444; }
-            .back-home-btn { color: #777777; }
-            .back-home-btn:hover { color: #1c1c1c; }
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.8s var(--ease-premium), color 0.8s var(--ease-premium);
         }
 
         /* Smooth Entry Animation Wrapper */
@@ -77,7 +91,6 @@
             width: 100%;
             max-width: 640px; 
             padding: 24px;
-            
             opacity: 0;
             transform: scale3d(1.3, 1.3, 1);
             transition: transform 0.26s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.26s linear !important;
@@ -93,12 +106,16 @@
             font-weight: 600;
             margin-bottom: 8px;
             letter-spacing: -0.5px;
+            color: var(--text-main);
+            transition: color 0.8s var(--ease-premium);
         }
 
         .search-subtitle {
             font-size: 15px;
             font-weight: 400;
             margin-bottom: 24px;
+            color: var(--text-muted);
+            transition: color 0.8s var(--ease-premium);
         }
 
         .status-message {
@@ -107,6 +124,8 @@
             margin-bottom: 28px;
             line-height: 1.5;
             padding: 0 10px;
+            color: var(--text-sub);
+            transition: color 0.8s var(--ease-premium);
         }
 
         /* Phone layout default style: Stacked one down one */
@@ -131,27 +150,79 @@
             font-weight: 500;
             cursor: pointer;
             white-space: nowrap;
-            transition: transform 0.2s ease;
-        }
-
-        .capsule-panel:hover {
-            transform: translateY(-2px);
+            background-color: var(--panel-bg);
+            color: var(--text-main);
+            border: 1px solid var(--panel-border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s var(--ease-premium), background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), color 0.8s var(--ease-premium);
         }
 
         .capsule-panel svg {
             width: 16px;
             height: 16px;
             fill: none;
-            stroke: #00766c;
+            stroke: var(--accent-color);
             stroke-width: 2.5;
             stroke-linecap: round;
             stroke-linejoin: round;
+            transition: stroke 0.8s var(--ease-premium);
         }
 
         .back-home-btn {
             font-size: 14px;
             font-weight: 400;
-            transition: color 0.2s ease;
+            color: var(--btn-muted);
+            transition: color 0.4s var(--ease-premium);
+        }
+
+        .nav-text {
+            display: inline-block !important;
+            white-space: nowrap !important;
+            transform-origin: center center !important;
+            will-change: transform, opacity, background-position !important;
+            transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
+        }
+
+        /* Touch-Safe Hover Configurations */
+        @media (hover: hover) and (pointer: fine) {
+            .capsule-panel:hover {
+                transform: translateY(-2px);
+            }
+            .back-home-btn:hover {
+                color: var(--text-main);
+            }
+        }
+
+        /* --- GPU-Accelerated Continuous Fluid Wave Engine --- */
+        @keyframes fluidWave {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Continuous Hardware-Accelerated Wave Sweep */
+        a.is-wave-loading .nav-text {
+            background-image: linear-gradient(90deg, #ffffff 0%, #ffffff 25%, #555555 50%, #ffffff 75%, #ffffff 100%) !important;
+            background-size: 200% 100% !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            color: transparent !important;
+            animation: fluidWave 0.75s infinite linear !important;
+            will-change: background-position, transform !important;
+            opacity: 1 !important;
+        }
+
+        /* Light Mode Fluid Wave Engine */
+        body.light-mode a.is-wave-loading .nav-text {
+            background-image: linear-gradient(90deg, #111111 0%, #111111 25%, #8a8a8e 50%, #111111 75%, #111111 100%) !important;
+            background-size: 200% 100% !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            color: transparent !important;
+            animation: fluidWave 0.75s infinite linear !important;
+            will-change: background-position, transform !important;
+            opacity: 1 !important;
         }
 
         /* PREMIUM RESPONSIVE ADAPTATION ENGINE (Laptop and iPad Grid Control) */
@@ -172,6 +243,13 @@
                 gap: 16px !important;
             }
         }
+
+        html.instant-landing .workspace-animate-frame {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+        }
     </style>
 </head>
 <body>
@@ -184,16 +262,41 @@
         
         <div class="capsule-container" id="capsuleContainer"></div>
 
-        <a href="/study/index.html" class="back-home-btn">← Back to Home</a>
+        <a href="/study/index.html" class="back-home-btn" id="backHomeBtn"><span class="nav-text">← Back to Home</span></a>
     </div>
 
     <script>
-        // 1. Theme Synced Favicon Manager
-        const favicon = document.getElementById('favicon');
-        const darkModeMatcher = window.matchMedia('(prefers-color-scheme: dark)');
-        function updateFavicon(e) { favicon.href = e.matches ? '../favicon-dark.png' : '../favicon-light.png'; }
-        darkModeMatcher.addEventListener('change', updateFavicon);
-        updateFavicon(darkModeMatcher);
+        // 1. Theme Synced Engine with Session Memory Overrides
+        const bodyElement = document.body;
+        const systemLightQuery = window.matchMedia('(prefers-color-scheme: light)');
+
+        function applyTargetPalette() {
+            const activeSessionOverride = sessionStorage.getItem('dashboard-theme');
+            if (activeSessionOverride) {
+                if (activeSessionOverride === 'light') {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
+            } else {
+                if (systemLightQuery.matches) {
+                    bodyElement.classList.add('light-mode');
+                } else {
+                    bodyElement.classList.remove('light-mode');
+                }
+            }
+        }
+
+        applyTargetPalette();
+
+        systemLightQuery.addEventListener('change', (e) => {
+            sessionStorage.removeItem('dashboard-theme');
+            if (e.matches) {
+                bodyElement.classList.add('light-mode');
+            } else {
+                bodyElement.classList.remove('light-mode');
+            }
+        });
 
         // 2. Nutrition Keywords Registry for Intelligent Cross-Portal Redirection
         const nutritionKeywords = new Set([
@@ -381,6 +484,26 @@
             "internal security": "#internal-security", "linkages between development & extremism": "#internal-security", "money laundering & its prevention": "#internal-security", "role of external state & non-state actors": "#internal-security", "border area management & security forces": "#internal-security", "cyber security challenges": "#internal-security", "ngos": "#internal-security"
         };
 
+        function bindFluidWaveNavigation() {
+            const resultLinks = document.querySelectorAll('.capsule-panel, .back-home-btn');
+            resultLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const destination = this.getAttribute('href');
+                    if (!destination || destination === '#' || destination.startsWith('#')) return;
+
+                    e.preventDefault();
+                    sessionStorage.setItem('activeUniversalTargetUrl', this.href);
+
+                    resultLinks.forEach(l => l.classList.remove('is-wave-loading'));
+                    this.classList.add('is-wave-loading');
+
+                    setTimeout(() => {
+                        window.location.href = destination;
+                    }, 750);
+                });
+            });
+        }
+
         function executeManualSearchEngine() {
             const urlParams = new URLSearchParams(window.location.search);
             let rawQuery = urlParams.get('q') || '';
@@ -398,6 +521,7 @@
                 titleEl.textContent = "Not found";
                 msgEl.textContent = "Please enter full word to know";
                 containerEl.innerHTML = "";
+                bindFluidWaveNavigation();
                 return;
             }
 
@@ -410,7 +534,7 @@
                 msgEl.textContent = "Taking you to Nutrition page...";
                 containerEl.innerHTML = `
                     <div class="capsule-panel">
-                        <span>Nutrition Portal</span>
+                        <span class="nav-text">Nutrition Portal</span>
                         <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                     </div>
                 `;
@@ -424,6 +548,7 @@
                 titleEl.textContent = "Not found";
                 msgEl.textContent = "These are common words so please try other words";
                 containerEl.innerHTML = "";
+                bindFluidWaveNavigation();
                 return;
             }
 
@@ -495,7 +620,7 @@
 
                     return `
                         <a href="${destinationLink}" class="capsule-panel">
-                            <span>${page.title}</span>
+                            <span class="nav-text">${page.title}</span>
                             <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                         </a>
                     `;
@@ -506,6 +631,8 @@
                 msgEl.textContent = "The word you're searching is not available here";
                 containerEl.innerHTML = "";
             }
+
+            bindFluidWaveNavigation();
         }
 
         // Trigger Smooth Workspace Loader
@@ -518,6 +645,30 @@
                     activeFrameNode.classList.add('is-initialized');
                 }
             }, 60);
+        });
+
+        window.addEventListener('pageshow', () => {
+            if (document.activeElement && document.activeElement.blur) {
+                document.activeElement.blur();
+            }
+
+            const resultLinks = document.querySelectorAll('.capsule-panel, .back-home-btn');
+            resultLinks.forEach(l => {
+                l.classList.remove('is-wave-loading');
+                const span = l.querySelector('.nav-text');
+                if (span) {
+                    span.style.transform = '';
+                    span.style.opacity = '';
+                    span.style.background = '';
+                    span.style.webkitBackgroundClip = '';
+                    span.style.webkitTextFillColor = '';
+                }
+            });
+
+            const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
+            if (savedTargetUrl) {
+                sessionStorage.removeItem('activeUniversalTargetUrl');
+            }
         });
     </script>
 </body>
