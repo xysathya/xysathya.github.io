@@ -439,41 +439,45 @@
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
         .view-more-link .nav-text { color: #8a9a86 !important; }
 
-        /* --- High-Contrast High-Visibility Fluid Wave Engine --- */
-        @keyframes pureTextWave {
-            0% { background-position: 180% 0; }
-            100% { background-position: -180% 0; }
+        /* --- GPU-Accelerated Continuous Fluid Wave Engine --- */
+        @keyframes fluidWave {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
-        /* Dark Mode: Text dims to #555555 gray, bright pure white #ffffff wave sweeps sharply across letters */
+        /* Dark Mode: Continuous Hardware-Accelerated Wave Sweep */
         .matrix-canvas a.is-wave-loading .nav-text,
         .view-more-link.is-wave-loading .nav-text,
         .footer-links-row a.is-wave-loading .nav-text,
         .logo.is-wave-loading .nav-text {
-            background: linear-gradient(90deg, #555555 0%, #555555 35%, #ffffff 50%, #555555 65%, #555555 100%) !important;
-            background-size: 250% 100% !important;
-            -webkit-background-clip: text !important;
-            background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-            animation: pureTextWave 0.85s infinite linear !important;
-            will-change: background-position !important;
+            background: linear-gradient(90deg, #ffffff 0%, #ffffff 30%, #868686 50%, #ffffff 70%, #ffffff 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fluidWave 0.75s infinite linear !important;
+            will-change: background-position, transform !important;
             transform: translate3d(0, 0, 0) !important;
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
             opacity: 1 !important;
         }
 
-        /* Light Mode: Text dims to #b0b0b5, deep black #111111 wave sweeps sharply across letters */
+        /* Light Mode: Continuous Hardware-Accelerated Wave Sweep */
         body.light-mode .matrix-canvas a.is-wave-loading .nav-text,
         body.light-mode .view-more-link.is-wave-loading .nav-text,
         body.light-mode .footer-links-row a.is-wave-loading .nav-text,
         body.light-mode .logo.is-wave-loading .nav-text {
-            background: linear-gradient(90deg, #b0b0b5 0%, #b0b0b5 35%, #111111 50%, #b0b0b5 65%, #b0b0b5 100%) !important;
-            background-size: 250% 100% !important;
-            -webkit-background-clip: text !important;
-            background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-            animation: pureTextWave 0.85s infinite linear !important;
-            will-change: background-position !important;
+            background: linear-gradient(90deg, #111111 0%, #111111 30%, #8a8a8e 50%, #111111 70%, #111111 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fluidWave 0.75s infinite linear !important;
+            will-change: background-position, transform !important;
             transform: translate3d(0, 0, 0) !important;
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
             opacity: 1 !important;
         }
 
@@ -696,13 +700,13 @@
                 e.preventDefault();
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
 
-                // Clear wave from all other links
+                // Reset any active wave classes on other links
                 universalTargetLinks.forEach(l => l.classList.remove('is-wave-loading'));
 
-                // Activate high-contrast text wave on clicked link
+                // Activate continuous GPU-promoted fluid wave sweep on clicked link
                 this.classList.add('is-wave-loading');
 
-                // Trigger navigation cleanly
+                // Trigger navigation smoothly; GPU compositor keeps wave in continuous motion
                 setTimeout(() => {
                     window.location.href = destination;
                 }, 180);
