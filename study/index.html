@@ -87,8 +87,6 @@
             width: 95%;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            
-            /* SYNCHRONIZED: Premium Anti-Flash Breathing Color Clock Transition Matrix */
             transition: background-color 0.8s var(--ease-premium), color 0.8s var(--ease-premium);
         }
 
@@ -122,8 +120,6 @@
             margin: 0 auto 80px auto;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
             overflow: hidden;
-            
-            /* SYNCHRONIZED: Header Fluid Dissolve Configuration */
             transition: background-color 0.8s var(--ease-premium), border-color 0.8s var(--ease-premium), box-shadow 0.8s var(--ease-premium);
         }
 
@@ -570,15 +566,11 @@
     <script>
         // --- Universal Persistent Master Breadcrumb Engine (Homepage Reset Optimization) ---
         (function buildDynamicBreadcrumbs() {
-            const searchPath = window.location.pathname;
             const HOME_PATH = "/study/index.html";
-
-            if (searchPath === HOME_PATH || searchPath === "/study/" || searchPath === "/study/index.html") {
-                const structuralHomeState = [{ name: "Home", path: HOME_PATH }];
-                try {
-                    sessionStorage.setItem('breadcrumbTrail', JSON.stringify(structuralHomeState));
-                } catch (e) {}
-            }
+            const structuralHomeState = [{ name: "Home", path: HOME_PATH }];
+            try {
+                sessionStorage.setItem('breadcrumbTrail', JSON.stringify(structuralHomeState));
+            } catch (e) {}
         })();
 
         const toggleBtn = document.getElementById('themeToggleBtn');
