@@ -18,10 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
             logo.href = '/index.html';       // Level 0 -> Stay on Main Home
         }
 
+        logo.addEventListener('pointerdown', () => {
+            logo.classList.add('is-card-lifted');
+        }, { passive: true });
+
         logo.addEventListener('click', (e) => {
             e.preventDefault();
+            logo.classList.add('is-card-lifted');
             logo.classList.add('is-wave-loading');
-            logo.classList.add('is-touch-active');
             const destination = logo.href;
             document.body.classList.add('wave-active');
             setTimeout(() => {
