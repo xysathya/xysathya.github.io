@@ -692,7 +692,25 @@
             }
         });
 
+        // Instant background preloader to keep wave motion smooth & non-stalling
+        const preloadedUrls = new Set();
+        function prefetchTarget(url) {
+            if (!url || url === '#' || url.startsWith('#') || preloadedUrls.has(url)) return;
+            preloadedUrls.add(url);
+            const linkElem = document.createElement('link');
+            linkElem.rel = 'prefetch';
+            linkElem.href = url;
+            document.head.appendChild(linkElem);
+        }
+
         universalTargetLinks.forEach(link => {
+            // Pre-load as soon as user hovers or touches the link
+            ['mouseenter', 'touchstart', 'pointerdown'].forEach(evt => {
+                link.addEventListener(evt, function() {
+                    prefetchTarget(this.getAttribute('href'));
+                }, { passive: true });
+            });
+
             link.addEventListener('click', function(e) {
                 const destination = this.getAttribute('href');
                 if (!destination || destination === '#' || destination.startsWith('#')) return;
@@ -700,16 +718,21 @@
                 e.preventDefault();
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
 
+                // Ensure target page is prefetched in memory
+                prefetchTarget(destination);
+
                 // Reset any active wave classes on other links
                 universalTargetLinks.forEach(l => l.classList.remove('is-wave-loading'));
 
-                // Activate continuous GPU-promoted fluid wave sweep on clicked link
+                // Activate continuous fluid wave sweep on clicked link
                 this.classList.add('is-wave-loading');
 
-                // Trigger navigation smoothly; GPU compositor keeps wave in continuous motion
-                setTimeout(() => {
-                    window.location.href = destination;
-                }, 180);
+                // Instant navigation swap ensures animation never sits on a frozen frame
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        window.location.href = destination;
+                    }, 160);
+                });
             });
         });
 
