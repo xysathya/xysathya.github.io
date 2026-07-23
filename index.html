@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sathya.</title>
 
-    <!-- Universal iPad stabilization: catches text fragments instantly before document draw -->
+    <!-- Universal iPad stabilization -->
     <script>
       if (window.location.search.includes('tf=1') || window.location.href.includes(':~:text=')) {
         document.documentElement.classList.add('instant-landing');
@@ -351,7 +351,9 @@
             width: 100%;
         }
 
+        /* HARDWARE-ACCELERATED CAPSULE CARD */
         .myspace-card {
+            position: relative;
             flex: 1 1 calc(50% - 10px);
             min-width: 180px;
             max-width: 280px;
@@ -368,16 +370,27 @@
             box-shadow: var(--card-shadow);
             touch-action: manipulation;
             
-            will-change: transform, box-shadow, border-color;
+            will-change: transform, border-color;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
+            transform: translate3d(0, 0, 0);
             
-            transition: transform 0.35s var(--ease-premium), 
-                        box-shadow 0.35s var(--ease-premium), 
-                        border-color 0.35s var(--ease-premium), 
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
                         background-color 0.8s var(--ease-premium);
+        }
+
+        /* GPU Pseudo-element Shadow Overlay to eliminate mobile frame-drops */
+        .myspace-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow-hover);
+            opacity: 0;
+            will-change: opacity;
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
         }
 
         @media (min-width: 701px) {
@@ -394,7 +407,8 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            transition: transform 0.35s var(--ease-premium);
+            will-change: transform;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .myspace-card-title {
@@ -405,13 +419,18 @@
             transition: color 0.8s var(--ease-premium);
         }
 
-        /* --- UNIVERSAL 3D ANIMATIONS (LAPTOP, IPAD & PHONE) --- */
+        /* SMOOTH 60FPS ELEVATION (LAPTOP, IPAD & PHONE) */
         .myspace-card:hover,
         .myspace-card:active,
         .myspace-card.is-touch-active {
-            transform: translate3d(0, -6px, 0) scale3d(1.02, 1.02, 1) !important;
+            transform: translate3d(0, -6px, 0) !important;
             border-color: var(--card-border-hover) !important;
-            box-shadow: var(--card-shadow-hover) !important;
+        }
+
+        .myspace-card:hover::after,
+        .myspace-card:active::after,
+        .myspace-card.is-touch-active::after {
+            opacity: 1 !important;
         }
 
         .myspace-card:hover .myspace-card-icon,
@@ -749,9 +768,11 @@
         });
 
         universalTargetLinks.forEach(link => {
-            // Trigger scale elevation instantly when finger touches the glass
+            // Frame-synced smooth touch start on Mobile GPUs
             link.addEventListener('pointerdown', function() {
-                this.classList.add('is-touch-active');
+                requestAnimationFrame(() => {
+                    this.classList.add('is-touch-active');
+                });
             }, { passive: true });
 
             link.addEventListener('click', function(e) {
@@ -760,12 +781,12 @@
 
                 e.preventDefault();
 
-                // Keep card elevated and scaled up high for the full 750ms wait time
-                this.classList.add('is-touch-active');
+                requestAnimationFrame(() => {
+                    this.classList.add('is-touch-active');
+                });
+                
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
-
                 universalTargetLinks.forEach(l => l.classList.remove('is-wave-loading'));
-
                 this.classList.add('is-wave-loading');
 
                 setTimeout(() => {
