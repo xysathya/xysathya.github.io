@@ -186,13 +186,55 @@
         .clear-text-btn svg { opacity: 0.4; }
         .close-search-btn svg { opacity: 0.7; }
 
-        .theme-toggle { width: 32px; height: 32px; position: relative; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .theme-toggle svg { position: absolute; width: 22px; height: 22px; fill: none; stroke: var(--text-main); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transform-origin: center center; will-change: transform, opacity; -webkit-backface-visibility: hidden; backface-visibility: hidden; transition: transform 0.8s var(--ease-premium), opacity 0.8s var(--ease-premium), stroke 0.8s var(--ease-premium); }
+        /* Centered Theme Toggle System */
+        .theme-toggle { 
+            width: 32px; 
+            height: 32px; 
+            position: relative; 
+            cursor: pointer; 
+            user-select: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            flex-shrink: 0; 
+        }
 
-        .theme-toggle .sun-icon { opacity: 0; transform: translate3d(0, 0, 0) rotate(-90deg) scale(0.4); }
-        .theme-toggle .moon-icon { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
-        body.light-mode .theme-toggle .sun-icon { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
-        body.light-mode .theme-toggle .moon-icon { opacity: 0; transform: translate3d(0, 0, 0) rotate(90deg) scale(0.4); }
+        .theme-toggle svg { 
+            position: absolute; 
+            top: 50%;
+            left: 50%;
+            width: 22px; 
+            height: 22px; 
+            fill: none; 
+            stroke: var(--text-main); 
+            stroke-width: 2.2; 
+            stroke-linecap: round; 
+            stroke-linejoin: round; 
+            will-change: transform, opacity; 
+            -webkit-backface-visibility: hidden; 
+            backface-visibility: hidden; 
+            transition: transform 0.8s var(--ease-premium), opacity 0.8s var(--ease-premium), stroke 0.8s var(--ease-premium); 
+        }
+
+        .theme-toggle .sun-icon { 
+            opacity: 0; 
+            transform: translate(-50%, -50%) rotate(-90deg) scale(0.4); 
+        }
+
+        .theme-toggle .moon-icon { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) rotate(0deg) scale(1); 
+        }
+
+        body.light-mode .theme-toggle .sun-icon { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) rotate(0deg) scale(1); 
+        }
+
+        body.light-mode .theme-toggle .moon-icon { 
+            opacity: 0; 
+            transform: translate(-50%, -50%) rotate(90deg) scale(0.4); 
+        }
 
         main { flex-grow: 1; width: 100%; display: flex; flex-direction: column; }
 
@@ -344,8 +386,13 @@
             <a href="/study/index.html" class="logo">sathya.</a>
             <div class="header-right-cluster">
                 <div class="theme-toggle" id="themeToggleBtn" aria-label="Toggle visual palette theme">
-                    <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"></path></svg>
+                    <svg class="sun-icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
                 </div>
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
