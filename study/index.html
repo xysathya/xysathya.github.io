@@ -439,13 +439,14 @@
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
         .view-more-link .nav-text { color: #8a9a86 !important; }
 
+        /* Synchronized Word Zoom-Fade (260ms timing match) */
         .matrix-canvas a.is-zooming .nav-text,
         .view-more-link.is-zooming .nav-text,
         .footer-links-row a.is-zooming .nav-text,
         .logo.is-zooming .nav-text {
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            transform: scale3d(1.25, 1.25, 1) !important;
-            opacity: 0.2 !important;
+            transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            transform: scale3d(1.28, 1.28, 1) !important;
+            opacity: 0.15 !important;
         }
 
         .kinetic-locked-frame { pointer-events: none !important; }
@@ -454,23 +455,27 @@
             -webkit-transition: none !important;
         }
 
-        /* Theme-Matched Smooth Blur Backdrop Overlay */
+        /* Pure Soft Backdrop Blur Overlay (No Dimming) */
         .page-transition-overlay {
             position: fixed;
             inset: 0;
             width: 100vw;
             height: 100vh;
-            background-color: var(--bg-color);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.01);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             opacity: 0;
             pointer-events: none;
             z-index: 99999;
-            transition: opacity 0.4s var(--ease-premium), background-color 0.8s var(--ease-premium);
+            transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body.light-mode .page-transition-overlay {
+            background-color: rgba(255, 255, 255, 0.01);
         }
 
         body.is-blurring .page-transition-overlay {
-            opacity: 0.65;
+            opacity: 1;
         }
     </style>
 </head>
@@ -687,16 +692,19 @@
 
                 e.preventDefault();
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
+
+                // Step 1: Start smooth word zoom-fade
                 this.classList.add('is-zooming');
 
-                // Smooth hand-off: Transition into theme-matched blur right as word zooms
+                // Step 2: Trigger subtle frosted blur smoothly as word reaches end of zoom
                 setTimeout(() => {
                     document.body.classList.add('is-blurring');
                 }, 180);
 
+                // Step 3: Trigger page navigation after word transition fully completes
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 260);
+                }, 280);
             });
         });
 
