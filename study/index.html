@@ -424,6 +424,7 @@
 
         .nav-text {
             display: inline-block !important;
+            white-space: nowrap !important;
             transform-origin: center center !important;
             will-change: transform, opacity, background-position !important;
             transition: transform 0.4s var(--ease-premium), opacity 0.4s var(--ease-premium);
@@ -444,6 +445,11 @@
         @keyframes fluidWave {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
+        }
+
+        @keyframes fluidWaveMobile {
+            0% { background-position: 300% 0; }
+            100% { background-position: -300% 0; }
         }
 
         /* Dark Mode: Continuous Hardware-Accelerated Wave Sweep */
@@ -482,8 +488,35 @@
             opacity: 1 !important;
         }
 
+        /* --- Mobile Phone Optimized High-Sweep Wave Engine --- */
+        @media (max-width: 767px) {
+            .matrix-canvas a.is-wave-loading .nav-text,
+            .view-more-link.is-wave-loading .nav-text,
+            .footer-links-row a.is-wave-loading .nav-text,
+            .logo.is-wave-loading .nav-text {
+                background: linear-gradient(90deg, #ffffff 0%, #ffffff 30%, #666666 50%, #ffffff 70%, #ffffff 100%) !important;
+                background-size: 300% 100% !important;
+                -webkit-background-clip: text !important;
+                background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                animation: fluidWaveMobile 0.75s infinite linear !important;
+            }
+
+            body.light-mode .matrix-canvas a.is-wave-loading .nav-text,
+            body.light-mode .view-more-link.is-wave-loading .nav-text,
+            body.light-mode .footer-links-row a.is-wave-loading .nav-text,
+            body.light-mode .logo.is-wave-loading .nav-text {
+                background: linear-gradient(90deg, #111111 0%, #111111 30%, #888888 50%, #111111 70%, #111111 100%) !important;
+                background-size: 300% 100% !important;
+                -webkit-background-clip: text !important;
+                background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                animation: fluidWaveMobile 0.75s infinite linear !important;
+            }
+        }
+
         /* --- iPad / Tablet Touch Display High-Contrast Wave Tuning --- */
-        @media (min-width: 768px) and (max-width: 1024px), (pointer: coarse) {
+        @media (min-width: 768px) and (max-width: 1024px) {
             .matrix-canvas a.is-wave-loading .nav-text,
             .view-more-link.is-wave-loading .nav-text,
             .footer-links-row a.is-wave-loading .nav-text,
