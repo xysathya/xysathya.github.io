@@ -460,7 +460,6 @@
             color: transparent !important;
             animation: fluidWave 0.75s infinite linear !important;
             will-change: background-position, transform !important;
-            transform: translate3d(0, 0, 0) !important;
             opacity: 1 !important;
         }
 
@@ -474,7 +473,6 @@
             color: transparent !important;
             animation: fluidWave 0.75s infinite linear !important;
             will-change: background-position, transform !important;
-            transform: translate3d(0, 0, 0) !important;
             opacity: 1 !important;
         }
 
@@ -699,6 +697,12 @@
 
                 universalTargetLinks.forEach(l => l.classList.remove('is-wave-loading'));
 
+                // Smoothly ease word zoom back to normal during the 750ms wave so iPad saves scale(1) in BFCache
+                const span = this.querySelector('.nav-text');
+                if (span) {
+                    span.style.transform = 'scale3d(1, 1, 1)';
+                }
+
                 this.classList.add('is-wave-loading');
 
                 // Set timer to 750ms so the fluid wave ALWAYS completes 1 full left-to-right sweep
@@ -709,7 +713,7 @@
         });
 
         window.addEventListener('pageshow', () => {
-            // Unfocus active elements on iPad/touch devices so text scale smoothly returns to rest without snapping
+            // Remove active focus on iPad so returning never triggers touch jumps
             if (document.activeElement && document.activeElement.blur) {
                 document.activeElement.blur();
             }
