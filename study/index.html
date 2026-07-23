@@ -271,6 +271,7 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            overflow: visible !important;
         }
 
         .theme-toggle svg {
@@ -283,6 +284,8 @@
             stroke-linecap: round;
             stroke-linejoin: round;
             transform-origin: center center;
+            transform-box: fill-box;
+            overflow: visible !important;
             will-change: transform, opacity;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -450,7 +453,7 @@
         .view-more-link.is-wave-loading .nav-text,
         .footer-links-row a.is-wave-loading .nav-text,
         .logo.is-wave-loading .nav-text {
-            background: linear-gradient(90deg, #ffffff 0%, #ffffff 30%, #868686 50%, #ffffff 70%, #ffffff 100%);
+            background: linear-gradient(90deg, #ffffff 0%, #ffffff 25%, #555555 50%, #ffffff 75%, #ffffff 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -468,7 +471,7 @@
         body.light-mode .view-more-link.is-wave-loading .nav-text,
         body.light-mode .footer-links-row a.is-wave-loading .nav-text,
         body.light-mode .logo.is-wave-loading .nav-text {
-            background: linear-gradient(90deg, #111111 0%, #111111 30%, #8a8a8e 50%, #111111 70%, #111111 100%);
+            background: linear-gradient(90deg, #111111 0%, #111111 25%, #8a8a8e 50%, #111111 75%, #111111 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -479,6 +482,33 @@
             backface-visibility: hidden !important;
             -webkit-backface-visibility: hidden !important;
             opacity: 1 !important;
+        }
+
+        /* --- iPad / Tablet Touch Display High-Contrast Wave Tuning --- */
+        @media (min-width: 768px) and (max-width: 1024px), (pointer: coarse) {
+            .matrix-canvas a.is-wave-loading .nav-text,
+            .view-more-link.is-wave-loading .nav-text,
+            .footer-links-row a.is-wave-loading .nav-text,
+            .logo.is-wave-loading .nav-text {
+                background: linear-gradient(90deg, #ffffff 0%, #ffffff 15%, #333333 50%, #ffffff 85%, #ffffff 100%) !important;
+                background-size: 250% 100% !important;
+                -webkit-background-clip: text !important;
+                background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                animation: fluidWave 0.65s infinite linear !important;
+            }
+
+            body.light-mode .matrix-canvas a.is-wave-loading .nav-text,
+            body.light-mode .view-more-link.is-wave-loading .nav-text,
+            body.light-mode .footer-links-row a.is-wave-loading .nav-text,
+            body.light-mode .logo.is-wave-loading .nav-text {
+                background: linear-gradient(90deg, #111111 0%, #111111 15%, #aaaaaa 50%, #111111 85%, #111111 100%) !important;
+                background-size: 250% 100% !important;
+                -webkit-background-clip: text !important;
+                background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                animation: fluidWave 0.65s infinite linear !important;
+            }
         }
 
         .kinetic-locked-frame { pointer-events: none !important; }
