@@ -439,13 +439,13 @@
         .footer-links-row a:hover .nav-text { color: var(--text-main) !important; }
         .view-more-link .nav-text { color: #8a9a86 !important; }
 
-        /* --- Fluid Wave Sweep Loading Animation Engine --- */
+        /* --- GPU-Accelerated Continuous Fluid Wave Engine --- */
         @keyframes fluidWave {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
 
-        /* Dark Mode: Text starts and stays #ffffff, wave beam travels as crisp #868686 */
+        /* Dark Mode: Continuous Hardware-Accelerated Wave Sweep */
         .matrix-canvas a.is-wave-loading .nav-text,
         .view-more-link.is-wave-loading .nav-text,
         .footer-links-row a.is-wave-loading .nav-text,
@@ -455,12 +455,15 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fluidWave 0.85s infinite linear !important;
-            transform: none !important;
+            animation: fluidWave 0.75s infinite linear !important;
+            will-change: background-position, transform !important;
+            transform: translate3d(0, 0, 0) !important;
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
             opacity: 1 !important;
         }
 
-        /* Light Mode: Text starts and stays #111111, wave beam travels as distinct #8a8a8e */
+        /* Light Mode: Continuous Hardware-Accelerated Wave Sweep */
         body.light-mode .matrix-canvas a.is-wave-loading .nav-text,
         body.light-mode .view-more-link.is-wave-loading .nav-text,
         body.light-mode .footer-links-row a.is-wave-loading .nav-text,
@@ -470,8 +473,11 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fluidWave 0.85s infinite linear !important;
-            transform: none !important;
+            animation: fluidWave 0.75s infinite linear !important;
+            will-change: background-position, transform !important;
+            transform: translate3d(0, 0, 0) !important;
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
             opacity: 1 !important;
         }
 
@@ -494,7 +500,7 @@
                         <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
                     </svg>
                     <svg class="moon-icon" viewBox="0 0 24 24">
-                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        <path d="M12 3a6 6 0 0 0 9 9 9 0 1 1-9-9Z"></path>
                     </svg>
                 </div>
                 <button class="ctrl-btn" id="openSearchBtn" aria-label="Open Workspace Search">
@@ -697,13 +703,13 @@
                 // Reset any active wave classes on other links
                 universalTargetLinks.forEach(l => l.classList.remove('is-wave-loading'));
 
-                // Activate fluid wave sweep on clicked link
+                // Activate continuous GPU-promoted fluid wave sweep on clicked link
                 this.classList.add('is-wave-loading');
 
-                // 220ms delay ensures the wave is cleanly visible before navigating
+                // Trigger navigation smoothly; GPU compositor keeps wave in continuous motion
                 setTimeout(() => {
                     window.location.href = destination;
-                }, 220);
+                }, 180);
             });
         });
 
