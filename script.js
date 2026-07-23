@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Drill-up Logo Navigation
     const logo = document.querySelector('.logo') || document.querySelector('header a');
 
     if (logo) {
@@ -12,15 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const isStudySubPage = path.includes('/study/') && !isStudyHome;
 
         if (isStudySubPage) {
-            logo.href = '/study/index.html'; // Level 2 -> Study Space Home
+            logo.href = '/study/index.html'; // Level 2 -> Go to Study Home
         } else if (isStudyHome) {
-            logo.href = '/index.html';       // Level 1 -> Main Homepage
+            logo.href = '/index.html';       // Level 1 -> Go to Main Home
         } else {
-            logo.href = '/index.html';       // Level 0 -> Main Homepage
+            logo.href = '/index.html';       // Level 0 -> Stay on Main Home
         }
 
+        // Instant touch response on iPad / Phone
+        logo.addEventListener('pointerdown', () => {
+            logo.classList.add('is-touch-active');
+        }, { passive: true });
+
+        // 750ms Wave Transition Effect
         logo.addEventListener('click', (e) => {
             e.preventDefault();
+            logo.classList.add('is-touch-active');
             const destination = logo.href;
             document.body.classList.add('wave-active');
             setTimeout(() => {
@@ -28,23 +34,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 750);
         });
     }
-
-    // 2. Instant Touch Animation Trigger for iPad & Mobile Cards
-    const myspaceCards = document.querySelectorAll('.myspace-card');
-
-    myspaceCards.forEach(card => {
-        // Trigger scale and elevation animation immediately on touch
-        card.addEventListener('pointerdown', () => {
-            card.classList.add('is-touch-active');
-        });
-
-        // Clean up state on release or cancel
-        card.addEventListener('pointerup', () => {
-            setTimeout(() => card.classList.remove('is-touch-active'), 750);
-        });
-
-        card.addEventListener('pointercancel', () => {
-            card.classList.remove('is-touch-active');
-        });
-    });
 });
