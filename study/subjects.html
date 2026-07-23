@@ -69,6 +69,7 @@
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent !important;
+            tap-highlight-color: transparent !important;
         }
 
         body {
@@ -361,6 +362,7 @@
                 "/study/currentaffairs.html": "Current Affairs",
                 "/study/subjects.html": "Subjects",
                 "/study/ramsarsites.html": "Ramsar Sites",
+                "/study/search.html": "Search",
                 "/study/Footer/about.html": "About",
                 "/study/Footer/contact.html": "Contact",
                 "/study/Footer/privacy.html": "Privacy Policy",
@@ -386,30 +388,15 @@
                 trail = [{ name: "Home", path: HOME_PATH }];
             }
 
-            let cameFromHome = false;
-            if (document.referrer) {
-                try {
-                    const refUrl = new URL(document.referrer);
-                    cameFromHome = refUrl.pathname === HOME_PATH || refUrl.pathname === "/study/";
-                } catch (e) {
-                    cameFromHome = document.referrer.endsWith(HOME_PATH) || document.referrer.endsWith("/study/");
-                }
-            }
+            const existingIndex = trail.findIndex(step => step.path === searchPath);
 
-            if (cameFromHome) {
-                trail = [{ name: "Home", path: HOME_PATH }];
+            if (existingIndex !== -1) {
+                // Backtracking: Chop off everything after this page
+                trail = trail.slice(0, existingIndex + 1);
+            } else {
+                // Forward Tracking: Append current page to chain
                 if (searchPath !== HOME_PATH && searchPath !== "/study/") {
                     trail.push({ name: currentPageName, path: searchPath });
-                }
-            } else {
-                const existingIndex = trail.findIndex(step => step.path === searchPath);
-                
-                if (existingIndex !== -1) {
-                    trail = trail.slice(0, existingIndex + 1);
-                } else {
-                    if (searchPath !== HOME_PATH && searchPath !== "/study/") {
-                        trail.push({ name: currentPageName, path: searchPath });
-                    }
                 }
             }
 
@@ -454,6 +441,12 @@
         }
         applyTargetPalette();
 
+        systemLightQuery.addEventListener('change', (e) => {
+            sessionStorage.removeItem('dashboard-theme');
+            if (e.matches) { bodyElement.classList.add('light-mode'); }
+            else { bodyElement.classList.remove('light-mode'); }
+        });
+
         toggleBtn.addEventListener('click', (e) => {
             e.stopPropagation(); 
             if (bodyElement.classList.contains('light-mode')) {
@@ -472,6 +465,14 @@
         clearSearchBtn.addEventListener('click', () => { searchCoreInput.value = ""; searchCoreInput.focus(); });
         closeSearchBtn.addEventListener('click', () => { masterHeader.classList.remove('state-search'); masterHeader.classList.add('state-main'); });
 
+        masterHeader.addEventListener('submit', (e) => {
+            if (searchCoreInput.value.trim() === "") {
+                e.preventDefault();
+                masterHeader.classList.remove('state-search');
+                masterHeader.classList.add('state-main');
+            }
+        });
+
         const dynamicPortalLinks = document.querySelectorAll('.topics-vertical-stack a, .breadcrumb-nav a, footer .footer-links-row a, .logo');
         function executeLayoutSpans() {
             dynamicPortalLinks.forEach(link => {
@@ -487,7 +488,7 @@
         dynamicPortalLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 const destination = this.getAttribute('href');
-                if (!destination || destination === '#' || destination.startsWith('#') || this.classList.contains('active-footer-page')) return;
+                if (!destination || destination === '#' || destination.startsWith('#')) return;
                 e.preventDefault();
                 sessionStorage.setItem('activeUniversalTargetUrl', this.href);
                 this.classList.add('is-zooming');
@@ -502,6 +503,66 @@
                 const span = l.querySelector('.nav-text');
                 if (span) { span.style.transform = ''; span.style.opacity = ''; }
             });
+
+            const savedTargetUrl = sessionStorage.getItem('activeUniversalTargetUrl');
+            if (savedTargetUrl) {
+                sessionStorage.removeItem('activeUniversalTargetUrl');
+
+                let matchedLinkElement = null;
+                dynamicPortalLinks.forEach(link => {
+                    if (link.href === savedTargetUrl) {
+                        matchedLinkElement = link;
+                    }
+                });
+
+                if (matchedLinkElement) {
+                    const targetSpan = matchedLinkElement.querySelector('.nav-text');
+
+                    if (targetSpan) {
+                        setTimeout(() => {
+                            matchedLinkElement.classList.add('kinetic-locked-frame');
+
+                            let startScale = 1.3;
+                            let endScale = 1.0;
+                            let startOpacity = 0;
+
+                            let endOpacity = 0.8;
+                            if (matchedLinkElement.closest('footer')) endOpacity = 0.4;
+                            if (matchedLinkElement.classList.contains('logo')) endOpacity = 1.0;
+
+                            let duration = 280; 
+                            let startTime = null;
+
+                            targetSpan.style.setProperty('transform', `scale(${startScale})`, 'important');
+                            targetSpan.style.setProperty('opacity', startOpacity, 'important');
+
+                            function animateReverse(timestamp) {
+                                if (!startTime) startTime = timestamp;
+                                let elapsed = timestamp - startTime;
+                                let progress = Math.min(elapsed / duration, 1);
+
+                                let ease = 1 - Math.pow(1 - progress, 2.2);
+
+                                let currentScale = startScale - (startScale - endScale) * ease;
+                                let currentOpacity = startOpacity + (endOpacity - startOpacity) * ease;
+
+                                targetSpan.style.setProperty('transform', `scale(${currentScale})`, 'important');
+                                targetSpan.style.setProperty('opacity', currentOpacity, 'important');
+
+                                if (progress < 1) {
+                                    requestAnimationFrame(animateReverse);
+                                } else {
+                                    targetSpan.style.transform = '';
+                                    targetSpan.style.opacity = '';
+                                    matchedLinkElement.classList.remove('kinetic-locked-frame');
+                                }
+                            }
+
+                            requestAnimationFrame(animateReverse);
+                        }, 40);
+                    }
+                }
+            }
         });
 
         window.addEventListener('load', () => {
