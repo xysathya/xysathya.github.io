@@ -790,23 +790,26 @@
                 document.activeElement.blur();
             }
 
-            // 60ms delay lets Mobile Safari render the elevated frame first,
-            // then smoothly glides the capsule flat down over 0.55s when returning to homepage
-            setTimeout(() => {
-                universalTargetLinks.forEach(l => {
-                    l.classList.remove('is-wave-loading');
-                    l.classList.remove('is-card-lifted');
-                    l.classList.remove('kinetic-locked-frame');
-                    const span = l.querySelector('.nav-text');
-                    if (span) {
-                        span.style.transform = '';
-                        span.style.opacity = '';
-                        span.style.background = '';
-                        span.style.webkitBackgroundClip = '';
-                        span.style.webkitTextFillColor = '';
-                    }
+            // DOUBLE-FRAME SYNC FIX: Force Mobile Safari to paint the elevated state first,
+            // then gracefully glide the capsule down to resting flat over 0.55s
+            requestAnimationFrame(() => {
+                document.body.offsetHeight; // Force layout paint frame
+                requestAnimationFrame(() => {
+                    universalTargetLinks.forEach(l => {
+                        l.classList.remove('is-wave-loading');
+                        l.classList.remove('is-card-lifted');
+                        l.classList.remove('kinetic-locked-frame');
+                        const span = l.querySelector('.nav-text');
+                        if (span) {
+                            span.style.transform = '';
+                            span.style.opacity = '';
+                            span.style.background = '';
+                            span.style.webkitBackgroundClip = '';
+                            span.style.webkitTextFillColor = '';
+                        }
+                    });
                 });
-            }, 60);
+            });
 
             if (window.location.search.includes('tf=1') || window.location.href.includes(':~:text=')) {
                 sessionStorage.removeItem('activeUniversalTargetUrl');
