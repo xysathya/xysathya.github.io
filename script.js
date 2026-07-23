@@ -4,33 +4,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logo) {
         const path = window.location.pathname.toLowerCase();
 
-        // 1. Check if we are currently on the Study Space Homepage
+        // Check if user is on the Study Homepage
         const isStudyHome = path.endsWith('/study') || 
                             path.endsWith('/study/') || 
                             path.endsWith('/study/index.html');
 
-        // 2. Check if we are on any sub-page inside the study folder
+        // Check if user is on a Study Sub-page
         const isStudySubPage = path.includes('/study/') && !isStudyHome;
 
-        // 3. Set the logo link target dynamically
+        // Set the logo link target
         if (isStudySubPage) {
-            // Level 2 (Sub-Page) -> Go up to Study Space Home
-            logo.href = '/study/index.html';
+            logo.href = '/study/index.html'; // Level 2 -> Go to Study Home
         } else if (isStudyHome) {
-            // Level 1 (Study Home) -> Go up to Main Homepage
-            logo.href = '/index.html';
+            logo.href = '/index.html';       // Level 1 -> Go to Main Home
         } else {
-            // Level 0 (Main Home) -> Stay on Main Homepage
-            logo.href = '/index.html';
+            logo.href = '/index.html';       // Level 0 -> Stay on Main Home
         }
 
-        // 4. Attach 750ms fluid wave transition
+        // 750ms Wave Transition Effect
         logo.addEventListener('click', (e) => {
             e.preventDefault();
             const destination = logo.href;
-
             document.body.classList.add('wave-active');
-
             setTimeout(() => {
                 window.location.href = destination;
             }, 750);
