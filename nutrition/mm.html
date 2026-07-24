@@ -231,7 +231,7 @@
 
         .contents-container { display: flex; flex-direction: column; gap: 32px; margin-bottom: 80px; width: 100%; }
 
-        /* WIDE CAPSULES (FLAT, NO DROP-DOWN) */
+        /* WIDE CAPSULES */
         .wide-capsule {
             background-color: var(--panel-bg);
             border: 1px solid var(--panel-border);
@@ -428,7 +428,7 @@
 </head>
 <body>
 
-    <!-- MASTER HEADER WITH SKYFALL SEARCH (EXACT FROM ABOUT.HTML) -->
+    <!-- MASTER HEADER WITH SKYFALL SEARCH -->
     <header id="masterHeader">
         <div class="header-inner-view" id="headerMainView">
             <a href="/study/index.html" class="logo">sathya.</a>
@@ -489,7 +489,7 @@
                 </h2>
             </div>
             <div class="food-checklist-grid" id="foodGrid">
-                <!-- Day-specific foods populated dynamically by JS -->
+                <!-- Day-specific foods populated strictly in user-specified order -->
             </div>
         </div>
 
@@ -626,7 +626,7 @@
     </footer>
 
     <script>
-        // LOCKED MASTER 23 FOOD DATABASE (VALUES UNCHANGED)
+        // MASTER 23 FOOD DATABASE (LOCKED VALUES)
         const foodMasterDB = {
             'Chickpeas': { cal: 378, pro: 20.5, fiber: 12.2, carb: 63, fat: 6.07, sug: 10.7, lac: 0, sfa: 0.60, unsat: 5.47, mufa: 1.36, pufa: 4.11, ala: 0.11, epa: 0, dha: 0, o6: 4.0, bCar: 40, aCar: 0, vitA: 3, vitB1: 0.48, vitB2: 0.21, vitB3: 1.54, vitB5: 1.6, vitB6: 0.54, vitB7: 10, vitB9: 557, vitB12: 0, vitC: 4.0, vitD: 0, vitE: 0.82, vitK: 9.0, ca: 105, p: 366, mg: 115, na: 24, k: 875, cl: 10, s: 180, fe: 6.2, zn: 3.4, iodine: 0, mn: 2.2, se: 8.2, cu: 0.85, f: 0, cr: 0, mo: 45 },
             'Paneer': { cal: 133, pro: 9.1, fiber: 0, carb: 1.6, fat: 11.5, sug: 1.6, lac: 1.2, sfa: 7.20, unsat: 4.30, mufa: 3.90, pufa: 0.40, ala: 0.05, epa: 0, dha: 0, o6: 0.35, bCar: 15, aCar: 0, vitA: 85, vitB1: 0.02, vitB2: 0.18, vitB3: 0.10, vitB5: 0.30, vitB6: 0.04, vitB7: 2, vitB9: 12, vitB12: 0.45, vitC: 0, vitD: 0.20, vitE: 0.15, vitK: 1.0, ca: 240, p: 140, mg: 18, na: 12, k: 65, cl: 30, s: 80, fe: 0.2, zn: 1.2, iodine: 8, mn: 0.02, se: 7.5, cu: 0.04, f: 0, cr: 0, mo: 5 },
@@ -640,7 +640,7 @@
             'Green gram': { cal: 347, pro: 23.8, fiber: 16.3, carb: 63, fat: 1.24, sug: 6.6, lac: 0, sfa: 0.35, unsat: 0.89, mufa: 0.16, pufa: 0.73, ala: 0.24, epa: 0, dha: 0, o6: 0.49, bCar: 60, aCar: 0, vitA: 5, vitB1: 0.62, vitB2: 0.23, vitB3: 2.25, vitB5: 1.90, vitB6: 0.38, vitB7: 10, vitB9: 625, vitB12: 0, vitC: 4.8, vitD: 0, vitE: 0.51, vitK: 9.0, ca: 132, p: 367, mg: 189, na: 15, k: 1246, cl: 6, s: 170, fe: 6.7, zn: 2.7, iodine: 0, mn: 1.0, se: 8.2, cu: 0.90, f: 0, cr: 0, mo: 35 },
             'Curd': { cal: 120, pro: 7.0, fiber: 0, carb: 9.4, fat: 6.20, sug: 9.4, lac: 7.0, sfa: 4.20, unsat: 2.00, mufa: 1.60, pufa: 0.40, ala: 0.04, epa: 0, dha: 0, o6: 0.20, bCar: 10, aCar: 0, vitA: 50, vitB1: 0.08, vitB2: 0.32, vitB3: 0.20, vitB5: 0.80, vitB6: 0.08, vitB7: 4, vitB9: 24, vitB12: 0.75, vitC: 1.0, vitD: 0.20, vitE: 0.10, vitK: 0.5, ca: 240, p: 190, mg: 24, na: 80, k: 310, cl: 180, s: 60, fe: 0.2, zn: 1.0, iodine: 12, mn: 0.02, se: 6.0, cu: 0.03, f: 0, cr: 0, mo: 6 },
             'Carrot': { cal: 41, pro: 0.9, fiber: 2.8, carb: 9.6, fat: 0.24, sug: 4.7, lac: 0, sfa: 0.04, unsat: 0.20, mufa: 0.01, pufa: 0.19, ala: 0.002, epa: 0, dha: 0, o6: 0.11, bCar: 8285, aCar: 3477, vitA: 835, vitB1: 0.07, vitB2: 0.06, vitB3: 0.98, vitB5: 0.27, vitB6: 0.14, vitB7: 1, vitB9: 19, vitB12: 0, vitC: 5.9, vitD: 0, vitE: 0.66, vitK: 13.2, ca: 33, p: 35, mg: 12, na: 69, k: 320, cl: 40, s: 15, fe: 0.3, zn: 0.24, iodine: 0, mn: 0.14, se: 0.1, cu: 0.05, f: 0, cr: 0, mo: 2 },
-            'Soya chunks': { cal: 172, pro: 26.0, fiber: 6.5, carb: 16.5, fat: 0.50, sug: 3.0, lac: 0, sfa: 0.25, unsat: 0.25, mufa: 0.07, pufa: 0.18, ala: 0.02, epa: 0, dha: 0, o6: 0.16, bCar: 0, aCar: 0, vitA: 0, vitB1: 0.20, vitB2: 0.10, vitB3: 1.20, vitB5: 0.40, vitB6: 0.20, vitB7: 5, vitB9: 100, vitB12: 0, vitC: 0, vitD: 0, vitE: 0.10, vitK: 0, ca: 120, p: 300, mg: 140, na: 10, k: 850, cl: 5, s: 120, fe: 10.0, zn: 2.4, iodine: 0, mn: 1.2, se: 12.0, cu: 0.60, f: 0, cr: 0, mo: 30 },
+            'Soya chunks': { cal: 206.4, pro: 31.2, fiber: 7.8, carb: 19.8, fat: 0.60, sug: 3.6, lac: 0, sfa: 0.30, unsat: 0.30, mufa: 0.08, pufa: 0.22, ala: 0.02, epa: 0, dha: 0, o6: 0.19, bCar: 0, aCar: 0, vitA: 0, vitB1: 0.24, vitB2: 0.12, vitB3: 1.44, vitB5: 0.48, vitB6: 0.24, vitB7: 6, vitB9: 120, vitB12: 0, vitC: 0, vitD: 0, vitE: 0.12, vitK: 0, ca: 144, p: 360, mg: 168, na: 12, k: 1020, cl: 6, s: 144, fe: 12.0, zn: 2.88, iodine: 0, mn: 1.44, se: 14.4, cu: 0.72, f: 0, cr: 0, mo: 36 },
             'Soya beans': { cal: 446, pro: 36.5, fiber: 9.3, carb: 30, fat: 19.48, sug: 7.3, lac: 0, sfa: 2.88, unsat: 16.60, mufa: 4.40, pufa: 12.20, ala: 1.33, epa: 0, dha: 0, o6: 10.87, bCar: 0, aCar: 0, vitA: 0, vitB1: 0.87, vitB2: 0.87, vitB3: 1.60, vitB5: 0.80, vitB6: 0.38, vitB7: 18, vitB9: 375, vitB12: 0, vitC: 6.0, vitD: 0, vitE: 0.85, vitK: 47.0, ca: 277, p: 704, mg: 280, na: 2, k: 1797, cl: 6, s: 220, fe: 15.7, zn: 4.9, iodine: 0, mn: 2.5, se: 17.8, cu: 1.70, f: 0, cr: 0, mo: 50 },
             'Peanuts': { cal: 454, pro: 20.6, fiber: 6.8, carb: 12.9, fat: 39.64, sug: 3.8, lac: 0, sfa: 5.49, unsat: 34.15, mufa: 19.75, pufa: 14.40, ala: 0.03, epa: 0, dha: 0, o6: 14.37, bCar: 0, aCar: 0, vitA: 0, vitB1: 0.51, vitB2: 0.11, vitB3: 9.70, vitB5: 1.40, vitB6: 0.28, vitB7: 14, vitB9: 192, vitB12: 0, vitC: 0, vitD: 0, vitE: 5.50, vitK: 0, ca: 74, p: 301, mg: 134, na: 14, k: 564, cl: 8, s: 160, fe: 3.6, zn: 2.6, iodine: 0, mn: 1.5, se: 5.8, cu: 0.90, f: 0, cr: 0, mo: 25 },
             'Red Lobia': { cal: 336, pro: 23.5, fiber: 10.6, carb: 60, fat: 1.13, sug: 7.0, lac: 0, sfa: 0.22, unsat: 0.91, mufa: 0.10, pufa: 0.81, ala: 0.25, epa: 0, dha: 0, o6: 0.56, bCar: 30, aCar: 0, vitA: 3, vitB1: 0.85, vitB2: 0.23, vitB3: 2.10, vitB5: 1.50, vitB6: 0.36, vitB7: 9, vitB9: 633, vitB12: 0, vitC: 1.5, vitD: 0, vitE: 0.40, vitK: 5.0, ca: 110, p: 424, mg: 184, na: 16, k: 1112, cl: 7, s: 150, fe: 8.3, zn: 3.4, iodine: 0, mn: 1.5, se: 7.2, cu: 0.85, f: 0, cr: 0, mo: 35 },
@@ -653,48 +653,112 @@
             'Sesame oil': { cal: 163, pro: 0, fiber: 0, carb: 0, fat: 18.20, sug: 0, lac: 0, sfa: 2.70, unsat: 15.50, mufa: 7.20, pufa: 8.30, ala: 0.06, epa: 0, dha: 0, o6: 7.95, bCar: 0, aCar: 0, vitA: 0, vitB1: 0, vitB2: 0, vitB3: 0, vitB5: 0, vitB6: 0, vitB7: 0, vitB9: 0, vitB12: 0, vitC: 0, vitD: 0, vitE: 0.26, vitK: 2.5, ca: 0, p: 0, mg: 0, na: 0, k: 0, cl: 0, s: 0, fe: 0, zn: 0, iodine: 0, mn: 0, se: 0, cu: 0, f: 0, cr: 0, mo: 0 }
         };
 
-        // DAY-SPECIFIC MEAL PLAN ROTATION
+        // EXACT STRICT DAILY ITEM SEQUENCE FOR EVERY DAY
         const weeklyMenu = {
-            0: [
-                { name: 'Chickpeas', key: 'Chickpeas', qty: '100 g (Raw)' },
-                { name: 'Green gram', key: 'Green gram', qty: '100 g (Raw)' },
+            0: [ // SUNDAY
+                { name: 'Chickpeas', key: 'Chickpeas', qty: '100 gms raw' },
                 { name: 'Curd', key: 'Curd', qty: '200 ml' },
-                { name: 'Carrot', key: 'Carrot', qty: '100 g (Raw)' },
-                { name: 'Chapathi', key: 'Chapathi', qty: '120 g Dough (2:1 Wheat:Ragi)' }
+                { name: 'Chia seeds', key: 'Chia seeds', qty: '10 gms' },
+                { name: 'Sesame seeds', key: 'Sesame seeds', qty: '10 gms dry roasted' },
+                { name: 'Flax seeds', key: 'Flax seeds', qty: '10 gms dry roasted powdered form' },
+                { name: 'Carrot', key: 'Carrot', qty: '100 gms' },
+                { name: 'Defatted sesame flour', key: 'Defatted sesame flour', qty: '100 gms raw' },
+                { name: 'White rice', key: 'White rice', qty: '100 gms cooked' },
+                { name: 'Paneer', key: 'Paneer', qty: '50 gms' },
+                { name: 'Guava', key: 'Guava', qty: '100 gms' },
+                { name: 'Chapathi', key: 'Chapathi', qty: '100 gms whole wheat no oil' },
+                { name: 'Soya chunks', key: 'Soya chunks', qty: '60 gms raw' },
+                { name: 'Sesame oil', key: 'Sesame oil', qty: '20 ml used in a day' }
             ],
-            1: [
-                { name: 'Peanuts', key: 'Peanuts', qty: '80 g (Raw)' },
-                { name: 'Toor Dal', key: 'Toor Dal', qty: '100 g (Raw)' },
-                { name: 'White rice', key: 'White rice', qty: '100 g (Cooked)' },
-                { name: 'Sesame oil', key: 'Sesame oil', qty: '20 ml (~18.4 g)' }
-            ],
-            2: [
-                { name: 'Chana Dal', key: 'Chana Dal', qty: '100 g (Raw)' },
-                { name: 'White rice', key: 'White rice', qty: '100 g (Cooked)' },
-                { name: 'Guava', key: 'Guava', qty: '100 g (White flesh)' },
-                { name: 'Chia seeds', key: 'Chia seeds', qty: '10 g (2 tsps)' }
-            ],
-            3: [
-                { name: 'Paneer (Thirumala)', key: 'Paneer', qty: '50 g' },
-                { name: 'Chapathi', key: 'Chapathi', qty: '120 g Dough (2:1 Wheat:Ragi)' },
-                { name: 'Horse gram', key: 'Horse gram', qty: '100 g (Raw)' },
-                { name: 'Flax seeds', key: 'Flax seeds', qty: '10 g (Dry roasted, powdered)' }
-            ],
-            4: [
-                { name: 'Soya chunks', key: 'Soya chunks', qty: '50 g (Raw)' },
+            1: [ // MONDAY
+                { name: 'Peanuts', key: 'Peanuts', qty: '80 gms raw' },
                 { name: 'Curd', key: 'Curd', qty: '200 ml' },
-                { name: 'Telagapindi', key: 'Defatted sesame flour', qty: '100 g (Raw)' }
+                { name: 'Chia seeds', key: 'Chia seeds', qty: '10 gms' },
+                { name: 'Sesame seeds', key: 'Sesame seeds', qty: '10 gms dry roasted' },
+                { name: 'Flax seeds', key: 'Flax seeds', qty: '10 gms dry roasted powdered form' },
+                { name: 'Carrot', key: 'Carrot', qty: '100 gms' },
+                { name: 'Soya beans', key: 'Soya beans', qty: '100 gms raw' },
+                { name: 'White rice', key: 'White rice', qty: '100 gms cooked' },
+                { name: 'Paneer', key: 'Paneer', qty: '50 gms' },
+                { name: 'Guava', key: 'Guava', qty: '100 gms' },
+                { name: 'Chapathi', key: 'Chapathi', qty: '100 gms whole wheat no oil' },
+                { name: 'Soya chunks', key: 'Soya chunks', qty: '60 gms raw' },
+                { name: 'Sesame oil', key: 'Sesame oil', qty: '20 ml used in a day' }
             ],
-            5: [
-                { name: 'Rajma', key: 'Rajma', qty: '100 g (Raw)' },
-                { name: 'Black Chickpeas', key: 'Black Chickpeas', qty: '100 g (Raw)' },
-                { name: 'White rice', key: 'White rice', qty: '100 g (Cooked)' },
-                { name: 'Sesame seeds', key: 'Sesame seeds', qty: '10 g (Dry roasted)' }
+            2: [ // TUESDAY
+                { name: 'Green gram', key: 'Green gram', qty: '100 gms raw' },
+                { name: 'Curd', key: 'Curd', qty: '200 ml' },
+                { name: 'Chia seeds', key: 'Chia seeds', qty: '10 gms' },
+                { name: 'Sesame seeds', key: 'Sesame seeds', qty: '10 gms dry roasted' },
+                { name: 'Flax seeds', key: 'Flax seeds', qty: '10 gms dry roasted powdered form' },
+                { name: 'Carrot', key: 'Carrot', qty: '100 gms' },
+                { name: 'Chana Dal', key: 'Chana Dal', qty: '100 gms raw' },
+                { name: 'White rice', key: 'White rice', qty: '100 gms cooked' },
+                { name: 'Paneer', key: 'Paneer', qty: '50 gms' },
+                { name: 'Guava', key: 'Guava', qty: '100 gms' },
+                { name: 'Chapathi', key: 'Chapathi', qty: '100 gms whole wheat no oil' },
+                { name: 'Soya chunks', key: 'Soya chunks', qty: '60 gms raw' },
+                { name: 'Sesame oil', key: 'Sesame oil', qty: '20 ml used in a day' }
             ],
-            6: [
-                { name: 'White peas', key: 'White peas', qty: '100 g (Raw)' },
-                { name: 'Soya beans', key: 'Soya beans', qty: '100 g (Raw)' },
-                { name: 'Red Lobia', key: 'Red Lobia', qty: '100 g (Raw)' }
+            3: [ // WEDNESDAY
+                { name: 'Black Chickpeas', key: 'Black Chickpeas', qty: '100 gms raw' },
+                { name: 'Curd', key: 'Curd', qty: '200 ml' },
+                { name: 'Chia seeds', key: 'Chia seeds', qty: '10 gms' },
+                { name: 'Sesame seeds', key: 'Sesame seeds', qty: '10 gms dry roasted' },
+                { name: 'Flax seeds', key: 'Flax seeds', qty: '10 gms dry roasted powdered form' },
+                { name: 'Carrot', key: 'Carrot', qty: '100 gms' },
+                { name: 'Toor Dal', key: 'Toor Dal', qty: '100 gms raw' },
+                { name: 'White rice', key: 'White rice', qty: '100 gms cooked' },
+                { name: 'Paneer', key: 'Paneer', qty: '50 gms' },
+                { name: 'Guava', key: 'Guava', qty: '100 gms' },
+                { name: 'Chapathi', key: 'Chapathi', qty: '100 gms whole wheat no oil' },
+                { name: 'Soya chunks', key: 'Soya chunks', qty: '60 gms raw' },
+                { name: 'Sesame oil', key: 'Sesame oil', qty: '20 ml used in a day' }
+            ],
+            4: [ // THURSDAY
+                { name: 'Red Lobia', key: 'Red Lobia', qty: '100 gms raw' },
+                { name: 'Curd', key: 'Curd', qty: '200 ml' },
+                { name: 'Chia seeds', key: 'Chia seeds', qty: '10 gms' },
+                { name: 'Sesame seeds', key: 'Sesame seeds', qty: '10 gms dry roasted' },
+                { name: 'Flax seeds', key: 'Flax seeds', qty: '10 gms dry roasted powdered form' },
+                { name: 'Carrot', key: 'Carrot', qty: '100 gms' },
+                { name: 'Toor Dal', key: 'Toor Dal', qty: '100 gms raw' },
+                { name: 'White rice', key: 'White rice', qty: '100 gms cooked' },
+                { name: 'Paneer', key: 'Paneer', qty: '50 gms' },
+                { name: 'Guava', key: 'Guava', qty: '100 gms' },
+                { name: 'Chapathi', key: 'Chapathi', qty: '100 gms whole wheat no oil' },
+                { name: 'Soya chunks', key: 'Soya chunks', qty: '60 gms raw' },
+                { name: 'Sesame oil', key: 'Sesame oil', qty: '20 ml used in a day' }
+            ],
+            5: [ // FRIDAY
+                { name: 'Rajma', key: 'Rajma', qty: '100 gms raw' },
+                { name: 'Curd', key: 'Curd', qty: '200 ml' },
+                { name: 'Chia seeds', key: 'Chia seeds', qty: '10 gms' },
+                { name: 'Sesame seeds', key: 'Sesame seeds', qty: '10 gms dry roasted' },
+                { name: 'Flax seeds', key: 'Flax seeds', qty: '10 gms dry roasted powdered form' },
+                { name: 'Carrot', key: 'Carrot', qty: '100 gms' },
+                { name: 'Chana Dal', key: 'Chana Dal', qty: '100 gms raw' },
+                { name: 'White rice', key: 'White rice', qty: '100 gms cooked' },
+                { name: 'Paneer', key: 'Paneer', qty: '50 gms' },
+                { name: 'Guava', key: 'Guava', qty: '100 gms' },
+                { name: 'Chapathi', key: 'Chapathi', qty: '100 gms whole wheat no oil' },
+                { name: 'Soya chunks', key: 'Soya chunks', qty: '60 gms raw' },
+                { name: 'Sesame oil', key: 'Sesame oil', qty: '20 ml used in a day' }
+            ],
+            6: [ // SATURDAY
+                { name: 'Horse gram', key: 'Horse gram', qty: '100 gms raw' },
+                { name: 'Curd', key: 'Curd', qty: '200 ml' },
+                { name: 'Chia seeds', key: 'Chia seeds', qty: '10 gms' },
+                { name: 'Sesame seeds', key: 'Sesame seeds', qty: '10 gms dry roasted' },
+                { name: 'Flax seeds', key: 'Flax seeds', qty: '10 gms dry roasted powdered form' },
+                { name: 'Carrot', key: 'Carrot', qty: '100 gms' },
+                { name: 'White peas', key: 'White peas', qty: '100 gms raw' },
+                { name: 'White rice', key: 'White rice', qty: '100 gms cooked' },
+                { name: 'Paneer', key: 'Paneer', qty: '50 gms' },
+                { name: 'Guava', key: 'Guava', qty: '100 gms' },
+                { name: 'Chapathi', key: 'Chapathi', qty: '100 gms whole wheat no oil' },
+                { name: 'Soya chunks', key: 'Soya chunks', qty: '60 gms raw' },
+                { name: 'Sesame oil', key: 'Sesame oil', qty: '20 ml used in a day' }
             ]
         };
 
