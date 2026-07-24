@@ -263,9 +263,16 @@
             gap: 12px;
         }
 
-        .capsule-title svg { width: 22px; height: 22px; stroke: var(--accent-green); fill: none; stroke-width: 2; }
+        /* 3D IMAGE ICON STYLING FOR CAPSULES */
+        .capsule-title img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            flex-shrink: 0;
+            display: block;
+        }
 
-        /* TASK 2 LAYOUT FIX: VERTICAL-FIRST COLUMN FLOW ENGINE */
+        /* VERTICAL-FIRST COLUMN FLOW ENGINE */
         .food-checklist-grid, .macros-grid {
             column-count: 2;
             column-gap: 32px;
@@ -481,11 +488,10 @@
             <button class="day-pill" data-day="6">Sat</button>
         </div>
 
-        <!-- TASK 1 FIX: SENTENCE CASE TITLE -->
+        <!-- TODAY'S MEAL PLATE (NO ICON, SENTENCE CASE) -->
         <div class="wide-capsule">
             <div class="capsule-header-row">
                 <h2 class="capsule-title">
-                    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><path d="M12 6a6 6 0 1 0 6 6 6 0 0 0-6-6z"></path></svg>
                     Today’s meal plate <span id="activeDayText" style="color:var(--text-muted); font-size:16px;">(Sunday)</span>
                 </h2>
             </div>
@@ -498,8 +504,8 @@
         <div class="wide-capsule">
             <div class="capsule-header-row">
                 <h2 class="capsule-title">
-                    <svg viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
-                    1. MACRONUTRIENTS & ENERGY
+                    <img src="macros.png" alt="Macronutrients & energy icon">
+                    1. Macronutrients & energy
                 </h2>
             </div>
             <div class="macros-grid">
@@ -517,8 +523,8 @@
         <div class="wide-capsule">
             <div class="capsule-header-row">
                 <h2 class="capsule-title">
-                    <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
-                    2. FATTY ACID PROFILE & LIPIDS
+                    <img src="fats.png" alt="Fatty acid profile & lipids icon">
+                    2. Fatty acid profile & lipids
                 </h2>
             </div>
             <div class="macros-grid">
@@ -537,8 +543,8 @@
         <div class="wide-capsule">
             <div class="capsule-header-row">
                 <h2 class="capsule-title">
-                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-                    3. CAROTENOIDS
+                    <img src="carotenoids.png" alt="Carotenoids icon">
+                    3. Carotenoids
                 </h2>
             </div>
             <div class="macros-grid">
@@ -551,8 +557,8 @@
         <div class="wide-capsule">
             <div class="capsule-header-row">
                 <h2 class="capsule-title">
-                    <svg viewBox="0 0 24 24"><path d="M10.5 20.5L3.5 13.5a4.95 4.95 0 1 1 7-7l7 7a4.95 4.95 0 1 1-7 7z"></path></svg>
-                    4. VITAMINS
+                    <img src="vitamins s.png" alt="Vitamins icon">
+                    4. Vitamins
                 </h2>
             </div>
             <div class="macros-grid">
@@ -576,8 +582,8 @@
         <div class="wide-capsule">
             <div class="capsule-header-row">
                 <h2 class="capsule-title">
-                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    5. MACRO MINERALS
+                    <img src="macro minerals.png" alt="Macro minerals icon">
+                    5. Macro minerals
                 </h2>
             </div>
             <div class="macros-grid">
@@ -595,8 +601,8 @@
         <div class="wide-capsule">
             <div class="capsule-header-row">
                 <h2 class="capsule-title">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg>
-                    6. TRACE MINERALS
+                    <img src="trase minerals.png" alt="Trace minerals icon">
+                    6. Trace minerals
                 </h2>
             </div>
             <div class="macros-grid">
@@ -627,7 +633,7 @@
     </footer>
 
     <script>
-        // MASTER 23 FOOD DATABASE (COPPER & MICROGRAMS FULLY MAPPED TO STRICT UNITS)
+        // MASTER 23 FOOD DATABASE
         const foodMasterDB = {
             'Chickpeas': { cal: 378, pro: 20.5, fiber: 12.2, carb: 63.0, fat: 6.07, sug: 10.7, lac: 0, sfa: 0.60, unsat: 5.47, mufa: 1.36, pufa: 4.11, ala: 0.11, epa: 0, dha: 0, o6: 4.00, bCar: 40, aCar: 0, vitA: 3, vitB1: 0.48, vitB2: 0.21, vitB3: 1.54, vitB5: 1.60, vitB6: 0.54, vitB7: 10, vitB9: 557, vitB12: 0, vitC: 4.0, vitD: 0, vitE: 0.82, vitK: 9.0, ca: 105, p: 366, mg: 115, na: 24, k: 875, cl: 10, s: 180, fe: 6.2, zn: 3.4, iodine: 0, mn: 2.2, se: 8.2, cu: 850, f: 0, cr: 0, mo: 45 },
             'Paneer': { cal: 133, pro: 9.1, fiber: 0, carb: 1.6, fat: 11.50, sug: 1.6, lac: 1.2, sfa: 7.20, unsat: 4.30, mufa: 3.90, pufa: 0.40, ala: 0.05, epa: 0, dha: 0, o6: 0.35, bCar: 15, aCar: 0, vitA: 85, vitB1: 0.02, vitB2: 0.18, vitB3: 0.10, vitB5: 0.30, vitB6: 0.04, vitB7: 2, vitB9: 12, vitB12: 0.45, vitC: 0, vitD: 0.20, vitE: 0.15, vitK: 1.0, ca: 240, p: 140, mg: 18, na: 12, k: 65, cl: 30, s: 80, fe: 0.2, zn: 1.2, iodine: 8, mn: 0.02, se: 7.5, cu: 40, f: 0, cr: 0, mo: 5 },
@@ -763,7 +769,7 @@
             ]
         };
 
-        // TARGET NUTRIENT BENCHMARKS EXACT MATCH
+        // TARGET NUTRIENT BENCHMARKS
         const targets = {
             cal: 2200, pro: 100, fiber: 40, carb: 300, fat: 78, sug: 25, lac: 25,
             sfa: 20, unsat: 50, mufa: 30, pufa: 20, ala: 1.6, epa: 0.25, dha: 0.25, o6: 17,
